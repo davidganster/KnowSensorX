@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="untitled.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3383" systemVersion="13A538g" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FocusEvent" parentEntity="KSEvent" syncable="YES">
+        <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="processID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="processName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="screenshot" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="windowTitle" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="KSEvent" syncable="YES">
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="KSEvent" positionX="-981" positionY="-2475" width="128" height="73"/>
+        <element name="FocusEvent" positionX="-1116" positionY="-2304" width="128" height="118"/>
+    </elements>
 </model>

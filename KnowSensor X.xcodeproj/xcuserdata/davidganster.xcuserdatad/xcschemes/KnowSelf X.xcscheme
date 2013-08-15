@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EFA670CC17BBF6DE00C43BB0"
-               BuildableName = "KnowSelf X.app"
-               BlueprintName = "KnowSelf X"
-               ReferencedContainer = "container:KnowSelf X.xcodeproj">
+               BuildableName = "KnowSensor X.app"
+               BlueprintName = "KnowSensor X"
+               ReferencedContainer = "container:KnowSensor X.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EFA670F017BBF6DE00C43BB0"
-               BuildableName = "KnowSelf XTests.xctest"
-               BlueprintName = "KnowSelf XTests"
-               ReferencedContainer = "container:KnowSelf X.xcodeproj">
+               BuildableName = "KnowSensor XTests.xctest"
+               BlueprintName = "KnowSensor XTests"
+               ReferencedContainer = "container:KnowSensor X.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EFA670CC17BBF6DE00C43BB0"
-            BuildableName = "KnowSelf X.app"
-            BlueprintName = "KnowSelf X"
-            ReferencedContainer = "container:KnowSelf X.xcodeproj">
+            BuildableName = "KnowSensor X.app"
+            BlueprintName = "KnowSensor X"
+            ReferencedContainer = "container:KnowSensor X.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EFA670CC17BBF6DE00C43BB0"
-            BuildableName = "KnowSelf X.app"
-            BlueprintName = "KnowSelf X"
-            ReferencedContainer = "container:KnowSelf X.xcodeproj">
+            BuildableName = "KnowSensor X.app"
+            BlueprintName = "KnowSensor X"
+            ReferencedContainer = "container:KnowSensor X.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EFA670CC17BBF6DE00C43BB0"
-            BuildableName = "KnowSelf X.app"
-            BlueprintName = "KnowSelf X"
-            ReferencedContainer = "container:KnowSelf X.xcodeproj">
+            BuildableName = "KnowSensor X.app"
+            BlueprintName = "KnowSensor X"
+            ReferencedContainer = "container:KnowSensor X.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

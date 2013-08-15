@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:KnowSelf X.xcodeproj">
+      location = "self:KnowSensor X.xcodeproj">
    </FileRef>
 </Workspace>

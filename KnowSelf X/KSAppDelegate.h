@@ -1,6 +1,6 @@
 //
 //  KSAppDelegate.h
-//  KnowSelf X
+//  KnowSensor X
 //
 //  Created by David Ganster on 14/08/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.

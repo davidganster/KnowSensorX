@@ -13,7 +13,7 @@
 		EFA670E117BBF6DE00C43BB0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = EFA670DF17BBF6DE00C43BB0 /* Credits.rtf */; };
 		EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670E317BBF6DE00C43BB0 /* KSAppDelegate.m */; };
 		EFA670E717BBF6DE00C43BB0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFA670E517BBF6DE00C43BB0 /* MainMenu.xib */; };
-		EFA670EA17BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFA670E817BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodeld */; };
+		EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */; };
 		EFA670EC17BBF6DE00C43BB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA670EB17BBF6DE00C43BB0 /* Images.xcassets */; };
 		EFA670F317BBF6DE00C43BB0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670F217BBF6DE00C43BB0 /* XCTest.framework */; };
 		EFA670F417BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
@@ -60,6 +60,15 @@
 		EFA6718A17BBFAD300C43BB0 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA6718117BBFAD300C43BB0 /* UIImageView+AFNetworking.m */; };
 		EFA6719117BBFC2200C43BB0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA6719017BBFC2200C43BB0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EFA6719317BBFD3600C43BB0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */; };
+		EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */; };
+		EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */; };
+		EFE8F2F617BD0D1C00D6369E /* KSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2F517BD0D1C00D6369E /* KSEvent.m */; };
+		EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30117BD1BE800D6369E /* NSMutableArray+Addons.m */; };
+		EFE8F30A17BD1BE800D6369E /* NSMutableIndexSet+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30317BD1BE800D6369E /* NSMutableIndexSet+Addons.m */; };
+		EFE8F30B17BD1BE800D6369E /* NSString+Repeat.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30517BD1BE800D6369E /* NSString+Repeat.m */; };
+		EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30717BD1BE800D6369E /* NSArray+Addons.m */; };
+		EFE8F30F17BD1C4800D6369E /* NSManagedObject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30E17BD1C4800D6369E /* NSManagedObject+Addons.m */; };
+		EFE8F31217BD1C9C00D6369E /* NSMutableDictionary+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F31117BD1C9C00D6369E /* NSMutableDictionary+Addons.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +95,7 @@
 		EFA670E217BBF6DE00C43BB0 /* KSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAppDelegate.h; sourceTree = "<group>"; };
 		EFA670E317BBF6DE00C43BB0 /* KSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSAppDelegate.m; sourceTree = "<group>"; };
 		EFA670E617BBF6DE00C43BB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		EFA670E917BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KnowSelf_X.xcdatamodel; sourceTree = "<group>"; };
+		EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KnowSensor_X.xcdatamodel; sourceTree = "<group>"; };
 		EFA670EB17BBF6DE00C43BB0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EFA670F117BBF6DE00C43BB0 /* KnowSensor XTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = "KnowSensor XTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670F217BBF6DE00C43BB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -179,6 +188,24 @@
 		EFA6718F17BBFC2200C43BB0 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		EFA6719017BBFC2200C43BB0 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFocusEvent.h; sourceTree = "<group>"; };
+		EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFocusEvent.m; sourceTree = "<group>"; };
+		EFE8F2F117BD0D1B00D6369E /* KSIdleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSIdleEvent.h; sourceTree = "<group>"; };
+		EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSIdleEvent.m; sourceTree = "<group>"; };
+		EFE8F2F417BD0D1C00D6369E /* KSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSEvent.h; sourceTree = "<group>"; };
+		EFE8F2F517BD0D1C00D6369E /* KSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSEvent.m; sourceTree = "<group>"; };
+		EFE8F30017BD1BE800D6369E /* NSMutableArray+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Addons.h"; sourceTree = "<group>"; };
+		EFE8F30117BD1BE800D6369E /* NSMutableArray+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Addons.m"; sourceTree = "<group>"; };
+		EFE8F30217BD1BE800D6369E /* NSMutableIndexSet+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableIndexSet+Addons.h"; sourceTree = "<group>"; };
+		EFE8F30317BD1BE800D6369E /* NSMutableIndexSet+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableIndexSet+Addons.m"; sourceTree = "<group>"; };
+		EFE8F30417BD1BE800D6369E /* NSString+Repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Repeat.h"; sourceTree = "<group>"; };
+		EFE8F30517BD1BE800D6369E /* NSString+Repeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Repeat.m"; sourceTree = "<group>"; };
+		EFE8F30617BD1BE800D6369E /* NSArray+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Addons.h"; sourceTree = "<group>"; };
+		EFE8F30717BD1BE800D6369E /* NSArray+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Addons.m"; sourceTree = "<group>"; };
+		EFE8F30D17BD1C4800D6369E /* NSManagedObject+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Addons.h"; sourceTree = "<group>"; };
+		EFE8F30E17BD1C4800D6369E /* NSManagedObject+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Addons.m"; sourceTree = "<group>"; };
+		EFE8F31017BD1C9C00D6369E /* NSMutableDictionary+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+Addons.h"; sourceTree = "<group>"; };
+		EFE8F31117BD1C9C00D6369E /* NSMutableDictionary+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+Addons.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,13 +273,14 @@
 		EFA670D617BBF6DE00C43BB0 /* KnowSensor X */ = {
 			isa = PBXGroup;
 			children = (
+				EFE8F2FD17BD1B8700D6369E /* Categories */,
+				EFE8F2EC17BD09D200D6369E /* DataModel */,
 				EFA6715E17BBF99800C43BB0 /* AppleScripts */,
 				EFA6710717BBF95100C43BB0 /* Additional Libraries */,
 				EFA670E217BBF6DE00C43BB0 /* KSAppDelegate.h */,
 				EFA670E317BBF6DE00C43BB0 /* KSAppDelegate.m */,
 				EFA670E517BBF6DE00C43BB0 /* MainMenu.xib */,
 				EFA670EB17BBF6DE00C43BB0 /* Images.xcassets */,
-				EFA670E817BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodeld */,
 				EFA670D717BBF6DE00C43BB0 /* Supporting Files */,
 			);
 			name = "KnowSensor X";
@@ -461,6 +489,47 @@
 			name = JSONKit;
 			sourceTree = "<group>";
 		};
+		EFE8F2EC17BD09D200D6369E /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFE8F2ED17BD09DD00D6369E /* AutoGenerated */,
+				EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		EFE8F2ED17BD09DD00D6369E /* AutoGenerated */ = {
+			isa = PBXGroup;
+			children = (
+				EFE8F2F417BD0D1C00D6369E /* KSEvent.h */,
+				EFE8F2F517BD0D1C00D6369E /* KSEvent.m */,
+				EFE8F2F117BD0D1B00D6369E /* KSIdleEvent.h */,
+				EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */,
+				EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */,
+				EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */,
+			);
+			name = AutoGenerated;
+			sourceTree = "<group>";
+		};
+		EFE8F2FD17BD1B8700D6369E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EFE8F30017BD1BE800D6369E /* NSMutableArray+Addons.h */,
+				EFE8F30117BD1BE800D6369E /* NSMutableArray+Addons.m */,
+				EFE8F30217BD1BE800D6369E /* NSMutableIndexSet+Addons.h */,
+				EFE8F30317BD1BE800D6369E /* NSMutableIndexSet+Addons.m */,
+				EFE8F31017BD1C9C00D6369E /* NSMutableDictionary+Addons.h */,
+				EFE8F31117BD1C9C00D6369E /* NSMutableDictionary+Addons.m */,
+				EFE8F30417BD1BE800D6369E /* NSString+Repeat.h */,
+				EFE8F30517BD1BE800D6369E /* NSString+Repeat.m */,
+				EFE8F30617BD1BE800D6369E /* NSArray+Addons.h */,
+				EFE8F30717BD1BE800D6369E /* NSArray+Addons.m */,
+				EFE8F30D17BD1C4800D6369E /* NSManagedObject+Addons.h */,
+				EFE8F30E17BD1C4800D6369E /* NSManagedObject+Addons.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -560,22 +629,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFA670EA17BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodeld in Sources */,
+				EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */,
+				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
+				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
 				EFA6714F17BBF98500C43BB0 /* NSManagedObject+MagicalRequests.m in Sources */,
 				EFA6715717BBF98500C43BB0 /* MagicalRecord+Actions.m in Sources */,
 				EFA6715617BBF98500C43BB0 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				EFA6718617BBFAD300C43BB0 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EFA6714417BBF98500C43BB0 /* MagicalImportFunctions.m in Sources */,
+				EFE8F31217BD1C9C00D6369E /* NSMutableDictionary+Addons.m in Sources */,
 				EFA6714517BBF98500C43BB0 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				EFA6715917BBF98500C43BB0 /* MagicalRecord+iCloud.m in Sources */,
 				EFA6715117BBF98500C43BB0 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				EFA6715417BBF98500C43BB0 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */,
 				EFA6715C17BBF98500C43BB0 /* MagicalRecord+ShorthandSupport.m in Sources */,
+				EFE8F30B17BD1BE800D6369E /* NSString+Repeat.m in Sources */,
+				EFE8F30A17BD1BE800D6369E /* NSMutableIndexSet+Addons.m in Sources */,
 				EFA6718217BBFAD300C43BB0 /* AFHTTPClient.m in Sources */,
+				EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */,
 				EFA6714D17BBF98500C43BB0 /* NSManagedObject+MagicalFinders.m in Sources */,
+				EFE8F30F17BD1C4800D6369E /* NSManagedObject+Addons.m in Sources */,
 				EFA6716B17BBF9E100C43BB0 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				EFA6715017BBF98500C43BB0 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				EFE8F2F617BD0D1C00D6369E /* KSEvent.m in Sources */,
 				EFA6714E17BBF98500C43BB0 /* NSManagedObject+MagicalRecord.m in Sources */,
 				EFA6715217BBF98500C43BB0 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				EFA6719117BBFC2200C43BB0 /* JSONKit.m in Sources */,
@@ -584,6 +661,7 @@
 				EFA6715B17BBF98500C43BB0 /* MagicalRecord+Setup.m in Sources */,
 				EFA6714617BBF98500C43BB0 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				EFA6714A17BBF98500C43BB0 /* NSString+MagicalDataImport.m in Sources */,
+				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
 				EFA6714817BBF98500C43BB0 /* NSObject+MagicalDataImport.m in Sources */,
 				EFA6718817BBFAD300C43BB0 /* AFURLConnectionOperation.m in Sources */,
@@ -829,13 +907,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		EFA670E817BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodeld */ = {
+		EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				EFA670E917BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodel */,
+				EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */,
 			);
-			currentVersion = EFA670E917BBF6DE00C43BB0 /* KnowSelf_X.xcdatamodel */;
-			path = KnowSelf_X.xcdatamodeld;
+			currentVersion = EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */;
+			path = KnowSensor_X.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

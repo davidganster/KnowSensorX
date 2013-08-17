@@ -7,13 +7,22 @@
 //
 
 #import "KSAppDelegate.h"
+#import "KSMainWindowController.h"
+
+@interface KSAppDelegate ()
+
+@property(nonatomic, strong) KSMainWindowController *mainWindowController;
+
+@end
 
 @implementation KSAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSelf_X"];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
+    self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
+    [[self.mainWindowController window] makeKeyAndOrderFront:self];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.

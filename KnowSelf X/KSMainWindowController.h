@@ -11,6 +11,8 @@
 
 @interface KSMainWindowController : NSWindowController<KSSensorDelegateProtocol>
 
+@property(nonatomic, strong) NSArray *sensors;
+
 @property (weak) IBOutlet NSToolbarItem *sensorToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 

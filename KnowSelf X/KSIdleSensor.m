@@ -17,11 +17,13 @@
 - (void)registerForEvents
 {
     // TODO
+    NSLog(@"TODO: idleSensor::registerForEvents");
 }
 
 - (void)unregisterForEvents
 {
-    //TODO
+    // TODO
+    NSLog(@"TODO: idleSensor::unregisterForEvents");
 }
 
 @end

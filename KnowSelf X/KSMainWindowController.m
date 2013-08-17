@@ -8,6 +8,9 @@
 
 #import "KSMainWindowController.h"
 #import "KSEvent.h"
+#import "KSFocusEvent+Addons.h"
+#import "KSFocusSensor.h"
+#import "KSIdleSensor.h"
 
 @interface KSMainWindowController ()
 
@@ -21,7 +24,12 @@
 - (void)awakeFromNib
 {
     // init here!
-    NSLog(@"yay");
+    KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
+    KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
+    
+    self.sensors = @[focusSensor, idleSensor];
+    
+//    [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
 }
 
 - (void)windowDidLoad

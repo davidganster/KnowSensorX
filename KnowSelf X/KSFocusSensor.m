@@ -17,11 +17,13 @@
 - (void)registerForEvents
 {
     // TODO
+    NSLog(@"TODO: focusSensor::registerForEvents");
 }
 
 - (void)unregisterForEvents
 {
     // TODO
+    NSLog(@"TODO: focusSensor::unregisterForEvents");
 }
 
 @end

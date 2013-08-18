@@ -11,25 +11,30 @@
 #import "KSFocusEvent+Addons.h"
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
-
-@interface KSMainWindowController ()
-
-@property(nonatomic, strong) NSArray *eventBuffer;
-@property(nonatomic, assign) NSInteger maxEventBufferSize;
-
-@end
+#import "KSSensorViewController.h"
+#import "KSSettingsViewController.h"
+#import "KSGlobals.h"
 
 @implementation KSMainWindowController
 
 - (void)awakeFromNib
 {
-    // init here!
-    KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
-    KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
     
-    self.sensors = @[focusSensor, idleSensor];
+    // init viewControllers
+    KSSensorViewController *sensorViewController = [[KSSensorViewController alloc] init];
+    KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
     
-//    [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
+    self.tabViewControllers = @[sensorViewController, settingsViewController];
+    
+    NSTabViewItem *sensorTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSensorTabViewIdentifier];
+    [sensorTabViewItem setView:sensorViewController.view];
+    
+    NSTabViewItem *settingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSettingsTabViewIdentifier];
+    [settingsTabViewItem setView:settingsViewController.view];
+    
+    [self.tabView addTabViewItem:sensorTabViewItem];
+    [self.tabView addTabViewItem:settingsTabViewItem];
+    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
 }
 
 - (void)windowDidLoad
@@ -38,13 +43,12 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
+- (IBAction)sensorButtonPressed:(id)sender {
+    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
+}
 
-
-#pragma mark KSSensorDelegate methods
-
-- (void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
-{
-    NSLog(@"did record an event: %@", event);
+- (IBAction)settingsButtonPressed:(id)sender {
+    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 
 @end

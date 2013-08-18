@@ -7,9 +7,20 @@
 //
 
 #import "KSFocusSensor.h"
-
+#import "KSGlobals.h"
 
 @implementation KSFocusSensor
+
+-(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
+{
+    self = [super initWithDelegate:delegate];
+    if(self) {
+        self.sensorID = kKSSensorIDFocusSensor;
+        self.name = kKSSensorNameFocusSensor;
+    }
+    return self;
+}
+
 @end
 
 @implementation KSFocusSensor (SubclassingHooks)

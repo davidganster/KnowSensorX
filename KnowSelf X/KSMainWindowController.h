@@ -9,11 +9,19 @@
 #import <Cocoa/Cocoa.h>
 #import "KSSensor.h"
 
-@interface KSMainWindowController : NSWindowController<KSSensorDelegateProtocol>
+/**
+ * @author David Ganster
+ * @documentation this class manages the main window of the program. no logic being done here.
+ */
+@interface KSMainWindowController : NSWindowController<NSTabViewDelegate>
 
-@property(nonatomic, strong) NSArray *sensors;
+@property(nonatomic, strong) NSArray *tabViewControllers;
 
 @property (weak) IBOutlet NSToolbarItem *sensorToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
+@property (weak) IBOutlet NSTabView *tabView;
+
+- (IBAction)sensorButtonPressed:(id)sender;
+- (IBAction)settingsButtonPressed:(id)sender;
 
 @end

@@ -7,8 +7,19 @@
 //
 
 #import "KSIdleSensor.h"
+#import "KSGlobals.h"
 
 @implementation KSIdleSensor
+
+-(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
+{
+    self = [super initWithDelegate:delegate];
+    if(self) {
+        self.sensorID = kKSSensorIDIdleSensor;
+        self.name = kKSSensorNameIdleSensor;
+    }
+    return self;
+}
 
 @end
 

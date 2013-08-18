@@ -9,8 +9,15 @@
 #ifndef KnowSensor_X_KSGlobals_h
 #define KnowSensor_X_KSGlobals_h
 
-#define kKSSensorTypeFocusSensor @"FocusSensor"
-#define kSSensorTypeIdleSensor @"IdleSensor"
+// IDs for api-calls
+#define kKSSensorIDFocusSensor @"FocusSensor"
+#define kKSSensorIDIdleSensor @"IdleSensor"
 
+// strings for displaying the sensors name
+#define kKSSensorNameFocusSensor @"Focus Sensor"
+#define kKSSensorNameIdleSensor @"Idle Sensor"
+
+#define kKSSensorTabViewIdentifier @"SensorTabView"
+#define kKSSettingsTabViewIdentifier @"SettingsTabView"
 
 #endif

@@ -58,12 +58,19 @@
 }
 
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    if(tableView == self.sensorsTableView) {
-        KSSensor *sensor = self.sensors[row];
-        return sensor.name;
+-(NSView *)tableView:(NSTableView *)tableView
+  viewForTableColumn:(NSTableColumn *)tableColumn
+                 row:(NSInteger)row
+{
+    NSTableCellView *cellView  = [tableView makeViewWithIdentifier:@"MyView" owner:self];
+    if(cellView == nil) {
+        cellView = [[NSTableCellView alloc] initWithFrame:NSMakeRect(0, 0, tableView.frame.size.width, 0)];
+        cellView.identifier = @"MyView";
     }
-    return nil;
+    
+    cellView.textField.stringValue = [self.sensors[row] name];
+    
+    return cellView;
 }
 
 @end

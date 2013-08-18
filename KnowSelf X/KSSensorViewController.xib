@@ -71,7 +71,7 @@
 														<string key="NSFrameSize">{178, 466}</string>
 														<reference key="NSSuperview" ref="125380842"/>
 														<reference key="NSWindow"/>
-														<reference key="NSNextKeyView"/>
+														<reference key="NSNextKeyView" ref="696028137"/>
 														<string key="NSReuseIdentifierKey">_NS:13</string>
 														<bool key="NSEnabled">YES</bool>
 														<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -365,6 +365,7 @@
 												<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 												<reference key="NSSuperview" ref="388130333"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:58</string>
 												<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 												<reference key="NSTarget" ref="388130333"/>
@@ -467,7 +468,7 @@
 										</object>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
-										<double key="NSPreferredMaxLayoutWidth">59</double>
+										<double key="NSPreferredMaxLayoutWidth">465</double>
 										<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 									</object>
 									<object class="NSTextField" id="897404921">
@@ -924,6 +925,7 @@
 									<int key="NSvFlags">266</int>
 									<string key="NSFrameSize">{175, 17}</string>
 									<reference key="NSSuperview" ref="696028137"/>
+									<reference key="NSNextKeyView" ref="162740278"/>
 									<string key="NSAntiCompressionPriority">{250, 750}</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="279321330">
@@ -932,6 +934,7 @@
 										<string key="NSContents">Table View Cell</string>
 										<reference key="NSSupport" ref="590121187"/>
 										<reference key="NSControlView" ref="939910324"/>
+										<bool key="NSDrawsBackground">YES</bool>
 										<reference key="NSBackgroundColor" ref="533770220"/>
 										<reference key="NSTextColor" ref="342219574"/>
 									</object>
@@ -940,6 +943,7 @@
 								</object>
 							</array>
 							<string key="NSFrame">{{1, 1}, {175, 17}}</string>
+							<reference key="NSNextKeyView" ref="939910324"/>
 						</object>
 						<reference key="destination" ref="939910324"/>
 					</object>
@@ -2515,6 +2519,7 @@
 					<reference ref="295744181"/>
 				</array>
 				<string key="726.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="726.userInterfaceItemIdentifier">MyView</string>
 				<array key="727.IBNSViewMetadataConstraints">
 					<reference ref="67163772"/>
 				</array>

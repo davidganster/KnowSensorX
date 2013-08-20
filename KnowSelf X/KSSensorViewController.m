@@ -9,6 +9,7 @@
 #import "KSSensorViewController.h"
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
+#import "KSAPIClient.h"
 
 @interface KSSensorViewController ()
 
@@ -41,6 +42,8 @@
     [super loadView];
     self.sensorsTableView.delegate = self;
     self.sensorsTableView.dataSource = self;
+    
+    [KSAPIClient sharedClient];
 }
 
 

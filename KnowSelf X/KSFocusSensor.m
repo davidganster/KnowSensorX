@@ -25,13 +25,13 @@
 
 @implementation KSFocusSensor (SubclassingHooks)
 
-- (void)registerForEvents
+- (void)_registerForEvents
 {
     // TODO
     NSLog(@"TODO: focusSensor::registerForEvents");
 }
 
-- (void)unregisterForEvents
+- (void)_unregisterForEvents
 {
     // TODO
     NSLog(@"TODO: focusSensor::unregisterForEvents");

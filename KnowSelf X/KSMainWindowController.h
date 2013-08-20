@@ -20,6 +20,7 @@
 @property (weak) IBOutlet NSToolbarItem *sensorToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
+@property (weak) IBOutlet NSToolbar *toolbar;
 
 - (IBAction)sensorButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;

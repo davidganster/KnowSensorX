@@ -23,13 +23,13 @@
 - (void)startRecordingEvents
 {
     if(self.isActive)
-        [self registerForEvents];
+        [self _registerForEvents];
 }
 
 
 - (void)stopRecordingEvents
 {
-    [self unregisterForEvents];
+    [self _unregisterForEvents];
 }
 
 @end
@@ -37,12 +37,12 @@
 
 @implementation KSSensor (SubclassingHooks)
 
-- (void)registerForEvents
+- (void)_registerForEvents
 {
     NSAssert(FALSE, @"Subclass needs to overwrite 'registerForEvents'.");
 }
 
-- (void)unregisterForEvents
+- (void)_unregisterForEvents
 {
     NSAssert(FALSE, @"Subclass needs to overwrite 'unregisterForEvents'.");
 }

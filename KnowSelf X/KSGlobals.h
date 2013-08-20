@@ -9,6 +9,10 @@
 #ifndef KnowSensor_X_KSGlobals_h
 #define KnowSensor_X_KSGlobals_h
 
+// API Calls
+// base url is a defined string for now (should be customizable by the user)
+#define kKSServerBaseURL @"http://127.0.0.1:8182"
+
 // IDs for api-calls
 #define kKSSensorIDFocusSensor @"FocusSensor"
 #define kKSSensorIDIdleSensor @"IdleSensor"
@@ -19,5 +23,7 @@
 
 #define kKSSensorTabViewIdentifier @"SensorTabView"
 #define kKSSettingsTabViewIdentifier @"SettingsTabView"
+
+
 
 #endif

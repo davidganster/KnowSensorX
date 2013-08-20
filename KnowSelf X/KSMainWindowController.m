@@ -34,12 +34,13 @@
     
     [self.tabView addTabViewItem:sensorTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
-    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
+//    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
 }
 
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    [self.toolbar setSelectedItemIdentifier:@"Sensors"];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 

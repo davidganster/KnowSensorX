@@ -41,7 +41,7 @@
 // these methods are meant for internal use only, and should not be called from outside.
 @interface KSSensor (SubclassingHooks)
 
-- (void)registerForEvents;
-- (void)unregisterForEvents;
+- (void)_registerForEvents;
+- (void)_unregisterForEvents;
 
 @end

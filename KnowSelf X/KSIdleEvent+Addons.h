@@ -1,18 +1,13 @@
 //
-//  KSEvent.m
+//  KSIdleEvent+Addons.h
 //  KnowSensor X
 //
 //  Created by David Ganster on 20/08/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.
 //
 
-#import "KSEvent.h"
+#import "KSIdleEvent.h"
 
-
-@implementation KSEvent
-
-@dynamic sensorID;
-@dynamic timestamp;
-@dynamic type;
+@interface KSIdleEvent (Addons)
 
 @end

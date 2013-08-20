@@ -6,11 +6,7 @@
                 <entry key="ignoreOnExport" value="YES"/>
             </userInfo>
         </attribute>
-        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES">
-            <userInfo>
-                <entry key="ignoreOnExport" value="YES"/>
-            </userInfo>
-        </attribute>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="ignoreOnExport" value="YES"/>

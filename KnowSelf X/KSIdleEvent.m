@@ -2,7 +2,7 @@
 //  KSIdleEvent.m
 //  KnowSensor X
 //
-//  Created by David Ganster on 15/08/13.
+//  Created by David Ganster on 20/08/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.
 //
 

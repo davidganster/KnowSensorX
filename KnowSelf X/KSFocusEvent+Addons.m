@@ -10,7 +10,6 @@
 
 @implementation KSFocusEvent (Addons)
 
-
 // TODO: actually export the screenshot in one of those methods.
 - (BOOL)exportScreenshotPath:(NSDictionary *)result
 {
@@ -24,5 +23,9 @@
     return YES;
 }
 
+- (NSString *)application
+{
+    return self.processName;
+}
 
 @end

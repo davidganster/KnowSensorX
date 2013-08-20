@@ -26,6 +26,7 @@
 
 /// used for API calls
 @property(nonatomic, strong) NSString *sensorID;
+
 /// used for display names
 @property(nonatomic, strong) NSString *name;
 
@@ -34,9 +35,7 @@
 - (void)startRecordingEvents;
 - (void)stopRecordingEvents;
 
-
 @end
-
 
 // these methods are meant for internal use only, and should not be called from outside.
 @interface KSSensor (SubclassingHooks)

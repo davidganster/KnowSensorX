@@ -12,6 +12,9 @@
 #import "NSData+Base64.h"
 #import "NSData-Base64Extensions.h"
 #import "AFJSONUtilities.h"
+#import "NSManagedObject+Addons.h"
+#import "KSEvent.h"
+#import "KSUserInfo.h"
 
 @interface KSAPIClient ()
 
@@ -32,21 +35,118 @@
     return _sharedClient;
 }
 
+- (void)sendGetFocusEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
+{
+    [self uploadEvent:event toPath:kKSURLPathApplicationDidGetFocusPath finished:block];
+}
+
+- (void)sendLoseFocusEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
+{
+    [self uploadEvent:event toPath:kKSURLPathApplicationDidLoseFocusPath finished:block];
+}
+
+- (void)sendUserIdleStartEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
+{
+    [self uploadEvent:event toPath:kKSURLPathIdleDidStart finished:block];
+}
+
+- (void)sendUserIdleEndEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
+{
+    [self uploadEvent:event toPath:kKSURLPathIdleDidEnd finished:block];
+}
+
+
+#pragma mark Psuedo-Private
+
+- (void)uploadEvent:(KSEvent *)event
+             toPath:(NSString *)path
+           finished:(void (^)(NSError *error))finishedBlock
+{
+    
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:path parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+    
+    // serialize data:
+    NSData *dictAsNSData = nil;
+    NSError *jsonSerializationError = nil;
+    NSDictionary *dict = [self dictionaryFromEvent:event
+                                serializationError:&jsonSerializationError];
+    
+    
+    if(!jsonSerializationError)
+        dictAsNSData = [NSJSONSerialization dataWithJSONObject:dict
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&jsonSerializationError];
+    
+    if(jsonSerializationError) {
+        finishedBlock(jsonSerializationError);
+        return;
+    }
+    
+    [request setHTTPBody:dictAsNSData];
+    
+    
+    NSLog(@"jsonString = %@", [[NSString alloc] initWithData:dictAsNSData encoding:NSUTF8StringEncoding]);
+    
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"yay!");
+        finishedBlock(nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"oh no :(");
+        finishedBlock(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
+}
+
+#pragma mark Really Private - DO NOT CALL THESE METHODS FROM OUTSIDE!
+
 - (id)init
 {
     self = [super init];
     if(self) {
         self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kKSServerBaseURL]];
-        [self testCall];
+        //[self testCall];
     }
     return self;
 }
 
+#pragma mark Helper
+
+- (NSDictionary *)dictionaryFromEvent:(KSEvent *)event serializationError:(NSError **)error
+{
+    // the data-field is represented by the exported object.
+    NSDictionary *dataFieldDict = [event dictRepresentation];
+    NSData *jsonEncodedDataField = [NSJSONSerialization dataWithJSONObject:dataFieldDict
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:error];
+    
+    if(*error)
+        return nil;
+    
+    NSString *base64EncodedDataField = [jsonEncodedDataField encodeBase64WithNewlines:NO];
+    
+    NSMutableDictionary *resultDict = [NSMutableDictionary new];
+    [resultDict setObject:base64EncodedDataField forKey:kKSJSONKeyData];
+    
+    
+    [resultDict setObject:[[KSUserInfo sharedUserInfo] deviceID] forKey:kKSJSONKeyDeviceID];
+    [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
+    [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
+    [resultDict setObject:event.timestamp                        forKey:kKSJSONKeyTimeStamp];
+    [resultDict setObject:event.type                             forKey:kKSJSONKeyType];
+    [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
+    
+    return nil;
+}
+
+
+#pragma mark DEBUG
+
 - (void)testCall
 {
-    
-    
-    
     NSDictionary *dataFieldDict = @{
                                     @"path":@"file://C:/Repository/KnowSe/branches/Focus_Event_With_Screenshots_Integration/server/events/src/test/resources",
                                     @"processid":@(3956),
@@ -62,20 +162,21 @@
                                                                      error:nil];
     
     NSString *base64EncodedDataField = [jsonEncodedDataField encodeBase64WithNewlines:NO];
-
+    
     NSDictionary *generalDataDict = @{
                                       @"application":@"RawCap",
-                                       @"data": base64EncodedDataField,
-                                       @"deviceid":@"OpenSourceDeviceId",
-                                       @"sensorid":@"Focus Sensor",
-                                       @"timestamp":@"2013-08-20T12:47:13.0896458Z",
-                                       @"type":@"applicationDidLoseFocus",
-                                       @"userid":@"OpenSourceUserId"
+                                      @"data": base64EncodedDataField,
+                                      @"deviceid":@"OpenSourceDeviceId",
+                                      @"sensorid":@"Focus Sensor",
+                                      @"timestamp":@"2013-08-20T12:47:13.0896458Z",
+                                      @"type":@"applicationDidLoseFocus",
+                                      @"userid":@"OpenSourceUserId"
                                       };
     
     NSData *generalDataDictAsData = [NSJSONSerialization dataWithJSONObject:generalDataDict
-                                                            options:NSJSONWritingPrettyPrinted
-                                                              error:nil];
+                                                                    options:NSJSONWritingPrettyPrinted
+                                                                      error:nil];
+    
     
     NSString *path = @"events/applicationDidLoseFocus";
     NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:path parameters:nil];
@@ -92,6 +193,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"oh no :(");
     }];
+    
     [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 

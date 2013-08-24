@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EF2B3C0517C3E0FD00BE13B9 /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2B3C0417C3E0FD00BE13B9 /* AFJSONUtilities.m */; };
+		EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
+		EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
+		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
 		EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */; };
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
 		EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */; };
@@ -69,7 +71,6 @@
 		EFA6719117BBFC2200C43BB0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA6719017BBFC2200C43BB0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EFA6719317BBFD3600C43BB0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */; };
 		EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDE417C2B55300043481 /* KSAPIClient.m */; };
-		EFABBDE817C2BA2500043481 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDE717C2BA2500043481 /* NSData+Base64.m */; };
 		EFABBDEE17C2CE1B00043481 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */; };
 		EFABBDEF17C2CE1B00043481 /* NSString-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDED17C2CE1B00043481 /* NSString-Base64Extensions.m */; };
 		EFABBDF117C2CEF200043481 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EFABBDF017C2CEF200043481 /* libcrypto.dylib */; };
@@ -101,8 +102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EF2B3C0317C3E0FD00BE13B9 /* AFJSONUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONUtilities.h; sourceTree = "<group>"; };
-		EF2B3C0417C3E0FD00BE13B9 /* AFJSONUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONUtilities.m; sourceTree = "<group>"; };
+		EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSFocusEvent+Properties.h"; sourceTree = "<group>"; };
+		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
 		EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSIdleEvent+Addons.h"; sourceTree = "<group>"; };
 		EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSIdleEvent+Addons.m"; sourceTree = "<group>"; };
 		EF99933517C413DC002E7458 /* KSUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUserInfo.h; sourceTree = "<group>"; };
@@ -223,8 +224,6 @@
 		EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EFABBDE317C2B55300043481 /* KSAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAPIClient.h; sourceTree = "<group>"; };
 		EFABBDE417C2B55300043481 /* KSAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAPIClient.m; sourceTree = "<group>"; };
-		EFABBDE617C2BA2500043481 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		EFABBDE717C2BA2500043481 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		EFABBDEA17C2CE1B00043481 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		EFABBDEC17C2CE1B00043481 /* NSString-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-Base64Extensions.h"; sourceTree = "<group>"; };
@@ -285,15 +284,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EF2B3C0217C3E0D500BE13B9 /* AFJSONUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				EF2B3C0317C3E0FD00BE13B9 /* AFJSONUtilities.h */,
-				EF2B3C0417C3E0FD00BE13B9 /* AFJSONUtilities.m */,
-			);
-			name = AFJSONUtilities;
-			sourceTree = "<group>";
-		};
 		EFA670C417BBF6DE00C43BB0 = {
 			isa = PBXGroup;
 			children = (
@@ -562,7 +552,6 @@
 		EFABBDDF17C2B4E000043481 /* Server Commnunication */ = {
 			isa = PBXGroup;
 			children = (
-				EF2B3C0217C3E0D500BE13B9 /* AFJSONUtilities */,
 				EFABBDE917C2BA2900043481 /* Base64 */,
 				EFABBDE317C2B55300043481 /* KSAPIClient.h */,
 				EFABBDE417C2B55300043481 /* KSAPIClient.m */,
@@ -577,8 +566,6 @@
 				EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */,
 				EFABBDEC17C2CE1B00043481 /* NSString-Base64Extensions.h */,
 				EFABBDED17C2CE1B00043481 /* NSString-Base64Extensions.m */,
-				EFABBDE617C2BA2500043481 /* NSData+Base64.h */,
-				EFABBDE717C2BA2500043481 /* NSData+Base64.m */,
 			);
 			name = Base64;
 			sourceTree = "<group>";
@@ -634,6 +621,8 @@
 				EFE8F31517BD258400D6369E /* KSFocusEvent+Addons.m */,
 				EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */,
 				EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */,
+				EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */,
+				EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */,
 			);
 			name = "CoreData+Categories";
 			sourceTree = "<group>";
@@ -759,7 +748,9 @@
 				EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */,
 				EFA670EC17BBF6DE00C43BB0 /* Images.xcassets in Resources */,
 				EFA670E117BBF6DE00C43BB0 /* Credits.rtf in Resources */,
+				EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */,
 				EF9EC4C217C0F50C00A4A5A0 /* KSSensorViewController.xib in Resources */,
+				EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */,
 				EFA670E717BBF6DE00C43BB0 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -782,7 +773,6 @@
 				EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */,
 				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
-				EFABBDE817C2BA2500043481 /* NSData+Base64.m in Sources */,
 				EFA6714F17BBF98500C43BB0 /* NSManagedObject+MagicalRequests.m in Sources */,
 				EFA6715717BBF98500C43BB0 /* MagicalRecord+Actions.m in Sources */,
 				EFE8F31B17BD2B9C00D6369E /* KSSensor.m in Sources */,
@@ -806,6 +796,7 @@
 				EFA6718217BBFAD300C43BB0 /* AFHTTPClient.m in Sources */,
 				EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */,
 				EFA6714D17BBF98500C43BB0 /* NSManagedObject+MagicalFinders.m in Sources */,
+				EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */,
 				EFE8F30F17BD1C4800D6369E /* NSManagedObject+Addons.m in Sources */,
 				EFA6716B17BBF9E100C43BB0 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				EFA6715017BBF98500C43BB0 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
@@ -821,7 +812,6 @@
 				EFA6714A17BBF98500C43BB0 /* NSString+MagicalDataImport.m in Sources */,
 				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
-				EF2B3C0517C3E0FD00BE13B9 /* AFJSONUtilities.m in Sources */,
 				EFA6714817BBF98500C43BB0 /* NSObject+MagicalDataImport.m in Sources */,
 				EFA6718817BBFAD300C43BB0 /* AFURLConnectionOperation.m in Sources */,
 				EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */,

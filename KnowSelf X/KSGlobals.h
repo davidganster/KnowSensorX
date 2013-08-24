@@ -26,6 +26,11 @@
 #define kKSSensorIDFocusSensor @"FocusSensor"
 #define kKSSensorIDIdleSensor @"IdleSensor"
 
+#define kKSEventTypeDidGetFocus @"applicationDidGetFocus"
+#define kKSEventTypeDidLoseFocus @"applicationDidLoseFocus"
+#define kKSEventTypeDidStartIdle @"userIdleStart"
+#define kKSEventTypeDidEndIdle @"userIdleEnd"
+
 // JSON-dict keys
 #define kKSJSONKeyApplication @"application"
 #define kKSJSONKeyData @"data"

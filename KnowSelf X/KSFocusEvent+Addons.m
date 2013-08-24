@@ -7,19 +7,31 @@
 //
 
 #import "KSFocusEvent+Addons.h"
+#import "KSFocusEvent+Properties.h"
 
 @implementation KSFocusEvent (Addons)
 
 // TODO: actually export the screenshot in one of those methods.
-- (BOOL)exportScreenshotPath:(NSDictionary *)result
+- (BOOL)exportScreenshotPath:(NSMutableDictionary *)result
 {
-    NSLog(@"correct method is 'exportScreenshotPath' !");
-    return YES;
-}
-
-- (BOOL)exportScreenshot:(NSDictionary *)result
-{
-    NSLog(@"correct method is 'exportScreenshot' !");
+    // TODO: refactor this mess of screenshots/screenshotPaths.
+    
+    // we use the internal screenShot property here, and only use the screenShotPath for later reference, in case we need it sometime...
+    NSArray *keys = [NSArray arrayWithObject:@"NSImageCompressionFactor"];
+    NSArray *objects = [NSArray arrayWithObject:@"1.0"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    NSImage *image = self.screenshot;
+    
+    id objectToSet = [NSNull null];
+    if(image) {
+        NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
+        NSData *tiff_data = [imageRep representationUsingType:NSPNGFileType properties:dictionary];
+        objectToSet = tiff_data ?: [NSNull null];
+    }
+    
+    [result setObject:objectToSet forKey:@"screenshot"];
+    
     return YES;
 }
 

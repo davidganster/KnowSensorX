@@ -22,14 +22,28 @@
 
 - (void)startRecordingEvents
 {
-    if(self.isActive)
-        [self _registerForEvents];
+    if([self _registerForEvents])
+      [self setActive:YES];
+    else {
+        NSLog(@"ERROR: could not register sensor '%@' for events!", self.name);
+    }
 }
 
 
 - (void)stopRecordingEvents
 {
-    [self _unregisterForEvents];
+    if([self _unregisterForEvents])
+        [self setActive:NO];
+    else {
+        NSLog(@"ERROR: could not unregister sensor '%@' for events!", self.name);
+    }
+}
+
+
+-(void)dealloc
+{
+    if(self.isActive)
+       [self _unregisterForEvents];
 }
 
 @end
@@ -37,14 +51,16 @@
 
 @implementation KSSensor (SubclassingHooks)
 
-- (void)_registerForEvents
+- (BOOL)_registerForEvents
 {
     NSAssert(FALSE, @"Subclass needs to overwrite 'registerForEvents'.");
+    return NO;
 }
 
-- (void)_unregisterForEvents
+- (BOOL)_unregisterForEvents
 {
     NSAssert(FALSE, @"Subclass needs to overwrite 'unregisterForEvents'.");
+    return NO;
 }
 
 @end

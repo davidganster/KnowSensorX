@@ -32,7 +32,7 @@
     KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
     self.sensors = @[focusSensor, idleSensor];
     
-    //    [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
+    [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
 
     return self;
 }
@@ -51,6 +51,13 @@
 -(void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
 {
     NSLog(@"Event: %@", event);
+    [[KSAPIClient sharedClient] sendGetFocusEvent:event finished:^(NSError *error) {
+        if(error) {
+            NSLog(@"Error when trying to send event! %@", error);
+        } else {
+            NSLog(@"Sent data successfully!");
+        }
+    }];
 }
 
 #pragma mark NSTableView Protocol methods

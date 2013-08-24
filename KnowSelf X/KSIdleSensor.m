@@ -25,16 +25,18 @@
 
 @implementation KSSensor (SubclassingHooks)
 
-- (void)_registerForEvents
+- (BOOL)_registerForEvents
 {
     // TODO
     NSLog(@"TODO: idleSensor::registerForEvents");
+    return NO;
 }
 
-- (void)_unregisterForEvents
+- (BOOL)_unregisterForEvents
 {
     // TODO
     NSLog(@"TODO: idleSensor::unregisterForEvents");
+    return NO;
 }
 
 @end

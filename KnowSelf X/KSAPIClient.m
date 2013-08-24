@@ -9,9 +9,7 @@
 #import "KSAPIClient.h"
 #import "AFNetworking.h"
 #import "KSGlobals.h"
-#import "NSData+Base64.h"
 #import "NSData-Base64Extensions.h"
-#import "AFJSONUtilities.h"
 #import "NSManagedObject+Addons.h"
 #import "KSEvent.h"
 #import "KSUserInfo.h"
@@ -57,11 +55,15 @@
 
 
 #pragma mark Psuedo-Private
-
+/// Should not be called from outside, use the convenience-wrappers (e.g. sendIdleStartEvent:finished:) instead
 - (void)uploadEvent:(KSEvent *)event
              toPath:(NSString *)path
            finished:(void (^)(NSError *error))finishedBlock
 {
+    if(!event || !path) {
+        NSLog(@"Need both event and path to be not nil when sending data!");
+        return;
+    }
     
     NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:path parameters:nil];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

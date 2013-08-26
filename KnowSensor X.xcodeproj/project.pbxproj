@@ -10,6 +10,7 @@
 		EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
 		EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
 		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
+		EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */; };
 		EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */; };
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
 		EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */; };
@@ -104,6 +105,8 @@
 /* Begin PBXFileReference section */
 		EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSFocusEvent+Properties.h"; sourceTree = "<group>"; };
 		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
+		EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSEvent+Addons.h"; sourceTree = "<group>"; };
+		EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSEvent+Addons.m"; sourceTree = "<group>"; };
 		EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSIdleEvent+Addons.h"; sourceTree = "<group>"; };
 		EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSIdleEvent+Addons.m"; sourceTree = "<group>"; };
 		EF99933517C413DC002E7458 /* KSUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUserInfo.h; sourceTree = "<group>"; };
@@ -623,6 +626,8 @@
 				EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */,
 				EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */,
 				EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */,
+				EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */,
+				EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */,
 			);
 			name = "CoreData+Categories";
 			sourceTree = "<group>";
@@ -786,6 +791,7 @@
 				EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */,
 				EFA6715917BBF98500C43BB0 /* MagicalRecord+iCloud.m in Sources */,
 				EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */,
+				EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */,
 				EFA6715117BBF98500C43BB0 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				EFA6715417BBF98500C43BB0 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */,

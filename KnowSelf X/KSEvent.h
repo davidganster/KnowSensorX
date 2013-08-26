@@ -2,7 +2,7 @@
 //  KSEvent.h
 //  KnowSensor X
 //
-//  Created by David Ganster on 20/08/13.
+//  Created by David Ganster on 26/08/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.
 //
 
@@ -13,7 +13,8 @@
 @interface KSEvent : KSEvent_InternalWithAdditionalMethods
 
 @property (nonatomic, retain) NSString * sensorID;
-@property (nonatomic, retain) NSDate * timestamp;
-@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSDate *timestamp;
+@property (nonatomic, retain) NSString * typeAsString;
+@property (nonatomic) int16_t type;
 
 @end

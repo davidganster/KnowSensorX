@@ -53,4 +53,16 @@
 
 
 
+//------------------------------------------------------------------------------
+// Enum Constants
+//------------------------------------------------------------------------------
+/// used for switch-statements on the type property of a KSEvent object.
+typedef enum KSEventTypeEnum {
+    KSEventTypeDidGetFocus,
+    KSEventTypeDidLoseFocus,
+    KSEventTypeIdleStart,
+    KSEventTypeIdleEnd
+} KSEventType;
+
+
 #endif

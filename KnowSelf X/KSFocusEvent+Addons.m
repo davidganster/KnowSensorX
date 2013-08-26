@@ -11,6 +11,14 @@
 
 @implementation KSFocusEvent (Addons)
 
+- (void)awakeFromInsert
+{
+    // this is kind of a hack, but where else to fill these pointless fields?
+    // the server expects them in the payload, so they have to be included.
+    self.windowhandle = @"";
+    self.runtimeID = @"";
+}
+
 // TODO: actually export the screenshot in one of those methods.
 - (BOOL)exportScreenshotPath:(NSMutableDictionary *)result
 {

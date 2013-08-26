@@ -11,14 +11,25 @@
 #import "KSFocusEvent+Addons.h"
 #import "NSAppleEventDescriptor+NDCoercion.h"
 
+@interface KSFocusSensor ()
+
+@property(nonatomic, strong) NSRunningApplication *previousApplication;
+@property(nonatomic, strong) NSString *previousFileOrUrl;
+
+@end
+
 @implementation KSFocusSensor
 
+@dynamic sensorID;
+@dynamic name;
+
+/// Common initializer. Also sets the 'sensorID' and 'name' properties of the receiver.
 -(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
 {
     self = [super initWithDelegate:delegate];
     if(self) {
-        self.sensorID = kKSSensorIDFocusSensor;
-        self.name = kKSSensorNameFocusSensor;
+        _sensorID = kKSSensorIDFocusSensor;
+        _name = kKSSensorNameFocusSensor;
     }
     return self;
 }
@@ -27,31 +38,54 @@
 - (void)handleApplicationBecameActive:(NSNotification *)event
 {
     NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
-    NSLog(@"app name = %@", frontApp.localizedName);
-   
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
-        NSLog(@"filename or url = %@", fileOrUrl);
         
-        KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext defaultContext]];
-        [currentEvent setTimestamp:[NSDate date]];
-        [currentEvent setProcessID:[NSString stringWithFormat:@"%i", frontApp.processIdentifier]];
-        [currentEvent setProcessName:frontApp.localizedName];
-        [currentEvent setSensorID:self.sensorID];
-        // todo: filepath and window title shouldn't be the same
-        [currentEvent setFilePath:fileOrUrl];
-        [currentEvent setWindowTitle:fileOrUrl];
-        [currentEvent setScreenshotPath:nil];
-        [currentEvent setType:kKSEventTypeDidGetFocus];
+        KSFocusEvent *loseFocusEvent = nil;
+        if(self.previousApplication) {
+            loseFocusEvent = [self createEventFromApplication:self.previousApplication
+                                                  withFileUrl:self.previousFileOrUrl
+                                                         type:KSEventTypeDidLoseFocus];
+        }
+        
+        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
+        self.previousApplication = frontApp;
+        self.previousFileOrUrl = fileOrUrl;
+        KSFocusEvent *currentEvent = [self createEventFromApplication:frontApp
+                                                          withFileUrl:fileOrUrl
+                                                                 type:KSEventTypeDidGetFocus];
         
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
             if(success) {
+                if(loseFocusEvent) {
+                    [self.delegate sensor:self didRecordEvent:loseFocusEvent];
+                }
                 [self.delegate sensor:self didRecordEvent:currentEvent];
             } else {
                 NSLog(@"Saving the recorded event (%@) failed...", currentEvent);
             }
         }];
     });
+}
+
+#pragma mark Helper
+
+- (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
+                                 withFileUrl:(NSString *)fileOrUrl
+                                        type:(KSEventType)type
+{
+    KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext defaultContext]];
+    [currentEvent setTimestamp:[NSDate date]];
+    [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
+    [currentEvent setProcessName:application.localizedName];
+    [currentEvent setSensorID:self.sensorID];
+    
+    // todo: filepath and window title shouldn't be the same
+    [currentEvent setFilePath:fileOrUrl];
+    [currentEvent setWindowTitle:fileOrUrl];
+    [currentEvent setScreenshotPath:nil];
+    [currentEvent setTypeAsString:[KSEvent stringForType:type]];
+    [currentEvent setType:type];
+    return currentEvent;
 }
 
 
@@ -104,7 +138,7 @@
                                                            selector:@selector(handleApplicationBecameActive:)
                                                                name:NSWorkspaceDidActivateApplicationNotification
                                                              object:nil];
-    return YES; // nothing can go wrong here, right?
+    return YES; // nothing can go wrong here
 }
 
 - (BOOL)_unregisterForEvents
@@ -112,7 +146,7 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
                                                                   name:NSWorkspaceDidActivateApplicationNotification
                                                                 object:nil];
-    return YES; // nothing can go wrong here, right?
+    return YES; // nothing can go wrong here
 }
 
 @end

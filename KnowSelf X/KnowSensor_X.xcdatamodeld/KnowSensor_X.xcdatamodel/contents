@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3383" systemVersion="13A538g" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3383" systemVersion="13A558" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="KSEvent" representedClassName="KSEvent" syncable="YES">
         <attribute name="sensorID" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -7,7 +7,12 @@
             </userInfo>
         </attribute>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES">
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="ignoreOnExport" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="typeAsString" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="ignoreOnExport" value="YES"/>
             </userInfo>
@@ -29,11 +34,17 @@
                 <entry key="exportMappedKeyName" value="processname"/>
             </userInfo>
         </attribute>
+        <attribute name="runtimeID" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="runtimeid"/>
+            </userInfo>
+        </attribute>
         <attribute name="screenshotPath" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="exportMappedKeyName" value="screenshot"/>
             </userInfo>
         </attribute>
+        <attribute name="windowhandle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="windowTitle" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="exportMappedKeyName" value="windowtitle"/>
@@ -53,8 +64,8 @@
         </attribute>
     </entity>
     <elements>
-        <element name="KSEvent" positionX="-1973" positionY="-2583" width="128" height="88"/>
-        <element name="KSFocusEvent" positionX="-2052" positionY="-2394" width="128" height="118"/>
+        <element name="KSEvent" positionX="-1973" positionY="-2583" width="128" height="103"/>
+        <element name="KSFocusEvent" positionX="-2052" positionY="-2394" width="128" height="148"/>
         <element name="KSIdleEvent" positionX="-1908" positionY="-2377" width="128" height="73"/>
     </elements>
 </model>

@@ -16,4 +16,22 @@
     return nil;
 }
 
++ (NSString *)stringForType:(KSEventType)type
+{
+    switch (type) {
+        case KSEventTypeDidGetFocus:
+            return kKSEventTypeDidGetFocus;
+        case KSEventTypeDidLoseFocus:
+            return kKSEventTypeDidLoseFocus;
+        case KSEventTypeIdleStart:
+            return kKSEventTypeDidStartIdle;
+        case KSEventTypeIdleEnd:
+            return kKSEventTypeDidEndIdle;
+        default:
+            return @"unknown type";
+            break;
+    }
+}
+
+
 @end

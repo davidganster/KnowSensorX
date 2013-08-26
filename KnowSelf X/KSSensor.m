@@ -17,6 +17,7 @@
     if(self) {
         _delegate = delegate;
     }
+    
     return self;
 }
 

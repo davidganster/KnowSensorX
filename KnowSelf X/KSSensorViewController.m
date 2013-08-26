@@ -9,6 +9,7 @@
 #import "KSSensorViewController.h"
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
+#import "KSEvent+Addons.h"
 #import "KSAPIClient.h"
 
 @interface KSSensorViewController ()
@@ -50,7 +51,7 @@
 #pragma mark KSSensorDelegateProtocol
 -(void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
 {
-    NSLog(@"Event: %@", event);
+    NSLog(@"Event: %@", event.typeAsString);
     [[KSAPIClient sharedClient] sendGetFocusEvent:event finished:^(NSError *error) {
         if(error) {
             NSLog(@"Error when trying to send event! %@", error);

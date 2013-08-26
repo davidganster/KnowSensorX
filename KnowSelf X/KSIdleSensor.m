@@ -15,8 +15,8 @@
 {
     self = [super initWithDelegate:delegate];
     if(self) {
-        self.sensorID = kKSSensorIDIdleSensor;
-        self.name = kKSSensorNameIdleSensor;
+        _sensorID = kKSSensorIDIdleSensor;
+        _name = kKSSensorNameIdleSensor;
     }
     return self;
 }

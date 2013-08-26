@@ -11,8 +11,8 @@
 #import "KSGlobals.h"
 #import "NSData-Base64Extensions.h"
 #import "NSManagedObject+Addons.h"
-#import "KSEvent.h"
 #import "KSUserInfo.h"
+#import "KSEvent+Addons.h"
 
 @interface KSAPIClient ()
 
@@ -31,6 +31,28 @@
     });
     
     return _sharedClient;
+}
+
+
+- (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
+{
+    switch (event.type) {
+        case KSEventTypeDidGetFocus:
+            [self sendGetFocusEvent:event finished:block];
+            break;
+        case KSEventTypeDidLoseFocus:
+            [self sendLoseFocusEvent:event finished:block];
+            break;
+        case KSEventTypeIdleStart:
+            [self sendUserIdleStartEvent:event finished:block];
+            break;
+        case KSEventTypeIdleEnd:
+            [self sendUserIdleEndEvent:event finished:block];
+            break;
+        default:
+            NSLog(@"ERROR: unknown event type %i (Event = %@).", event.type, event);
+            break;
+    }
 }
 
 - (void)sendGetFocusEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
@@ -137,11 +159,11 @@
     [resultDict setObject:[[KSUserInfo sharedUserInfo] deviceID] forKey:kKSJSONKeyDeviceID];
     [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
     [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
-    [resultDict setObject:event.timestamp                        forKey:kKSJSONKeyTimeStamp];
-    [resultDict setObject:event.type                             forKey:kKSJSONKeyType];
+    [resultDict setObject:[event timestampAsString]              forKey:kKSJSONKeyTimeStamp];
+    [resultDict setObject:event.typeAsString                     forKey:kKSJSONKeyType];
     [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
     
-    return nil;
+    return resultDict;
 }
 
 

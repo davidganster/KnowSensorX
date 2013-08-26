@@ -52,7 +52,7 @@
 -(void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
 {
     NSLog(@"Event: %@", event.typeAsString);
-    [[KSAPIClient sharedClient] sendGetFocusEvent:event finished:^(NSError *error) {
+    [[KSAPIClient sharedClient] sendEvent:event finished:^(NSError *error) {
         if(error) {
             NSLog(@"Error when trying to send event! %@", error);
         } else {

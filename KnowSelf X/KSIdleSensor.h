@@ -10,4 +10,8 @@
 
 @interface KSIdleSensor : KSSensor
 
+/// The minimum time the user has to be idle before an event is logged in seconds.
+/// Defaults to 300 (5 minutes).
+@property(nonatomic, assign) CGFloat minimumIdleTime;
+
 @end

@@ -22,16 +22,27 @@ static NSDateFormatter *timestampFormatter;
     return YES;
 }
 
+/// Convenience method to be called from anywhere without having to create an NSDateFormatter object.
+- (NSString *)timestampAsString
+{
+    return [self dateAsString:self.timestamp];
+}
+
 /// Used to get the string representation of the timestamp property.
 /// A NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
-- (NSString *)timestampAsString
+- (NSString *)dateAsString:(NSDate *)date
 {
     if(!timestampFormatter) {
         timestampFormatter = [[NSDateFormatter alloc] init];
         [timestampFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
     }
-    NSString *timestampAsString = [timestampFormatter stringFromDate:self.timestamp];
-    return timestampAsString;
+    NSString *dateAsString = [timestampFormatter stringFromDate:date];
+    return dateAsString;
+}
+
+-(NSString *)typeAsString
+{
+    return [KSEvent stringForType:self.type];
 }
 
 @end

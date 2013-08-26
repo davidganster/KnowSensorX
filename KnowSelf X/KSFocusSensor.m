@@ -7,7 +7,6 @@
 //
 
 #import "KSFocusSensor.h"
-#import "KSGlobals.h"
 #import "KSFocusEvent+Addons.h"
 #import "NSAppleEventDescriptor+NDCoercion.h"
 
@@ -83,7 +82,6 @@
     [currentEvent setFilePath:fileOrUrl];
     [currentEvent setWindowTitle:fileOrUrl];
     [currentEvent setScreenshotPath:nil];
-    [currentEvent setTypeAsString:[KSEvent stringForType:type]];
     [currentEvent setType:type];
     return currentEvent;
 }

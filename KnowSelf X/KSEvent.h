@@ -10,11 +10,11 @@
 #import <CoreData/CoreData.h>
 #import "KSEvent_InternalWithAdditionalMethods.h"
 
+
 @interface KSEvent : KSEvent_InternalWithAdditionalMethods
 
 @property (nonatomic, retain) NSString * sensorID;
-@property (nonatomic, retain) NSDate *timestamp;
-@property (nonatomic, retain) NSString * typeAsString;
-@property (nonatomic) int16_t type;
+@property (nonatomic, retain) NSDate * timestamp;
+@property (nonatomic) uint16 type;
 
 @end

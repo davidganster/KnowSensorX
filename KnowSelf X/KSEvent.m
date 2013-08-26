@@ -13,7 +13,6 @@
 
 @dynamic sensorID;
 @dynamic timestamp;
-@dynamic typeAsString;
 @dynamic type;
 
 @end

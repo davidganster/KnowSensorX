@@ -13,7 +13,6 @@
 #import "KSIdleSensor.h"
 #import "KSSensorViewController.h"
 #import "KSSettingsViewController.h"
-#import "KSGlobals.h"
 
 @implementation KSMainWindowController
 

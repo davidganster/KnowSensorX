@@ -51,8 +51,6 @@
 #define kKSSensorTabViewIdentifier @"SensorTabView"
 #define kKSSettingsTabViewIdentifier @"SettingsTabView"
 
-
-
 //------------------------------------------------------------------------------
 // Enum Constants
 //------------------------------------------------------------------------------
@@ -64,5 +62,11 @@ typedef enum KSEventTypeEnum {
     KSEventTypeIdleEnd
 } KSEventType;
 
+
+//------------------------------------------------------------------------------
+// General Constants
+//------------------------------------------------------------------------------
+/// Minimum idle time before an event is registered in seconds.
+#define kKSIdleSensorMinimumIdleTime 300
 
 #endif

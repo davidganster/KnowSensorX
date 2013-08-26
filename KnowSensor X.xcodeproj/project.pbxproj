@@ -134,7 +134,7 @@
 		EFA670E617BBF6DE00C43BB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KnowSensor_X.xcdatamodel; sourceTree = "<group>"; };
 		EFA670EB17BBF6DE00C43BB0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EFA670F117BBF6DE00C43BB0 /* KnowSensor XTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = "KnowSensor XTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFA670F117BBF6DE00C43BB0 /* KnowSensor XTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KnowSensor XTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670F217BBF6DE00C43BB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EFA670F917BBF6DE00C43BB0 /* KnowSensor XTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KnowSensor XTests-Info.plist"; sourceTree = "<group>"; };
 		EFA670FB17BBF6DE00C43BB0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };

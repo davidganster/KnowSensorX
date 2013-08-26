@@ -8,7 +8,6 @@
 
 #import "KSAPIClient.h"
 #import "AFNetworking.h"
-#import "KSGlobals.h"
 #import "NSData-Base64Extensions.h"
 #import "NSManagedObject+Addons.h"
 #import "KSUserInfo.h"
@@ -160,7 +159,7 @@
     [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
     [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
     [resultDict setObject:[event timestampAsString]              forKey:kKSJSONKeyTimeStamp];
-    [resultDict setObject:event.typeAsString                     forKey:kKSJSONKeyType];
+    [resultDict setObject:[event typeAsString]                   forKey:kKSJSONKeyType];
     [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
     
     return resultDict;

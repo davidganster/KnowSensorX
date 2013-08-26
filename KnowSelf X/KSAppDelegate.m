@@ -41,4 +41,10 @@
     return NSTerminateNow;
 }
 
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    return NO;
+}
+
+
 @end

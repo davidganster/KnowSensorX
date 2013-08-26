@@ -25,16 +25,13 @@
 {
     self = [super initWithNibName:@"KSSensorViewController" bundle:nil];
     if (self) {
-        // Initialization code here.
+        // init sensors:
+        KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
+        KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
+        self.sensors = @[focusSensor, idleSensor];
+        
+        [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
     }
-    
-    // init sensors:
-    KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
-    KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
-    self.sensors = @[focusSensor, idleSensor];
-    
-    [self.sensors makeObjectsPerformSelector:@selector(startRecordingEvents)];
-
     return self;
 }
 
@@ -49,9 +46,10 @@
 
 
 #pragma mark KSSensorDelegateProtocol
+
 -(void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
 {
-    NSLog(@"Event: %@", event.typeAsString);
+//    NSLog(@"Event: %@", event.typeAsString);
     [[KSAPIClient sharedClient] sendEvent:event finished:^(NSError *error) {
         if(error) {
             NSLog(@"Error when trying to send event! %@", error);
@@ -67,7 +65,6 @@
 {
     return self.sensors.count;
 }
-
 
 -(NSView *)tableView:(NSTableView *)tableView
   viewForTableColumn:(NSTableColumn *)tableColumn

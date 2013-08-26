@@ -19,8 +19,8 @@
 // URLs
 #define kKSURLPathApplicationDidLoseFocusPath @"events/applicationDidLoseFocus"
 #define kKSURLPathApplicationDidGetFocusPath @"events/applicationDidGetFocus"
-#define kKSURLPathIdleDidStart @"userIdleStart"
-#define kKSURLPathIdleDidEnd @"userIdleEnd"
+#define kKSURLPathIdleDidStart @"events/userIdleStart"
+#define kKSURLPathIdleDidEnd @"events/userIdleEnd"
 
 // IDs for api-calls
 #define kKSSensorIDFocusSensor @"FocusSensor"
@@ -66,7 +66,7 @@ typedef enum KSEventTypeEnum {
 //------------------------------------------------------------------------------
 // General Constants
 //------------------------------------------------------------------------------
-/// Minimum idle time before an event is registered in seconds.
-#define kKSIdleSensorMinimumIdleTime 300
+/// Minimum idle time before an event is registered in seconds. Defaults to 300.
+#define kKSIdleSensorMinimumIdleTime 5
 
 #endif

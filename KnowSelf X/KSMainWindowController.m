@@ -18,7 +18,6 @@
 
 - (void)awakeFromNib
 {
-    
     // init viewControllers
     KSSensorViewController *sensorViewController = [[KSSensorViewController alloc] init];
     KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
@@ -33,6 +32,13 @@
     
     [self.tabView addTabViewItem:sensorTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
+    
+//    NSString *exePath = [[NSBundle mainBundle] executablePath];
+//    CFStringRef stringRef = (__bridge CFStringRef)exePath;
+//    AXMakeProcessTrusted(stringRef);
+//    if(!AXAPIEnabled()) {
+//        NSLog(@"Access for assistive devices must be enabled for this application to work properly");
+//    }
 //    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
 }
 

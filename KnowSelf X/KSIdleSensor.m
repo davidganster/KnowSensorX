@@ -1,4 +1,4 @@
-//
+
 //  KSIdleSensor.m
 //  KnowSensor X
 //
@@ -45,17 +45,17 @@
     return self;
 }
 
-- (void)createTimerWithFireDate:(NSDate *)fireDate
+- (void)createTimerWithTimeInterval:(CFTimeInterval)timeInterval
 {
     // default value is the idle time of this object.
-    if(!fireDate)
-        fireDate = [NSDate dateWithTimeIntervalSinceNow:self.minimumIdleTime];
-    self.idleTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:self.minimumIdleTime]
-                                              interval:0.f
-                                                target:self
-                                              selector:@selector(checkUserIdleTime)
-                                              userInfo:nil
-                                               repeats:NO];
+    if(!timeInterval)
+        timeInterval = self.minimumIdleTime;
+    NSLog(@"Now listening for user idle with minimum idle time: %g", timeInterval);
+    self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                                      target:self
+                                                    selector:@selector(checkUserIdleTime)
+                                                    userInfo:nil
+                                                     repeats:NO];
 }
 
 - (void)checkUserIdleTime
@@ -65,8 +65,8 @@
 
     // that's not the actual idle time, since we might have had some idle time left from the last event.
     CFTimeInterval actualIdleTime = idleTime + self.idleTimeSoFar;
-    if(actualIdleTime < self.minimumIdleTime + 0.1f ||
-       actualIdleTime > self.minimumIdleTime - 0.1f) {
+    if(actualIdleTime >= self.minimumIdleTime) {
+        NSLog(@"User idle detected!");
         // idle time almost matches our required time - since timers might be off by a bit, this is good enough.
         self.idleTimeSoFar = 0.f;
         
@@ -79,22 +79,23 @@
         
         // now, we need to listen for when the idle ends. No timers are necessary in the meantime.
         [self registerForIdleEndEvents];
-    } else if(actualIdleTime > self.minimumIdleTime) {
-        NSLog(@"ERROR: something has gone wrong with the timing when testing for idle - the timer was off by %g seconds.",  self.minimumIdleTime - actualIdleTime);
     } else {
         if(self.idleTimeSoFar == 0.f)
             self.idleTimeSoFar = idleTime;
         else
             self.idleTimeSoFar = 0.f;
         
-        [self createTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:self.minimumIdleTime - self.idleTimeSoFar]];
+        NSLog(@"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
+        [self createTimerWithTimeInterval:self.minimumIdleTime - actualIdleTime];
     }
 }
 
 /// registers an eventHandler for any keyboard/mouse events, as those will end the user's idle.
 - (void)registerForIdleEndEvents
 {
-    self.eventHandler = [NSEvent addGlobalMonitorForEventsMatchingMask:NSAnyEventMask handler:^(NSEvent *someEvent) {
+    // TODO: this only registers MouseMoved events so far, because of problems with the accessibility API.
+    self.eventHandler = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask) handler:^(NSEvent *someEvent) {
+        NSLog(@"User Idle wakeup detected!");
         // we don't actually care about the event. this just means that the idle ended!
         [NSEvent removeMonitor:self.eventHandler];
         self.eventHandler = nil;
@@ -103,7 +104,7 @@
         CFTimeInterval idledTime = -[self.lastDateBeforeIdle timeIntervalSinceNow];
         KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd idleSinceSeconds:idledTime];
         [self.delegate sensor:self didRecordEvent:idleEvent];
-        [self createTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:self.minimumIdleTime]];
+        [self createTimerWithTimeInterval:self.minimumIdleTime];
     }];
 }
 
@@ -121,6 +122,7 @@
     [idleEvent setType:type];
     [idleEvent setIdleSinceSeconds:@(idleTime)];
     [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:idleTime sinceDate:[NSDate date]]];
+    [idleEvent setSensorID:self.sensorID];
     return idleEvent;
 }
 
@@ -130,7 +132,7 @@
 
 - (BOOL)_registerForEvents
 {
-    [(KSIdleSensor *)self createTimerWithFireDate:nil];
+    [(KSIdleSensor *)self createTimerWithTimeInterval:0.f];
     return YES;
 }
 

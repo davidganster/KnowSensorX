@@ -103,6 +103,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
 		EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSFocusEvent+Properties.h"; sourceTree = "<group>"; };
 		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
 		EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSEvent+Addons.h"; sourceTree = "<group>"; };
@@ -309,6 +310,7 @@
 		EFA670CF17BBF6DE00C43BB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */,
 				EFABBDF017C2CEF200043481 /* libcrypto.dylib */,
 				EFA6710717BBF95100C43BB0 /* Additional Libraries */,
 				EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */,
@@ -931,7 +933,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -964,7 +966,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -977,6 +979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KnowSelf X/KnowSensor X-Prefix.pch";
 				INFOPLIST_FILE = "KnowSelf X/KnowSensor X-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "KnowSensor X";
 				WRAPPER_EXTENSION = app;
 			};
@@ -990,6 +993,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KnowSelf X/KnowSensor X-Prefix.pch";
 				INFOPLIST_FILE = "KnowSelf X/KnowSensor X-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "KnowSensor X";
 				WRAPPER_EXTENSION = app;
 			};

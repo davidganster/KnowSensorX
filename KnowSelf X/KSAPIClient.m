@@ -76,7 +76,7 @@
 
 
 #pragma mark Psuedo-Private
-/// Should not be called from outside, use the convenience-wrappers (e.g. sendIdleStartEvent:finished:) instead
+/// Should not be called from outside, use the convenience-wrappers (e.g. sendEvent:finished: or more specifically, e.g.  sendIdleStartEvent:finished:) instead
 - (void)uploadEvent:(KSEvent *)event
              toPath:(NSString *)path
            finished:(void (^)(NSError *error))finishedBlock

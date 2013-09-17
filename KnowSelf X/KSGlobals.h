@@ -66,7 +66,12 @@ typedef enum KSEventTypeEnum {
 //------------------------------------------------------------------------------
 // General Constants
 //------------------------------------------------------------------------------
+
 /// Minimum idle time before an event is registered in seconds. Defaults to 300.
 #define kKSIdleSensorMinimumIdleTime 5
+
+/// Interval in seconds between two polls for the focus sensor.
+#define kKSFocusSensorPollInterval 1.0f
+
 
 #endif

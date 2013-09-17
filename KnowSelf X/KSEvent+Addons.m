@@ -45,4 +45,15 @@ static NSDateFormatter *timestampFormatter;
     return [KSEvent stringForType:self.type];
 }
 
+/// When you override this method in a subclass, make sure to always append your description to the
+/// return value of [super description] (instead of replacing it).
+- (NSString *)description
+{
+    NSMutableString *desc = [[NSMutableString alloc] init];
+    [desc appendFormat:@"Event type = %@, ", [self typeAsString]];
+    [desc appendFormat:@"Sensor ID = %@, ", self.sensorID];
+    [desc appendFormat:@"Timestamp: %@\n", self.timestamp];
+    return desc;
+}
+
 @end

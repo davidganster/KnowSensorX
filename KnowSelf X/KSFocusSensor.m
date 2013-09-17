@@ -10,10 +10,13 @@
 #import "KSFocusEvent+Addons.h"
 #import "NSAppleEventDescriptor+NDCoercion.h"
 
+
 @interface KSFocusSensor ()
 
 @property(nonatomic, strong) NSRunningApplication *previousApplication;
 @property(nonatomic, strong) NSString *previousFileOrUrl;
+@property(nonatomic, strong) NSTimer *timer;
+@property(nonatomic, assign) dispatch_queue_t applescriptQueue;
 
 @end
 
@@ -29,16 +32,26 @@
     if(self) {
         _sensorID = kKSSensorIDFocusSensor;
         _name = kKSSensorNameFocusSensor;
+        _applescriptQueue = dispatch_queue_create("com.knowcenter.KSX.ASQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
 #pragma mark Event Handling
-- (void)handleApplicationBecameActive:(NSNotification *)event
+
+- (void)handleTimerFired:(id)sender
 {
-    NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(self.applescriptQueue, ^{
+        NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
+        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
         
+        if(self.previousApplication.processIdentifier == frontApp.processIdentifier &&
+           [self.previousFileOrUrl isEqualToString:fileOrUrl]) {
+            // nothing has changed since the last poll
+            return;
+        }
+        
+
         KSFocusEvent *loseFocusEvent = nil;
         if(self.previousApplication) {
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
@@ -46,7 +59,6 @@
                                                          type:KSEventTypeDidLoseFocus];
         }
         
-        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
         self.previousApplication = frontApp;
         self.previousFileOrUrl = fileOrUrl;
         KSFocusEvent *currentEvent = [self createEventFromApplication:frontApp
@@ -54,6 +66,7 @@
                                                                  type:KSEventTypeDidGetFocus];
         
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+            // will be executed on the main thread
             if(success) {
                 if(loseFocusEvent) {
                     [self.delegate sensor:self didRecordEvent:loseFocusEvent];
@@ -78,7 +91,7 @@
     [currentEvent setProcessName:application.localizedName];
     [currentEvent setSensorID:self.sensorID];
     
-    // todo: filepath and window title shouldn't be the same
+    // TODO: filepath and window title shouldn't be the same
     [currentEvent setFilePath:fileOrUrl];
     [currentEvent setWindowTitle:fileOrUrl];
     [currentEvent setScreenshotPath:nil];
@@ -132,18 +145,31 @@
 
 - (BOOL)_registerForEvents
 {
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
-                                                           selector:@selector(handleApplicationBecameActive:)
-                                                               name:NSWorkspaceDidActivateApplicationNotification
-                                                             object:nil];
-    return YES; // nothing can go wrong here
+    
+//    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
+//                                                           selector:@selector(handleApplicationBecameActive:)
+//                                                               name:NSWorkspaceDidActivateApplicationNotification
+//                                                             object:nil];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(handleTimerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
+    if(self.timer)
+        return YES;
+    else return NO;
 }
 
 - (BOOL)_unregisterForEvents
 {
-    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
-                                                                  name:NSWorkspaceDidActivateApplicationNotification
-                                                                object:nil];
+//    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
+//                                                                  name:NSWorkspaceDidActivateApplicationNotification
+//                                                                object:nil];
+    
+    [self.timer invalidate];
+    self.timer = nil;
     return YES; // nothing can go wrong here
 }
 

@@ -1,0 +1,27 @@
+#Using Equinox as a OSGi platform
+--platform=equinox
+#this parameter ensures that the PAX Runner is looking for exactly this version when starting for the first time. We need this, because we provide exactly this version locally, so it does not have to be downloaded
+--version=3.7.0
+
+#using local repository where OSGI jar resides
+#--org.ops4j.pax.url.mvn.settings=c:/localRepo/settings.xml
+#--org.ops4j.pax.url.mvn.localRepository=C:/localRepo/.m2/repository
+--org.ops4j.pax.url.mvn.disableAether=true
+#this is the path (relative from where the pax-runner is started) where we provide the "org.eclipse.osgi-3.7.0.v20110613.jar" locally, so it has not to be downloaded when running KnowSelf for the first time
+--org.ops4j.pax.url.mvn.localRepository=./bundles
+
+--log=debug
+
+# VM Options
+--vmo=\
+  -Dosgi.clean=true\
+  -Declipse.ignoreApp=true\
+  -Dorg.osgi.framework.bootdelegation=*\
+  -DtaskDetectionAppUri=../../KnowSelf_WebApp\
+  -DserverPort=8182\
+  -DserverRootDirectoryUrl=../\
+  -DrelativePathToImages=applicationDidGetFocus/screenshots/\
+  -DscalingFactorForThumbnails=0.2\
+  -DdumpTriplestoreIntoFile=false\
+  -Dorg.restlet.engine.loggerFacadeClass=org.restlet.ext.slf4j.Slf4jLoggerFacade\
+  -Dlogback.configurationFile=../logback.xml

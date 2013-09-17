@@ -23,6 +23,10 @@
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
+    
+    LoggerSetOptions(LoggerGetDefaultLogger(), kLoggerOption_BrowseBonjour |
+                                               kLoggerOption_LogToConsole |
+                                               kLoggerOption_BrowseBonjour);
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.

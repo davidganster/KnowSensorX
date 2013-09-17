@@ -26,7 +26,7 @@
     if([self _registerForEvents])
       [self setActive:YES];
     else {
-        NSLog(@"ERROR: could not register sensor '%@' for events!", self.name);
+        LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not register sensor '%@' for events!", self.name);
     }
 }
 
@@ -36,7 +36,7 @@
     if([self _unregisterForEvents])
         [self setActive:NO];
     else {
-        NSLog(@"ERROR: could not unregister sensor '%@' for events!", self.name);
+        LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not unregister sensor '%@' for events!", self.name);
     }
 }
 

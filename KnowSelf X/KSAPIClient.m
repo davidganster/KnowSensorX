@@ -49,7 +49,7 @@
             [self sendUserIdleEndEvent:event finished:block];
             break;
         default:
-            NSLog(@"ERROR: unknown event type %i (Event = %@).", event.type, event);
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Unknown event type %i (Event = %@).", event.type, event);
             break;
     }
 }
@@ -82,7 +82,7 @@
            finished:(void (^)(NSError *error))finishedBlock
 {
     if(!event || !path) {
-        NSLog(@"Need both event and path to be not nil when sending data!");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelDebug, @"Need both event and path to be not nil when sending data!");
         return;
     }
     
@@ -110,14 +110,15 @@
     [request setHTTPBody:dictAsNSData];
     
     
-    NSLog(@"jsonString = %@", [[NSString alloc] initWithData:dictAsNSData encoding:NSUTF8StringEncoding]);
+    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"jsonString = %@", [[NSString alloc] initWithData:dictAsNSData
+                                                                                              encoding:NSUTF8StringEncoding]);
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"yay!");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"yay!");
         finishedBlock(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"oh no :(");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
         finishedBlock(error);
     }];
     
@@ -208,13 +209,12 @@
     
     [request setHTTPBody:generalDataDictAsData];
     
-    NSLog(@"jsonString = %@", [[NSString alloc] initWithData:generalDataDictAsData encoding:NSUTF8StringEncoding]);
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"yay!");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"yay!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"oh no :(");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
     }];
     
     [self.client enqueueHTTPRequestOperation:requestOperation];

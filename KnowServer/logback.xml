@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<configuration debug="true" scan="true">
+	<appender name="ConsoleWarn" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- deny all events with a level below WARN, that is INFO, DEBUG, TRACE -->
+			<level>WARN</level>
+		</filter>
+		<encoder>
+			<pattern>%-5p %d{HH:mm:ss.SSS} %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ConsoleInfo" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- deny all events with a level below INFO, that is DEBUG, TRACE -->
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern>%-5p %d{HH:mm:ss.SSS} %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="File"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- deny all events with a level below DEBUG, that is TRACE -->
+			<level>DEBUG</level>
+		</filter>
+		<file>./log/server.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} -
+				%msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>./log/server.%i.log</FileNamePattern>
+			<MinIndex>1</MinIndex>
+			<MaxIndex>2</MaxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>2MB</MaxFileSize>
+		</triggeringPolicy>
+
+	</appender>
+	<root level="DEBUG">
+		<appender-ref ref="ConsoleInfo"></appender-ref>
+		<appender-ref ref="File"></appender-ref>
+	</root>
+</configuration>

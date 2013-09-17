@@ -1,0 +1,15 @@
+#Using Equinox as a OSGi platform
+--platform=equinox
+
+# VM Options
+--vmo=\
+  -Dosgi.clean=true\
+  -Declipse.ignoreApp=true\
+  -Dorg.osgi.framework.bootdelegation=*\
+  -DtaskDetectionAppUri=/Users/davidganster/Documents/Projects/KnowSelf/KnowSelf_WebApp\
+  -DserverPort=8182\
+  -DserverRootDirectoryUrl=../\
+  -DrelativePathToImages=applicationDidGetFocus/screenshots/\
+  -DscalingFactorForThumbnails=0.2\
+  -DdumpTriplestoreIntoFile=false\
+  -Dlogback.configurationFile=../logback.xml

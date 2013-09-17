@@ -52,9 +52,9 @@
 //    NSLog(@"Event: %@", event.typeAsString);
     [[KSAPIClient sharedClient] sendEvent:event finished:^(NSError *error) {
         if(error) {
-            NSLog(@"Error when trying to send event! %@", error);
+            LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to send event! %@", error);
         } else {
-            NSLog(@"Sent data successfully!");
+            LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Sent data successfully!");
         }
     }];
 }

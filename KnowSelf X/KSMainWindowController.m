@@ -32,7 +32,7 @@
     
     [self.tabView addTabViewItem:sensorTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
-    
+        
 //    NSString *exePath = [[NSBundle mainBundle] executablePath];
 //    CFStringRef stringRef = (__bridge CFStringRef)exePath;
 //    AXMakeProcessTrusted(stringRef);

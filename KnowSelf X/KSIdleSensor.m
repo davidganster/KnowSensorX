@@ -50,7 +50,7 @@
     // default value is the idle time of this object.
     if(!timeInterval)
         timeInterval = self.minimumIdleTime;
-    NSLog(@"Now listening for user idle with minimum idle time: %g", timeInterval);
+    LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"Now listening for user idle with minimum idle time: %g", timeInterval);
     self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                       target:self
                                                     selector:@selector(checkUserIdleTime)
@@ -66,7 +66,7 @@
     // that's not the actual idle time, since we might have had some idle time left from the last event.
     CFTimeInterval actualIdleTime = idleTime + self.idleTimeSoFar;
     if(actualIdleTime >= self.minimumIdleTime) {
-        NSLog(@"User idle detected!");
+        LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User idle detected!");
         // idle time almost matches our required time - since timers might be off by a bit, this is good enough.
         self.idleTimeSoFar = 0.f;
         
@@ -85,7 +85,7 @@
         else
             self.idleTimeSoFar = 0.f;
         
-        NSLog(@"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
+        LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
         [self createTimerWithTimeInterval:self.minimumIdleTime - actualIdleTime];
     }
 }
@@ -95,7 +95,7 @@
 {
     // TODO: this only registers MouseMoved events so far, because of problems with the accessibility API.
     self.eventHandler = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask) handler:^(NSEvent *someEvent) {
-        NSLog(@"User Idle wakeup detected!");
+        LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User Idle wakeup detected!");
         // we don't actually care about the event. this just means that the idle ended!
         [NSEvent removeMonitor:self.eventHandler];
         self.eventHandler = nil;
@@ -113,7 +113,7 @@
 - (KSIdleEvent *)createIdleEventWithType:(KSEventType)type idleSinceSeconds:(CFTimeInterval)idleTime
 {
     if(type != KSEventTypeIdleStart && type != KSEventTypeIdleEnd) {
-        NSLog(@"ERROR: Can only create Idle event with type KSEventIdleStart or KSEventIdleEnd, not %i", type);
+        LogMessage(kKSLogTagIdleSensor, kKSLogLevelError, @"ERROR: Can only create Idle event with type KSEventIdleStart or KSEventIdleEnd, not %i", type);
         return nil;
     }
     
@@ -132,7 +132,7 @@
 
 - (BOOL)_registerForEvents
 {
-    [(KSIdleSensor *)self createTimerWithTimeInterval:0.f];
+    [(KSIdleSensor *)self createTimerWithTimeInterval:0];
     return YES;
 }
 

@@ -32,7 +32,7 @@
     if(self) {
         _sensorID = kKSSensorIDFocusSensor;
         _name = kKSSensorNameFocusSensor;
-        _applescriptQueue = dispatch_queue_create("com.knowcenter.KSX.ASQueue", DISPATCH_QUEUE_SERIAL);
+        _applescriptQueue = dispatch_queue_create("com.kc.KnowSensorX.ASQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -46,11 +46,13 @@
         NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
         
         if(self.previousApplication.processIdentifier == frontApp.processIdentifier &&
-           [self.previousFileOrUrl isEqualToString:fileOrUrl]) {
+           ([self.previousFileOrUrl isEqualToString:fileOrUrl] || self.previousFileOrUrl == fileOrUrl)) {
             // nothing has changed since the last poll
+//            LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Nothing changed, will not record event.");
             return;
         }
         
+//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"New application: %@ with url: %@", frontApp.localizedName, fileOrUrl);
 
         KSFocusEvent *loseFocusEvent = nil;
         if(self.previousApplication) {
@@ -73,7 +75,7 @@
                 }
                 [self.delegate sensor:self didRecordEvent:currentEvent];
             } else {
-                NSLog(@"Saving the recorded event (%@) failed...", currentEvent);
+                LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
             }
         }];
     });
@@ -127,7 +129,7 @@
     NSAppleEventDescriptor *result = [script executeAppleEvent:descriptor error:&errorInfo];
     
     if(errorInfo)
-        NSLog(@"Error infor = %@", errorInfo);
+        NSLog(@"Error info = %@", errorInfo);
     return [result stringValue];
 }
 

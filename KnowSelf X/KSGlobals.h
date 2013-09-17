@@ -74,4 +74,16 @@ typedef enum KSEventTypeEnum {
 #define kKSFocusSensorPollInterval 1.0f
 
 
+//------------------------------------------------------------------------------
+// Logging Levels
+//------------------------------------------------------------------------------
+#define kKSLogLevelError 0
+#define kKSLogLevelDebug 1
+#define kKSLogLevelInfo 2
+
+#define kKSLogTagFocusSensor @"Focus Sensor"
+#define kKSLogTagIdleSensor @"Idle Sensor"
+#define kKSLogTagAPIClient @"API Client"
+#define kKSLogTagOther @"Unspecified"
+
 #endif

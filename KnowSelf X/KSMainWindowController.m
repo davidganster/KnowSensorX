@@ -14,6 +14,12 @@
 #import "KSSensorViewController.h"
 #import "KSSettingsViewController.h"
 
+@interface KSMainWindowController ()
+
+@property(nonatomic, strong) NSStatusItem *statusItem;
+
+@end
+
 @implementation KSMainWindowController
 
 - (void)awakeFromNib
@@ -33,6 +39,7 @@
     [self.tabView addTabViewItem:sensorTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
         
+    [self createMenubarItem];
 //    NSString *exePath = [[NSBundle mainBundle] executablePath];
 //    CFStringRef stringRef = (__bridge CFStringRef)exePath;
 //    AXMakeProcessTrusted(stringRef);
@@ -40,6 +47,19 @@
 //        NSLog(@"Access for assistive devices must be enabled for this application to work properly");
 //    }
 //    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
+}
+
+- (void)createMenubarItem
+{
+    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    [self.statusItem setTitle:@"KSX"];
+    [self.statusItem setMenu:self.statusBarMenu];
+    [self.statusItem setHighlightMode:YES];
+}
+
+- (IBAction)quitApplication:(id)sender
+{
+    [[NSApplication sharedApplication] terminate:self];
 }
 
 - (void)windowDidLoad

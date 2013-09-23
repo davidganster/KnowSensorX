@@ -21,6 +21,7 @@
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
 @property (weak) IBOutlet NSToolbar *toolbar;
+@property (strong) IBOutlet NSMenu *statusBarMenu;
 
 - (IBAction)sensorButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;

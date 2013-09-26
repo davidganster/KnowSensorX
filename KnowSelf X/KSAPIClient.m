@@ -12,6 +12,7 @@
 #import "NSManagedObject+Addons.h"
 #import "KSUserInfo.h"
 #import "KSEvent+Addons.h"
+#import "KSProject+Addons.h"
 
 @interface KSAPIClient ()
 
@@ -30,6 +31,57 @@
     });
     
     return _sharedClient;
+}
+
+
+- (void)loadProjectsWithSuccess:(void(^)(NSArray *projects))success
+                        failure:(void (^)(NSError *error))failure
+{
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:@"mirror/KCProjects" parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSError *jsonParseError = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                        options:0
+                                                          error:&jsonParseError];
+        if(!jsonParseError && [jsonObject isKindOfClass:[NSArray class]]) {
+            NSArray *projectDicts = (NSArray *)jsonObject;
+            NSMutableArray *projects = [NSMutableArray array];
+            for (NSDictionary *projectDict in projectDicts) {
+                KSProject *project = [KSProject createOrFetchWithData:projectDict
+                                                            inContext:[NSManagedObjectContext defaultContext]];
+                if(project) {
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported project from \n%@\n", projectDict);
+                    [projects addObject:project];
+
+                } else {
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import project from \n%@\n", projectDict);
+                }
+            }
+            
+            // after having created all the objects, save them and then call the success/failure blocks:
+            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
+                // the saveSuccessful flag is VERY fragile as it will be set to NO if ANY of the parent contexts have no changes!
+                if(!error) {
+                    success(projects);
+                } else {
+                    failure(error);
+                }
+            }];
+        } else {
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
+            failure(jsonParseError);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
 

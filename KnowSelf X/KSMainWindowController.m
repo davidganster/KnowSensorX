@@ -13,6 +13,9 @@
 #import "KSIdleSensor.h"
 #import "KSSensorViewController.h"
 #import "KSSettingsViewController.h"
+#import "KSProject+Addons.h"
+
+#import "KSAPIClient.h"
 
 @interface KSMainWindowController ()
 
@@ -40,6 +43,8 @@
     [self.tabView addTabViewItem:settingsTabViewItem];
         
     [self createMenubarItem];
+    
+    
 //    NSString *exePath = [[NSBundle mainBundle] executablePath];
 //    CFStringRef stringRef = (__bridge CFStringRef)exePath;
 //    AXMakeProcessTrusted(stringRef);
@@ -56,6 +61,35 @@
     [self.statusItem setMenu:self.statusBarMenu];
     [self.statusItem setHighlightMode:YES];
 }
+
+- (void)updateProjectMenuWithProjects:(NSArray *)projects
+{
+    [self.projectsMenu removeAllItems];
+    for (KSProject *project in projects) {
+        // TODO: maybe use custom menu items here for convenience of getting the object later
+        NSMenuItem *projectMenuItem = [[NSMenuItem alloc] initWithTitle:project.name
+                                                                 action:@selector(projectClicked:)
+                                                          keyEquivalent:@""];
+        [projectMenuItem setTarget:self];
+        
+        [self.projectsMenu addItem:projectMenuItem];
+    }
+}
+
+- (void)projectClicked:(NSMenuItem *)projectMenuItem
+{
+    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"project clicked!");
+}
+
+- (IBAction)getProjectsMenuItemAction:(id)sender
+{
+    [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
+        [self updateProjectMenuWithProjects:projects];
+    } failure:^(NSError *error) {
+        LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to get project list: %@", error);
+    }];
+}
+
 
 - (IBAction)quitApplication:(id)sender
 {

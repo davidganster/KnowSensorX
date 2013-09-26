@@ -10,7 +10,7 @@
 
 @implementation KSUserInfo
 
-+(KSUserInfo *)sharedUserInfo
++ (KSUserInfo *)sharedUserInfo
 {
     static KSUserInfo *_sharedUserInfo = nil;
     static dispatch_once_t onceToken;

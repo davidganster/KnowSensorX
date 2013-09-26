@@ -8,6 +8,7 @@
 
 #import "KSAppDelegate.h"
 #import "KSMainWindowController.h"
+#import "KSAPIClient.h"
 
 @interface KSAppDelegate ()
 
@@ -21,14 +22,15 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    [self startKnowServer];
+    
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
     
-    LoggerSetOptions(LoggerGetDefaultLogger(), kLoggerOption_LogToConsole |
+    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
                                                kLoggerOption_BrowseBonjour);
     
-    [self startKnowServer];
 }
 
 
@@ -41,10 +43,16 @@
     [self.knowServerTask setLaunchPath:kKSKnowServerPaxRunnerPath];
     [self.knowServerTask setArguments:kKSKnowServerPaxRunnerArgs];
     [self.knowServerTask setStandardInput:inputPipe];
-    [self.knowServerTask setStandardOutput:nil];
+//    [self.knowServerTask setStandardOutput:nil];
     [self.knowServerTask launch];
     
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer started.");
+    
+//    sleep(10);
+//    NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
+//    
+//    NSData *queryBytes = [@"ss\n" dataUsingEncoding:NSUTF8StringEncoding];
+//    [writeHandle writeData: queryBytes];
 }
 
 - (void)stopKnowServer
@@ -91,6 +99,5 @@
 {
     return NO;
 }
-
 
 @end

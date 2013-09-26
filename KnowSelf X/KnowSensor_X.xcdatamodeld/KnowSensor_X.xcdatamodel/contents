@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3394" systemVersion="13A558" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3394" systemVersion="13A584" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="KSActivity" representedClassName="KSActivity" syncable="YES">
+        <attribute name="activityID" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="id"/>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="end_date"/>
+                <entry key="mappedKeyName" value="end_date"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="activity"/>
+                <entry key="mappedKeyName" value="activity"/>
+            </userInfo>
+        </attribute>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="start_date"/>
+                <entry key="mappedKeyName" value="start_date"/>
+            </userInfo>
+        </attribute>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSProject" inverseName="activities" inverseEntity="KSProject" syncable="YES">
+            <userInfo>
+                <entry key="ignoreOnExport" value="YES"/>
+                <entry key="mappedKeyName" value="skip"/>
+            </userInfo>
+        </relationship>
+    </entity>
     <entity name="KSEvent" representedClassName="KSEvent" syncable="YES">
         <attribute name="sensorID" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -58,9 +90,27 @@
             </userInfo>
         </attribute>
     </entity>
+    <entity name="KSProject" representedClassName="KSProject" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectID" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="id"/>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSActivity" inverseName="project" inverseEntity="KSActivity" syncable="YES">
+            <userInfo>
+                <entry key="ignoreOnExport" value="YES"/>
+                <entry key="mappedKeyName" value="skip"/>
+            </userInfo>
+        </relationship>
+    </entity>
     <elements>
+        <element name="KSActivity" positionX="-2297" positionY="-2380" width="128" height="118"/>
         <element name="KSEvent" positionX="-1973" positionY="-2583" width="128" height="88"/>
         <element name="KSFocusEvent" positionX="-2052" positionY="-2394" width="128" height="148"/>
         <element name="KSIdleEvent" positionX="-1908" positionY="-2377" width="128" height="73"/>
+        <element name="KSProject" positionX="-2324" positionY="-2536" width="128" height="103"/>
     </elements>
 </model>

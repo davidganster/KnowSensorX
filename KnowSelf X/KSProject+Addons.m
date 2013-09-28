@@ -14,6 +14,8 @@
                             inContext:(NSManagedObjectContext *)context
 {
     NSString *projectID = [data objectForKey:@"id"];
+    if(!projectID) return nil; // no id, no valid object.
+    
     KSProject *project = [KSProject findFirstByAttribute:@"projectID"
                                                withValue:projectID
                                                inContext:context];

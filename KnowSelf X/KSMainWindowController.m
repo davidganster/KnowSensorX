@@ -13,7 +13,10 @@
 #import "KSIdleSensor.h"
 #import "KSSensorViewController.h"
 #import "KSSettingsViewController.h"
+
+
 #import "KSProject+Addons.h"
+#import "KSActivity+Addons.h"
 
 #import "KSAPIClient.h"
 
@@ -57,7 +60,7 @@
 - (void)createMenubarItem
 {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    [self.statusItem setTitle:@"KSX"];
+    [self.statusItem setTitle:@"KSX"]; // TODO: get icon from Stefan.
     [self.statusItem setMenu:self.statusBarMenu];
     [self.statusItem setHighlightMode:YES];
 }
@@ -78,18 +81,39 @@
 
 - (void)projectClicked:(NSMenuItem *)projectMenuItem
 {
-    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"project clicked!");
+    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Project clicked!");
 }
 
 - (IBAction)getProjectsMenuItemAction:(id)sender
 {
     [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
         [self updateProjectMenuWithProjects:projects];
+        KSProject *project = projects[0];
+        NSString *projectID = project.projectID;
+        
+        
+        KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
+        [activity setStartDate:[NSDate date]];
+        [activity setProjectName:projectID];
+        [activity setActivityID:@""];
+        [activity setName:@"I'm programming right now!"];
+        
+        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
+            NSLog(@"");
+        } failure:^(NSError *error) {
+            NSLog(@"");
+        }];
+        
     } failure:^(NSError *error) {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to get project list: %@", error);
     }];
 }
 
+- (IBAction)bringWindowToFront:(id)sender
+{
+    [NSApp activateIgnoringOtherApps:YES];
+    [self showWindow:self];
+}
 
 - (IBAction)quitApplication:(id)sender
 {

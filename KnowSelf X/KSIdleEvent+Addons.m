@@ -20,7 +20,7 @@
 - (BOOL)exportIdleSinceTimestamp:(NSMutableDictionary *)result
 {
     static NSString *key = @"Idlesincetimestamp";
-    NSString *idleTimeString = [self dateAsString:self.idleSinceTimestamp];
+    NSString *idleTimeString = [KSUtils dateAsString:self.idleSinceTimestamp];
     if(idleTimeString)
         [result setObject:idleTimeString forKey:key];
     else

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A317F7512200BC7282 /* KSActivity+Addons.m */; };
+		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
 		EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
 		EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
 		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
@@ -108,6 +110,10 @@
 
 /* Begin PBXFileReference section */
 		EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
+		EF0840A217F7512200BC7282 /* KSActivity+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSActivity+Addons.h"; sourceTree = "<group>"; };
+		EF0840A317F7512200BC7282 /* KSActivity+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSActivity+Addons.m"; sourceTree = "<group>"; };
+		EF0840A817F76AB600BC7282 /* KSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUtils.h; sourceTree = "<group>"; };
+		EF0840A917F76AB600BC7282 /* KSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUtils.m; sourceTree = "<group>"; };
 		EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSFocusEvent+Properties.h"; sourceTree = "<group>"; };
 		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
 		EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSEvent+Addons.h"; sourceTree = "<group>"; };
@@ -660,6 +666,8 @@
 				EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */,
 				EF7FE46317F30CEC0032ADF2 /* KSProject+Addons.h */,
 				EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */,
+				EF0840A217F7512200BC7282 /* KSActivity+Addons.h */,
+				EF0840A317F7512200BC7282 /* KSActivity+Addons.m */,
 			);
 			name = "CoreData+Categories";
 			sourceTree = "<group>";
@@ -683,6 +691,8 @@
 				EFE8F31D17BD2F6A00D6369E /* KSGlobals.h */,
 				EF99933517C413DC002E7458 /* KSUserInfo.h */,
 				EF99933617C413DC002E7458 /* KSUserInfo.m */,
+				EF0840A817F76AB600BC7282 /* KSUtils.h */,
+				EF0840A917F76AB600BC7282 /* KSUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -809,6 +819,7 @@
 			files = (
 				EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */,
 				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
+				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
 				EFA6714F17BBF98500C43BB0 /* NSManagedObject+MagicalRequests.m in Sources */,
 				EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */,
@@ -852,6 +863,7 @@
 				EFE8F31617BD258400D6369E /* KSFocusEvent+Addons.m in Sources */,
 				EFA6714A17BBF98500C43BB0 /* NSString+MagicalDataImport.m in Sources */,
 				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
+				EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
 				EFA6714817BBF98500C43BB0 /* NSObject+MagicalDataImport.m in Sources */,
 				EFA6718817BBFAD300C43BB0 /* AFURLConnectionOperation.m in Sources */,

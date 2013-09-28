@@ -27,5 +27,6 @@
 - (IBAction)sensorButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)getProjectsMenuItemAction:(id)sender;
+- (IBAction)bringWindowToFront:(id)sender;
 
 @end

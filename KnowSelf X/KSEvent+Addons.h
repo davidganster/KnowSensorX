@@ -10,7 +10,6 @@
 
 @interface KSEvent (Addons)
 
--(NSString *)timestampAsString;
--(NSString *)typeAsString;
--(NSString *)dateAsString:(NSDate *)date;
+- (NSString *)timestampAsString;
+- (NSString *)typeAsString;
 @end

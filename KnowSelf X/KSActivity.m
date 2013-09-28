@@ -2,7 +2,7 @@
 //  KSActivity.m
 //  KnowSensor X
 //
-//  Created by David Ganster on 26/09/13.
+//  Created by David Ganster on 28/09/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.
 //
 
@@ -16,6 +16,8 @@
 @dynamic endDate;
 @dynamic name;
 @dynamic startDate;
+@dynamic color;
+@dynamic projectName;
 @dynamic project;
 
 @end

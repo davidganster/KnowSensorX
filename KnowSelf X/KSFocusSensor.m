@@ -48,12 +48,9 @@
         if(self.previousApplication.processIdentifier == frontApp.processIdentifier &&
            ([self.previousFileOrUrl isEqualToString:fileOrUrl] || self.previousFileOrUrl == fileOrUrl)) {
             // nothing has changed since the last poll
-//            LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Nothing changed, will not record event.");
             return;
         }
         
-//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"New application: %@ with url: %@", frontApp.localizedName, fileOrUrl);
-
         KSFocusEvent *loseFocusEvent = nil;
         if(self.previousApplication) {
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
@@ -94,8 +91,9 @@
     [currentEvent setSensorID:self.sensorID];
     
     // TODO: filepath and window title shouldn't be the same
-    [currentEvent setFilePath:fileOrUrl];
-    [currentEvent setWindowTitle:fileOrUrl];
+    
+    [currentEvent setFilePath:fileOrUrl ?: @""];
+    [currentEvent setWindowTitle:fileOrUrl ?: application.localizedName];
     [currentEvent setScreenshotPath:nil];
     [currentEvent setType:type];
     return currentEvent;

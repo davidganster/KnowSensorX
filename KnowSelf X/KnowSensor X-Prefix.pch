@@ -15,6 +15,7 @@
     #import "CoreData+MagicalRecord.h"
 
     #import "KSGlobals.h"
+    #import "KSUtils.h"
     #import "LoggerClient.h"
 
 #endif

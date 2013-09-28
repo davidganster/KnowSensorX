@@ -13,6 +13,7 @@
 #import "KSUserInfo.h"
 #import "KSEvent+Addons.h"
 #import "KSProject+Addons.h"
+#import "KSActivity+Addons.h"
 
 @interface KSAPIClient ()
 
@@ -65,7 +66,8 @@
             
             // after having created all the objects, save them and then call the success/failure blocks:
             [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
-                // the saveSuccessful flag is VERY fragile as it will be set to NO if ANY of the parent contexts have no changes!
+                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
+                // better to check the error pointer instead:
                 if(!error) {
                     success(projects);
                 } else {
@@ -84,6 +86,141 @@
     [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
+- (void)loadActiveActivity:(void(^)(KSActivity *currentActivity))success
+                   failure:(void (^)(NSError *error))failure
+{
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:@"mirror/KCActivities" parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSError *jsonParseError = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                        options:0
+                                                          error:&jsonParseError];
+        
+        if(!jsonParseError && [jsonObject isKindOfClass:[NSDictionary class]]) {
+            KSActivity *activity = [KSActivity createOrFetchWithData:jsonObject
+                                                           inContext:[NSManagedObjectContext defaultContext]];
+            if(activity) {
+                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", responseObject);
+            } else {
+                LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", responseObject);
+            }
+            // after having created all the objects, save them and then call the success/failure blocks:
+            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
+                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
+                // better to check the error pointer instead:
+                if(!error) {
+                    success(activity);
+                } else {
+                    failure(error);
+                }
+            }];
+        } else {
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
+            failure(jsonParseError);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
+}
+
+
+- (void)createProject:(KSProject *)project
+              success:(void (^)(NSString *newProjectID))success
+              failure:(void (^)(NSError *error))failure
+{
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:@"mirror/KCProjects" parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+    
+    NSDictionary *projectDict = [project dictRepresentation];
+    NSError *jsonSerializationError = nil;
+    NSData *projectData = [NSJSONSerialization dataWithJSONObject:projectDict
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&jsonSerializationError];
+    if(jsonSerializationError) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"JSON Serialization failed for object %@ (%@)", projectDict, project);
+        failure(jsonSerializationError);
+        return;
+    }
+
+    [request setHTTPBody:projectData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"CreateProject successful.");
+        NSError *jsonError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
+        if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
+            NSString *newProjectID = [responseDict objectForKey:@"id"];
+            success(newProjectID);
+        } else {
+            success(nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"CreateProject FAILED with error: %@.", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
+}
+
+
+- (void)startRecordingActivity:(KSActivity *)activity
+                       success:(void (^)(NSString *newActivityID))success
+                       failure:(void (^)(NSError *error))failure
+{
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:@"mirror/KCActivities" parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+
+    NSDictionary *activityDict = [activity dictRepresentation];
+    
+    NSError *jsonSerializationError = nil;
+    NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict
+                                                          options:NSJSONWritingPrettyPrinted
+                                                            error:&jsonSerializationError];
+    if(jsonSerializationError) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"JSON Serialization failed for object %@ (%@)", activityDict, activity);
+        failure(jsonSerializationError);
+        return;
+    }
+    
+    [request setHTTPBody:activityData];
+    
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity successful.");
+        NSError *jsonError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
+        if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
+            NSString *newActivityID = [responseDict objectForKey:@"id"];
+            success(newActivityID);
+        } else {
+            failure(jsonError); // maybe success because it technically worked?
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"StartRecordingActivity FAILED with error: %@.", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
+
+}
+
+
+- (void)stopRecordingActivity:(KSActivity *)activity
+                      success:(void (^)())success
+                      failure:(void (^)(NSError *error))failure
+{
+#error implement.
+}
 
 - (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
 {
@@ -184,7 +321,6 @@
     self = [super init];
     if(self) {
         self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kKSServerBaseURL]];
-        //[self testCall];
     }
     return self;
 }
@@ -207,7 +343,6 @@
     NSMutableDictionary *resultDict = [NSMutableDictionary new];
     [resultDict setObject:base64EncodedDataField forKey:kKSJSONKeyData];
     
-    
     [resultDict setObject:[[KSUserInfo sharedUserInfo] deviceID] forKey:kKSJSONKeyDeviceID];
     [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
     [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
@@ -216,60 +351,6 @@
     [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
     
     return resultDict;
-}
-
-
-#pragma mark DEBUG
-
-- (void)testCall
-{
-    NSDictionary *dataFieldDict = @{
-                                    @"path":@"file://C:/Repository/KnowSe/branches/Focus_Event_With_Screenshots_Integration/server/events/src/test/resources",
-                                    @"processid":@(3956),
-                                    @"processname":@"explorer",
-                                    @"runtimeid":@(171204624),
-                                    @"screenshot":[NSNull null],
-                                    @"timestamp":@"/Date(1336912505824+0200)/",
-                                    @"windowhandle":@(171204624),
-                                    @"windowtitle":@"resources"
-                                    };
-    NSData *jsonEncodedDataField = [NSJSONSerialization dataWithJSONObject:dataFieldDict
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:nil];
-    
-    NSString *base64EncodedDataField = [jsonEncodedDataField encodeBase64WithNewlines:NO];
-    
-    NSDictionary *generalDataDict = @{
-                                      @"application":@"RawCap",
-                                      @"data": base64EncodedDataField,
-                                      @"deviceid":@"OpenSourceDeviceId",
-                                      @"sensorid":@"Focus Sensor",
-                                      @"timestamp":@"2013-08-20T12:47:13.0896458Z",
-                                      @"type":@"applicationDidLoseFocus",
-                                      @"userid":@"OpenSourceUserId"
-                                      };
-    
-    NSData *generalDataDictAsData = [NSJSONSerialization dataWithJSONObject:generalDataDict
-                                                                    options:NSJSONWritingPrettyPrinted
-                                                                      error:nil];
-    
-    
-    NSString *path = @"events/applicationDidLoseFocus";
-    NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:path parameters:nil];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
-    
-    [request setHTTPBody:generalDataDictAsData];
-    
-    
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"yay!");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
-    }];
-    
-    [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
 @end

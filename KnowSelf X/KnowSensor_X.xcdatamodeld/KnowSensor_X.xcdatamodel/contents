@@ -7,6 +7,7 @@
                 <entry key="mappedKeyName" value="id"/>
             </userInfo>
         </attribute>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES">
             <userInfo>
                 <entry key="exportMappedKeyName" value="end_date"/>
@@ -17,6 +18,12 @@
             <userInfo>
                 <entry key="exportMappedKeyName" value="activity"/>
                 <entry key="mappedKeyName" value="activity"/>
+            </userInfo>
+        </attribute>
+        <attribute name="projectName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="exportMappedKeyName" value="project"/>
+                <entry key="mappedKeyName" value="project"/>
             </userInfo>
         </attribute>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES">
@@ -107,10 +114,10 @@
         </relationship>
     </entity>
     <elements>
-        <element name="KSActivity" positionX="-2297" positionY="-2380" width="128" height="118"/>
-        <element name="KSEvent" positionX="-1973" positionY="-2583" width="128" height="88"/>
-        <element name="KSFocusEvent" positionX="-2052" positionY="-2394" width="128" height="148"/>
-        <element name="KSIdleEvent" positionX="-1908" positionY="-2377" width="128" height="73"/>
-        <element name="KSProject" positionX="-2324" positionY="-2536" width="128" height="103"/>
+        <element name="KSActivity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KSEvent" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KSFocusEvent" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KSIdleEvent" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KSProject" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

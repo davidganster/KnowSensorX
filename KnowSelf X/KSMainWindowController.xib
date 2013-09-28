@@ -305,9 +305,10 @@
 						<object class="NSMenu" key="NSSubmenu" id="869803698">
 							<string key="NSTitle">Projects</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="272177443">
+								<object class="NSMenuItem" id="225641753">
 									<reference key="NSMenu" ref="869803698"/>
-									<string key="NSTitle">Projects go here!</string>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">current project/activity name</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="839880233"/>
@@ -318,6 +319,30 @@
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
 									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="839880233"/>
+									<reference key="NSMixedImage" ref="496381549"/>
+								</object>
+								<object class="NSMenuItem" id="511224974">
+									<reference key="NSMenu" ref="869803698"/>
+									<string key="NSTitle">Stop Activity &lt;x&gt;</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="839880233"/>
+									<reference key="NSMixedImage" ref="496381549"/>
+								</object>
+								<object class="NSMenuItem" id="272177443">
+									<reference key="NSMenu" ref="869803698"/>
+									<string key="NSTitle">Show all Projects</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="839880233"/>
+									<reference key="NSMixedImage" ref="496381549"/>
+								</object>
+								<object class="NSMenuItem" id="234313790">
+									<reference key="NSMenu" ref="869803698"/>
+									<string key="NSTitle">New Activity...</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="839880233"/>
@@ -441,14 +466,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showWindow:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="956667860"/>
-					</object>
-					<int key="connectionID">93</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">getProjectsMenuItemAction:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="902166222"/>
@@ -462,6 +479,14 @@
 						<reference key="destination" ref="869803698"/>
 					</object>
 					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">bringWindowToFront:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="956667860"/>
+					</object>
+					<int key="connectionID">121</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -698,7 +723,10 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="422293781"/>
 							<reference ref="27661971"/>
+							<reference ref="225641753"/>
+							<reference ref="511224974"/>
 							<reference ref="272177443"/>
+							<reference ref="234313790"/>
 						</array>
 						<reference key="parent" ref="99178063"/>
 					</object>
@@ -722,6 +750,21 @@
 						<reference key="object" ref="272177443"/>
 						<reference key="parent" ref="869803698"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">122</int>
+						<reference key="object" ref="225641753"/>
+						<reference key="parent" ref="869803698"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">123</int>
+						<reference key="object" ref="511224974"/>
+						<reference key="parent" ref="869803698"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">125</int>
+						<reference key="object" ref="234313790"/>
+						<reference key="parent" ref="869803698"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -735,6 +778,9 @@
 				<integer value="1" key="1.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="122.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="123.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="125.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<dictionary class="NSMutableDictionary" key="13.IBAttributePlaceholdersKey"/>
 				<boolean value="NO" key="13.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -775,7 +821,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">120</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -783,12 +829,17 @@
 					<string key="className">KSMainWindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="bringWindowToFront:">id</string>
 						<string key="getProjectsMenuItemAction:">id</string>
 						<string key="quitApplication:">id</string>
 						<string key="sensorButtonPressed:">id</string>
 						<string key="settingsButtonPressed:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="bringWindowToFront:">
+							<string key="name">bringWindowToFront:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="getProjectsMenuItemAction:">
 							<string key="name">getProjectsMenuItemAction:</string>
 							<string key="candidateClassName">id</string>

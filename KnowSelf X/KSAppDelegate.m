@@ -9,6 +9,7 @@
 #import "KSAppDelegate.h"
 #import "KSMainWindowController.h"
 #import "KSAPIClient.h"
+#import "KSSensorController.h"
 
 @interface KSAppDelegate ()
 
@@ -80,6 +81,9 @@
 {
     // Save changes in the application's managed object context before the application terminates.
     [MagicalRecord cleanUp];
+    
+    // stop all event recording for smooth shutdown
+    [[KSSensorController sharedSensorController] stopRecordingEvents];
     
     // tear down KnowServer as well
     if([self.knowServerTask isRunning])

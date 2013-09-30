@@ -219,7 +219,42 @@
                       success:(void (^)())success
                       failure:(void (^)(NSError *error))failure
 {
-#error implement.
+    NSString *path = [NSString stringWithFormat:@"mirror/KCActivities/@%@", activity.activityID];
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"PUT" path:path parameters:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+    
+    NSDictionary *activityDict = [activity dictRepresentation];
+    
+    NSError *jsonSerializationError = nil;
+    NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&jsonSerializationError];
+    if(jsonSerializationError) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"JSON Serialization failed for object %@ (%@)", activityDict, activity);
+        failure(jsonSerializationError);
+        return;
+    }
+    
+    [request setHTTPBody:activityData];
+    
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity successful.");
+        NSError *jsonError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
+        if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
+            NSString *newActivityID = [responseDict objectForKey:@"id"];
+            success(newActivityID);
+        } else {
+            failure(jsonError); // maybe success because it technically worked?
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"StopRecordingActivity FAILED with error: %@.", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
 - (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block

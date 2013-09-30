@@ -11,9 +11,9 @@
 #import "KSFocusEvent+Addons.h"
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
-#import "KSSensorViewController.h"
 #import "KSSettingsViewController.h"
-
+#import "KSProjectsViewController.h"
+#import "KSSensorController.h"
 
 #import "KSProject+Addons.h"
 #import "KSActivity+Addons.h"
@@ -31,22 +31,25 @@
 - (void)awakeFromNib
 {
     // init viewControllers
-    KSSensorViewController *sensorViewController = [[KSSensorViewController alloc] init];
     KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
+    KSProjectsViewController *projectsViewController = [[KSProjectsViewController alloc] init];
     
-    self.tabViewControllers = @[sensorViewController, settingsViewController];
+    self.tabViewControllers = @[projectsViewController, settingsViewController];
     
-    NSTabViewItem *sensorTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSensorTabViewIdentifier];
-    [sensorTabViewItem setView:sensorViewController.view];
+    NSTabViewItem *projectsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSProjectsTabViewIdentifier];
+    [projectsTabViewItem setView:projectsViewController.view];
     
     NSTabViewItem *settingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSettingsTabViewIdentifier];
     [settingsTabViewItem setView:settingsViewController.view];
     
-    [self.tabView addTabViewItem:sensorTabViewItem];
+    [self.tabView addTabViewItem:projectsTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
-        
+    
     [self createMenubarItem];
     
+    
+    // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
+    [[KSSensorController sharedSensorController] startRecordingEvents];
     
 //    NSString *exePath = [[NSBundle mainBundle] executablePath];
 //    CFStringRef stringRef = (__bridge CFStringRef)exePath;
@@ -123,16 +126,28 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self.toolbar setSelectedItemIdentifier:@"Sensors"];
+    [self.toolbar setSelectedItemIdentifier:@"Projects"];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-- (IBAction)sensorButtonPressed:(id)sender {
-    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
+- (IBAction)projectsButtonPressed:(id)sender {
+    [self.tabView selectTabViewItemWithIdentifier:kKSProjectsTabViewIdentifier];
+    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
+                                                      self.window.frame.origin.y,
+                                                      self.window.frame.size.width,
+                                                      504))
+                  display:YES
+                  animate:YES];
 }
 
 - (IBAction)settingsButtonPressed:(id)sender {
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
+                                                      self.window.frame.origin.y,
+                                                      self.window.frame.size.width,
+                                                      200))
+                  display:YES
+                  animate:YES];
 }
 
 @end

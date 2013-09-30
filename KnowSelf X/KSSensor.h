@@ -36,8 +36,8 @@
 
 // public API, not meant for subclassing:
 - (id)initWithDelegate:(id<KSSensorDelegateProtocol>) delegate;
-- (void)startRecordingEvents;
-- (void)stopRecordingEvents;
+- (BOOL)startRecordingEvents;
+- (BOOL)stopRecordingEvents;
 
 @end
 

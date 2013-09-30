@@ -17,14 +17,15 @@
 
 @property(nonatomic, strong) NSArray *tabViewControllers;
 
-@property (weak) IBOutlet NSToolbarItem *sensorToolbarItem;
+@property (weak) IBOutlet NSToolbarItem *projectsToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
 @property (weak) IBOutlet NSToolbar *toolbar;
 @property (strong) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenu *projectsMenu;
+@property (weak) IBOutlet NSView *testView;
 
-- (IBAction)sensorButtonPressed:(id)sender;
+- (IBAction)projectsButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)getProjectsMenuItemAction:(id)sender;
 - (IBAction)bringWindowToFront:(id)sender;

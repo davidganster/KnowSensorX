@@ -21,23 +21,28 @@
     return self;
 }
 
-- (void)startRecordingEvents
+- (BOOL)startRecordingEvents
 {
-    if([self _registerForEvents])
+    BOOL success = NO;
+    if((success = [self _registerForEvents]))
       [self setActive:YES];
     else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not register sensor '%@' for events!", self.name);
     }
+    return success;
 }
 
 
-- (void)stopRecordingEvents
+- (BOOL)stopRecordingEvents
 {
-    if([self _unregisterForEvents])
+    BOOL success = NO;
+    if((success = [self _unregisterForEvents]))
         [self setActive:NO];
     else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not unregister sensor '%@' for events!", self.name);
     }
+    
+    return success;
 }
 
 

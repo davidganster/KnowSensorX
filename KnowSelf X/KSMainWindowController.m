@@ -57,7 +57,7 @@
 //    if(!AXAPIEnabled()) {
 //        NSLog(@"Access for assistive devices must be enabled for this application to work properly");
 //    }
-//    [self.tabView selectTabViewItemWithIdentifier:kKSSensorTabViewIdentifier];
+    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 
 - (void)createMenubarItem
@@ -126,28 +126,28 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self.toolbar setSelectedItemIdentifier:@"Projects"];
+    [self.toolbar setSelectedItemIdentifier:@"Settings"];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
 - (IBAction)projectsButtonPressed:(id)sender {
-    [self.tabView selectTabViewItemWithIdentifier:kKSProjectsTabViewIdentifier];
     [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
                                                       self.window.frame.origin.y,
-                                                      self.window.frame.size.width,
+                                                      338,
                                                       504))
                   display:YES
                   animate:YES];
+    [self.tabView selectTabViewItemWithIdentifier:kKSProjectsTabViewIdentifier];
 }
 
 - (IBAction)settingsButtonPressed:(id)sender {
-    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
     [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
                                                       self.window.frame.origin.y,
-                                                      self.window.frame.size.width,
-                                                      200))
+                                                      338,
+                                                      500))
                   display:YES
                   animate:YES];
+    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 
 @end

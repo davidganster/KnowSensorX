@@ -355,7 +355,8 @@
 {
     self = [super init];
     if(self) {
-        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kKSServerBaseURL]];
+        NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
+        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
     }
     return self;
 }

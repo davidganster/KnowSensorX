@@ -62,6 +62,12 @@ typedef enum KSEventTypeEnum {
     KSEventTypeIdleEnd
 } KSEventType;
 
+//------------------------------------------------------------------------------
+// User Defaults Keys
+//------------------------------------------------------------------------------
+#define kKSUserInfoUserNameKey @"UserName"
+#define kKSUserInfoDeviceNameKey @"DeviceName"
+#define kKSUserInfoServerAddressKey @"ServerAddress"
 
 //------------------------------------------------------------------------------
 // General Constants
@@ -78,6 +84,7 @@ typedef enum KSEventTypeEnum {
 #define kKSKnowServerPaxRunnerPath @"/Library/Services/KnowSelf/KnowServer/pax-run.sh"
 #define kKSKnowServerPaxRunnerArgs @[@"--args=file:/Library/Services/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]
 #define kKSKnowServerCommandCloseServer @"close\n"
+
 
 //------------------------------------------------------------------------------
 // Logging Levels

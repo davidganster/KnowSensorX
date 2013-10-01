@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 @interface KSSettingsViewController : NSViewController
+
 @property (weak) IBOutlet NSView *hackToFixIB;
+@property (weak) IBOutlet NSTextField *userNameTextField;
+@property (weak) IBOutlet NSTextField *serverAddressTextField;
 
 @end

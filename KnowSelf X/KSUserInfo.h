@@ -12,6 +12,7 @@
 
 @property(nonatomic, strong) NSString *deviceID;
 @property(nonatomic, strong) NSString *userID;
+@property(nonatomic, strong) NSString *serverAddress;
 
 + (KSUserInfo *)sharedUserInfo;
 

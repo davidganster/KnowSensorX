@@ -97,6 +97,7 @@
 		EFE8F32317BD3B3E00D6369E /* KSIdleSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F32217BD3B3E00D6369E /* KSIdleSensor.m */; };
 		EFE8F32817BD3BE100D6369E /* KSMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F32617BD3BE100D6369E /* KSMainWindowController.m */; };
 		EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFE8F32717BD3BE100D6369E /* KSMainWindowController.xib */; };
+		EFF2572E17FB17DE00D2C72C /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF2572D17FB17DE00D2C72C /* LaunchAtLoginController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +286,8 @@
 		EFE8F32517BD3BE100D6369E /* KSMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMainWindowController.h; sourceTree = "<group>"; };
 		EFE8F32617BD3BE100D6369E /* KSMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMainWindowController.m; sourceTree = "<group>"; };
 		EFE8F32717BD3BE100D6369E /* KSMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSMainWindowController.xib; sourceTree = "<group>"; };
+		EFF2572C17FB17DE00D2C72C /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
+		EFF2572D17FB17DE00D2C72C /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +431,7 @@
 		EFA6710717BBF95100C43BB0 /* Additional Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EFF2572B17FB171B00D2C72C /* LaunchAtLoginController */,
 				EFA6718B17BBFB2400C43BB0 /* JSONKit */,
 				EFA6716E17BBFAD200C43BB0 /* AFNetworking */,
 				EFA6716117BBF9D100C43BB0 /* NDAppleEvents */,
@@ -726,6 +730,15 @@
 			name = "Views&Windows";
 			sourceTree = "<group>";
 		};
+		EFF2572B17FB171B00D2C72C /* LaunchAtLoginController */ = {
+			isa = PBXGroup;
+			children = (
+				EFF2572C17FB17DE00D2C72C /* LaunchAtLoginController.h */,
+				EFF2572D17FB17DE00D2C72C /* LaunchAtLoginController.m */,
+			);
+			name = LaunchAtLoginController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -851,6 +864,7 @@
 				EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */,
 				EFA6715117BBF98500C43BB0 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				EFA6715417BBF98500C43BB0 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				EFF2572E17FB17DE00D2C72C /* LaunchAtLoginController.m in Sources */,
 				EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */,
 				EFA6715C17BBF98500C43BB0 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				EFE8F30B17BD1BE800D6369E /* NSString+Repeat.m in Sources */,

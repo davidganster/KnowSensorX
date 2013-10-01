@@ -26,10 +26,60 @@
 {
     self = [super init];
     if(self) {
-        self.deviceID = @"TODO SAVE DEVICE ID IN USER DEFAULTS";
-        self.userID = @"TODO SAVE USER ID IN USER DEFAULTS";
+        [self loadValuesFromUserDefaults];
     }
     return self;
+}
+
+- (void)loadValuesFromUserDefaults
+{
+    _deviceID = [[NSUserDefaults standardUserDefaults] stringForKey:kKSUserInfoDeviceNameKey];
+    if(!_deviceID) {
+        _deviceID = (__bridge NSString *)SCDynamicStoreCopyComputerName(NULL, NULL);
+        [[NSUserDefaults standardUserDefaults] setObject:_deviceID forKey:kKSUserInfoDeviceNameKey];
+    }
+    
+    _userID = [[NSUserDefaults standardUserDefaults] stringForKey:kKSUserInfoUserNameKey];
+    if(!_userID) {
+        _userID = NSFullUserName();
+        [[NSUserDefaults standardUserDefaults] setObject:_userID forKey:kKSUserInfoUserNameKey];
+    }
+    
+    _serverAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kKSUserInfoServerAddressKey];
+    if(!_serverAddress) {
+        _serverAddress = @"127.0.0.1:8182";
+        [[NSUserDefaults standardUserDefaults] setObject:_serverAddress forKey:kKSUserInfoServerAddressKey];
+    }
+}
+
+
+#pragma mark Setters
+
+- (void)setUserID:(NSString *)userID
+{
+    _userID = userID;
+    if(userID == nil)
+        [[NSUserDefaults standardUserDefaults] setNilValueForKey:kKSUserInfoUserNameKey];
+    else
+        [[NSUserDefaults standardUserDefaults] setObject:userID forKey:kKSUserInfoUserNameKey];
+}
+
+- (void)setDeviceID:(NSString *)deviceID
+{
+    _deviceID = deviceID;
+    if(deviceID == nil)
+       [[NSUserDefaults standardUserDefaults] setNilValueForKey:kKSUserInfoDeviceNameKey];
+    else
+        [[NSUserDefaults standardUserDefaults] setObject:_deviceID forKey:kKSUserInfoDeviceNameKey];
+}
+
+- (void)setServerAddress:(NSString *)serverAddress
+{
+    _serverAddress = serverAddress;
+    if(!serverAddress)
+        [[NSUserDefaults standardUserDefaults] setNilValueForKey:kKSUserInfoServerAddressKey];
+    else
+        [[NSUserDefaults standardUserDefaults] setObject:_serverAddress forKey:kKSUserInfoServerAddressKey];
 }
 
 

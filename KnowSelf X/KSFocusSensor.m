@@ -15,6 +15,7 @@
 
 @property(nonatomic, strong) NSRunningApplication *previousApplication;
 @property(nonatomic, strong) NSString *previousFileOrUrl;
+@property(nonatomic, strong) NSString *previousWindowTitle;
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) dispatch_queue_t applescriptQueue;
 
@@ -44,7 +45,7 @@
     dispatch_async(self.applescriptQueue, ^{
         NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
         NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
-        
+        NSString *windowTitle = [self windowTitleOfApplication:frontApp];
         if(self.previousApplication.processIdentifier == frontApp.processIdentifier &&
            ([self.previousFileOrUrl isEqualToString:fileOrUrl] || self.previousFileOrUrl == fileOrUrl)) {
             // nothing has changed since the last poll
@@ -55,13 +56,17 @@
         if(self.previousApplication) {
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
+                                                  windowTitle:self.previousWindowTitle
                                                          type:KSEventTypeDidLoseFocus];
         }
         
         self.previousApplication = frontApp;
         self.previousFileOrUrl = fileOrUrl;
+        self.previousWindowTitle = windowTitle;
+        
         KSFocusEvent *currentEvent = [self createEventFromApplication:frontApp
                                                           withFileUrl:fileOrUrl
+                                                          windowTitle:windowTitle
                                                                  type:KSEventTypeDidGetFocus];
         
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
@@ -82,6 +87,7 @@
 
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
                                  withFileUrl:(NSString *)fileOrUrl
+                                 windowTitle:(NSString *)windowTitle
                                         type:(KSEventType)type
 {
     KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext defaultContext]];
@@ -93,7 +99,7 @@
     // TODO: filepath and window title shouldn't be the same
     
     [currentEvent setFilePath:fileOrUrl ?: @""];
-    [currentEvent setWindowTitle:fileOrUrl ?: application.localizedName];
+    [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
     [currentEvent setScreenshotPath:nil];
     [currentEvent setType:type];
     return currentEvent;
@@ -102,41 +108,83 @@
 
 - (NSString *)urlOrFileOfApplication:(NSRunningApplication *)application
 {
-    NSAppleScript *script = nil;
-    NSAppleEventDescriptor *descriptor;
-    NSString *pathAsString = nil;
+    NSString *scriptName = nil;
     NSString *functionName = nil;
     
     if([self isBrowser:application]) {
-        pathAsString = [[NSBundle mainBundle] pathForResource:@"UrlFromBrowser"
-                                                       ofType:@"scpt"];
+        scriptName = @"UrlFromBrowser";
         functionName = @"getactiveurl";
     } else {
         
-        pathAsString = [[NSBundle mainBundle] pathForResource:@"ActiveFile"
-                                                       ofType:@"scpt"];
+        scriptName = @"ActiveFile";
         functionName = @"getactivefile";
     }
-    NSURL *url = [NSURL fileURLWithPath:pathAsString];
-    NSDictionary *errorDict = nil;
-    script = [[NSAppleScript alloc] initWithContentsOfURL:url error:&errorDict];
-    descriptor = [[NSAppleEventDescriptor alloc] initWithSubroutineName:functionName
-                                                         argumentsArray:@[application.localizedName]];
-    
     NSDictionary *errorInfo = nil;
-    NSAppleEventDescriptor *result = [script executeAppleEvent:descriptor error:&errorInfo];
+    NSAppleEventDescriptor *result = [self executeApplescriptWithName:scriptName
+                                                         functionName:functionName
+                                                            arguments:@[application.localizedName]
+                                                      errorDictionary:&errorInfo];
     
-    if(errorInfo)
-        NSLog(@"Error info = %@", errorInfo);
+    if(errorInfo) {
+        LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing AppleScript: %@", errorInfo);
+    }
+    
     return [result stringValue];
 }
 
+- (NSString *)windowTitleOfApplication:(NSRunningApplication *)application
+{
+    NSDictionary *errorDict;
+    NSAppleEventDescriptor *result = [self executeApplescriptWithName:@"WindowTitle"
+                                                         functionName:@"getwindowtitle"
+                                                            arguments:@[application.localizedName]
+                                                      errorDictionary:&errorDict];
+    if(errorDict) {
+        LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing Applescript: %@", errorDict);
+        return nil;
+    }
+    return [result stringValue];
+}
+
+#pragma mark HELPER
 - (BOOL)isBrowser:(NSRunningApplication *)application
 {
     static NSSet *browserNames = nil;
     if(!browserNames)
         browserNames = [NSSet setWithObjects:@"Safari", @"Google Chrome", @"Opera", nil];
     return [browserNames containsObject:application.localizedName];
+}
+
+- (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
+                                          functionName:(NSString *)functionName
+                                             arguments:(NSArray *)args
+                                       errorDictionary:(NSDictionary **)errorDict
+{
+    NSString *pathAsString = [[NSBundle mainBundle] pathForResource:scriptName
+                                                             ofType:@"scpt"];
+    
+    if(!pathAsString) {
+        *errorDict = @{@"info" : [NSString stringWithFormat:@"Script with name %@ not found in main bundle.", scriptName]};
+        return nil;
+    }
+    
+    NSAppleEventDescriptor *descriptor;
+    
+    NSURL *url = [NSURL fileURLWithPath:pathAsString];
+    NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:url error:errorDict];
+    
+    if(*errorDict) {
+        return nil;
+    }
+    
+    descriptor = [[NSAppleEventDescriptor alloc] initWithSubroutineName:functionName
+                                                         argumentsArray:args];
+    
+    NSAppleEventDescriptor *result = [script executeAppleEvent:descriptor error:errorDict];
+    
+    if(*errorDict)
+        return nil;
+    return result;
 }
 
 @end

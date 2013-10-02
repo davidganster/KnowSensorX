@@ -2297,7 +2297,7 @@ static void	LoggerPushClientInfoToFrontOfQueue(Logger *logger)
 			if ([versionString length])
 			{
 				osName = CFSTR("Mac OS X");
-				osVersion = CFRetain((CFStringRef)versionString);
+				osVersion = CFRetain((__bridge CFStringRef)versionString);
 			}
 		}
 		@catch (NSException *exc)

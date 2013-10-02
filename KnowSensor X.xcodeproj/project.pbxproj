@@ -13,10 +13,13 @@
 		EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A317F7512200BC7282 /* KSActivity+Addons.m */; };
 		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
 		EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
-		EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
 		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
 		EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */; };
+		EF1618B617FC91060026078D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B517FC91060026078D /* Carbon.framework */; };
+		EF1618B817FC913F0026078D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B717FC913F0026078D /* Security.framework */; };
 		EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */; };
+		EF59A71A17FC84B500847258 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
+		EF59A71E17FC899400847258 /* WindowTitle.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EF59A71B17FC857400847258 /* WindowTitle.scpt */; };
 		EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE45E17F308B80032ADF2 /* KSProject.m */; };
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
 		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
@@ -125,9 +128,12 @@
 		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
 		EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSEvent+Addons.h"; sourceTree = "<group>"; };
 		EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSEvent+Addons.m"; sourceTree = "<group>"; };
+		EF1618B517FC91060026078D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
+		EF1618B717FC913F0026078D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		EF4ED9CA17E8A1200013DCAD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		EF4ED9CC17E8A1200013DCAD /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
+		EF59A71B17FC857400847258 /* WindowTitle.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WindowTitle.scpt; sourceTree = "<group>"; };
 		EF7FE45D17F308B80032ADF2 /* KSProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProject.h; sourceTree = "<group>"; };
 		EF7FE45E17F308B80032ADF2 /* KSProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProject.m; sourceTree = "<group>"; };
 		EF7FE46017F308B90032ADF2 /* KSActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSActivity.h; sourceTree = "<group>"; };
@@ -295,6 +301,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF1618B817FC913F0026078D /* Security.framework in Frameworks */,
+				EF1618B617FC91060026078D /* Carbon.framework in Frameworks */,
 				EFABBDF117C2CEF200043481 /* libcrypto.dylib in Frameworks */,
 				EFA6719317BBFD3600C43BB0 /* SystemConfiguration.framework in Frameworks */,
 				EFA670D117BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */,
@@ -354,6 +362,8 @@
 		EFA670CF17BBF6DE00C43BB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF1618B717FC913F0026078D /* Security.framework */,
+				EF1618B517FC91060026078D /* Carbon.framework */,
 				EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */,
 				EFABBDF017C2CEF200043481 /* libcrypto.dylib */,
 				EFA6710717BBF95100C43BB0 /* Additional Libraries */,
@@ -547,6 +557,7 @@
 			children = (
 				EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */,
 				EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */,
+				EF59A71B17FC857400847258 /* WindowTitle.scpt */,
 			);
 			name = AppleScripts;
 			sourceTree = "<group>";
@@ -820,9 +831,10 @@
 				EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */,
 				EF051F8717F9D5320013065F /* KSProjectsViewController.xib in Resources */,
 				EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */,
+				EF59A71E17FC899400847258 /* WindowTitle.scpt in Resources */,
 				EFA670EC17BBF6DE00C43BB0 /* Images.xcassets in Resources */,
+				EF59A71A17FC84B500847258 /* ActiveFile.scpt in Resources */,
 				EFA670E117BBF6DE00C43BB0 /* Credits.rtf in Resources */,
-				EF102BBE17C9260A00A04153 /* ActiveFile.scpt in Resources */,
 				EF102BBD17C9260800A04153 /* UrlFromBrowser.scpt in Resources */,
 				EFA670E717BBF6DE00C43BB0 /* MainMenu.xib in Resources */,
 			);
@@ -1059,7 +1071,9 @@
 				GCC_PREFIX_HEADER = "KnowSelf X/KnowSensor X-Prefix.pch";
 				INFOPLIST_FILE = "KnowSelf X/KnowSensor X-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "KnowSensor X";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1079,6 +1093,7 @@
 				INFOPLIST_FILE = "KnowSelf X/KnowSensor X-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "KnowSensor X";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -51,6 +51,10 @@
 #define kKSProjectsTabViewIdentifier @"ProjectsTabView"
 #define kKSSettingsTabViewIdentifier @"SettingsTabView"
 
+#define kKSUserNameTextFieldIdentifier @"userNameTextField"
+#define kKSDeviceNameTextFieldIdentifier @"deviceNameTextField"
+#define kKSServerAddressTextFieldIdentifier @"serverAddressTextField"
+
 //------------------------------------------------------------------------------
 // Enum Constants
 //------------------------------------------------------------------------------

@@ -47,9 +47,16 @@
     
     _serverAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kKSUserInfoServerAddressKey];
     if(!_serverAddress) {
-        _serverAddress = @"127.0.0.1:8182";
+        _serverAddress = kKSServerBaseURL;
         [[NSUserDefaults standardUserDefaults] setObject:_serverAddress forKey:kKSUserInfoServerAddressKey];
     }
+}
+
+- (void)resetToDefaults
+{
+    self.serverAddress = kKSServerBaseURL;
+    self.userID = NSFullUserName();
+    self.deviceID = (__bridge NSString *)SCDynamicStoreCopyComputerName(NULL, NULL);
 }
 
 

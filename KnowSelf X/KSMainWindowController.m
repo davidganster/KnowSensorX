@@ -131,22 +131,22 @@
 }
 
 - (IBAction)projectsButtonPressed:(id)sender {
-    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
-                                                      self.window.frame.origin.y,
-                                                      338,
-                                                      504))
-                  display:YES
-                  animate:YES];
+//    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
+//                                                      self.window.frame.origin.y,
+//                                                      338,
+//                                                      504))
+//                  display:YES
+//                  animate:YES];
     [self.tabView selectTabViewItemWithIdentifier:kKSProjectsTabViewIdentifier];
 }
 
 - (IBAction)settingsButtonPressed:(id)sender {
-    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
-                                                      self.window.frame.origin.y,
-                                                      338,
-                                                      500))
-                  display:YES
-                  animate:YES];
+//    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
+//                                                      self.window.frame.origin.y,
+//                                                      338,
+//                                                      500))
+//                  display:YES
+//                  animate:YES];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

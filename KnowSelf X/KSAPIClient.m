@@ -35,6 +35,18 @@
 }
 
 
+#pragma mark Really Private - DO NOT CALL THESE METHODS FROM OUTSIDE!
+- (id)init
+{
+    self = [super init];
+    if(self) {
+        NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
+        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
+    }
+    return self;
+}
+
+
 - (void)loadProjectsWithSuccess:(void(^)(NSArray *projects))success
                         failure:(void (^)(NSError *error))failure
 {
@@ -347,18 +359,6 @@
     }];
     
     [self.client enqueueHTTPRequestOperation:requestOperation];
-}
-
-#pragma mark Really Private - DO NOT CALL THESE METHODS FROM OUTSIDE!
-
-- (id)init
-{
-    self = [super init];
-    if(self) {
-        NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
-        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
-    }
-    return self;
 }
 
 #pragma mark Helper

@@ -15,5 +15,6 @@
 @property(nonatomic, strong) NSString *serverAddress;
 
 + (KSUserInfo *)sharedUserInfo;
+- (void)resetToDefaults;
 
 @end

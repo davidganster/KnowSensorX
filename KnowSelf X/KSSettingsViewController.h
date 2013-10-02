@@ -8,10 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface KSSettingsViewController : NSViewController
+@interface KSSettingsViewController : NSViewController<NSTextFieldDelegate>
 
 @property (weak) IBOutlet NSView *hackToFixIB;
 @property (weak) IBOutlet NSTextField *userNameTextField;
 @property (weak) IBOutlet NSTextField *serverAddressTextField;
+@property (weak) IBOutlet NSTextField *deviceNameTextField;
+
+- (IBAction)textFieldDidReturn:(NSTextField *)sender;
+- (IBAction)resetToDefaultsButtonClicked:(id)sender;
+- (IBAction)applyButtonClicked:(id)sender;
 
 @end

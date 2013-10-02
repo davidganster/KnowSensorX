@@ -144,7 +144,7 @@
     }
     [selfAsSubclass.idleTimer invalidate];
     selfAsSubclass.idleTimer = nil;
-    return NO;
+    return YES;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "KSUtils.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 
 // recreating DateFormatters is very slow, so this one is being reused:
 static NSDateFormatter *timestampFormatter;
@@ -24,6 +25,38 @@ static NSDateFormatter *timestampFormatter;
     }
     NSString *dateAsString = [timestampFormatter stringFromDate:date];
     return dateAsString;
+}
+
++ (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
+                                          functionName:(NSString *)functionName
+                                             arguments:(NSArray *)args
+                                       errorDictionary:(NSDictionary **)errorDict
+{
+    NSString *pathAsString = [[NSBundle mainBundle] pathForResource:scriptName
+                                                             ofType:@"scpt"];
+    
+    if(!pathAsString) {
+        *errorDict = @{@"info" : [NSString stringWithFormat:@"Script with name %@ not found in main bundle.", scriptName]};
+        return nil;
+    }
+    
+    NSAppleEventDescriptor *descriptor;
+    
+    NSURL *url = [NSURL fileURLWithPath:pathAsString];
+    NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:url error:errorDict];
+    
+    if(*errorDict) {
+        return nil;
+    }
+    
+    descriptor = [[NSAppleEventDescriptor alloc] initWithSubroutineName:functionName
+                                                         argumentsArray:args];
+    
+    NSAppleEventDescriptor *result = [script executeAppleEvent:descriptor error:errorDict];
+    
+    if(*errorDict)
+        return nil;
+    return result;
 }
 
 @end

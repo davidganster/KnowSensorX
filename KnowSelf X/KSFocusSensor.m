@@ -8,7 +8,6 @@
 
 #import "KSFocusSensor.h"
 #import "KSFocusEvent+Addons.h"
-#import "NSAppleEventDescriptor+NDCoercion.h"
 
 
 @interface KSFocusSensor ()
@@ -120,10 +119,10 @@
         functionName = @"getactivefile";
     }
     NSDictionary *errorInfo = nil;
-    NSAppleEventDescriptor *result = [self executeApplescriptWithName:scriptName
-                                                         functionName:functionName
-                                                            arguments:@[application.localizedName]
-                                                      errorDictionary:&errorInfo];
+    NSAppleEventDescriptor *result = [KSUtils executeApplescriptWithName:scriptName
+                                                            functionName:functionName
+                                                               arguments:@[application.localizedName]
+                                                         errorDictionary:&errorInfo];
     
     if(errorInfo) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing AppleScript: %@", errorInfo);
@@ -135,10 +134,10 @@
 - (NSString *)windowTitleOfApplication:(NSRunningApplication *)application
 {
     NSDictionary *errorDict;
-    NSAppleEventDescriptor *result = [self executeApplescriptWithName:@"WindowTitle"
-                                                         functionName:@"getwindowtitle"
-                                                            arguments:@[application.localizedName]
-                                                      errorDictionary:&errorDict];
+    NSAppleEventDescriptor *result = [KSUtils executeApplescriptWithName:@"WindowTitle"
+                                                            functionName:@"getwindowtitle"
+                                                               arguments:@[application.localizedName]
+                                                         errorDictionary:&errorDict];
     if(errorDict) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing Applescript: %@", errorDict);
         return nil;
@@ -153,38 +152,6 @@
     if(!browserNames)
         browserNames = [NSSet setWithObjects:@"Safari", @"Google Chrome", @"Opera", nil];
     return [browserNames containsObject:application.localizedName];
-}
-
-- (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
-                                          functionName:(NSString *)functionName
-                                             arguments:(NSArray *)args
-                                       errorDictionary:(NSDictionary **)errorDict
-{
-    NSString *pathAsString = [[NSBundle mainBundle] pathForResource:scriptName
-                                                             ofType:@"scpt"];
-    
-    if(!pathAsString) {
-        *errorDict = @{@"info" : [NSString stringWithFormat:@"Script with name %@ not found in main bundle.", scriptName]};
-        return nil;
-    }
-    
-    NSAppleEventDescriptor *descriptor;
-    
-    NSURL *url = [NSURL fileURLWithPath:pathAsString];
-    NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:url error:errorDict];
-    
-    if(*errorDict) {
-        return nil;
-    }
-    
-    descriptor = [[NSAppleEventDescriptor alloc] initWithSubroutineName:functionName
-                                                         argumentsArray:args];
-    
-    NSAppleEventDescriptor *result = [script executeAppleEvent:descriptor error:errorDict];
-    
-    if(*errorDict)
-        return nil;
-    return result;
 }
 
 @end

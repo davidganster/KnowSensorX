@@ -78,6 +78,24 @@
                         <action selector="bringWindowToFront:" target="-2" id="121"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show Web App" id="hCc-Jj-Swn">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showWebAppButtonPressed:" target="-2" id="QVS-MA-fEh"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Private Mode" id="2ZS-31-hLE">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="privateModeButtonPressed:" target="-2" id="rGh-vB-u3K"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Write to diary..." id="a96-Di-cgo">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="writeToDiaryButtonPressed:" target="-2" id="bSR-wg-Koc"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Projects" id="89">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Projects" id="90">
@@ -108,7 +126,8 @@
                         <action selector="getProjectsMenuItemAction:" target="-2" id="96"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Quit KnowSelf X" keyEquivalent="q" id="83">
+                <menuItem title="Quit KnowSelf X" id="83">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="quitApplication:" target="-2" id="85"/>
                     </connections>

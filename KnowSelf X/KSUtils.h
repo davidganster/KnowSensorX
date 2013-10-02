@@ -12,4 +12,8 @@
 
 + (NSString *)dateAsString:(NSDate *)date;
 
++ (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
+                                          functionName:(NSString *)functionName
+                                             arguments:(NSArray *)args
+                                       errorDictionary:(NSDictionary **)errorDict;
 @end

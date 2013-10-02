@@ -17,7 +17,7 @@
 
 #import "KSProject+Addons.h"
 #import "KSActivity+Addons.h"
-
+#import "KSUserInfo.h"
 #import "KSAPIClient.h"
 
 @interface KSMainWindowController ()
@@ -91,22 +91,21 @@
 {
     [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
         [self updateProjectMenuWithProjects:projects];
-        KSProject *project = projects[0];
-        NSString *projectID = project.projectID;
-        
-        
-        KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
-        [activity setStartDate:[NSDate date]];
-        [activity setProjectName:projectID];
-        [activity setActivityID:@""];
-        [activity setName:@"I'm programming right now!"];
-        
-        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-            NSLog(@"");
-        } failure:^(NSError *error) {
-            NSLog(@"");
-        }];
-        
+//        KSProject *project = projects[0];
+//        NSString *projectID = project.projectID;
+//        
+//        
+//        KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
+//        [activity setStartDate:[NSDate date]];
+//        [activity setProjectName:projectID];
+//        [activity setActivityID:@""];
+//        [activity setName:@"I'm programming right now!"];
+//        
+//        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
+//            NSLog(@"");
+//        } failure:^(NSError *error) {
+//            NSLog(@"");
+//        }];
     } failure:^(NSError *error) {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to get project list: %@", error);
     }];
@@ -118,6 +117,33 @@
     [self showWindow:self];
 }
 
+- (IBAction)showWebAppButtonPressed:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:[[KSUserInfo sharedUserInfo] serverAddress]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+- (IBAction)privateModeButtonPressed:(NSMenuItem *)sender
+{
+    if(sender.state == NSOffState) {
+        [sender setState:NSOnState];
+        [[KSSensorController sharedSensorController] stopRecordingEvents];
+    } else if(sender.state == NSOnState) {
+        [sender setState:NSOffState];
+        [[KSSensorController sharedSensorController] startRecordingEvents];
+    } else {
+        LogMessage(kKSLogTagOther, kKSLogLevelError, @"The privateMode button is in mixed state?!");
+    }
+}
+
+- (IBAction)writeToDiaryButtonPressed:(id)sender
+{
+    NSString *baseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
+    NSString *fullUrl = [baseUrl stringByAppendingString:kKSServerShowObservationsURL];
+    NSURL *url = [NSURL URLWithString:fullUrl];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 - (IBAction)quitApplication:(id)sender
 {
     [[NSApplication sharedApplication] terminate:self];
@@ -127,7 +153,6 @@
 {
     [super windowDidLoad];
     [self.toolbar setSelectedItemIdentifier:@"Settings"];
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
 - (IBAction)projectsButtonPressed:(id)sender {

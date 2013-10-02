@@ -50,6 +50,9 @@
     for (KSSensor *sensor in self.sensors) {
         success &= [sensor startRecordingEvents];
     }
+    
+    LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Starting to record events %@.", success ? @" was successful" : @"FAILED");
+    
     return success;
 }
 
@@ -59,6 +62,9 @@
     for (KSSensor *sensor in self.sensors) {
         success &= [sensor stopRecordingEvents];
     }
+    
+    LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Stopping to record events %@.", success ? @" was successful" : @"FAILED");
+
     return success;
 }
 

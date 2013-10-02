@@ -13,10 +13,13 @@
 // API Calls
 //------------------------------------------------------------------------------
 
-// base url is a defined string for now (should be customizable by the user)
+// Default base URL for server calls. Since it is customizable, this is only the fallback option, and can be configured in the settings (see KSUserInfo for more information)
 #define kKSServerBaseURL @"http://127.0.0.1:8182"
 
-// URLs
+/// URL scheme for the "write to diary" page in the web application.
+#define kKSServerShowObservationsURL @"/?showobservations=1"
+
+// Further URLs:
 #define kKSURLPathApplicationDidLoseFocusPath @"events/applicationDidLoseFocus"
 #define kKSURLPathApplicationDidGetFocusPath @"events/applicationDidGetFocus"
 #define kKSURLPathIdleDidStart @"events/userIdleStart"
@@ -100,6 +103,7 @@ typedef enum KSEventTypeEnum {
 #define kKSLogTagFocusSensor @"Focus Sensor"
 #define kKSLogTagIdleSensor @"Idle Sensor"
 #define kKSLogTagAPIClient @"API Client"
+#define kKSLogTagSensorController @"Sensor Controller"
 #define kKSLogTagOther @"Unspecified"
 
 #endif

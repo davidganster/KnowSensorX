@@ -88,8 +88,8 @@ typedef enum KSEventTypeEnum {
 #define kKSFocusSensorPollInterval 1.0f
 
 // constants for communicating with the server
-#define kKSKnowServerPaxRunnerPath @"/Library/Services/KnowSelf/KnowServer/pax-run.sh"
-#define kKSKnowServerPaxRunnerArgs @[@"--args=file:/Library/Services/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]
+#define kKSKnowServerPaxRunnerPath @"/Applications/KnowSensorX/KnowSelf/KnowServer/pax-run.sh"
+#define kKSKnowServerPaxRunnerArgs @[@"--args=file:/Applications/KnowSensorX/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]
 #define kKSKnowServerCommandCloseServer @"close\n"
 
 

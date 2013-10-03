@@ -63,7 +63,7 @@
 - (void)createMenubarItem
 {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    [self.statusItem setTitle:@"KSX"]; // TODO: get icon from Stefan.
+    [self.statusItem setImage:[NSImage imageNamed:@"statusbar_icon"]];
     [self.statusItem setMenu:self.statusBarMenu];
     [self.statusItem setHighlightMode:YES];
 }

@@ -185,6 +185,9 @@
     
     [self.timer invalidate];
     self.timer = nil;
+    
+#warning send applicationDidLoseFocus event!!!
+    
     return YES; // nothing can go wrong here
 }
 

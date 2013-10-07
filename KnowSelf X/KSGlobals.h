@@ -76,6 +76,8 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoDeviceNameKey @"DeviceName"
 #define kKSUserInfoServerAddressKey @"ServerAddress"
 
+#define kKSIsFirstStartKey @"firstStart"
+
 //------------------------------------------------------------------------------
 // General Constants
 //------------------------------------------------------------------------------
@@ -88,10 +90,15 @@ typedef enum KSEventTypeEnum {
 #define kKSFocusSensorPollInterval 1.0f
 
 // constants for communicating with the server
-#define kKSKnowServerPaxRunnerPath @"/Applications/KnowSensorX/KnowSelf/KnowServer/pax-run.sh"
-#define kKSKnowServerPaxRunnerArgs @[@"--args=file:/Applications/KnowSensorX/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]
-#define kKSKnowServerCommandCloseServer @"close\n"
+#define kKSKnowServerBasePath @"/Library/Services/KnowSelf/KnowServer/"
+#define kKSKnowServerPaxRunnerPath [kKSKnowServerBasePath stringByAppendingString:@"pax-run.sh"]
+#define kKSKnowServerPaxRunnerArgs @[[NSString stringWithFormat:@"--args=file:%@mac.runner.args", kKSKnowServerBasePath], \
+                                     [NSString stringWithFormat:@"%@bundles/", kKSKnowServerBasePath]]
 
+#define kKSKnowServerPaxRunnerPathOLD @"/Library/Services/KnowSelf/KnowServer/pax-run.sh"
+#define kKSKnowServerPaxRunnerArgsOLD @[@"--args=file:/Library/Services/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]
+
+#define kKSKnowServerCommandCloseServer @"close\n"
 
 //------------------------------------------------------------------------------
 // Logging Levels

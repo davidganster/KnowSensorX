@@ -17,6 +17,7 @@
 		EF1618B617FC91060026078D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B517FC91060026078D /* Carbon.framework */; };
 		EF1618B817FC913F0026078D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B717FC913F0026078D /* Security.framework */; };
 		EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */; };
+		EF75B7AC1801AD6600D00508 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE45E17F308B80032ADF2 /* KSProject.m */; };
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
 		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
@@ -134,6 +135,8 @@
 		EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		EF4ED9CC17E8A1200013DCAD /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		EF59A71B17FC857400847258 /* WindowTitle.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WindowTitle.scpt; sourceTree = "<group>"; };
+		EF75B7AA1801AD6600D00508 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
+		EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		EF7FE45D17F308B80032ADF2 /* KSProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProject.h; sourceTree = "<group>"; };
 		EF7FE45E17F308B80032ADF2 /* KSProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProject.m; sourceTree = "<group>"; };
 		EF7FE46017F308B90032ADF2 /* KSActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSActivity.h; sourceTree = "<group>"; };
@@ -340,6 +343,15 @@
 			name = NSLogger;
 			sourceTree = "<group>";
 		};
+		EF75B7AD1801AD6F00D00508 /* Privileged Task */ = {
+			isa = PBXGroup;
+			children = (
+				EF75B7AA1801AD6600D00508 /* STPrivilegedTask.h */,
+				EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */,
+			);
+			name = "Privileged Task";
+			sourceTree = "<group>";
+		};
 		EFA670C417BBF6DE00C43BB0 = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +453,7 @@
 		EFA6710717BBF95100C43BB0 /* Additional Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EF75B7AD1801AD6F00D00508 /* Privileged Task */,
 				EFF2572B17FB171B00D2C72C /* LaunchAtLoginController */,
 				EFA6718B17BBFB2400C43BB0 /* JSONKit */,
 				EFA6716E17BBFAD200C43BB0 /* AFNetworking */,
@@ -909,6 +922,7 @@
 				EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */,
 				EFE8F32317BD3B3E00D6369E /* KSIdleSensor.m in Sources */,
 				EFA6716A17BBF9E100C43BB0 /* NDProgrammerUtilities.m in Sources */,
+				EF75B7AC1801AD6600D00508 /* STPrivilegedTask.m in Sources */,
 				EF051F8017F9D2600013065F /* KSSensorController.m in Sources */,
 				EFA6718417BBFAD300C43BB0 /* AFImageRequestOperation.m in Sources */,
 				EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */,

@@ -10,11 +10,13 @@
 #import "KSMainWindowController.h"
 #import "KSAPIClient.h"
 #import "KSSensorController.h"
+#import "STPrivilegedTask.h"
 
 @interface KSAppDelegate ()
 
 @property(nonatomic, strong) KSMainWindowController *mainWindowController;
 @property(nonatomic, strong) NSTask *knowServerTask;
+@property(nonatomic, strong) STPrivilegedTask *privilegedTask;
 
 @end
 
@@ -23,49 +25,73 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
+                     kLoggerOption_BrowseBonjour);
+
+    // has to be set the first time, so just call it here
+    BOOL firstStart = [self isFirstStart];
+    if(firstStart) {
+        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
+    }
+    
     [self startKnowServer];
     
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
-    
-    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
-                                               kLoggerOption_BrowseBonjour);
-    
 }
 
+- (BOOL)isFirstStart
+{
+    BOOL isFirstStart = [[NSUserDefaults standardUserDefaults] boolForKey:kKSIsFirstStartKey];
+    if(!isFirstStart) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kKSIsFirstStartKey];
+    }
+    
+    return isFirstStart;
+}
 
 - (void)startKnowServer
 {
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Starting KnowServer...");
     
+    // might only need to run as admin the first time, need to test for this.
+//    self.privilegedTask = [[STPrivilegedTask alloc] init];
+//    [self.privilegedTask setLaunchPath:kKSKnowServerPaxRunnerPath];
+//    [self.privilegedTask setArguments:kKSKnowServerPaxRunnerArgs];
+//    [self.privilegedTask launch];
+    
+
+    // TODO: this is the old code without elevated privileges. remove if unnecessary.
+
     self.knowServerTask = [[NSTask alloc] init];
     NSPipe *inputPipe = [NSPipe pipe];
-    [self.knowServerTask setLaunchPath:kKSKnowServerPaxRunnerPath];
-    [self.knowServerTask setArguments:kKSKnowServerPaxRunnerArgs];
+    [self.knowServerTask setLaunchPath:kKSKnowServerPaxRunnerPathOLD];
+    [self.knowServerTask setArguments:kKSKnowServerPaxRunnerArgsOLD];
+    NSLog(@"%@", kKSKnowServerPaxRunnerPathOLD);
+    NSLog(@"%@", kKSKnowServerPaxRunnerArgsOLD);
+    
     [self.knowServerTask setStandardInput:inputPipe];
 //    [self.knowServerTask setStandardOutput:nil];
     [self.knowServerTask launch];
     
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer started.");
-    
-//    sleep(10);
-//    NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
-//    
-//    NSData *queryBytes = [@"ss\n" dataUsingEncoding:NSUTF8StringEncoding];
-//    [writeHandle writeData: queryBytes];
 }
 
 - (void)stopKnowServer
 {
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
+    
+//    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
+//    [self.privilegedTask.outputFileHandle writeData:[@"close\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [self.privilegedTask waitUntilExit];
+//    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
+    
+    // TODO: this is the old code without elevated privileges. remove if unnecessary.
     NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
     
     NSData *queryBytes = [kKSKnowServerCommandCloseServer dataUsingEncoding:NSUTF8StringEncoding];
     [writeHandle writeData: queryBytes];
     [self.knowServerTask waitUntilExit];
-    
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.

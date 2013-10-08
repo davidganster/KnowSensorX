@@ -28,6 +28,9 @@
     LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
                      kLoggerOption_BrowseBonjour);
 
+    
+    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
+    
     // has to be set the first time, so just call it here
     BOOL firstStart = [self isFirstStart];
     if(firstStart) {
@@ -39,6 +42,8 @@
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
+
+    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"KnowSensor X started.");
 }
 
 - (BOOL)isFirstStart
@@ -63,15 +68,13 @@
     
 
     // TODO: this is the old code without elevated privileges. remove if unnecessary.
-
-    self.knowServerTask = [[NSTask alloc] init];
-    NSPipe *inputPipe = [NSPipe pipe];
-    [self.knowServerTask setLaunchPath:kKSKnowServerPaxRunnerPathOLD];
-    [self.knowServerTask setArguments:kKSKnowServerPaxRunnerArgsOLD];
-    NSLog(@"%@", kKSKnowServerPaxRunnerPathOLD);
-    NSLog(@"%@", kKSKnowServerPaxRunnerArgsOLD);
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"%@", kKSKnowServerRelativePaxRunnerPath);
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"%@", kKSKnowServerRelativePaxRunnerArgs);
     
-    [self.knowServerTask setStandardInput:inputPipe];
+    self.knowServerTask = [[NSTask alloc] init];
+    [self.knowServerTask setLaunchPath:kKSKnowServerRelativePaxRunnerPath];
+    [self.knowServerTask setArguments:kKSKnowServerRelativePaxRunnerArgs];
+    [self.knowServerTask setStandardInput:[NSPipe pipe]];
 //    [self.knowServerTask setStandardOutput:nil];
     [self.knowServerTask launch];
     
@@ -81,17 +84,19 @@
 - (void)stopKnowServer
 {
     
-//    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
-//    [self.privilegedTask.outputFileHandle writeData:[@"close\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [self.privilegedTask.outputFileHandle writeData:[kKSKnowServerCommandCloseServer dataUsingEncoding:NSUTF8StringEncoding]];
+//    [self.privilegedTask.outputFileHandle closeFile];
 //    [self.privilegedTask waitUntilExit];
-//    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
     
     // TODO: this is the old code without elevated privileges. remove if unnecessary.
-    NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
     
+    NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
     NSData *queryBytes = [kKSKnowServerCommandCloseServer dataUsingEncoding:NSUTF8StringEncoding];
     [writeHandle writeData: queryBytes];
     [self.knowServerTask waitUntilExit];
+    
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.
@@ -105,14 +110,17 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+    // stop all event recording for smooth shutdown
+    // important: do this /before/ cleaning up MagicalRecord! (otherwise the defaultContext will be gone)
+    // TODO: make this work with the server.
+//    [[KSSensorController sharedSensorController] stopRecordingEvents];
+
     // Save changes in the application's managed object context before the application terminates.
     [MagicalRecord cleanUp];
     
-    // stop all event recording for smooth shutdown
-    [[KSSensorController sharedSensorController] stopRecordingEvents];
     
     // tear down KnowServer as well
-    if([self.knowServerTask isRunning])
+    if([self.knowServerTask isRunning]  || [self.privilegedTask isRunning])
         [self stopKnowServer];
     
     return NSTerminateNow;
@@ -120,7 +128,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    if([self.knowServerTask isRunning]) {
+    if([self.knowServerTask isRunning] || [self.privilegedTask isRunning]) {
         [self stopKnowServer];
     }
 }

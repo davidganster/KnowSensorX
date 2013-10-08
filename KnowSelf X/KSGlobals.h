@@ -90,10 +90,10 @@ typedef enum KSEventTypeEnum {
 #define kKSFocusSensorPollInterval 1.0f
 
 // constants for communicating with the server
-#define kKSKnowServerBasePath @"/Library/Services/KnowSelf/KnowServer/"
-#define kKSKnowServerPaxRunnerPath [kKSKnowServerBasePath stringByAppendingString:@"pax-run.sh"]
-#define kKSKnowServerPaxRunnerArgs @[[NSString stringWithFormat:@"--args=file:%@mac.runner.args", kKSKnowServerBasePath], \
-                                     [NSString stringWithFormat:@"%@bundles/", kKSKnowServerBasePath]]
+#define kKSKnowServerRelativeBasePath [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingString:@"/KnowSelf/KnowServer/"]
+#define kKSKnowServerRelativePaxRunnerPath [kKSKnowServerRelativeBasePath stringByAppendingString:@"pax-run.sh"]
+#define kKSKnowServerRelativePaxRunnerArgs @[[NSString stringWithFormat:@"--args=file:%@mac.runner.args", kKSKnowServerRelativeBasePath], \
+                                     [NSString stringWithFormat:@"%@bundles/", kKSKnowServerRelativeBasePath]]
 
 #define kKSKnowServerPaxRunnerPathOLD @"/Library/Services/KnowSelf/KnowServer/pax-run.sh"
 #define kKSKnowServerPaxRunnerArgsOLD @[@"--args=file:/Library/Services/KnowSelf/KnowServer/mac.runner.args", @"/Library/Services/KnowSelf/KnowServer/bundles"]

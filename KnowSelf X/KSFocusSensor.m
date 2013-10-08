@@ -154,6 +154,26 @@
     return [browserNames containsObject:application.localizedName];
 }
 
+- (void)sendLoseFocusEventForCurrentApplication
+{
+    // send lose focus event:
+    // TODO: encapsulate in function.
+    KSFocusEvent *loseFocusEvent = nil;
+    if(self.previousApplication) {
+        loseFocusEvent = [self createEventFromApplication:self.previousApplication
+                                              withFileUrl:self.previousFileOrUrl
+                                              windowTitle:self.previousWindowTitle
+                                                     type:KSEventTypeDidLoseFocus];
+    }
+    
+    self.previousApplication = nil;
+    self.previousFileOrUrl = nil;
+    self.previousWindowTitle = nil;
+    
+    [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
+    [self.delegate sensor:self didRecordEvent:loseFocusEvent];
+}
+
 @end
 
 @implementation KSFocusSensor (SubclassingHooks)
@@ -161,10 +181,7 @@
 - (BOOL)_registerForEvents
 {
     
-//    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
-//                                                           selector:@selector(handleApplicationBecameActive:)
-//                                                               name:NSWorkspaceDidActivateApplicationNotification
-//                                                             object:nil];
+#warning Subscribe to IdleSensorDidRegisterUserIdle event!
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
@@ -179,14 +196,10 @@
 
 - (BOOL)_unregisterForEvents
 {
-//    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
-//                                                                  name:NSWorkspaceDidActivateApplicationNotification
-//                                                                object:nil];
-    
     [self.timer invalidate];
     self.timer = nil;
     
-#warning send applicationDidLoseFocus event!!!
+    [self sendLoseFocusEventForCurrentApplication];
     
     return YES; // nothing can go wrong here
 }

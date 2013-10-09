@@ -76,16 +76,23 @@
                 }
             }
             
+#ifndef kKSIsSaveToPersistentStoreDisabled
             // after having created all the objects, save them and then call the success/failure blocks:
             [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
                 // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
                 // better to check the error pointer instead:
                 if(!error) {
+#endif
+                    // whether or not saving to persistent store is enabled - the success block will always be called.
                     success(projects);
+                    
+#ifndef kKSIsSaveToPersistentStoreDisabled
                 } else {
                     failure(error);
                 }
             }];
+#endif
+            
         } else {
             LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
             failure(jsonParseError);
@@ -121,16 +128,23 @@
             } else {
                 LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", responseObject);
             }
-            // after having created all the objects, save them and then call the success/failure blocks:
-            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
-                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
-                // better to check the error pointer instead:
-                if(!error) {
-                    success(activity);
-                } else {
-                    failure(error);
-                }
-            }];
+       
+#ifndef kKSIsSaveToPersistentStoreDisabled
+                // after having created all the objects, save them and then call the success/failure blocks:
+                [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
+                    // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
+                    // better to check the error pointer instead:
+                    if(!error) {
+#endif
+                        // whether or not saving to persistent store is enabled - the success block will always be called.
+                        success(activity);
+                        
+#ifndef kKSIsSaveToPersistentStoreDisabled
+                    } else {
+                        failure(error);
+                    }
+                }];
+#endif
         } else {
             LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
             failure(jsonParseError);

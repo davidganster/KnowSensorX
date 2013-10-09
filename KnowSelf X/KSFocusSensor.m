@@ -67,18 +67,23 @@
                                                           withFileUrl:fileOrUrl
                                                           windowTitle:windowTitle
                                                                  type:KSEventTypeDidGetFocus];
-        
+#ifndef kKSIsSaveToPersistentStoreDisabled
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
             // will be executed on the main thread
             if(success) {
+#endif
+                // we call the delegate regardless of whether saving to persistent store is enabled or not
                 if(loseFocusEvent) {
                     [self.delegate sensor:self didRecordEvent:loseFocusEvent];
                 }
                 [self.delegate sensor:self didRecordEvent:currentEvent];
+                
+#ifndef kKSIsSaveToPersistentStoreDisabled
             } else {
                 LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
             }
         }];
+#endif
     });
 }
 
@@ -156,8 +161,6 @@
 
 - (void)sendLoseFocusEventForCurrentApplication
 {
-    // send lose focus event:
-    // TODO: encapsulate in function.
     KSFocusEvent *loseFocusEvent = nil;
     if(self.previousApplication) {
         loseFocusEvent = [self createEventFromApplication:self.previousApplication
@@ -170,7 +173,9 @@
     self.previousFileOrUrl = nil;
     self.previousWindowTitle = nil;
     
+#ifndef kKSIsSaveToPersistentStoreDisabled
     [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
+#endif
     [self.delegate sensor:self didRecordEvent:loseFocusEvent];
 }
 
@@ -191,7 +196,8 @@
     
     if(self.timer)
         return YES;
-    else return NO;
+    else
+        return NO;
 }
 
 - (BOOL)_unregisterForEvents

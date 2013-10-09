@@ -22,11 +22,35 @@
 
 @implementation KSAppDelegate
 
+void HandleExceptions(NSException *exception)
+{
+    LogMessage(kKSLogTagOther, kKSLogLevelError, @"Uncaught exception raised: %@", exception);
+}
+
+void SignalHandler(int sig)
+{
+    
+}
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    
+    // installs HandleExceptions as the Uncaught Exception Handler (as well as SignalHandler)
+    NSSetUncaughtExceptionHandler(&HandleExceptions);
+    struct sigaction newSignalAction;
+    memset(&newSignalAction, 0, sizeof(newSignalAction));
+    newSignalAction.sa_handler = &SignalHandler;
+    sigaction(SIGABRT, &newSignalAction, NULL);
+    sigaction(SIGILL, &newSignalAction, NULL);
+    sigaction(SIGBUS, &newSignalAction, NULL);
+    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught?
+
     // Insert code here to initialize your application
-    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
-                     kLoggerOption_BrowseBonjour);
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
+
+//    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
+//                     kLoggerOption_BrowseBonjour);
 
     
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
@@ -39,12 +63,13 @@
     
     [self startKnowServer];
     
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
 
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"KnowSensor X started.");
 }
+
+
 
 - (BOOL)isFirstStart
 {
@@ -66,14 +91,12 @@
 //    [self.privilegedTask setArguments:kKSKnowServerPaxRunnerArgs];
 //    [self.privilegedTask launch];
     
-
-    // TODO: this is the old code without elevated privileges. remove if unnecessary.
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"%@", kKSKnowServerRelativePaxRunnerPath);
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"%@", kKSKnowServerRelativePaxRunnerArgs);
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer Base URL: %@", kKSKnowServerRelativeBasePath);
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer runner path: %@", kKSKnowServerRelativePaxRunnerPath);
     
     self.knowServerTask = [[NSTask alloc] init];
-    [self.knowServerTask setLaunchPath:kKSKnowServerRelativePaxRunnerPath];
-    [self.knowServerTask setArguments:kKSKnowServerRelativePaxRunnerArgs];
+    [self.knowServerTask setLaunchPath:@"/bin/sh"];
+    [self.knowServerTask setArguments:@[[kKSKnowServerRelativeBasePath stringByAppendingString:@"startKnowServer.sh"]]];
     [self.knowServerTask setStandardInput:[NSPipe pipe]];
 //    [self.knowServerTask setStandardOutput:nil];
     [self.knowServerTask launch];
@@ -88,7 +111,6 @@
 //    [self.privilegedTask.outputFileHandle closeFile];
 //    [self.privilegedTask waitUntilExit];
     
-    // TODO: this is the old code without elevated privileges. remove if unnecessary.
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
     
     NSFileHandle *writeHandle = [self.knowServerTask.standardInput fileHandleForWriting];
@@ -107,12 +129,11 @@
     return [appSupportURL URLByAppendingPathComponent:@"dg.KnowSelf_X"];
 }
 
-
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     // stop all event recording for smooth shutdown
     // important: do this /before/ cleaning up MagicalRecord! (otherwise the defaultContext will be gone)
-    // TODO: make this work with the server.
+    // TODO: add finishedBlock and call [NSApp replyToApplicationShouldTerminate:YES];
 //    [[KSSensorController sharedSensorController] stopRecordingEvents];
 
     // Save changes in the application's managed object context before the application terminates.
@@ -123,7 +144,9 @@
     if([self.knowServerTask isRunning]  || [self.privilegedTask isRunning])
         [self stopKnowServer];
     
-    return NSTerminateNow;
+    
+    //[NSApp replyToApplicationShouldTerminate:YES];
+    return NSTerminateLater;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification

@@ -73,9 +73,15 @@
         KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart idleSinceSeconds:self.minimumIdleTime];
         self.lastDateBeforeIdle = [idleEvent timestamp]; // overly accurate?
         
+#ifndef kKSIsSaveToPersistentStoreDisabled
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+#endif
+
             [self.delegate sensor:self didRecordEvent:idleEvent];
+
+#ifndef kKSIsSaveToPersistentStoreDisabled
         }];
+#endif
         
         // now, we need to listen for when the idle ends. No timers are necessary in the meantime.
         [self registerForIdleEndEvents];

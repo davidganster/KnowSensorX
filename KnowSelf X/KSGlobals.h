@@ -82,8 +82,11 @@ typedef enum KSEventTypeEnum {
 // General Constants
 //------------------------------------------------------------------------------
 
+/// If (and only if) this is UNdefined, recorded events will be saved to the persistent store.
+/// Comment out if you want events to be saved.
+#define kKSIsSaveToPersistentStoreDisabled
+
 /// Minimum idle time before an event is registered in seconds. Defaults to 600 (10 minutes)
-// TODO: make this configurable in KSUserInfo.
 #define kKSIdleSensorMinimumIdleTime 600
 
 /// Interval in seconds between two polls for the focus sensor.

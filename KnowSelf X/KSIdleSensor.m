@@ -14,6 +14,7 @@
 @property(nonatomic, strong) NSTimer *idleTimer;
 @property(nonatomic, assign) CFTimeInterval idleTimeSoFar;
 @property(nonatomic, strong) NSDate *lastDateBeforeIdle;
+@property(nonatomic, assign) BOOL userIsIdling;
 /// The return value of [NSEvent addGlobalMonitorForEventsMatchingMasks:handler:] must be saved somewhere because it cannot be retained by the handler:-block alone.
 @property(nonatomic, strong) id eventHandler;
 
@@ -21,7 +22,7 @@
 
 @implementation KSIdleSensor
 
--(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
+- (id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
 {
     self = [super initWithDelegate:delegate];
     if(self) {
@@ -29,11 +30,12 @@
         _name = kKSSensorNameIdleSensor;
         _minimumIdleTime = kKSIdleSensorMinimumIdleTime;
         _idleTimeSoFar = 0;
+        _userIsIdling = NO;
     }
     return self;
 }
 
--(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate andMinimumIdleTime:(CGFloat)idleTime
+- (id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate andMinimumIdleTime:(CGFloat)idleTime
 {
     self = [super initWithDelegate:delegate];
     if(self) {
@@ -41,6 +43,7 @@
         _name = kKSSensorNameIdleSensor;
         _minimumIdleTime = idleTime;
         _idleTimeSoFar = 0;
+        _userIsIdling = NO;
     }
     return self;
 }
@@ -67,25 +70,11 @@
     CFTimeInterval actualIdleTime = idleTime + self.idleTimeSoFar;
     if(actualIdleTime >= self.minimumIdleTime) {
         LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User idle detected!");
-        // idle time almost matches our required time - since timers might be off by a bit, this is good enough.
-        self.idleTimeSoFar = 0.f;
-        
-        KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart idleSinceSeconds:self.minimumIdleTime];
-        self.lastDateBeforeIdle = [idleEvent timestamp]; // overly accurate?
-        
-#ifndef kKSIsSaveToPersistentStoreDisabled
-        [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-#endif
-
-            [self.delegate sensor:self didRecordEvent:idleEvent];
-
-#ifndef kKSIsSaveToPersistentStoreDisabled
-        }];
-#endif
-        
-        // now, we need to listen for when the idle ends. No timers are necessary in the meantime.
-        [self registerForIdleEndEvents];
+        // now, we need to listen for when the idle ends.
+        // No more timers are necessary in the meantime.
+        [self handleUserIdleStart:nil];
     } else {
+        // not quite there yet - calculate how much time is missing for idle and check again in that amount of time.
         if(self.idleTimeSoFar == 0.f)
             self.idleTimeSoFar = idleTime;
         else
@@ -96,22 +85,70 @@
     }
 }
 
+- (void)handleUserIdleStart:(id)sender
+{
+    if(self.userIsIdling) return; // nothing more to do - someone has already detected the idle.
+    
+    // update our state
+    self.userIsIdling = YES;
+    
+    // update the timer
+    self.idleTimeSoFar = 0.f;
+    [self.idleTimer invalidate];
+    self.idleTimer = nil;
+    
+    [self sendUserIdleStartEvent];
+    [self registerForIdleEndEvents];
+}
+
 /// registers an eventHandler for any keyboard/mouse events, as those will end the user's idle.
 - (void)registerForIdleEndEvents
 {
     // TODO: this only registers MouseMoved events so far, because of problems with the accessibility API.
     self.eventHandler = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask) handler:^(NSEvent *someEvent) {
         LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User Idle wakeup detected!");
+        
+        self.userIsIdling = NO;
         // we don't actually care about the event. this just means that the idle ended!
         [NSEvent removeMonitor:self.eventHandler];
         self.eventHandler = nil;
         self.idleTimeSoFar = 0.f; // just to be safe.
         // how long has it been since we started to idle?
         CFTimeInterval idledTime = -[self.lastDateBeforeIdle timeIntervalSinceNow];
-        KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd idleSinceSeconds:idledTime];
+        
+        KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
+                                              idleSinceSeconds:idledTime];
+        
         [self.delegate sensor:self didRecordEvent:idleEvent];
+        
         [self createTimerWithTimeInterval:self.minimumIdleTime];
+
+        // post notification: other sensors should reactivate themselves now.
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
+                                                            object:nil];
     }];
+}
+
+- (void)sendUserIdleStartEvent
+{
+    // create the event
+    KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart
+                                          idleSinceSeconds:self.minimumIdleTime];
+    self.lastDateBeforeIdle = [idleEvent timestamp]; // overly accurate?
+    
+#ifndef kKSIsSaveToPersistentStoreDisabled
+    [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+#endif
+        
+        [self.delegate sensor:self didRecordEvent:idleEvent];
+        
+#ifndef kKSIsSaveToPersistentStoreDisabled
+    }];
+#endif
+    
+    // post notification: other sensors can deactivate themselves now.
+    [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleStart
+                                                        object:nil];
 }
 
 #pragma mark Helper
@@ -139,6 +176,11 @@
 - (BOOL)_registerForEvents
 {
     [(KSIdleSensor *)self createTimerWithTimeInterval:0];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                           selector: @selector(handleUserIdleStart:)
+                                                               name: NSWorkspaceWillSleepNotification object: NULL];
+    
     return YES;
 }
 
@@ -150,6 +192,10 @@
     }
     [selfAsSubclass.idleTimer invalidate];
     selfAsSubclass.idleTimer = nil;
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
+                                                                  name:NSWorkspaceWillSleepNotification
+                                                                object:nil];
     return YES;
 }
 

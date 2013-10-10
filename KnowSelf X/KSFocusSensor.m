@@ -33,6 +33,14 @@
         _sensorID = kKSSensorIDFocusSensor;
         _name = kKSSensorNameFocusSensor;
         _applescriptQueue = dispatch_queue_create("com.kc.KnowSensorX.ASQueue", DISPATCH_QUEUE_SERIAL);
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_unregisterForEvents) // will send didLoseFocus event
+                                                     name:kKSNotificationKeyUserIdleStart
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_registerForEvents) // will start sending events
+                                                     name:kKSNotificationKeyUserIdleEnd
+                                                   object:nil];
     }
     return self;
 }
@@ -185,9 +193,6 @@
 
 - (BOOL)_registerForEvents
 {
-    
-#warning Subscribe to IdleSensorDidRegisterUserIdle event!
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
                                                 selector:@selector(handleTimerFired:)

@@ -136,9 +136,7 @@ void SignalHandler(int sig)
     // TODO: add finishedBlock and call [NSApp replyToApplicationShouldTerminate:YES];
 //    [[KSSensorController sharedSensorController] stopRecordingEvents];
 
-    // Save changes in the application's managed object context before the application terminates.
-    [MagicalRecord cleanUp];
-    
+    [MagicalRecord cleanUp];    
     
     // tear down KnowServer as well
     if([self.knowServerTask isRunning]  || [self.privilegedTask isRunning])

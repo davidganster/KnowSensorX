@@ -46,7 +46,6 @@
 //------------------------------------------------------------------------------
 // UI
 //------------------------------------------------------------------------------
-
 // strings for displaying the sensors name
 #define kKSSensorNameFocusSensor @"Focus Sensor"
 #define kKSSensorNameIdleSensor @"Idle Sensor"
@@ -68,6 +67,13 @@ typedef enum KSEventTypeEnum {
     KSEventTypeIdleStart,
     KSEventTypeIdleEnd
 } KSEventType;
+
+//------------------------------------------------------------------------------
+// Notifications
+//------------------------------------------------------------------------------
+#define kKSNotificationKeyUserIdleStart @"UserIdleStart"
+#define kKSNotificationKeyUserIdleEnd  @"UserIdleEnd"
+
 
 //------------------------------------------------------------------------------
 // User Defaults Keys

@@ -51,12 +51,6 @@
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
-//    NSString *exePath = [[NSBundle mainBundle] executablePath];
-//    CFStringRef stringRef = (__bridge CFStringRef)exePath;
-//    AXMakeProcessTrusted(stringRef);
-//    if(!AXAPIEnabled()) {
-//        NSLog(@"Access for assistive devices must be enabled for this application to work properly");
-//    }
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

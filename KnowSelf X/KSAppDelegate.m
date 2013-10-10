@@ -16,20 +16,25 @@
 
 @property(nonatomic, strong) KSMainWindowController *mainWindowController;
 @property(nonatomic, strong) NSTask *knowServerTask;
-@property(nonatomic, strong) STPrivilegedTask *privilegedTask;
 
 @end
 
 @implementation KSAppDelegate
 
+static pid_t taskPID;
+
 void HandleExceptions(NSException *exception)
 {
     LogMessage(kKSLogTagOther, kKSLogLevelError, @"Uncaught exception raised: %@", exception);
+    LogMessage(kKSLogTagOther, kKSLogLevelError, @"I won't go alone!1!!!1! Killing KnowServer as well.");
+    kill(taskPID, SIGKILL);
 }
 
 void SignalHandler(int sig)
 {
-    
+    LogMessage(kKSLogTagOther, kKSLogLevelError, @"KILLED BY SIGNAL: %i", sig);
+    LogMessage(kKSLogTagOther, kKSLogLevelError, @"I won't go alone!1!!!1! Killing KnowServer as well.");
+    kill(taskPID, SIGKILL);
 }
 
 
@@ -85,12 +90,6 @@ void SignalHandler(int sig)
 {
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Starting KnowServer...");
     
-    // might only need to run as admin the first time, need to test for this.
-//    self.privilegedTask = [[STPrivilegedTask alloc] init];
-//    [self.privilegedTask setLaunchPath:kKSKnowServerPaxRunnerPath];
-//    [self.privilegedTask setArguments:kKSKnowServerPaxRunnerArgs];
-//    [self.privilegedTask launch];
-    
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer Base URL: %@", kKSKnowServerRelativeBasePath);
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer runner path: %@", kKSKnowServerRelativePaxRunnerPath);
     
@@ -101,15 +100,14 @@ void SignalHandler(int sig)
 //    [self.knowServerTask setStandardOutput:nil];
     [self.knowServerTask launch];
     
+    taskPID = self.knowServerTask.processIdentifier;
+    
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer started.");
 }
 
 - (void)stopKnowServer
 {
-    
-//    [self.privilegedTask.outputFileHandle writeData:[kKSKnowServerCommandCloseServer dataUsingEncoding:NSUTF8StringEncoding]];
-//    [self.privilegedTask.outputFileHandle closeFile];
-//    [self.privilegedTask waitUntilExit];
+    if(!self.knowServerTask.isRunning) return;
     
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Stopping KnowServer...");
     
@@ -139,19 +137,15 @@ void SignalHandler(int sig)
     [MagicalRecord cleanUp];    
     
     // tear down KnowServer as well
-    if([self.knowServerTask isRunning]  || [self.privilegedTask isRunning])
-        [self stopKnowServer];
-    
+    [self stopKnowServer];
     
     //[NSApp replyToApplicationShouldTerminate:YES];
-    return NSTerminateLater;
+    return NSTerminateNow; // NSTerminateLater
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    if([self.knowServerTask isRunning] || [self.privilegedTask isRunning]) {
-        [self stopKnowServer];
-    }
+    [self stopKnowServer];
 }
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

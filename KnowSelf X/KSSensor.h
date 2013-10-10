@@ -26,7 +26,6 @@
 
 @property(nonatomic, weak) id<KSSensorDelegateProtocol> delegate;
 @property(nonatomic, assign, setter = setActive:) BOOL isActive;
-//@property(nonatomic, assign, setter = setStoppable:) BOOL isStoppable;
 
 /// used for API calls
 @property(nonatomic, strong, readonly) NSString *sensorID;

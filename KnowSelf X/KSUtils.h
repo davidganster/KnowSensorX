@@ -16,4 +16,6 @@
                                           functionName:(NSString *)functionName
                                              arguments:(NSArray *)args
                                        errorDictionary:(NSDictionary **)errorDict;
++ (BOOL)accessibilityPopupAvailable;
+
 @end

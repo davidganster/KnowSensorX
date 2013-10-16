@@ -12,6 +12,8 @@
 #import "KSSensorController.h"
 #import "STPrivilegedTask.h"
 
+#import <ApplicationServices/ApplicationServices.h>
+
 @interface KSAppDelegate ()
 
 @property(nonatomic, strong) KSMainWindowController *mainWindowController;
@@ -37,10 +39,40 @@ void SignalHandler(int sig)
     kill(taskPID, SIGKILL);
 }
 
+- (void)checkIfAccessabilityIsEnabled
+{
+//    AXAPIEnabled();
+//    NSDictionary *options = @{(id)kAXTrustedCheckOptionPrompt: @YES};
+//    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+    BOOL accessibilityEnabled = NO;
+    if([KSUtils accessibilityPopupAvailable]) {
+        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+         accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+        // 10.9 and above will display a dialog that will take the user to the System Preferences.
+        // 10.8 and below will need an extra dialog for this:
+    } else {
+        accessibilityEnabled = AXAPIEnabled();
+        if(!accessibilityEnabled) {
+            NSAlert *alert = [NSAlert alertWithMessageText:nil
+                                             defaultButton:nil
+                                           alternateButton:nil
+                                               otherButton:nil
+                                 informativeTextWithFormat:@"Accessability must be enabled for this application to work correctly! Please enable it in 'System Preferences -> Security & Privacy -> Privacy -> Accessibility -> KnowSensor X', then restart the application."];
+            [alert beginSheetModalForWindow:[self.mainWindowController window]
+                          completionHandler:^(NSModalResponse returnCode) {
+                              [[NSApplication sharedApplication] terminate:self];
+                          }];
+        }
+    }
+}
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
+    // The very first thing to do: Check if accessibility is enabled. This is required for the Idle Sensor to work correctly!
+    [self checkIfAccessabilityIsEnabled];
+
     // installs HandleExceptions as the Uncaught Exception Handler (as well as SignalHandler)
     NSSetUncaughtExceptionHandler(&HandleExceptions);
     struct sigaction newSignalAction;

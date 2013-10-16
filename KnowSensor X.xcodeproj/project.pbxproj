@@ -1087,7 +1087,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "KnowSensor X";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx10.9;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1107,7 +1107,7 @@
 				INFOPLIST_FILE = "KnowSelf X/KnowSensor X-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "KnowSensor X";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx10.9;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

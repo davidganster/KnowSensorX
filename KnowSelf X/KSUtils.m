@@ -60,4 +60,16 @@ static NSDateFormatter *timestampFormatter;
     return result;
 }
 
++ (BOOL)accessibilityPopupAvailable
+{
+    NSDictionary *systemVersionDictionary =
+    [NSDictionary dictionaryWithContentsOfFile:
+     @"/System/Library/CoreServices/SystemVersion.plist"];
+    
+    NSString *systemVersion =
+    [systemVersionDictionary objectForKey:@"ProductVersion"];
+    LogMessage(@"DEBUG ONLY", 0, @"OS VERSION = %@", systemVersion);
+    return !([systemVersion floatValue] <= 10.8f); // available in OS X Mavericks (and probably above)
+}
+
 @end

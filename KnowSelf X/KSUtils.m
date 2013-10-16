@@ -9,6 +9,7 @@
 #import "KSUtils.h"
 #import "NSAppleEventDescriptor+NDCoercion.h"
 
+
 // recreating DateFormatters is very slow, so this one is being reused:
 static NSDateFormatter *timestampFormatter;
 
@@ -21,7 +22,7 @@ static NSDateFormatter *timestampFormatter;
     if(!timestampFormatter) {
         timestampFormatter = [[NSDateFormatter alloc] init];
         [timestampFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
-        [timestampFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]; // TODO: correct?
+        [timestampFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     }
     NSString *dateAsString = [timestampFormatter stringFromDate:date];
     return dateAsString;

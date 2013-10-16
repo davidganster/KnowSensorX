@@ -93,7 +93,8 @@ typedef enum KSEventTypeEnum {
 #define kKSIsSaveToPersistentStoreDisabled
 
 /// Minimum idle time before an event is registered in seconds. Defaults to 600 (10 minutes)
-#define kKSIdleSensorMinimumIdleTime 600
+//#define kKSIdleSensorMinimumIdleTime 600
+#define kKSIdleSensorMinimumIdleTime 2
 
 /// Interval in seconds between two polls for the focus sensor.
 #define kKSFocusSensorPollInterval 1.0f

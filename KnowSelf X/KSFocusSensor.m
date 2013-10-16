@@ -107,9 +107,6 @@
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
     [currentEvent setProcessName:application.localizedName];
     [currentEvent setSensorID:self.sensorID];
-    
-    // TODO: filepath and window title shouldn't be the same
-    
     [currentEvent setFilePath:fileOrUrl ?: @""];
     [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
     [currentEvent setScreenshotPath:nil];
@@ -139,6 +136,9 @@
     
     if(errorInfo) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing AppleScript: %@", errorInfo);
+        return nil;
+    } else {
+        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got url or file: %@", [result stringValue]);
     }
     
     return [result stringValue];
@@ -154,6 +154,8 @@
     if(errorDict) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing Applescript: %@", errorDict);
         return nil;
+    } else {
+        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got window title: %@", [result stringValue]);
     }
     return [result stringValue];
 }

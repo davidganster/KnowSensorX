@@ -78,13 +78,13 @@
 		EFA6718A17BBFAD300C43BB0 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA6718117BBFAD300C43BB0 /* UIImageView+AFNetworking.m */; };
 		EFA6719117BBFC2200C43BB0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA6719017BBFC2200C43BB0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EFA6719317BBFD3600C43BB0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */; };
+		EFA7DE9D180F2620000A8B4E /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA7DE9B180F2620000A8B4E /* ActiveFile.scpt */; };
+		EFA7DE9E180F2620000A8B4E /* WindowTitle.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA7DE9C180F2620000A8B4E /* WindowTitle.scpt */; };
 		EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDE417C2B55300043481 /* KSAPIClient.m */; };
 		EFABBDEE17C2CE1B00043481 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */; };
 		EFABBDEF17C2CE1B00043481 /* NSString-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDED17C2CE1B00043481 /* NSString-Base64Extensions.m */; };
 		EFABBDF117C2CEF200043481 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EFABBDF017C2CEF200043481 /* libcrypto.dylib */; };
 		EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
-		EFC106FA17FDD06B0003A3F0 /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */; };
-		EFC106FB17FDD06D0003A3F0 /* WindowTitle.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EF59A71B17FC857400847258 /* WindowTitle.scpt */; };
 		EFC106FD17FDD1160003A3F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC106FC17FDD1160003A3F0 /* Images.xcassets */; };
 		EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */; };
 		EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */; };
@@ -134,7 +134,6 @@
 		EF4ED9CA17E8A1200013DCAD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		EF4ED9CC17E8A1200013DCAD /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
-		EF59A71B17FC857400847258 /* WindowTitle.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WindowTitle.scpt; sourceTree = "<group>"; };
 		EF75B7AA1801AD6600D00508 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		EF7FE45D17F308B80032ADF2 /* KSProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProject.h; sourceTree = "<group>"; };
@@ -226,7 +225,6 @@
 		EFA6714217BBF98500C43BB0 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		EFA6714317BBF98500C43BB0 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = UrlFromBrowser.scpt; sourceTree = "<group>"; };
-		EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = ActiveFile.scpt; sourceTree = "<group>"; };
 		EFA6716217BBF9E100C43BB0 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
 		EFA6716317BBF9E100C43BB0 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
 		EFA6716417BBF9E100C43BB0 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
@@ -257,6 +255,8 @@
 		EFA6718F17BBFC2200C43BB0 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		EFA6719017BBFC2200C43BB0 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		EFA6719217BBFD3600C43BB0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EFA7DE9B180F2620000A8B4E /* ActiveFile.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = ActiveFile.scpt; sourceTree = "<group>"; };
+		EFA7DE9C180F2620000A8B4E /* WindowTitle.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = WindowTitle.scpt; sourceTree = "<group>"; };
 		EFABBDE317C2B55300043481 /* KSAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAPIClient.h; sourceTree = "<group>"; };
 		EFABBDE417C2B55300043481 /* KSAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAPIClient.m; sourceTree = "<group>"; };
 		EFABBDEA17C2CE1B00043481 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
@@ -569,8 +569,8 @@
 			isa = PBXGroup;
 			children = (
 				EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */,
-				EFA6716017BBF9B600C43BB0 /* ActiveFile.scpt */,
-				EF59A71B17FC857400847258 /* WindowTitle.scpt */,
+				EFA7DE9B180F2620000A8B4E /* ActiveFile.scpt */,
+				EFA7DE9C180F2620000A8B4E /* WindowTitle.scpt */,
 			);
 			name = AppleScripts;
 			sourceTree = "<group>";
@@ -841,14 +841,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */,
-				EFC106FA17FDD06B0003A3F0 /* ActiveFile.scpt in Resources */,
 				EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */,
 				EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */,
 				EF051F8717F9D5320013065F /* KSProjectsViewController.xib in Resources */,
+				EFA7DE9E180F2620000A8B4E /* WindowTitle.scpt in Resources */,
 				EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */,
+				EFA7DE9D180F2620000A8B4E /* ActiveFile.scpt in Resources */,
 				EFA670E117BBF6DE00C43BB0 /* Credits.rtf in Resources */,
 				EFC106FD17FDD1160003A3F0 /* Images.xcassets in Resources */,
-				EFC106FB17FDD06D0003A3F0 /* WindowTitle.scpt in Resources */,
 				EFA670E717BBF6DE00C43BB0 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

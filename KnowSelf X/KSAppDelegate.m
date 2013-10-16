@@ -51,8 +51,8 @@ void SignalHandler(int sig)
     sigaction(SIGBUS, &newSignalAction, NULL);
     sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught?
 
-    // Insert code here to initialize your application
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
+    [MagicalRecord setupCoreDataStackWithInMemoryStore];
 
 //    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
 //                     kLoggerOption_BrowseBonjour);

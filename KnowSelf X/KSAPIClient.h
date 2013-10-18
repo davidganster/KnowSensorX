@@ -14,11 +14,27 @@
 
 @interface KSAPIClient : NSObject
 
+
+/// Indicates whether or not the server is reachable at the moment.
+/// Will update whenever a message has been sent succesfully/with an error.
+/// When the flag changes, one of the blocks given in setReachabilityStatusChangedBlockReachable:unreachable: will be executed.
+/// NOTE: The KSAPIClient will NOT automatically check for reachability.
+/// This flag will only every change when the user tries to send messages to the server.
+@property(nonatomic, assign, readonly) BOOL serverReachable;
+
 /** Singleton-Accessor for the shared object. Only work through this object, don't create your own!
  * @author David Ganster
  * @return The shared client object.
  */
 + (KSAPIClient *)sharedClient;
+
+/** Allows to configure blocks for when the reachability changes. 
+ Especially interesting for monitoring when the server is up and ready for events.
+ @param reachable The block to be executed when the server is reachable.
+ @param unreachable The block to be executed when the server is not reachable any more.
+ */
+- (void)setReachabilityStatusChangedBlockReachable:(void (^)())reachable
+                                       unreachable:(void (^)())unreachable;
 
 /** Asynchronously loads all projects and returns them as a parameter in the success-block if the call has been successful.
     In case of an error, the failure block will be called with an NSError object.

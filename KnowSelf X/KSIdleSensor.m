@@ -13,7 +13,7 @@
 
 @property(nonatomic, strong) NSTimer *idleTimer;
 @property(nonatomic, assign) CFTimeInterval idleTimeSoFar;
-@property(nonatomic, strong) NSDate *lastDateBeforeIdle;
+@property(nonatomic, strong) NSDate *idleStartDate;
 @property(nonatomic, assign) BOOL userIsIdling;
 /// The return value of [NSEvent addGlobalMonitorForEventsMatchingMasks:handler:] must be saved somewhere because it cannot be retained by the handler:-block alone.
 @property(nonatomic, strong) id eventHandler;
@@ -112,28 +112,25 @@
     LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Will try to register event handler for Key/Mouse events.");
     self.eventHandler = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask)
                                                                handler:^(NSEvent *someEvent) {
-                                                                   
-                                                                   [NSEvent removeMonitor:self.eventHandler];
-                                                                   LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User Idle wakeup detected!");
-                                                                   
-                                                                   self.userIsIdling = NO;
-                                                                   // we don't actually care about the event. this just means that the idle ended!
-                                                                   self.eventHandler = nil;
-                                                                   self.idleTimeSoFar = 0.f; // just to be safe.
-                                                                   // how long has it been since we started to idle?
-                                                                   CFTimeInterval idledTime = -[self.lastDateBeforeIdle timeIntervalSinceNow];
-                                                                   
-                                                                   KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
-                                                                                                         idleSinceSeconds:idledTime];
-                                                                   
-                                                                   [self.delegate sensor:self didRecordEvent:idleEvent];
-                                                                   
-                                                                   [self createTimerWithTimeInterval:self.minimumIdleTime];
-                                                                   
-                                                                   // post notification: other sensors should reactivate themselves now.
-                                                                   [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
-                                                                                                                       object:nil];
-                                                               }];
+       [NSEvent removeMonitor:self.eventHandler];
+       LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User Idle wakeup detected!");
+       
+       self.userIsIdling = NO;
+       // we don't actually care about the event. this just means that the idle ended!
+       self.eventHandler = nil;
+       self.idleTimeSoFar = 0.f; // just to be safe.
+       // how long has it been since we started to idle?
+       CFTimeInterval idledTime = -[self.idleStartDate timeIntervalSinceNow];
+       
+       KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
+                                             idleSinceSeconds:idledTime];
+       
+       [self.delegate sensor:self didRecordEvent:idleEvent];
+       [self createTimerWithTimeInterval:self.minimumIdleTime];
+       // post notification: other sensors should reactivate themselves now.
+       [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
+                                                           object:nil];
+   }];
     
     if(self.eventHandler) {
         LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Registering event handler succeeded, handler is:%@", self.eventHandler);
@@ -148,7 +145,7 @@
     // create the event
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart
                                           idleSinceSeconds:self.minimumIdleTime];
-    self.lastDateBeforeIdle = [idleEvent timestamp]; // overly accurate?
+    self.idleStartDate = [idleEvent timestamp]; // overly accurate?
     
 #ifndef kKSIsSaveToPersistentStoreDisabled
     [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
@@ -175,10 +172,13 @@
     }
     
     KSIdleEvent *idleEvent = [KSIdleEvent createInContext:[NSManagedObjectContext defaultContext]];
-    [idleEvent setTimestamp:[NSDate date]];
     [idleEvent setType:type];
+    [idleEvent setTimestamp:[NSDate date]];
+    [idleEvent setTimeOfRecording:[NSDate date]];
     [idleEvent setIdleSinceSeconds:@(idleTime)];
-    [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:idleTime sinceDate:[NSDate date]]];
+    if(type == KSEventTypeIdleEnd) {
+        [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:idleTime sinceDate:[NSDate date]]];
+    }
     [idleEvent setSensorID:self.sensorID];
     return idleEvent;
 }

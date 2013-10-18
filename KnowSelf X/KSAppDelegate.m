@@ -70,8 +70,6 @@ void SignalHandler(int sig)
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
-    // The very first thing to do: Check if accessibility is enabled. This is required for the Idle Sensor to work correctly!
-    [self checkIfAccessabilityIsEnabled];
 
     // installs HandleExceptions as the Uncaught Exception Handler (as well as SignalHandler)
     NSSetUncaughtExceptionHandler(&HandleExceptions);
@@ -81,9 +79,9 @@ void SignalHandler(int sig)
     sigaction(SIGABRT, &newSignalAction, NULL);
     sigaction(SIGILL, &newSignalAction, NULL);
     sigaction(SIGBUS, &newSignalAction, NULL);
-    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught?
+//    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught... The server will keep running in that case :(
 
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
+//    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
 
 //    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
@@ -103,7 +101,18 @@ void SignalHandler(int sig)
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [[self.mainWindowController window] makeKeyAndOrderFront:self];
 
+    // The very first thing to do: Check if accessibility is enabled. This is required for the Idle Sensor to work correctly!
+    // If accessibility is not enabled, this will show an alert and quit the app.
+    [self checkIfAccessabilityIsEnabled];
+
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"KnowSensor X started.");
+    [[KSAPIClient sharedClient] setReachabilityStatusChangedBlockReachable:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerReachable
+                                                            object:nil];
+    } unreachable:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerUnreachable
+                                                            object:nil];
+    }];
 }
 
 

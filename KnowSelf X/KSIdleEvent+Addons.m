@@ -29,6 +29,18 @@
     return YES;
 }
 
+- (BOOL)exportTimeOfRecording:(NSMutableDictionary *)result
+{
+    static NSString *key = @"timestamp";
+    NSString *timeOfRecording = [KSUtils dateAsString:self.timeOfRecording];
+    if(timeOfRecording)
+        [result setObject:timeOfRecording forKey:key];
+    else
+        [result setObject:[NSNull null] forKey:key];
+    
+    return YES;
+}
+
 - (NSString *)application
 {
     return @"Idle Sensor";

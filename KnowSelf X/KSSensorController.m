@@ -13,7 +13,10 @@
 
 @interface KSSensorController ()
 
+/// Unused. Might be used in the future to store events until the server becomes reachable, and send them as soon as it becomes reachable again.
 @property(nonatomic, strong) NSArray *eventBuffer;
+
+/// Unused. Might be used in the future to set the maximum event buffer size.
 @property(nonatomic, assign) NSInteger maxEventBufferSize;
 
 @end

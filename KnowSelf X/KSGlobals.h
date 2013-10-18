@@ -74,6 +74,8 @@ typedef enum KSEventTypeEnum {
 #define kKSNotificationKeyUserIdleStart @"UserIdleStart"
 #define kKSNotificationKeyUserIdleEnd  @"UserIdleEnd"
 
+#define kKSNotificationKeyServerReachable @"ServerReachable"
+#define kKSNotificationKeyServerUnreachable @"ServerUnreachable"
 
 //------------------------------------------------------------------------------
 // User Defaults Keys
@@ -97,7 +99,7 @@ typedef enum KSEventTypeEnum {
 #define kKSIdleSensorMinimumIdleTime 2
 
 /// Interval in seconds between two polls for the focus sensor.
-#define kKSFocusSensorPollInterval 1.0f
+#define kKSFocusSensorPollInterval 1.5f
 
 // constants for communicating with the server
 #define kKSKnowServerRelativeBasePath [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingString:@"/KnowSelf/KnowServer/"]
@@ -121,6 +123,7 @@ typedef enum KSEventTypeEnum {
 #define kKSLogTagIdleSensor @"Idle Sensor"
 #define kKSLogTagAPIClient @"API Client"
 #define kKSLogTagSensorController @"Sensor Controller"
+#define kKSLogTagProjectController @"Project Controller"
 #define kKSLogTagOther @"Unspecified"
 
 #endif

@@ -17,7 +17,14 @@
 
 @interface KSAPIClient ()
 
+/// Private property for storing the shared instance's AFNetworking client.
 @property(nonatomic, strong) AFHTTPClient *client;
+
+/// Private property for storing the 'reachability-changed-to-reachable' block
+@property (copy) void (^nowReachable)();
+
+/// Private property for storing the 'reachability-changed-to-unreachable' block
+@property (copy) void (^nowUnreachable)();
 
 @end
 
@@ -42,8 +49,28 @@
     if(self) {
         NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
         self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
+        _serverReachable = NO;
+        _nowReachable = ^void () {};
+        _nowUnreachable = ^void () {};
     }
     return self;
+}
+
+- (void)setReachabilityStatusChangedBlockReachable:(void (^)())reachable
+                                       unreachable:(void (^)())unreachable
+{
+    self.nowReachable = reachable;
+    self.nowUnreachable = unreachable;
+}
+
+- (void)setServerReachable:(BOOL)serverReachable
+{
+    if(self.serverReachable && !serverReachable) {
+        self.nowUnreachable();
+    } else if(!self.serverReachable && serverReachable) {
+        self.nowReachable();
+    }
+    _serverReachable = serverReachable;
 }
 
 
@@ -57,6 +84,9 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // check if the server has been unreachable previously. If yes, the nowReachable-block will be executed.
+        [self setServerReachable:YES];
+        
         NSError *jsonParseError = nil;
         id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject
                                                         options:0
@@ -98,6 +128,7 @@
             failure(jsonParseError);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
         failure(error);
     }];
@@ -115,6 +146,7 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self setServerReachable:YES];
         NSError *jsonParseError = nil;
         id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject
                                                         options:0
@@ -150,6 +182,7 @@
             failure(jsonParseError);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
         failure(error);
     }];
@@ -180,6 +213,8 @@
     [request setHTTPBody:projectData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self setServerReachable:YES];
+
         LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"CreateProject successful.");
         NSError *jsonError = nil;
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
@@ -190,6 +225,7 @@
             success(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"CreateProject FAILED with error: %@.", error);
         failure(error);
     }];
@@ -222,6 +258,7 @@
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self setServerReachable:YES];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity successful.");
         NSError *jsonError = nil;
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
@@ -232,6 +269,7 @@
             failure(jsonError); // maybe success because it technically worked?
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"StartRecordingActivity FAILED with error: %@.", error);
         failure(error);
     }];
@@ -266,6 +304,7 @@
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self setServerReachable:YES];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity successful.");
         NSError *jsonError = nil;
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
@@ -276,6 +315,7 @@
             failure(jsonError); // maybe success because it technically worked?
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"StopRecordingActivity FAILED with error: %@.", error);
         failure(error);
     }];
@@ -365,9 +405,11 @@
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self setServerReachable:YES];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"yay!");
         finishedBlock(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
         finishedBlock(error);
     }];

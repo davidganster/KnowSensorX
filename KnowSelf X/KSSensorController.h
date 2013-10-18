@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KSSensor.h"
 
-/// Singleton class that manages all KSSensor objects, server interactions and event buffers.
+/// Singleton class that manages all KSSensor objects, server interactions regarding events, and event buffers.
 @interface KSSensorController : NSObject<KSSensorDelegateProtocol>
 
 /// Array of sensors currently held by the KSSensorController.

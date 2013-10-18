@@ -21,11 +21,13 @@
 		EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE45E17F308B80032ADF2 /* KSProject.m */; };
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
 		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
+		EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */; };
 		EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */; };
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
 		EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */; };
 		EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */; };
 		EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */; };
+		EFA1629218104F0F002D481B /* KSProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA1629118104F0F002D481B /* KSProjectController.m */; };
 		EFA670D117BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
 		EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA670D917BBF6DE00C43BB0 /* InfoPlist.strings */; };
 		EFA670DD17BBF6DE00C43BB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670DC17BBF6DE00C43BB0 /* main.m */; };
@@ -87,7 +89,6 @@
 		EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
 		EFC106FD17FDD1160003A3F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC106FC17FDD1160003A3F0 /* Images.xcassets */; };
 		EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */; };
-		EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */; };
 		EFE8F2F617BD0D1C00D6369E /* KSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F2F517BD0D1C00D6369E /* KSEvent.m */; };
 		EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30117BD1BE800D6369E /* NSMutableArray+Addons.m */; };
 		EFE8F30A17BD1BE800D6369E /* NSMutableIndexSet+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE8F30317BD1BE800D6369E /* NSMutableIndexSet+Addons.m */; };
@@ -142,6 +143,8 @@
 		EF7FE46117F308B90032ADF2 /* KSActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSActivity.m; sourceTree = "<group>"; };
 		EF7FE46317F30CEC0032ADF2 /* KSProject+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSProject+Addons.h"; sourceTree = "<group>"; };
 		EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSProject+Addons.m"; sourceTree = "<group>"; };
+		EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSIdleEvent.h; sourceTree = "<group>"; };
+		EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSIdleEvent.m; sourceTree = "<group>"; };
 		EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSIdleEvent+Addons.h"; sourceTree = "<group>"; };
 		EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSIdleEvent+Addons.m"; sourceTree = "<group>"; };
 		EF99933517C413DC002E7458 /* KSUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUserInfo.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		EF9EC4C317C0F51F00A4A5A0 /* KSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSettingsViewController.h; sourceTree = "<group>"; };
 		EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSettingsViewController.m; sourceTree = "<group>"; };
 		EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSSettingsViewController.xib; sourceTree = "<group>"; };
+		EFA1629018104F0F002D481B /* KSProjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProjectController.h; sourceTree = "<group>"; };
+		EFA1629118104F0F002D481B /* KSProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProjectController.m; sourceTree = "<group>"; };
 		EFA670CD17BBF6DE00C43BB0 /* KnowSensor X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KnowSensor X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EFA670D317BBF6DE00C43BB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -267,8 +272,6 @@
 		EFC106FC17FDD1160003A3F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "KnowSensor X/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFocusEvent.h; sourceTree = "<group>"; };
 		EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFocusEvent.m; sourceTree = "<group>"; };
-		EFE8F2F117BD0D1B00D6369E /* KSIdleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSIdleEvent.h; sourceTree = "<group>"; };
-		EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSIdleEvent.m; sourceTree = "<group>"; };
 		EFE8F2F417BD0D1C00D6369E /* KSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSEvent.h; sourceTree = "<group>"; };
 		EFE8F2F517BD0D1C00D6369E /* KSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSEvent.m; sourceTree = "<group>"; };
 		EFE8F30017BD1BE800D6369E /* NSMutableArray+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Addons.h"; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 			children = (
 				EF051F7E17F9D2600013065F /* KSSensorController.h */,
 				EF051F7F17F9D2600013065F /* KSSensorController.m */,
+				EFA1629018104F0F002D481B /* KSProjectController.h */,
+				EFA1629118104F0F002D481B /* KSProjectController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -661,14 +666,14 @@
 		EFE8F2ED17BD09DD00D6369E /* AutoGenerated */ = {
 			isa = PBXGroup;
 			children = (
+				EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */,
+				EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */,
 				EF7FE46017F308B90032ADF2 /* KSActivity.h */,
 				EF7FE46117F308B90032ADF2 /* KSActivity.m */,
 				EF7FE45D17F308B80032ADF2 /* KSProject.h */,
 				EF7FE45E17F308B80032ADF2 /* KSProject.m */,
 				EFE8F2F417BD0D1C00D6369E /* KSEvent.h */,
 				EFE8F2F517BD0D1C00D6369E /* KSEvent.m */,
-				EFE8F2F117BD0D1B00D6369E /* KSIdleEvent.h */,
-				EFE8F2F217BD0D1B00D6369E /* KSIdleEvent.m */,
 				EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */,
 				EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */,
 			);
@@ -868,7 +873,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFE8F2F317BD0D1B00D6369E /* KSIdleEvent.m in Sources */,
 				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
 				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
@@ -917,11 +921,13 @@
 				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
 				EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
+				EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */,
 				EFA6714817BBF98500C43BB0 /* NSObject+MagicalDataImport.m in Sources */,
 				EFA6718817BBFAD300C43BB0 /* AFURLConnectionOperation.m in Sources */,
 				EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */,
 				EFE8F32317BD3B3E00D6369E /* KSIdleSensor.m in Sources */,
 				EFA6716A17BBF9E100C43BB0 /* NDProgrammerUtilities.m in Sources */,
+				EFA1629218104F0F002D481B /* KSProjectController.m in Sources */,
 				EF75B7AC1801AD6600D00508 /* STPrivilegedTask.m in Sources */,
 				EF051F8017F9D2600013065F /* KSSensorController.m in Sources */,
 				EFA6718417BBFAD300C43BB0 /* AFImageRequestOperation.m in Sources */,

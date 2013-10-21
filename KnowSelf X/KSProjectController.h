@@ -36,6 +36,15 @@
 /// Accessor to the singleton object.
 + (KSProjectController *)sharedProjectController;
 
+/** Starts the polling loop for projects immediately, then polls every `timeInterval` seconds.
+ @param timeIntervalInSeconds The time between two polls. More polls = more CPU/network activity, recommended value is about 5 seconds.
+ */
+- (void)startUpdatingProjectListWithTimeInterval:(CFTimeInterval)timeIntervalInSeconds;
+
+/** Stops the polling loop for projects. The currently queued poll will still be executed, but the next one will surely be cancelled.
+ */
+- (void)stopUpdatingProjectList;
+
 /** Adds an object to the list of observers that will be notified when the project list changes.
  The list is updated periodically
  TODO: add configurable time interval for this.
@@ -52,6 +61,7 @@
 
 /** Facade for KSAPIClient - creates a new project on the server and 
     updates the document with the returned project ID.
+ All observers will be notified on the main thread about the change.
  @param project The project to be created on the server.
 */
 - (void)createProject:(KSProject *)project;
@@ -59,19 +69,23 @@
 /** Starts the recording of an activity on the server.
  In case the server is already recording a different activity, it will be stopped before starting this one.
  If the given activity is the currently recording activity, this call will do nothing.
+ All observers will be notified on the main thread about the change.
  @param activity The activity for which the recording should be started.
  */
 - (void)startRecordingActivity:(KSActivity *)activity;
 
-/** Stopds the recording of an activity on the server.
+/** Stops the recording of an activity on the server.
  If the given activity is not the currently recording activity or no activity is being recorded at the time, this call will do nothing.
  Otherwise, the activity will be stopped.
+ All observers will be notified on the main thread about the change.
  @param activity The activity for which the recording should be stopped.
  */
 - (void)stopRecordingActivity:(KSActivity *)activity;
 
-// TODO: Think about whether or not this makes sense/is needed:
+
+/** Returns the active project list managed by the ProjectController. Thread-safe.
+ @return An NSArray of KSProject * objects.
+ */
 - (NSArray *)currentProjectList;
-- (NSArray *)currentActivityListForProject:(KSProject *)project;
 
 @end

@@ -19,10 +19,15 @@
 #import "KSActivity+Addons.h"
 #import "KSUserInfo.h"
 #import "KSAPIClient.h"
+#import "KSProjectController.h"
 
 @interface KSMainWindowController ()
 
+/// The status item that is displayed in the MenuBar. Has to be retained, otherwise it will immediately be deallocated.
 @property(nonatomic, strong) NSStatusItem *statusItem;
+
+/// All projects will get a menu item with their title. Kept as a member for comparing changes.
+@property(nonatomic, strong) NSMutableArray *projectMenuItems;
 
 @end
 
@@ -51,7 +56,17 @@
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
+    [[KSProjectController sharedProjectController] addObserverForProjectRelatedEvents:self];
+    [[KSProjectController sharedProjectController] startUpdatingProjectListWithTimeInterval:5.0];
+    
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+}
+
+-(void)projectController:(KSProjectController *)controller projectListChangedWithAddedProjects:(NSArray *)addedObjects
+         deletedProjects:(NSArray *)deletedProjects
+{
+    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Project list changed!");
+    [self updateProjectMenuWithAddedProjects:addedObjects deletedProjects:deletedProjects];
 }
 
 - (void)createMenubarItem
@@ -62,47 +77,23 @@
     [self.statusItem setHighlightMode:YES];
 }
 
-- (void)updateProjectMenuWithProjects:(NSArray *)projects
+- (void)updateProjectMenuWithAddedProjects:(NSArray *)addedProjects deletedProjects:(NSArray *)deletedProjects
 {
-    [self.projectsMenu removeAllItems];
-    for (KSProject *project in projects) {
+//    [self.projectsMenu removeAllItems];
+    for (KSProject *project in addedProjects) {
         // TODO: maybe use custom menu items here for convenience of getting the object later
         NSMenuItem *projectMenuItem = [[NSMenuItem alloc] initWithTitle:project.name
                                                                  action:@selector(projectClicked:)
                                                           keyEquivalent:@""];
         [projectMenuItem setTarget:self];
         
-        [self.projectsMenu addItem:projectMenuItem];
+        [self.projectsMenu insertItem:projectMenuItem atIndex:0];
     }
 }
 
 - (void)projectClicked:(NSMenuItem *)projectMenuItem
 {
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Project clicked!");
-}
-
-- (IBAction)getProjectsMenuItemAction:(id)sender
-{
-    [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
-        [self updateProjectMenuWithProjects:projects];
-//        KSProject *project = projects[0];
-//        NSString *projectID = project.projectID;
-//        
-//        
-//        KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
-//        [activity setStartDate:[NSDate date]];
-//        [activity setProjectName:projectID];
-//        [activity setActivityID:@""];
-//        [activity setName:@"I'm programming right now!"];
-//        
-//        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-//            NSLog(@"");
-//        } failure:^(NSError *error) {
-//            NSLog(@"");
-//        }];
-    } failure:^(NSError *error) {
-        LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to get project list: %@", error);
-    }];
 }
 
 - (IBAction)bringWindowToFront:(id)sender

@@ -74,7 +74,7 @@
                 [newProjectsSet minusSet:oldProjectsSet];
                 if([newProjectsSet count] > 0) {
                     // Will also update the observers (asynchronously)
-                    self.projectList = [[newProjectsSet allObjects] mutableCopy];
+                    self.projectList = [projects mutableCopy];
                     LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project list successfully updated (count = %lu)", (unsigned long)[self.projectList count]);
                 }
                 if(self.continuePolling)
@@ -89,17 +89,19 @@
 }
 
 #pragma mark - Notifying observers
-- (void)notifyObserversAboutProjectListChange
+- (void)notifyObserversAboutProjectListChangeWithAddedObjects:(NSArray *)addedObjects deletedObjects:(NSArray *)deletedObjects
 {
     for (id<KSProjectControllerEventObserver> observer in self.projectEventObservers) {
-        [observer projectListChanged:self.projectList];
+        if([observer respondsToSelector:@selector(projectController:projectListChangedWithAddedProjects:deletedProjects:)])
+            [observer projectController:self projectListChangedWithAddedProjects:addedObjects deletedProjects:deletedObjects];
     }
 }
 
 - (void)notifyObserversAboutNewActiveActivity
 {
     for (id<KSProjectControllerEventObserver> observer in self.projectEventObservers) {
-        [observer activeActivityChangedToActivity:self.currentlyRecordingActivity];
+        if([observer respondsToSelector:@selector(projectController:activeActivityChangedToActivity:)])
+            [observer projectController:self activeActivityChangedToActivity:self.currentlyRecordingActivity];
     }
 }
 
@@ -131,7 +133,8 @@
         [self.projectList addObject:project];
         // Callbacks for observers will happen on the main thread.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self notifyObserversAboutProjectListChange];
+            [self notifyObserversAboutProjectListChangeWithAddedObjects:@[project]
+                                                         deletedObjects:nil];
         });
     });
 }
@@ -144,7 +147,8 @@
             [self.projectList removeObject:project];
             // Callbacks for observers will happen on the main thread.
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self notifyObserversAboutProjectListChange];
+                [self notifyObserversAboutProjectListChangeWithAddedObjects:nil
+                                                             deletedObjects:@[project]];
             });
         }
     });
@@ -153,13 +157,18 @@
 - (void)setProjectList:(NSMutableArray *)projectList
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
+        NSMutableSet *oldProjects = [NSMutableSet setWithArray:_projectList];
+        NSMutableSet *newProjects = [NSMutableSet setWithArray:projectList];
+        
+        [newProjects minusSet:oldProjects]; // all new (added) objects will remain
+        [oldProjects minusSet:[NSSet setWithArray:projectList]]; // all old (deleted) objects will remain
         _projectList = projectList;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self notifyObserversAboutProjectListChange];
+            [self notifyObserversAboutProjectListChangeWithAddedObjects:[newProjects allObjects]
+                                                         deletedObjects:[oldProjects allObjects]];
         });
     });
 }
-
 
 #pragma mark -
 #pragma mark Public Methods
@@ -168,7 +177,7 @@
 {
     self.continuePolling = YES;
     self.timeIntervalBetweenPolls = timeIntervalInSeconds;
-    [self startUpdatingProjectListWithTimeInterval:0.0];
+    [self updateProjectListWithDelay:0.0];
 }
 
 - (void)stopUpdatingProjectList

@@ -175,7 +175,8 @@ void SignalHandler(int sig)
     // TODO: add finishedBlock and call [NSApp replyToApplicationShouldTerminate:YES];
 //    [[KSSensorController sharedSensorController] stopRecordingEvents];
 
-    [MagicalRecord cleanUp];    
+    // since we never save anything, this doesn't seem very useful:
+//    [MagicalRecord cleanUp];
     
     // tear down KnowServer as well
     [self stopKnowServer];
@@ -186,7 +187,7 @@ void SignalHandler(int sig)
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    [self stopKnowServer];
+    [self applicationShouldTerminate:nil];
 }
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

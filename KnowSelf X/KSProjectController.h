@@ -10,21 +10,28 @@
 
 @class KSProject;
 @class KSActivity;
+@class KSProjectController;
 
 /// Protocol for callbacks for any observers of project related events.
 /// Multiple listeners can subscribe to these events, and the callbacks defined in this protocol
 /// will be called on all of them in the order they were added.
+/// Both methods are optional, as might not provide interesting information to some of the observers,
+/// and are generally not necessary for execution.
 @protocol KSProjectControllerEventObserver <NSObject>
-
+@optional
 /** Callback for when the list of projects has changed on the server.
- @param newProjectList An array containing pointers to all KSProject objects that are currently handled by the server.
+ @param controller The controller object that initiated the change.
+ @param addedProjects The projects that have been added since the last poll.
+ @param deletedProjects The projects that have been deleted since the last poll.
  */
-- (void)projectListChanged:(NSArray *)newProjectList;
+- (void)projectController:(KSProjectController *)controller projectListChangedWithAddedProjects:(NSArray *)addedObjects
+          deletedProjects:(NSArray *)deletedProjects;
+
 
 /** Callback for when the actively recording activity has changed on the server.
  @param activity The new active activity.
  */
-- (void)activeActivityChangedToActivity:(KSActivity *)activity;
+- (void)projectController:(KSProjectController *)controller activeActivityChangedToActivity:(KSActivity *)activity;
 
 @end
 

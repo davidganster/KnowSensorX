@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "KSSensor.h"
+#import "KSProjectController.h"
 
 /**
  * @author David Ganster
  * @documentation this class manages the main window of the program. no logic being done here.
  */
-@interface KSMainWindowController : NSWindowController<NSTabViewDelegate>
+@interface KSMainWindowController : NSWindowController<NSTabViewDelegate, KSProjectControllerEventObserver>
 
 @property(nonatomic, strong) NSArray *tabViewControllers;
 

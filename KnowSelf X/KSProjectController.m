@@ -67,25 +67,52 @@
 {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, _refreshProjectListQueue, ^(void) {
+        // Refresh project list
         [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
-            dispatch_async(self.refreshProjectListQueue, ^{
-                NSMutableSet *newProjectsSet = [NSMutableSet setWithArray:projects];
-                NSMutableSet *oldProjectsSet = [NSMutableSet setWithArray:self.projectList];
-                [newProjectsSet minusSet:oldProjectsSet];
-                if([newProjectsSet count] > 0) {
-                    // Will also update the observers (asynchronously)
-                    self.projectList = [projects mutableCopy];
-                    LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project list successfully updated (count = %lu)", (unsigned long)[self.projectList count]);
-                }
-                if(self.continuePolling)
-                    [self updateProjectListWithDelay:self.timeIntervalBetweenPolls];
-            });
+            [[KSAPIClient sharedClient] loadAllActivities:^(NSArray *activities) {
+                // Both projects and activities are now loaded.
+                // If one of the calls returns an error, the list is not updated.
+                dispatch_async(self.refreshProjectListQueue, ^{
+                    if([projects isEqualToArray:self.projectList] && [activities isEqualToArray:self.activityList]) {
+                        [self finishPollSuccesful:YES]; // nothing has changed.
+                    } else {
+                        // something has changed, need to update lists
+                        for (KSProject *project in projects) {
+                            NSOrderedSet *activitiesForProject = [NSOrderedSet orderedSetWithArray:[activities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.projectName like %@", project.name]]];
+                            [project setActivities:activitiesForProject];
+                        }
+                        // this will also asynchronously update the observers:
+                        self.projectList = [projects mutableCopy];
+                        self.activityList = [activities mutableCopy];
+                        [self finishPollSuccesful:YES];
+                    }
+                });
+            } failure:^(NSError *error) {
+                [self finishPollSuccesful:NO];
+            }];
         } failure:^(NSError *error) {
-            LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load project list! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
-            if(self.continuePolling)
-                [self updateProjectListWithDelay:self.timeIntervalBetweenPolls];
+            [self finishPollSuccesful:NO];
         }];
+        
+        // Refresh active activity
+        [[KSAPIClient sharedClient] loadActiveActivity:^(KSActivity *currentActivity) {
+            self.currentlyRecordingActivity = currentActivity; // Will also update the observers (asynchronously).
+        } failure:^(NSError *error) {
+            LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load currently active activity! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
+        }];
+        
     });
+}
+
+- (void)finishPollSuccesful:(BOOL)success
+{
+    if(success) {
+        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project and activity list successfully updated (project count = %lu, activity count = %lu)", (unsigned long)[self.projectList count], [self.activityList count]);
+    } else {
+        LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load project list! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
+    }
+    if(self.continuePolling)
+        [self updateProjectListWithDelay:self.timeIntervalBetweenPolls];
 }
 
 #pragma mark - Notifying observers
@@ -110,7 +137,7 @@
 - (void)setCurrentlyRecordingActivity:(KSActivity *)currentlyRecordingActivity
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
-        self.currentlyRecordingActivity = currentlyRecordingActivity;
+        _currentlyRecordingActivity = currentlyRecordingActivity;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self notifyObserversAboutNewActiveActivity];
         });
@@ -157,15 +184,22 @@
 - (void)setProjectList:(NSMutableArray *)projectList
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
-        NSMutableSet *oldProjects = [NSMutableSet setWithArray:_projectList];
-        NSMutableSet *newProjects = [NSMutableSet setWithArray:projectList];
+        if(self.projectList == projectList)
+            return;
+        // important: preserve order of objects.
+        NSMutableOrderedSet *oldProjects = [NSMutableOrderedSet orderedSetWithArray:_projectList];
+        NSMutableOrderedSet *newProjects = [NSMutableOrderedSet orderedSetWithArray:projectList];
         
-        [newProjects minusSet:oldProjects]; // all new (added) objects will remain
-        [oldProjects minusSet:[NSSet setWithArray:projectList]]; // all old (deleted) objects will remain
+        [newProjects minusOrderedSet:oldProjects]; // all new (added) objects will remain
+        [oldProjects minusOrderedSet:[NSOrderedSet orderedSetWithArray:projectList]]; // all old (deleted) objects will remain
+        
+        if(newProjects.count == 0 && oldProjects.count == 0)
+            return; // nothing added, nothing removed - nothing to do.
+        
         _projectList = projectList;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self notifyObserversAboutProjectListChangeWithAddedObjects:[newProjects allObjects]
-                                                         deletedObjects:[oldProjects allObjects]];
+            [self notifyObserversAboutProjectListChangeWithAddedObjects:[newProjects array]
+                                                         deletedObjects:[oldProjects array]];
         });
     });
 }
@@ -207,7 +241,6 @@
         project.projectID = newProjectID;
         [self addProjectListObject:project]; // Will dispatch to correct queue and notify observers.
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
-        
     } failure:^(NSError *error) {
         LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to create a new project: %@", error);
     }];
@@ -215,7 +248,7 @@
 
 - (void)startRecordingActivity:(KSActivity *)activity
 {
-    if([activity.activityID isEqualToString:self.currentlyRecordingActivity.activityID])
+    if(activity == nil || [activity.activityID isEqualToString:self.currentlyRecordingActivity.activityID])
         return;
     
     if(self.currentlyRecordingActivity != nil) {
@@ -225,7 +258,6 @@
     [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
         activity.activityID = newActivityID;
         self.currentlyRecordingActivity = activity;
-        
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
     } failure:^(NSError *error) {
         LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);

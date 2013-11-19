@@ -2,7 +2,7 @@
 //  KSProject.m
 //  KnowSensor X
 //
-//  Created by David Ganster on 26/09/13.
+//  Created by David Ganster on 24/10/13.
 //  Copyright (c) 2013 David Ganster. All rights reserved.
 //
 

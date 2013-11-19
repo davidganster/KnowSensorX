@@ -22,7 +22,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="468" y="518" width="508" height="293"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="508" height="293"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -72,7 +72,7 @@
         <toolbarItem implicitItemIdentifier="97090EAA-0A04-42C8-A0EF-26D0A5600BE8" label="Toolbar Item" paletteLabel="Toolbar Item" tag="-1" id="37"/>
         <menu id="80">
             <items>
-                <menuItem title="Show KnowSelf X" id="88">
+                <menuItem title="Preferences" image="NSActionTemplate" id="88">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="bringWindowToFront:" target="-2" id="121"/>
@@ -127,6 +127,7 @@
         </menu>
     </objects>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSInfo" width="32" height="32"/>
         <image name="NSListViewTemplate" width="11" height="10"/>

@@ -56,6 +56,7 @@
     return self;
 }
 
+#pragma mark Public Methods.
 - (void)setReachabilityStatusChangedBlockReachable:(void (^)())reachable
                                        unreachable:(void (^)())unreachable
 {
@@ -136,6 +137,78 @@
     [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
+- (void)loadAllActivities:(void(^)(NSArray *activities))success
+                  failure:(void (^)(NSError *error))failure
+{
+    // TODO: ask Granit about parameters for getting all activities!
+    NSString *now = [[KSUtils dateAsString:[NSDate date]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString *past =[[KSUtils dateAsString:[NSDate distantPast]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"GET"
+                                                             path:@"mirror/KCActivities"
+                                                       parameters:@{
+                                                                    @"start_date" : past,
+                                                                    @"end_date"   : now}];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+    
+    
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // check if the server has been unreachable previously. If yes, the nowReachable-block will be executed.
+        [self setServerReachable:YES];
+        
+        NSError *jsonParseError = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                        options:0
+                                                          error:&jsonParseError];
+        if(jsonParseError || [jsonObject isKindOfClass:[NSArray class]]) {
+            NSArray *responseArray = (NSArray *)jsonObject;
+            NSMutableArray *activities = [NSMutableArray array];
+            for (NSDictionary *activityDict in responseArray) {
+                // parse activities here
+                KSActivity *activity = [KSActivity createOrFetchWithData:activityDict
+                                                               inContext:[NSManagedObjectContext defaultContext]];
+                if(activity) {
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", responseObject);
+                    [activities addObject:activity];
+                } else {
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", responseObject);
+                }
+            }
+            
+#ifndef kKSIsSaveToPersistentStoreDisabled
+            // after having created all the objects, save them and then call the success/failure blocks:
+            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
+                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
+                // better to check the error pointer instead:
+                if(!error) {
+#endif
+                    // whether or not saving to persistent store is enabled - the success block will always be called.
+                    success(activities);
+                    
+#ifndef kKSIsSaveToPersistentStoreDisabled
+                } else {
+                    failure(error);
+                }
+            }];
+#endif
+        } else {
+            // Unexpected answer
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Received invalid JSON object: %@", jsonObject);
+            failure(jsonParseError); // might pass nil in case the response was another class but parsing worked fine.
+        }
+        // TODO: parse json, create activity objects.
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self setServerReachable:NO];
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Sending message to server failed with error: %@", error);
+        failure(error);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:requestOperation];
+
+}
+
 - (void)loadActiveActivity:(void(^)(KSActivity *currentActivity))success
                    failure:(void (^)(NSError *error))failure
 {
@@ -178,8 +251,12 @@
                 }];
 #endif
         } else {
-            LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
-            failure(jsonParseError);
+            if(jsonParseError) {
+                LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
+                failure(jsonParseError);
+            } else {
+                success(nil); // no objects.
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self setServerReachable:NO];

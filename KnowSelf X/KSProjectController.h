@@ -19,7 +19,8 @@
 /// and are generally not necessary for execution.
 @protocol KSProjectControllerEventObserver <NSObject>
 @optional
-/** Callback for when the list of projects has changed on the server.
+
+/** Callback for when the list of projects has changed on the server. Activities will be connected with the given project lists.
  @param controller The controller object that initiated the change.
  @param addedProjects The projects that have been added since the last poll.
  @param deletedProjects The projects that have been deleted since the last poll.
@@ -90,7 +91,9 @@
 - (void)stopRecordingActivity:(KSActivity *)activity;
 
 
-/** Returns the active project list managed by the ProjectController. Thread-safe.
+/** Returns the active project list managed by the ProjectController. 
+ Since no timestamp/creation date is known, projects are ordered in the way they are received from the server.
+ Thread-safe.
  @return An NSArray of KSProject * objects.
  */
 - (NSArray *)currentProjectList;

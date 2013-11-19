@@ -195,11 +195,13 @@
 
 - (BOOL)_registerForEvents
 {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                  target:self
-                                                selector:@selector(handleTimerFired:)
-                                                userInfo:nil
-                                                 repeats:YES];
+    KS_dispatch_sync_reentrant(self.applescriptQueue, ^{
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(handleTimerFired:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    });
     
     if(self.timer)
         return YES;
@@ -209,10 +211,12 @@
 
 - (BOOL)_unregisterForEvents
 {
-    [self.timer invalidate];
-    self.timer = nil;
-    
-    [self sendLoseFocusEventForCurrentApplication];
+    KS_dispatch_sync_reentrant(self.applescriptQueue, ^{
+        [self.timer invalidate];
+        self.timer = nil;
+        
+        [self sendLoseFocusEventForCurrentApplication];
+    });
     
     return YES; // nothing can go wrong here
 }

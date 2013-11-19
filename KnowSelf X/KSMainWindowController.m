@@ -57,7 +57,7 @@
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
     [[KSProjectController sharedProjectController] addObserverForProjectRelatedEvents:self];
-    [[KSProjectController sharedProjectController] startUpdatingProjectListWithTimeInterval:5.0];
+    [[KSProjectController sharedProjectController] startUpdatingProjectListWithTimeInterval:kKSProjectControllerPollInterval];
     
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
@@ -79,8 +79,9 @@
 
 - (void)updateProjectMenuWithAddedProjects:(NSArray *)addedProjects deletedProjects:(NSArray *)deletedProjects
 {
-//    [self.projectsMenu removeAllItems];
-    for (KSProject *project in addedProjects) {
+    NSEnumerator *reverseEnumerator = [addedProjects objectEnumerator];
+    KSProject *project = nil;
+    while((project = [reverseEnumerator nextObject])) {
         // TODO: maybe use custom menu items here for convenience of getting the object later
         NSMenuItem *projectMenuItem = [[NSMenuItem alloc] initWithTitle:project.name
                                                                  action:@selector(projectClicked:)

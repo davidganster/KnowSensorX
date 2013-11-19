@@ -95,11 +95,14 @@ typedef enum KSEventTypeEnum {
 #define kKSIsSaveToPersistentStoreDisabled
 
 /// Minimum idle time before an event is registered in seconds. Defaults to 600 (10 minutes)
-//#define kKSIdleSensorMinimumIdleTime 600
-#define kKSIdleSensorMinimumIdleTime 2
+//#define kKSIdleSensorMinimumIdleTime 240
+#define kKSIdleSensorMinimumIdleTime 240
 
 /// Interval in seconds between two polls for the focus sensor.
 #define kKSFocusSensorPollInterval 1.5f
+
+/// Interval in seconds between two polls for the project/activity list.
+#define kKSProjectControllerPollInterval 10.0f
 
 // constants for communicating with the server
 #define kKSKnowServerRelativeBasePath [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingString:@"/KnowSelf/KnowServer/"]

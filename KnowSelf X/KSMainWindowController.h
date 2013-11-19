@@ -28,7 +28,6 @@
 
 - (IBAction)projectsButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)getProjectsMenuItemAction:(id)sender;
 - (IBAction)bringWindowToFront:(id)sender;
 - (IBAction)showWebAppButtonPressed:(id)sender;
 - (IBAction)privateModeButtonPressed:(NSMenuItem *)sender;

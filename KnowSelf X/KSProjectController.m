@@ -28,15 +28,15 @@
 /// Queue for refreshing project/activity lists in the background.
 @property(nonatomic, assign) dispatch_queue_t refreshProjectListQueue;
 
-/// Specifies the time interval between two polls for refreshing projects.
-@property(nonatomic, assign) CFTimeInterval timeIntervalBetweenPolls;
-
 /// Specifies whether or not to continue the polling loop. Will be YES until `stopUpdatingProjectList` is called.
 @property(atomic, assign) BOOL continuePolling;
 
 @end
 
 @implementation KSProjectController
+
+// MUST manually synthesize the ivar, because both getter and setter have been overwritten.
+@synthesize timeIntervalBetweenPolls = _timeIntervalBetweenPolls;
 
 #pragma mark - Private Methods
 + (KSProjectController *)sharedProjectController
@@ -132,8 +132,25 @@
     }
 }
 
-
 #pragma mark - Custom Getters/Setters
+
+- (void)setTimeIntervalBetweenPolls:(CFTimeInterval)timeIntervalBetweenPolls
+{
+    // do this AFTER the current queue finishes.
+    KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
+        _timeIntervalBetweenPolls = timeIntervalBetweenPolls;
+    });
+}
+
+- (CFTimeInterval)timeIntervalBetweenPolls
+{
+    __block CFTimeInterval timeInterval;
+    KS_dispatch_sync_reentrant(self.refreshProjectListQueue, ^{
+        timeInterval = _timeIntervalBetweenPolls;
+    });
+    return timeInterval;
+}
+
 - (void)setCurrentlyRecordingActivity:(KSActivity *)currentlyRecordingActivity
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
@@ -207,7 +224,7 @@
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)startUpdatingProjectListWithTimeInterval:(CFTimeInterval)timeIntervalInSeconds
+- (void)startUpdatingProjectListWithTimeBetweenPolls:(CFTimeInterval)timeIntervalInSeconds
 {
     self.continuePolling = YES;
     self.timeIntervalBetweenPolls = timeIntervalInSeconds;

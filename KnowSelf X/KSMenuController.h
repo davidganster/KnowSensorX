@@ -17,8 +17,7 @@
  the project list, current activity etc.
  @note The KSMenu is dependant on one layout constraint: The first 3 items are reserved
  for "Current Project/Activty", <current project/activity> and <seperator>.
- Any changes after these three items do not require any changes in code, but be careful if you
- insert new items at the front!
+ Any changes after these three items do not require any changes in code, but be careful if you insert new items at the front!
  */
 @interface KSMenuController : NSObject
 
@@ -34,5 +33,12 @@
 /// The NSMenu managed by this class.
 /// @note Do not modify this object from outside, it will mess up the controller's logic.
 @property (readonly, strong) IBOutlet NSMenu *menu;
+
+
+- (IBAction)showPreferencePane:(id)sender;
+- (IBAction)showWebApp:(id)sender;
+- (IBAction)togglePrivateMode:(NSMenuItem *)sender;
+- (IBAction)writeToDiary:(id)sender;
+- (IBAction)quit:(id)sender;
 
 @end

@@ -22,15 +22,9 @@
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
 @property (weak) IBOutlet NSToolbar *toolbar;
-@property (strong) IBOutlet NSMenu *statusBarMenu;
-@property (weak) IBOutlet NSMenu *projectsMenu;
 
 
 - (IBAction)projectsButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)bringWindowToFront:(id)sender;
-- (IBAction)showWebAppButtonPressed:(id)sender;
-- (IBAction)privateModeButtonPressed:(NSMenuItem *)sender;
-- (IBAction)writeToDiaryButtonPressed:(id)sender;
 
 @end

@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class KSMainWindowController;
+
 @interface KSAppDelegate : NSObject <NSApplicationDelegate>
 
+@property(nonatomic, strong) KSMainWindowController *mainWindowController;
 
 @end

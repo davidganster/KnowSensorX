@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="KSMenuController">
             <connections>
                 <outlet property="menu" destination="0NL-Yr-WZu" id="gc6-ld-itc"/>
+                <outlet property="projectListMenuItem" destination="aGy-V5-m2d" id="4kY-kZ-Huv"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -23,15 +24,27 @@
                 <menuItem isSeparatorItem="YES" id="J44-KP-uG2"/>
                 <menuItem title="Preferences" image="NSActionTemplate" id="6cT-aO-WP3">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showPreferencePane:" target="-2" id="nhk-GE-7bJ"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Show Web App" id="kYv-Kb-PMj">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showWebApp:" target="-2" id="pd4-2l-WAG"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Private Mode" id="N7q-fA-nYM">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="togglePrivateMode:" target="-2" id="kuq-Fc-sBX"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Write to diary..." id="7vH-yh-PMN">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="writeToDiary:" target="-2" id="h09-JH-5hH"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Projects" id="aGy-V5-m2d">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -56,6 +69,9 @@
                 <menuItem isSeparatorItem="YES" id="izI-9u-fUp"/>
                 <menuItem title="Quit KnowSelf X" id="QHB-in-CZ7">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quit:" target="-2" id="IbO-OL-eQs"/>
+                    </connections>
                 </menuItem>
             </items>
         </menu>

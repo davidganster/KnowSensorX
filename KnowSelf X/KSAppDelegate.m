@@ -16,7 +16,6 @@
 
 @interface KSAppDelegate ()
 
-@property(nonatomic, strong) KSMainWindowController *mainWindowController;
 @property(nonatomic, strong) NSTask *knowServerTask;
 
 @end
@@ -69,8 +68,6 @@ void SignalHandler(int sig)
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
-
     // installs HandleExceptions as the Uncaught Exception Handler (as well as SignalHandler)
     NSSetUncaughtExceptionHandler(&HandleExceptions);
     struct sigaction newSignalAction;

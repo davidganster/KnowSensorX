@@ -7,10 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="KSMainWindowController">
             <connections>
-                <outlet property="projectsMenu" destination="90" id="98"/>
                 <outlet property="projectsToolbarItem" destination="35" id="138"/>
                 <outlet property="settingsToolbarItem" destination="36" id="63"/>
-                <outlet property="statusBarMenu" destination="80" id="84"/>
                 <outlet property="tabView" destination="13" id="75"/>
                 <outlet property="toolbar" destination="5" id="79"/>
                 <outlet property="window" destination="1" id="3"/>
@@ -70,68 +68,8 @@
             </connections>
         </window>
         <toolbarItem implicitItemIdentifier="97090EAA-0A04-42C8-A0EF-26D0A5600BE8" label="Toolbar Item" paletteLabel="Toolbar Item" tag="-1" id="37"/>
-        <menu id="80">
-            <items>
-                <menuItem title="Current Project/Activity" enabled="NO" id="8Ws-qr-n9d" customClass="KSCurrentProjectMenuItem">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="eR2-U2-ITx"/>
-                <menuItem title="Preferences" image="NSActionTemplate" id="88">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="bringWindowToFront:" target="-2" id="121"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Show Web App" id="hCc-Jj-Swn">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showWebAppButtonPressed:" target="-2" id="QVS-MA-fEh"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Private Mode" id="2ZS-31-hLE">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="privateModeButtonPressed:" target="-2" id="rGh-vB-u3K"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Write to diary..." id="a96-Di-cgo">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="writeToDiaryButtonPressed:" target="-2" id="bSR-wg-Koc"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Projects" id="89">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Projects" id="90">
-                        <items>
-                            <menuItem title="current project/activity name" enabled="NO" id="122">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="HYk-Lw-eVE"/>
-                            <menuItem title="Stop Activity &lt;x>" id="123">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Start Activity..." id="125">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="New Project..." id="119">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="86"/>
-                <menuItem title="Quit KnowSelf X" id="83">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="quitApplication:" target="-2" id="85"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSInfo" width="32" height="32"/>
         <image name="NSListViewTemplate" width="11" height="10"/>

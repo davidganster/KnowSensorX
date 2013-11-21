@@ -44,10 +44,13 @@
 /// Accessor to the singleton object.
 + (KSProjectController *)sharedProjectController;
 
+/// Specifies the time interval between two polls for refreshing projects.
+@property(nonatomic, assign) CFTimeInterval timeIntervalBetweenPolls;
+
 /** Starts the polling loop for projects immediately, then polls every `timeInterval` seconds.
  @param timeIntervalInSeconds The time between two polls. More polls = more CPU/network activity, recommended value is about 5 seconds.
  */
-- (void)startUpdatingProjectListWithTimeInterval:(CFTimeInterval)timeIntervalInSeconds;
+- (void)startUpdatingProjectListWithTimeBetweenPolls:(CFTimeInterval)timeIntervalInSeconds;
 
 /** Stops the polling loop for projects. The currently queued poll will still be executed, but the next one will surely be cancelled.
  */
@@ -97,5 +100,6 @@
  @return An NSArray of KSProject * objects.
  */
 - (NSArray *)currentProjectList;
+
 
 @end

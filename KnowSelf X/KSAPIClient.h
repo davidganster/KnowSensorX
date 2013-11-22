@@ -28,6 +28,8 @@
  */
 + (KSAPIClient *)sharedClient;
 
+// TODO: There should be a mechanism that pokes the server every x seconds until it is reachable, that will actually call the blocks correctly.
+// TODO: Refactor this, the APIClient should just send a notification as soon as a connection is established/lost.
 /** Allows to configure blocks for when the reachability changes. 
  Especially interesting for monitoring when the server is up and ready for events.
  @param reachable The block to be executed when the server is reachable.

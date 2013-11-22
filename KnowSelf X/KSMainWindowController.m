@@ -60,19 +60,7 @@
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
-    [[KSProjectController sharedProjectController] addObserverForProjectRelatedEvents:self];
-    [[KSProjectController sharedProjectController] startUpdatingProjectListWithTimeBetweenPolls:kKSProjectControllerPollInterval];
-    
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
-}
-
--(void)projectController:(KSProjectController *)controller projectListChangedWithAddedProjects:(NSArray *)addedObjects
-                        deletedProjects:(NSArray *)deletedProjects
-{
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Project list changed!");
-    
-    // We don't really need to keep track of the changes here, since we just replace the full project list.
-    [self.menuController setProjectList:controller.currentProjectList];
 }
 
 - (void)createMenubarItem

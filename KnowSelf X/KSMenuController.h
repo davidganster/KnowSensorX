@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "KSProjectController.h"
 
 @class KSProject;
 @class KSActivity;
@@ -19,12 +20,9 @@
  for "Current Project/Activty", <current project/activity> and <seperator>.
  Any changes after these three items do not require any changes in code, but be careful if you insert new items at the front!
  */
-@interface KSMenuController : NSObject
+@interface KSMenuController : NSObject<KSProjectControllerEventObserver>
 
-/// The project whose name will be shown in the second menu item.
-@property(nonatomic, strong) KSProject *currentProject;
-
-/// The activity whose name will be shown in the second menu item.
+/// The activity whose name will be shown in the currentProjectMenuItem menu item.
 @property(nonatomic, strong) KSActivity *currentActivity;
 
 /// An array of all projects, will be shown in the 'Projects >' submenu.
@@ -35,10 +33,39 @@
 @property (readonly, strong) IBOutlet NSMenu *menu;
 
 
+/**
+ IBAction that shows the main window with the preference pane selected.
+ @return void (IBAction)
+ @param sender - The button that sent the event. Unused.
+ */
 - (IBAction)showPreferencePane:(id)sender;
+
+/**
+ IBAction that shows the WebApp in the default browser.
+ @return void (IBAction)
+ @param sender - The button that sent the event. Unused.
+ */
 - (IBAction)showWebApp:(id)sender;
+
+/**
+ IBAction that toggles private mode on/off.
+ @return void (IBAction)
+ @param sender - The button that sent the event. Unused.
+ */
 - (IBAction)togglePrivateMode:(NSMenuItem *)sender;
+
+/**
+ IBAction that shows the WebApp in the default browser, opened to the 'Write to diary' page.
+ @return void (IBAction)
+ @param sender - The button that sent the event. Unused.
+ */
 - (IBAction)writeToDiary:(id)sender;
+
+/**
+ IBAction that quits the application.
+ @return void (IBAction)
+ @param sender - The button that sent the event. Unused.
+ */
 - (IBAction)quit:(id)sender;
 
 @end

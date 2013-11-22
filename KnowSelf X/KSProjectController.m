@@ -14,7 +14,8 @@
 @interface KSProjectController ()
 
 /// Contains all observers (they must the KSProjectControllerEventObserver protocol).
-@property(nonatomic, strong) NSMutableArray *projectEventObservers;
+/// Every observer can only be in the list once, hence we use an NSMutableSet.
+@property(nonatomic, strong) NSMutableSet *projectEventObservers;
 
 /// The activity that is currently recording. Will be updated whenever start/stopRecordingActivity: is called.
 @property(nonatomic, strong) KSActivity *currentlyRecordingActivity;
@@ -53,7 +54,7 @@
 {
     self = [super init];
     if(self) {
-        _projectEventObservers = [NSMutableArray array];
+        _projectEventObservers = [NSMutableSet set];
         _projectList = [NSMutableArray array];
         _activityList = [NSMutableArray array];
         _currentlyRecordingActivity = nil;
@@ -96,6 +97,13 @@
         
         // Refresh active activity
         [[KSAPIClient sharedClient] loadActiveActivity:^(KSActivity *currentActivity) {
+            // The project this activity belongs to should definitely be in our list.
+            // If it isn't - tough luck, it will be next time.
+            for (KSProject *project in self.projectList) {
+                if([currentActivity.projectName isEqualToString:project.name]) {
+                    currentActivity.project = project;
+                }
+            }
             self.currentlyRecordingActivity = currentActivity; // Will also update the observers (asynchronously).
         } failure:^(NSError *error) {
             LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load currently active activity! Will try again in %f seconds.", self.timeIntervalBetweenPolls);

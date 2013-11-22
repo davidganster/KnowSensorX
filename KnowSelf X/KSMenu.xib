@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="KSMenuController">
             <connections>
+                <outlet property="currentActivityMenuItem" destination="Grh-Wi-aBl" id="ir3-GO-yxo"/>
                 <outlet property="menu" destination="0NL-Yr-WZu" id="gc6-ld-itc"/>
                 <outlet property="projectListMenuItem" destination="aGy-V5-m2d" id="4kY-kZ-Huv"/>
             </connections>
@@ -15,7 +16,7 @@
         <customObject id="-3" userLabel="Application"/>
         <menu id="0NL-Yr-WZu">
             <items>
-                <menuItem title="Current Project/Activity" enabled="NO" id="0iA-Bu-w7m" customClass="KSCurrentProjectMenuItem">
+                <menuItem title="Current Project/Activity:" enabled="NO" id="0iA-Bu-w7m">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="current project/activity indented by 1" indentationLevel="1" id="Grh-Wi-aBl">

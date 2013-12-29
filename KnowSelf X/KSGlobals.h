@@ -125,6 +125,7 @@ typedef enum KSEventTypeEnum {
 #define kKSLogTagFocusSensor @"Focus Sensor"
 #define kKSLogTagIdleSensor @"Idle Sensor"
 #define kKSLogTagAPIClient @"API Client"
+#define kKSLogTagRecordActivityWindow @"Record Activity Window"
 #define kKSLogTagSensorController @"Sensor Controller"
 #define kKSLogTagProjectController @"Project Controller"
 #define kKSLogTagOther @"Unspecified"

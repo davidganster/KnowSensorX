@@ -13,6 +13,7 @@
 #import "KSUserInfo.h"
 #import "KSAppDelegate.h"
 #import "KSMainWindowController.h"
+#import "KSRecordActivityWindowController.h"
 
 
 @interface KSMenuController ()
@@ -106,10 +107,12 @@
     NSEnumerator *reverseEnumerator = [projectList reverseObjectEnumerator];
     KSProject *project = nil;
     while((project = [reverseEnumerator nextObject])) {
-        // TODO: maybe use custom menu items here for convenience of getting the object later
+
         NSMenuItem *projectMenuItem = [[NSMenuItem alloc] initWithTitle:project.name
-                                                                 action:nil
+                                                                 action:@selector(projectClicked:)
                                                           keyEquivalent:@""];
+        [projectMenuItem setTarget:self];
+        [projectMenuItem setRepresentedObject:project];
         if(project.name == self.currentActivity.projectName) {
             [projectMenuItem setEnabled:YES];
         }
@@ -120,6 +123,13 @@
     [self.projectListMenuItem setSubmenu:projectListSubmenu];
 }
 
+- (void)projectClicked:(NSMenuItem *)sender
+{
+    KSRecordActivityWindowController *controller = [[KSRecordActivityWindowController alloc] initWithProject:sender.representedObject
+                                                                                                    activity:nil];
+    [NSApp activateIgnoringOtherApps:YES];
+    [controller showWindow:controller.window];
+}
 
 - (IBAction)showPreferencePane:(id)sender
 {

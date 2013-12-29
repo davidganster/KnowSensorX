@@ -16,6 +16,7 @@
 		EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */; };
 		EF1618B617FC91060026078D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B517FC91060026078D /* Carbon.framework */; };
 		EF1618B817FC913F0026078D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B717FC913F0026078D /* Security.framework */; };
+		EF421CC9186F504000A6F01C /* NSColor+HexParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */; };
 		EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */; };
 		EF535B2F183C1D5C00F31871 /* KSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF535B2E183C1D5C00F31871 /* KSMenuController.m */; };
 		EF535B31183C1FCE00F31871 /* KSMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF535B30183C1FCE00F31871 /* KSMenu.xib */; };
@@ -24,6 +25,8 @@
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
 		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
 		EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */; };
+		EF90723C186F46F800768113 /* KSRecordActivityWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF90723A186F46F800768113 /* KSRecordActivityWindowController.m */; };
+		EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */; };
 		EF99933117C40053002E7458 /* KSIdleEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */; };
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
 		EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */; };
@@ -134,6 +137,8 @@
 		EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSEvent+Addons.m"; sourceTree = "<group>"; };
 		EF1618B517FC91060026078D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
 		EF1618B717FC913F0026078D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		EF421CC7186F504000A6F01C /* NSColor+HexParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+HexParsing.h"; sourceTree = "<group>"; };
+		EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+HexParsing.m"; sourceTree = "<group>"; };
 		EF4ED9CA17E8A1200013DCAD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		EF4ED9CC17E8A1200013DCAD /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -150,6 +155,9 @@
 		EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSProject+Addons.m"; sourceTree = "<group>"; };
 		EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSIdleEvent.h; sourceTree = "<group>"; };
 		EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSIdleEvent.m; sourceTree = "<group>"; };
+		EF907239186F46F800768113 /* KSRecordActivityWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSRecordActivityWindowController.h; sourceTree = "<group>"; };
+		EF90723A186F46F800768113 /* KSRecordActivityWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSRecordActivityWindowController.m; sourceTree = "<group>"; };
+		EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSRecordActivityWindowController.xib; sourceTree = "<group>"; };
 		EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSIdleEvent+Addons.h"; sourceTree = "<group>"; };
 		EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSIdleEvent+Addons.m"; sourceTree = "<group>"; };
 		EF99933517C413DC002E7458 /* KSUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUserInfo.h; sourceTree = "<group>"; };
@@ -359,6 +367,9 @@
 				EF535B2D183C1D5C00F31871 /* KSMenuController.h */,
 				EF535B2E183C1D5C00F31871 /* KSMenuController.m */,
 				EF535B30183C1FCE00F31871 /* KSMenu.xib */,
+				EF907239186F46F800768113 /* KSRecordActivityWindowController.h */,
+				EF90723A186F46F800768113 /* KSRecordActivityWindowController.m */,
+				EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -710,6 +721,8 @@
 				EFE8F30717BD1BE800D6369E /* NSArray+Addons.m */,
 				EFE8F30D17BD1C4800D6369E /* NSManagedObject+Addons.h */,
 				EFE8F30E17BD1C4800D6369E /* NSManagedObject+Addons.m */,
+				EF421CC7186F504000A6F01C /* NSColor+HexParsing.h */,
+				EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -865,6 +878,7 @@
 				EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */,
 				EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */,
 				EF051F8717F9D5320013065F /* KSProjectsViewController.xib in Resources */,
+				EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */,
 				EFA7DE9E180F2620000A8B4E /* WindowTitle.scpt in Resources */,
 				EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */,
 				EFA7DE9D180F2620000A8B4E /* ActiveFile.scpt in Resources */,
@@ -893,6 +907,7 @@
 				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
 				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
+				EF421CC9186F504000A6F01C /* NSColor+HexParsing.m in Sources */,
 				EFA6714F17BBF98500C43BB0 /* NSManagedObject+MagicalRequests.m in Sources */,
 				EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */,
 				EFA6715717BBF98500C43BB0 /* MagicalRecord+Actions.m in Sources */,
@@ -905,6 +920,7 @@
 				EFE8F31217BD1C9C00D6369E /* NSMutableDictionary+Addons.m in Sources */,
 				EFA6714517BBF98500C43BB0 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */,
+				EF90723C186F46F800768113 /* KSRecordActivityWindowController.m in Sources */,
 				EFA6715917BBF98500C43BB0 /* MagicalRecord+iCloud.m in Sources */,
 				EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */,
 				EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */,

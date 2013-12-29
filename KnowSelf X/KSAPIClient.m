@@ -140,7 +140,6 @@
 - (void)loadAllActivities:(void(^)(NSArray *activities))success
                   failure:(void (^)(NSError *error))failure
 {
-    // TODO: ask Granit about parameters for getting all activities!
     NSString *now = [[KSUtils dateAsString:[NSDate date]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     NSString *past =[[KSUtils dateAsString:[NSDate distantPast]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET"

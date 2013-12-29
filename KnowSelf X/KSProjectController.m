@@ -162,6 +162,7 @@
 - (void)setCurrentlyRecordingActivity:(KSActivity *)currentlyRecordingActivity
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
+        if(_currentlyRecordingActivity == currentlyRecordingActivity) return;
         _currentlyRecordingActivity = currentlyRecordingActivity;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self notifyObserversAboutNewActiveActivity];

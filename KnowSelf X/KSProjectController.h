@@ -65,8 +65,7 @@
 
 /** Removes an object to the list of observers that will be notified when the project list changes.
  The list is updated periodically
- TODO: add configurable time interval for this.
- @param obsever The object to be added to the list of observers for the project list.
+ @param obsever The object to be removed from the list of observers for the project list.
  */
 - (void)removeObserverForProjectRelatedEvents:(id<KSProjectControllerEventObserver>)observer;
 
@@ -92,7 +91,6 @@
  @param activity The activity for which the recording should be stopped.
  */
 - (void)stopRecordingActivity:(KSActivity *)activity;
-
 
 /** Returns the active project list managed by the ProjectController. 
  Since no timestamp/creation date is known, projects are ordered in the way they are received from the server.

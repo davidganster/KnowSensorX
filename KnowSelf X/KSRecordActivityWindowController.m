@@ -32,6 +32,8 @@
 @property (weak) IBOutlet NSImageView *willCreateNewActivityWarningImage;
 @property (weak) IBOutlet NSTextField *willCreateNewActivityWarningLabel;
 
+@property (weak) IBOutlet NSImageView *willUseAlreadyExistingColorWarningImage;
+@property (weak) IBOutlet NSTextField *willUseAlreadyExistingColorWarningLabel;
 
 @end
 
@@ -44,7 +46,6 @@
     if (self) {
         self.activity = activity;
         self.project = project;
-        
         [[KSProjectController sharedProjectController] addObserverForProjectRelatedEvents:self];
         self.projects = [[KSProjectController sharedProjectController] currentProjectList];
     }
@@ -59,6 +60,8 @@
     self.willCreateNewProjectWarningLabel.alphaValue = 0.0f;
     self.willCreateNewActivityWarningImage.alphaValue = 0.0f;
     self.willCreateNewActivityWarningLabel.alphaValue = 0.0f;
+    self.willUseAlreadyExistingColorWarningImage.alphaValue = 0.0f;
+    self.willUseAlreadyExistingColorWarningLabel.alphaValue = 0.0f;
 
     [self.window setLevel:NSFloatingWindowLevel];
     [super windowDidLoad];
@@ -66,7 +69,62 @@
 
 - (IBAction)recordButtonClicked:(id)sender
 {
-    // TODO: create project/activity from active selections and send everything to the server.
+    if([[KSProjectController sharedProjectController] currentlyRecordingActivity] &&
+       ![[NSUserDefaults standardUserDefaults] boolForKey:kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped]) {
+        // display warning dialog!
+        [self showAlreadyRecordingWarning];
+        return;
+    }
+    
+    [self startRecordingActivity];
+}
+
+- (IBAction)colorWellDidPickColor:(id)sender {
+    for (KSProject *project in self.projects) {
+        NSColor *color = [NSColor colorWithHexColorString:project.color];
+        if([color isEqualTo:self.projectColorWell.color]) {
+            [self showColorAlreadyInUseWarning:YES];
+            return;
+        }
+    }
+    [self showColorAlreadyInUseWarning:NO];
+}
+
+/// Delegates to KSProjectController to start recording based on the current selection.
+/// If the project does not exist yet, it will be created in the process; same goes for the activity.
+/// @warning Invoking this method will close the window, /regardless/ of whether or not errors are encountered!
+- (void)startRecordingActivity
+{
+    KSActivity *activityToRecord = nil;
+    
+    LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Trying to start recording activity.");
+    
+    if(!self.project) {
+        if(self.activity) {
+            // impossible!
+            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
+            return;
+        }
+        KSProject *project = [KSProject createInContext:[NSManagedObjectContext defaultContext]];
+        [project setName:[self.projectComboBox stringValue]];
+        [project setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
+        
+        activityToRecord = [self activityForProject:project];
+        [[KSProjectController sharedProjectController] createProject:project success:^{
+            // project was successfully created!
+            [[KSProjectController sharedProjectController] startRecordingActivity:activityToRecord];
+            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
+        } failure:^(NSError *error) {
+            // what to do?
+            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"could not create project on server: %@", [error description]);
+        }];
+    } else {
+        activityToRecord = [self activityForProject:self.project];
+        [[KSProjectController sharedProjectController] startRecordingActivity:activityToRecord];
+    }
+    
+    // after trying to record the activity, let's close the window (regardless of success/failure)
+    [self close];
 }
 
 #pragma mark - KSProjectControllerEventObserver
@@ -80,15 +138,6 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
         [self.projectComboBox reloadData];
     });
 }
-
-- (void)projectController:(KSProjectController *)controller activeActivityChangedToActivity:(KSActivity *)activity
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.activity = activity;
-        self.project  = activity.project;
-    });
-}
-
 
 #pragma mark - NSComboBoxDataSource
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
@@ -195,6 +244,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [self showNewActivityWarning:shouldShowWarning];
 }
 
+
 #pragma mark - Helpers
 - (void)resetComboBoxes
 {
@@ -210,6 +260,11 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
         [self.projectColorWell setColor:[NSColor colorWithHexColorString:self.project.color]];
     
     [self.projectColorWell setEnabled:!self.project];
+
+    // dismiss color panel if it's no longer editable
+    if(![self.projectColorWell isEnabled] && [NSColorPanel sharedColorPanelExists]) {
+        [[NSColorPanel sharedColorPanel] close];
+    }
 }
 
 - (void)showNewProjectWarning:(BOOL)show
@@ -224,12 +279,65 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [self.willCreateNewActivityWarningLabel.animator setAlphaValue:show];
 }
 
+- (void)showColorAlreadyInUseWarning:(BOOL)show
+{
+    [self.willUseAlreadyExistingColorWarningImage.animator setAlphaValue:show];
+    [self.willUseAlreadyExistingColorWarningLabel.animator setAlphaValue:show];
+}
+
 - (void)updateRecordButtonState
 {
     if(self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length)
         [self.recordButton setEnabled:YES];
     else
         [self.recordButton setEnabled:NO];
+}
+
+/// Either returns self.activity (if not nil), or creates a new KSActivity in the defaultContext.
+/// @note The newly created activity will be added to the given project's `activities` relationship.
+- (KSActivity *)activityForProject:(KSProject *)project
+{
+    if(self.activity) return self.activity;
+    
+    KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
+    [activity setName:[self.activityComboBox stringValue]];
+    [activity setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
+    [activity setStartDate:[NSDate date]];
+    [activity setProjectName:[project name]];
+    [activity setProject:project];
+    return activity;
+}
+
+
+- (void)showAlreadyRecordingWarning
+{
+    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Another activity (%@) is already recording and will be stopped. Abort/Retry/Fail?", [[[KSProjectController sharedProjectController] currentlyRecordingActivity] name]]
+                            defaultButton:@"Continue"
+                          alternateButton:@"Cancel"
+                              otherButton:nil
+                informativeTextWithFormat:nil];
+    [alert setShowsSuppressionButton:YES];
+    
+    [alert setShowsHelp:NO];
+    
+    NSInteger returnCode = [alert runModal];
+    
+    if([[alert suppressionButton] state] == NSOnState) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES
+                                                forKey:kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped];
+    }
+    
+    switch (returnCode) {
+        case NSAlertDefaultReturn:
+            // Continue onwards
+            [self startRecordingActivity];
+            break;
+        case NSAlertAlternateReturn:
+            // don't do anything
+            break;
+        default:
+            break;
+    }
 }
 
 @end

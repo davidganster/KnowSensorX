@@ -15,6 +15,9 @@
                 <outlet property="willCreateNewActivityWarningLabel" destination="c3Z-qB-9Cf" id="vwj-0E-WLT"/>
                 <outlet property="willCreateNewProjectWarningImage" destination="es5-hd-PAn" id="Nt0-34-fjy"/>
                 <outlet property="willCreateNewProjectWarningLabel" destination="EGx-fC-qQE" id="O2l-9i-B3M"/>
+                <outlet property="willUseAlreadyExistingColorWarningIMage" destination="a0c-9G-0B6" id="Pyf-sX-Vcq"/>
+                <outlet property="willUseAlreadyExistingColorWarningImage" destination="a0c-9G-0B6" id="A66-F2-NQ1"/>
+                <outlet property="willUseAlreadyExistingColorWarningLabel" destination="lCo-o6-rSS" id="eVt-gA-8bR"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
         </customObject>
@@ -23,18 +26,18 @@
         <window title="Record new activity" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="549" y="380" width="351" height="133"/>
+            <rect key="contentRect" x="549" y="380" width="306" height="192"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="351" height="133"/>
+                <rect key="frame" x="0.0" y="0.0" width="306" height="192"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-hW-O7K">
-                        <rect key="frame" x="0.0" y="-1" width="351" height="134"/>
+                        <rect key="frame" x="0.0" y="0.0" width="306" height="194"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <comboBox toolTip="Type to select a project or create a new one with that name." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6B6-ER-pAh">
-                                <rect key="frame" x="73" y="93" width="218" height="26"/>
+                                <rect key="frame" x="73" y="153" width="218" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Type to add new project" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="10" id="FwX-BX-Xmi">
                                     <font key="font" metaFont="system"/>
@@ -47,13 +50,16 @@
                                 </connections>
                             </comboBox>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXR-iF-1OG">
-                                <rect key="frame" x="294" y="95" width="50" height="21"/>
+                                <rect key="frame" x="73" y="113" width="215" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <string key="toolTip">The color the project will have when looking at the timeline on the web app. The color of exisiting projects can not be changed.</string>
                                 <color key="color" red="0.40824094370000003" green="0.37352578710000001" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="colorWellDidPickColor:" target="-2" id="bIS-R8-sXy"/>
+                                </connections>
                             </colorWell>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdT-SH-g3r">
-                                <rect key="frame" x="15" y="99" width="52" height="17"/>
+                                <rect key="frame" x="15" y="159" width="52" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project:" id="0fC-mU-UEa">
                                     <font key="font" metaFont="system"/>
@@ -62,7 +68,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BfZ-VO-Zqg">
-                                <rect key="frame" x="15" y="59" width="55" height="17"/>
+                                <rect key="frame" x="12" y="72" width="55" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Activity:" id="6GS-BE-bYj">
                                     <font key="font" metaFont="system"/>
@@ -71,7 +77,7 @@
                                 </textFieldCell>
                             </textField>
                             <comboBox toolTip="Type to record an existing activity or create a new one." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emr-Tb-cHy">
-                                <rect key="frame" x="73" y="53" width="218" height="26"/>
+                                <rect key="frame" x="73" y="67" width="218" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Type to add new activity" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="nNB-f9-W1q">
                                     <font key="font" metaFont="system"/>
@@ -109,7 +115,7 @@ Gw
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EGx-fC-qQE">
-                                <rect key="frame" x="142" y="78" width="148" height="14"/>
+                                <rect key="frame" x="142" y="138" width="148" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="A new project will be created" id="zyk-sR-V87">
                                     <font key="font" size="10" name="LucidaGrande"/>
@@ -118,12 +124,12 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="es5-hd-PAn">
-                                <rect key="frame" x="128" y="81" width="15" height="10"/>
+                                <rect key="frame" x="128" y="141" width="15" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="jME-oz-Qbs"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSInfo" id="jME-oz-Qbs"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3Z-qB-9Cf">
-                                <rect key="frame" x="142" y="39" width="148" height="13"/>
+                                <rect key="frame" x="142" y="53" width="148" height="13"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="A new activity will be created" id="leU-Zj-uZj">
                                     <font key="font" size="10" name="LucidaGrande"/>
@@ -132,9 +138,32 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OJV-f4-c0W">
-                                <rect key="frame" x="128" y="41" width="15" height="10"/>
+                                <rect key="frame" x="128" y="55" width="15" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="Pgj-Yr-DEd"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSInfo" id="Pgj-Yr-DEd"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2C-QX-Haj">
+                                <rect key="frame" x="24" y="114" width="43" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Color:" id="Fk6-7D-bVq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCo-o6-rSS">
+                                <rect key="frame" x="154" y="95" width="134" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This color is already in use" id="00V-zn-cqd">
+                                    <font key="font" size="10" name="LucidaGrande"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0c-9G-0B6">
+                                <rect key="frame" x="139" y="97" width="15" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="pTt-4S-irx"/>
                             </imageView>
                         </subviews>
                     </customView>
@@ -147,5 +176,6 @@ Gw
     </objects>
     <resources>
         <image name="NSCaution" width="32" height="32"/>
+        <image name="NSInfo" width="32" height="32"/>
     </resources>
 </document>

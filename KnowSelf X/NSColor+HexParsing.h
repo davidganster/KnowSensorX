@@ -10,6 +10,7 @@
 
 @interface NSColor (HexParsing)
 
-+ (NSColor*)colorWithHexColorString:(NSString*)inColorString;
++ (NSColor  *)colorWithHexColorString:(NSString*)inColorString;
+- (NSString *)hexStringWithLeadingHashtag:(BOOL)hashtag;
 
 @end

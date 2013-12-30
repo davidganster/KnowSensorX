@@ -47,6 +47,9 @@
 /// Specifies the time interval between two polls for refreshing projects.
 @property(nonatomic, assign) CFTimeInterval timeIntervalBetweenPolls;
 
+/// The activity that is currently recording. Will be updated whenever start/stopRecordingActivity: is called.
+@property(nonatomic, strong) KSActivity *currentlyRecordingActivity;
+
 /** Starts the polling loop for projects immediately, then polls every `timeInterval` seconds.
  @param timeIntervalInSeconds The time between two polls. More polls = more CPU/network activity, recommended value is about 5 seconds.
  */
@@ -69,28 +72,34 @@
  */
 - (void)removeObserverForProjectRelatedEvents:(id<KSProjectControllerEventObserver>)observer;
 
-/** Facade for KSAPIClient - creates a new project on the server and 
+/** Asynchronous Facade for KSAPIClient - creates a new project on the server and
     updates the document with the returned project ID.
  All observers will be notified on the main thread about the change.
  @param project The project to be created on the server.
 */
 - (void)createProject:(KSProject *)project;
 
+/** Asynchronous Facade for KSAPIClient  - creates a new project on the server and
+ updates the document with the returned project ID.
+ All observers will be notified on the main thread about the change.
+ @param project The project to be created on the server.
+ @param success The block to be executed if the call has been successful
+ @param failure The block to be executed if the call has failed
+ */
+- (void)createProject:(KSProject *)project success:(void (^)())success failure:(void (^)(NSError *error))failure;
+
+
 /** Starts the recording of an activity on the server.
  In case the server is already recording a different activity, it will be stopped before starting this one.
- If the given activity is the currently recording activity, this call will do nothing.
  All observers will be notified on the main thread about the change.
- @param activity The activity for which the recording should be started.
  */
 - (void)startRecordingActivity:(KSActivity *)activity;
 
-/** Stops the recording of an activity on the server.
- If the given activity is not the currently recording activity or no activity is being recorded at the time, this call will do nothing.
+/** Stops the recording of the active activity on the server.
  Otherwise, the activity will be stopped.
  All observers will be notified on the main thread about the change.
- @param activity The activity for which the recording should be stopped.
  */
-- (void)stopRecordingActivity:(KSActivity *)activity;
+- (void)stopRecordingCurrentActivity;
 
 /** Returns the active project list managed by the ProjectController. 
  Since no timestamp/creation date is known, projects are ordered in the way they are received from the server.
@@ -98,6 +107,7 @@
  @return An NSArray of KSProject * objects.
  */
 - (NSArray *)currentProjectList;
+
 
 
 @end

@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "KSProjectController.h"
 
-@interface KSRecordActivityWindowController : NSWindowController<NSComboBoxDataSource, NSComboBoxDelegate, KSProjectControllerEventObserver>
+@interface KSRecordActivityWindowController : NSWindowController<NSComboBoxDataSource, NSComboBoxDelegate, KSProjectControllerEventObserver, NSAlertDelegate>
 
 - (id)initWithProject:(KSProject *)project activity:(KSActivity *)activity;
 @end

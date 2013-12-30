@@ -17,8 +17,6 @@
 /// Every observer can only be in the list once, hence we use an NSMutableSet.
 @property(nonatomic, strong) NSMutableSet *projectEventObservers;
 
-/// The activity that is currently recording. Will be updated whenever start/stopRecordingActivity: is called.
-@property(nonatomic, strong) KSActivity *currentlyRecordingActivity;
 
 /// A list of all projects that are currently available on the server. Will be updated periodically and upon calls to 'createProject:'
 @property(nonatomic, strong) NSMutableArray *projectList;
@@ -263,12 +261,21 @@
 
 - (void)createProject:(KSProject *)project
 {
+    [self createProject:project success:nil failure:nil];
+}
+
+- (void)createProject:(KSProject *)project success:(void (^)())success failure:(void (^)(NSError *error))failure
+{
     [[KSAPIClient sharedClient] createProject:project success:^(NSString *newProjectID) {
         project.projectID = newProjectID;
         [self addProjectListObject:project]; // Will dispatch to correct queue and notify observers.
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
+        if(success)
+            success();
     } failure:^(NSError *error) {
         LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to create a new project: %@", error);
+        if(failure)
+            failure(error);
     }];
 }
 
@@ -277,29 +284,42 @@
     if(activity == nil || [activity.activityID isEqualToString:self.currentlyRecordingActivity.activityID])
         return;
     
-    if(self.currentlyRecordingActivity != nil) {
-        [self stopRecordingActivity:self.currentlyRecordingActivity];
-    }
+    void (^startRecording)() = ^void() {
+        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
+            activity.activityID = newActivityID;
+            self.currentlyRecordingActivity = activity;
+            LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
+        } failure:^(NSError *error) {
+            LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);
+        }];
+    };
     
-    [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-        activity.activityID = newActivityID;
-        self.currentlyRecordingActivity = activity;
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
-    } failure:^(NSError *error) {
-        LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);
-    }];
+    if(self.currentlyRecordingActivity != nil) {
+        [self stopRecordingCurrentActivitySuccess:^{
+            startRecording();
+        } failure:^(NSError *error) {
+            // hmmm... what now?
+        }];
+    } else {
+        startRecording();
+    }
 }
 
 
-- (void)stopRecordingActivity:(KSActivity *)activity
+- (void)stopRecordingCurrentActivitySuccess:(void (^)())success failure:(void (^)(NSError *error))failure
 {
-    if(![self.currentlyRecordingActivity.activityID isEqualToString:activity.activityID])
-        return;
-    [[KSAPIClient sharedClient] stopRecordingActivity:activity success:^{
+    [[KSAPIClient sharedClient] stopRecordingActivity:self.currentlyRecordingActivity success:^{
+        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully stopped recording activity (name = %@)", self.currentlyRecordingActivity.name);
         self.currentlyRecordingActivity = nil;
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully stopped recording activity (name = %@)", activity.name);
+
+        if(success)
+            success();
     } failure:^(NSError *error) {
-        LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to stop recording activity (name = %@): %@", activity.name, error);
+        LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to stop recording activity (name = %@): %@", self.currentlyRecordingActivity.name, error);
+//        self.currentlyRecordingActivity = nil;
+        
+        if(failure)
+            failure(error);
     }];
 }
 

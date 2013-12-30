@@ -85,6 +85,7 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoServerAddressKey @"ServerAddress"
 
 #define kKSIsFirstStartKey @"firstStart"
+#define kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped @"alreadyRecordingActivityWarning"
 
 //------------------------------------------------------------------------------
 // General Constants

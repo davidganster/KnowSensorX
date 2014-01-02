@@ -55,6 +55,7 @@
 - (void)windowDidLoad
 {
     [self resetComboBoxes];
+    [self updateColorWell];
     [self updateRecordButtonState];
     self.willCreateNewProjectWarningImage.alphaValue = 0.0f;
     self.willCreateNewProjectWarningLabel.alphaValue = 0.0f;
@@ -225,7 +226,10 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     if(comboBox == self.projectComboBox) {
         self.project = self.projects[comboBox.indexOfSelectedItem];
         [self.activityComboBox reloadData];
+    } else if(comboBox == self.activityComboBox) {
+        self.activity = self.project.activities[comboBox.indexOfSelectedItem];
     }
+    [self updateRecordButtonState];
 }
 
 #pragma mark - Custom setters
@@ -287,7 +291,8 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 
 - (void)updateRecordButtonState
 {
-    if(self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length)
+    if((self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length) ||
+       (self.project && self.activity))
         [self.recordButton setEnabled:YES];
     else
         [self.recordButton setEnabled:NO];
@@ -303,8 +308,10 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [activity setName:[self.activityComboBox stringValue]];
     [activity setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
     [activity setStartDate:[NSDate date]];
+    [activity setEndDate:[NSDate date]]; // WTF, server?
     [activity setProjectName:[project name]];
     [activity setProject:project];
+    [activity setActivityID:@""]; // empty string for export.
     return activity;
 }
 

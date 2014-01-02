@@ -7,6 +7,7 @@
 //
 
 #import "KSActivity+Addons.h"
+#import "KSProject+Addons.h"
 
 @implementation KSActivity (Addons)
 
@@ -29,6 +30,16 @@
     
     return activity;
 }
+
+- (BOOL)exportProjectName:(NSMutableDictionary *)result
+{
+    NSString *projectName = [self.project.projectID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if(!projectName) return NO;
+    
+    [result setObject:projectName forKey:@"project"];
+    return YES;
+}
+
 
 - (BOOL)exportStartDate:(NSMutableDictionary *)result
 {

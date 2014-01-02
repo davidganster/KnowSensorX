@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3394" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="KSActivity" representedClassName="KSActivity" syncable="YES">
         <attribute name="activityID" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -7,7 +7,11 @@
                 <entry key="mappedKeyName" value="id"/>
             </userInfo>
         </attribute>
-        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="ignoreOnExport" value="YES"/>
+            </userInfo>
+        </attribute>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES">
             <userInfo>
                 <entry key="exportMappedKeyName" value="end_date"/>
@@ -119,7 +123,7 @@
         </relationship>
     </entity>
     <elements>
-        <element name="KSActivity" positionX="-171" positionY="30" width="128" height="150"/>
+        <element name="KSActivity" positionX="-171" positionY="30" width="128" height="148"/>
         <element name="KSEvent" positionX="27" positionY="-135" width="128" height="90"/>
         <element name="KSFocusEvent" positionX="-180" positionY="-189" width="128" height="150"/>
         <element name="KSIdleEvent" positionX="27" positionY="53" width="128" height="88"/>

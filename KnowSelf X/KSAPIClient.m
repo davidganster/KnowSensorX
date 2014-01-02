@@ -169,10 +169,10 @@
                 KSActivity *activity = [KSActivity createOrFetchWithData:activityDict
                                                                inContext:[NSManagedObjectContext defaultContext]];
                 if(activity) {
-                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", responseObject);
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", activityDict);
                     [activities addObject:activity];
                 } else {
-                    LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", responseObject);
+                    LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", activityDict);
                 }
             }
             
@@ -228,9 +228,9 @@
             KSActivity *activity = [KSActivity createOrFetchWithData:jsonObject
                                                            inContext:[NSManagedObjectContext defaultContext]];
             if(activity) {
-                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", responseObject);
+                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", jsonObject);
             } else {
-                LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", responseObject);
+                LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", jsonObject);
             }
        
 #ifndef kKSIsSaveToPersistentStoreDisabled
@@ -351,7 +351,6 @@
     }];
     
     [self.client enqueueHTTPRequestOperation:requestOperation];
-
 }
 
 

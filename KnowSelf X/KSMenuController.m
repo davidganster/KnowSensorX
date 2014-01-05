@@ -22,6 +22,11 @@
 /// Will be updated when `currentProject` or `currentActivity` are set.
 @property (weak) IBOutlet NSMenuItem *currentActivityMenuItem;
 
+/// The menu item that can stop the currently recording activity.
+/// Needs an outlet because its enabled/disabled state will change during runtime.
+/// @note Since setting enabled/disabled on an NSMenuItem
+@property (weak) IBOutlet NSMenuItem *stopRecordingActivityMenuItem;
+
 /// Re-declaring the menu object as readwrite - we do want a setter internally.
 @property (readwrite, strong) IBOutlet NSMenu *menu;
 
@@ -43,7 +48,7 @@
             for (id item in nibElements) {
                 if([item isKindOfClass:[NSMenu class]]) {
                     self.menu = item;
-                    self.currentActivityMenuItem.title = @"No active project/activity.";
+                    self.currentActivity = nil;
                     break;
                 }
             }
@@ -84,6 +89,20 @@
 - (void)setCurrentActivity:(KSActivity *)currentActivity
 {
     _currentActivity = currentActivity;
+    
+    [self.stopRecordingActivityMenuItem setAction:(_currentActivity ) ? @selector(stopRecordingActiveActivity:) : nil];
+    [self.menu update];
+    
+    // set the current project in the project list ton have the tick
+    for (NSMenuItem *menuItem in self.projectListMenuItem.submenu.itemArray) {
+        KSProject *project = [menuItem representedObject];
+        if(project == _currentActivity.project && project != nil) {
+            [menuItem setState:NSOnState];
+        } else {
+            [menuItem setState:NSOffState];
+        }
+    }
+    
     [self updateCurrentProjectItem];
 }
 
@@ -96,13 +115,16 @@
     self.currentActivityMenuItem.title = newTitle;
 }
 
-// projectList contains only valid object, no deleted ones.
+// projectList contains only valid objects, no deleted ones.
 - (void)setProjectList:(NSArray *)projectList
 {
     if([self.projectList isEqualToArray:projectList])
         return;
-    // we need to update our project menu.
-    NSMenu *projectListSubmenu = [[NSMenu alloc] init];
+    
+    if(!self.projectList && projectList) {
+        // first time with data
+        self.projectListMenuItem.submenu = [[NSMenu alloc] init];
+    }
     
     NSEnumerator *reverseEnumerator = [projectList reverseObjectEnumerator];
     KSProject *project = nil;
@@ -113,22 +135,38 @@
                                                           keyEquivalent:@""];
         [projectMenuItem setTarget:self];
         [projectMenuItem setRepresentedObject:project];
-        if(project.name == self.currentActivity.projectName) {
-            [projectMenuItem setEnabled:YES];
+
+        if(project == self.currentActivity.project) {
+            [projectMenuItem setState:NSOnState];
         }
         
-        [projectListSubmenu insertItem:projectMenuItem atIndex:0];
+        [self.projectListMenuItem.submenu insertItem:projectMenuItem atIndex:0];
     }
     
-    [self.projectListMenuItem setSubmenu:projectListSubmenu];
+    [self.menu update];
+//    [self.projectListMenuItem.submenu update];
+}
+
+- (IBAction)stopRecordingActiveActivity:(id)sender
+{
+    [[KSProjectController sharedProjectController] stopRecordingCurrentActivitySuccess:^{
+        // nothing to do?
+    } failure:^(NSError *error) {
+        // nothing to do?
+    }];
+}
+
+- (IBAction)recordNewActivity:(id)sender
+{
+    // show 'record new activity' popup
+    [self showRecordActivityWindowWithProject:nil
+                                     activity:nil];
 }
 
 - (void)projectClicked:(NSMenuItem *)sender
 {
-    KSRecordActivityWindowController *controller = [[KSRecordActivityWindowController alloc] initWithProject:sender.representedObject
-                                                                                                    activity:nil];
-    [NSApp activateIgnoringOtherApps:YES];
-    [controller showWindow:controller.window];
+    [self showRecordActivityWindowWithProject:sender.representedObject
+                                     activity:nil];
 }
 
 - (IBAction)showPreferencePane:(id)sender
@@ -171,6 +209,15 @@
 - (IBAction)quit:(id)sender
 {
     [[NSApplication sharedApplication] terminate:self];
+}
+
+#pragma mark - Helper
+- (void)showRecordActivityWindowWithProject:(KSProject *) project activity:(KSActivity *)activity
+{
+    KSRecordActivityWindowController *controller = [[KSRecordActivityWindowController alloc] initWithProject:project
+                                                                                                    activity:activity];
+    [NSApp activateIgnoringOtherApps:YES];
+    [controller showWindow:controller.window];
 }
 
 @end

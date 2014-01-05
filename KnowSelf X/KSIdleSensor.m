@@ -145,7 +145,7 @@
     // create the event
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart
                                           idleSinceSeconds:self.minimumIdleTime];
-    self.idleStartDate = [idleEvent timestamp]; // overly accurate?
+    self.idleStartDate = [idleEvent timestamp];
     
 #ifndef kKSIsSaveToPersistentStoreDisabled
     [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {

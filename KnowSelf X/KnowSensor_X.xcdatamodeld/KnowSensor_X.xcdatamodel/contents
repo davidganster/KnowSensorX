@@ -7,15 +7,17 @@
                 <entry key="mappedKeyName" value="id"/>
             </userInfo>
         </attribute>
-        <attribute name="color" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="ignoreOnExport" value="YES"/>
-            </userInfo>
-        </attribute>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES">
             <userInfo>
                 <entry key="exportMappedKeyName" value="end_date"/>
                 <entry key="mappedKeyName" value="end_date"/>
+            </userInfo>
+        </attribute>
+        <attribute name="isStartingRecording" optional="YES" transient="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
+            <userInfo>
+                <entry key="ignoreOnExport" value="YES"/>
+                <entry key="mappedKeyName" value="skip"/>
             </userInfo>
         </attribute>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES">
@@ -123,7 +125,7 @@
         </relationship>
     </entity>
     <elements>
-        <element name="KSActivity" positionX="-171" positionY="30" width="128" height="148"/>
+        <element name="KSActivity" positionX="-171" positionY="-0" width="128" height="163"/>
         <element name="KSEvent" positionX="27" positionY="-135" width="128" height="90"/>
         <element name="KSFocusEvent" positionX="-180" positionY="-189" width="128" height="150"/>
         <element name="KSIdleEvent" positionX="27" positionY="53" width="128" height="88"/>

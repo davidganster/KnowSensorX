@@ -74,7 +74,7 @@
     _serverReachable = serverReachable;
 }
 
-
+#pragma mark - Project related calls
 - (void)loadProjectsWithSuccess:(void(^)(NSArray *projects))success
                         failure:(void (^)(NSError *error))failure
 {
@@ -154,6 +154,8 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // running on the mainThread, do not need to performBlock: on the defaultContext?
+        
         // check if the server has been unreachable previously. If yes, the nowReachable-block will be executed.
         [self setServerReachable:YES];
         
@@ -209,7 +211,7 @@
 }
 
 - (void)loadActiveActivity:(void(^)(KSActivity *currentActivity))success
-                   failure:(void (^)(NSError *error))failure
+                   failure:(void(^)(NSError *error))failure
 {
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:@"mirror/KCActivities" parameters:nil];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -317,7 +319,8 @@
     NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" path:@"mirror/KCActivities" parameters:nil];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
-
+    
+    [activity setIsStartingRecording:@(YES)];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     NSError *jsonSerializationError = nil;
@@ -358,11 +361,14 @@
                       success:(void (^)())success
                       failure:(void (^)(NSError *error))failure
 {
-    NSString *path = [NSString stringWithFormat:@"mirror/KCActivities/@%@", activity.activityID];
+    NSString *path = [NSString stringWithFormat:@"mirror/KCActivities/%@", activity.activityID];
     NSMutableURLRequest *request = [self.client requestWithMethod:@"PUT" path:path parameters:nil];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
     
+    [activity setEndDate:[NSDate date]];
+
+    [activity setIsStartingRecording:@(NO)];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     NSError *jsonSerializationError = nil;
@@ -381,14 +387,7 @@
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity successful.");
-        NSError *jsonError = nil;
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
-        if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
-            NSString *newActivityID = [responseDict objectForKey:@"id"];
-            success(newActivityID);
-        } else {
-            failure(jsonError); // maybe success because it technically worked?
-        }
+        success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self setServerReachable:NO];
         LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"StopRecordingActivity FAILED with error: %@.", error);
@@ -398,6 +397,8 @@
     [self.client enqueueHTTPRequestOperation:requestOperation];
 }
 
+
+#pragma mark Event related calls
 - (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
 {
     switch (event.type) {

@@ -98,8 +98,10 @@
 /** Stops the recording of the active activity on the server.
  Otherwise, the activity will be stopped.
  All observers will be notified on the main thread about the change.
+ @param success The block to be executed in case of success.
+ @param failure The block to be executed in case of failure. An NSError object describing the reason is passed.
  */
-- (void)stopRecordingCurrentActivity;
+- (void)stopRecordingCurrentActivitySuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
 
 /** Returns the active project list managed by the ProjectController. 
  Since no timestamp/creation date is known, projects are ordered in the way they are received from the server.

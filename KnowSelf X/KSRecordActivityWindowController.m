@@ -298,31 +298,31 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
         [self.recordButton setEnabled:NO];
 }
 
-/// Either returns self.activity (if not nil), or creates a new KSActivity in the defaultContext.
+/// Creates a new KSActivity in the defaultContext with the given project and string value of the activityComboBox.
 /// @note The newly created activity will be added to the given project's `activities` relationship.
 - (KSActivity *)activityForProject:(KSProject *)project
 {
-    if(self.activity) return self.activity;
-    
-    KSActivity *activity = [KSActivity createInContext:[NSManagedObjectContext defaultContext]];
-    [activity setName:[self.activityComboBox stringValue]];
-    [activity setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
-    [activity setStartDate:[NSDate date]];
-    [activity setEndDate:[NSDate date]]; // WTF, server?
-    [activity setProjectName:[project name]];
-    [activity setProject:project];
-    [activity setActivityID:@""]; // empty string for export.
+    __block KSActivity *activity = nil;
+    [project.managedObjectContext performBlockAndWait:^{
+        activity = [KSActivity createInContext:project.managedObjectContext];
+        [activity setName:[self.activityComboBox stringValue]];
+        [activity setStartDate:[[NSDate alloc] init]];
+        [activity setActivityID:@""]; // empty string for export.
+        [activity setProject:project];
+        [activity setProjectName:project.name];
+        [activity.managedObjectContext saveOnlySelfAndWait];
+    }];
     return activity;
 }
 
 
 - (void)showAlreadyRecordingWarning
 {
-    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Another activity (%@) is already recording and will be stopped. Abort/Retry/Fail?", [[[KSProjectController sharedProjectController] currentlyRecordingActivity] name]]
+    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Another activity (\"%@\") is already recording!", [[[KSProjectController sharedProjectController] currentlyRecordingActivity] name]]
                             defaultButton:@"Continue"
                           alternateButton:@"Cancel"
                               otherButton:nil
-                informativeTextWithFormat:nil];
+                informativeTextWithFormat:@"Click 'Continue' to stop the current activity and start recording the new one."];
     [alert setShowsSuppressionButton:YES];
     
     [alert setShowsHelp:NO];

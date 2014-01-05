@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4504" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="KSMenuController">
@@ -10,6 +10,7 @@
                 <outlet property="currentActivityMenuItem" destination="Grh-Wi-aBl" id="ir3-GO-yxo"/>
                 <outlet property="menu" destination="0NL-Yr-WZu" id="gc6-ld-itc"/>
                 <outlet property="projectListMenuItem" destination="aGy-V5-m2d" id="4kY-kZ-Huv"/>
+                <outlet property="stopRecordingActivityMenuItem" destination="FMV-H9-Mnc" id="2cn-E4-Uun"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -21,6 +22,18 @@
                 </menuItem>
                 <menuItem title="current project/activity indented by 1" indentationLevel="1" id="Grh-Wi-aBl">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Stop recording activity" id="FMV-H9-Mnc">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="stopRecordingActiveActivity:" target="-2" id="rf1-MU-lni"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Record new activity" id="7IP-qf-eve">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="recordNewActivity:" target="-2" id="AW8-S2-OVq"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="J44-KP-uG2"/>
                 <menuItem title="Preferences" image="NSActionTemplate" id="6cT-aO-WP3">
@@ -51,17 +64,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Projects" id="tws-3I-L13">
                         <items>
-                            <menuItem title="current project/activity name" enabled="NO" id="Jtt-qs-Fzr">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Ee3-ZM-o6e"/>
-                            <menuItem title="Stop Activity &lt;x>" id="IUx-Pr-oDP">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Start Activity..." id="ebP-lF-5pl">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="New Project..." id="mVb-Lb-ljY">
+                            <menuItem title="Refreshing projects list..." enabled="NO" id="qCt-3N-xuF">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>

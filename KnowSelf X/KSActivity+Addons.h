@@ -10,6 +10,7 @@
 
 @interface KSActivity (Addons)
 
+
 + (KSActivity *) createOrFetchWithData:(NSDictionary *)data
                              inContext:(NSManagedObjectContext *)context;
 

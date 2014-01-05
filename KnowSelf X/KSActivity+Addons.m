@@ -12,28 +12,29 @@
 @implementation KSActivity (Addons)
 
 + (KSActivity *)createOrFetchWithData:(NSDictionary *)data
-                           inContext:(NSManagedObjectContext *)context
+                            inContext:(NSManagedObjectContext *)context
 {
     NSString *activityID = [data objectForKey:@"id"];
-    if(!activityID) return nil; // no id = no valid object.
+    if(!activityID) return nil; // no id = invalid object.
     
     KSActivity *activity = [KSActivity findFirstByAttribute:@"activityID"
                                                   withValue:activityID
                                                   inContext:context];
     if(!activity) {
         activity = [KSActivity createInContext:context];
+        // basically, nothing can really change (name, associated project, color, start date) but endDate.
+        // endDate is not important at all though, since we basically only care about the name and project.
+        if(![activity importValuesForKeysWithObject:data])
+            return nil;
     }
-    // color might have changed (?), need to reimport at least that...
-    // ...so why not just import everything at once for future-proofing?
-    if(![activity importValuesForKeysWithObject:data])
-        return nil;
-    
     return activity;
 }
 
 - (BOOL)exportProjectName:(NSMutableDictionary *)result
 {
-    NSString *projectName = [self.project.projectID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    // The server expects projectID when STARTING the recording of an activity, and projectNAME when STOPPING the recording.
+    NSString *projectName = [self.isStartingRecording boolValue] ?  self.project.projectID : self.project.name;
+    
     if(!projectName) return NO;
     
     [result setObject:projectName forKey:@"project"];
@@ -53,9 +54,11 @@
 - (BOOL)exportEndDate:(NSMutableDictionary *)result
 {
     NSString *endDateString = [KSUtils dateAsString:self.endDate];
-    if(!endDateString) return NO;
-    
-    [result setObject:endDateString forKey:@"end_date"];
+    if(!endDateString) {
+        [result setObject:@"null" forKey:@"end_date"];
+    } else {
+        [result setObject:endDateString forKey:@"end_date"];
+    }
     return YES;
 }
 

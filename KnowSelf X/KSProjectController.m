@@ -17,7 +17,6 @@
 /// Every observer can only be in the list once, hence we use an NSMutableSet.
 @property(nonatomic, strong) NSMutableSet *projectEventObservers;
 
-
 /// A list of all projects that are currently available on the server. Will be updated periodically and upon calls to 'createProject:'
 @property(nonatomic, strong) NSMutableArray *projectList;
 
@@ -29,6 +28,9 @@
 
 /// Specifies whether or not to continue the polling loop. Will be YES until `stopUpdatingProjectList` is called.
 @property(atomic, assign) BOOL continuePolling;
+
+// debug
+@property(nonatomic, assign) BOOL isStartingNewRecording;
 
 @end
 
@@ -57,11 +59,12 @@
         _activityList = [NSMutableArray array];
         _currentlyRecordingActivity = nil;
         _refreshProjectListQueue = dispatch_queue_create("com.kc.KnowSensorX.ProjectListQueue", DISPATCH_QUEUE_SERIAL);
+        _isStartingNewRecording = NO;
     }
     return self;
 }
 
-#pragma mark - Updating the project list:
+#pragma mark - Updating the project list
 - (void)updateProjectListWithDelay:(double)delayInSeconds
 {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -75,14 +78,32 @@
                     if([projects isEqualToArray:self.projectList] && [activities isEqualToArray:self.activityList]) {
                         [self finishPollSuccesful:YES]; // nothing has changed.
                     } else {
+                        
+                        // The server sends every activity multiple times - but we only care about the name and project.
+                        // O(n^2) is not pretty, but necessary without additional data.
+                        NSMutableArray *activitiesWithoutDuplicates = [NSMutableArray new];
+                        for (KSActivity *duplicateCandidate in activities) {
+                            BOOL isAlreadyContained = NO;
+                            for (KSActivity *activity in activitiesWithoutDuplicates) {
+                                if(duplicateCandidate.name == activity.name &&
+                                   duplicateCandidate.projectName == activity.projectName) {
+                                    isAlreadyContained = YES;
+                                    break;
+                                }
+                            }
+                            if(!isAlreadyContained) {
+                                [activitiesWithoutDuplicates addObject:duplicateCandidate];
+                            }
+                        }
+                        
                         // something has changed, need to update lists
                         for (KSProject *project in projects) {
-                            NSOrderedSet *activitiesForProject = [NSOrderedSet orderedSetWithArray:[activities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.projectName like %@", project.name]]];
+                            NSOrderedSet *activitiesForProject = [NSOrderedSet orderedSetWithArray:[activitiesWithoutDuplicates filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.projectName like %@", project.name]]];
                             [project setActivities:activitiesForProject];
                         }
                         // this will also asynchronously update the observers:
                         self.projectList = [projects mutableCopy];
-                        self.activityList = [activities mutableCopy];
+                        self.activityList = [activitiesWithoutDuplicates mutableCopy];
                         [self finishPollSuccesful:YES];
                     }
                 });
@@ -93,27 +114,33 @@
             [self finishPollSuccesful:NO];
         }];
         
-        // Refresh active activity
-        [[KSAPIClient sharedClient] loadActiveActivity:^(KSActivity *currentActivity) {
-            // The project this activity belongs to should definitely be in our list.
-            // If it isn't - tough luck, it will be next time.
-            for (KSProject *project in self.projectList) {
-                if([currentActivity.projectName isEqualToString:project.name]) {
-                    currentActivity.project = project;
-                }
-            }
-            self.currentlyRecordingActivity = currentActivity; // Will also update the observers (asynchronously).
-        } failure:^(NSError *error) {
-            LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load currently active activity! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
-        }];
-        
+            // Refresh active activity
+            [[KSAPIClient sharedClient] loadActiveActivity:^(KSActivity *currentActivity) {
+                dispatch_async(_refreshProjectListQueue, ^{
+                    if(!self.isStartingNewRecording) {
+                        // The project this activity belongs to should definitely be in our list.
+                        // If it isn't - tough luck, it will be next time.
+                        for (KSProject *project in self.projectList) {
+                            if([currentActivity.projectName isEqualToString:project.name]) {
+                                [currentActivity.managedObjectContext performBlockAndWait:^{
+                                    currentActivity.project = project;
+                                }];
+                                break;
+                            }
+                        }
+                        self.currentlyRecordingActivity = currentActivity; // Will also update the observers (asynchronously).
+                    }
+                });
+            } failure:^(NSError *error) {
+                LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load currently active activity! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
+            }];
     });
 }
 
 - (void)finishPollSuccesful:(BOOL)success
 {
     if(success) {
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project and activity list successfully updated (project count = %lu, activity count = %lu)", (unsigned long)[self.projectList count], [self.activityList count]);
+        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project and activity list successfully updated (project count = %lu, activity count = %lu)", [self.projectList count], [self.activityList count]);
     } else {
         LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load project list! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
     }
@@ -161,8 +188,8 @@
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
         if(_currentlyRecordingActivity == currentlyRecordingActivity) return;
-        _currentlyRecordingActivity = currentlyRecordingActivity;
         dispatch_async(dispatch_get_main_queue(), ^{
+            _currentlyRecordingActivity = currentlyRecordingActivity;
             [self notifyObserversAboutNewActiveActivity];
         });
     });
@@ -267,7 +294,10 @@
 - (void)createProject:(KSProject *)project success:(void (^)())success failure:(void (^)(NSError *error))failure
 {
     [[KSAPIClient sharedClient] createProject:project success:^(NSString *newProjectID) {
-        project.projectID = newProjectID;
+        [project.managedObjectContext performBlockAndWait:^{
+            project.projectID = newProjectID;
+            [project.managedObjectContext saveOnlySelfAndWait];
+        }];
         [self addProjectListObject:project]; // Will dispatch to correct queue and notify observers.
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
         if(success)
@@ -284,30 +314,41 @@
     if(activity == nil || [activity.activityID isEqualToString:self.currentlyRecordingActivity.activityID])
         return;
     
-    void (^startRecording)() = ^void() {
-        [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-            activity.activityID = newActivityID;
-            self.currentlyRecordingActivity = activity;
-            LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
-        } failure:^(NSError *error) {
-            LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);
-        }];
-    };
-    
-    if(self.currentlyRecordingActivity != nil) {
-        [self stopRecordingCurrentActivitySuccess:^{
+    dispatch_async(_refreshProjectListQueue, ^{
+        self.isStartingNewRecording = YES;
+        void (^startRecording)() = ^void() {
+            [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
+                [activity.managedObjectContext performBlockAndWait:^{
+                    activity.activityID = newActivityID;
+//                    activity.projectName = activity.project.name; // just to make sure it is properly set
+                    self.currentlyRecordingActivity = activity;
+                    [activity.managedObjectContext saveOnlySelfAndWait];
+                }];
+                LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
+                self.isStartingNewRecording = NO;
+            } failure:^(NSError *error) {
+                LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);
+            }];
+        };
+        
+        if(self.currentlyRecordingActivity != nil) {
+            [self stopRecordingCurrentActivitySuccess:^{
+                startRecording();
+            } failure:^(NSError *error) {
+                // hmmm... what now?
+                LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not stop recording active activity! Error: (%@)", error);
+            }];
+        } else {
             startRecording();
-        } failure:^(NSError *error) {
-            // hmmm... what now?
-        }];
-    } else {
-        startRecording();
-    }
+        }
+    });
+    
 }
 
 
 - (void)stopRecordingCurrentActivitySuccess:(void (^)())success failure:(void (^)(NSError *error))failure
 {
+    
     [[KSAPIClient sharedClient] stopRecordingActivity:self.currentlyRecordingActivity success:^{
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully stopped recording activity (name = %@)", self.currentlyRecordingActivity.name);
         self.currentlyRecordingActivity = nil;

@@ -144,7 +144,6 @@
     }
     
     [self.menu update];
-//    [self.projectListMenuItem.submenu update];
 }
 
 - (IBAction)stopRecordingActiveActivity:(id)sender

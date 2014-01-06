@@ -323,6 +323,8 @@
     [activity setIsStartingRecording:@(YES)];
     NSDictionary *activityDict = [activity dictRepresentation];
     
+    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity with dict representation: \n%@", activityDict);
+    
     NSError *jsonSerializationError = nil;
     NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict
                                                           options:NSJSONWritingPrettyPrinted
@@ -370,6 +372,8 @@
 
     [activity setIsStartingRecording:@(NO)];
     NSDictionary *activityDict = [activity dictRepresentation];
+    
+    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity with dict representation: \n%@", activityDict);
     
     NSError *jsonSerializationError = nil;
     NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict

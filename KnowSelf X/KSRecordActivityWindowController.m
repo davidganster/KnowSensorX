@@ -16,16 +16,38 @@
 
 @interface KSRecordActivityWindowController ()
 
-@property (weak) IBOutlet NSComboBox *projectComboBox;
-@property (weak) IBOutlet NSComboBox *activityComboBox;
-@property (weak) IBOutlet NSColorWell *projectColorWell;
-@property (weak) IBOutlet NSButton *recordButton;
-
+/// The project represented by the projectComboBox.
+/// Will change upon autocompletion and selecting an object from the combo box.
 @property (nonatomic, strong) KSProject  *project;
+
+/// The activity represented by the activityComboBox.
+/// Will change upon autocompletion and selecting an object from the combo box, but is ultimately ignored since a new activity has to be created anyway.
+// TODO: Remove this member.
 @property (nonatomic, strong) KSActivity *activity;
 
+/// An array of KSProject objects, mirroring the KSProjectController's list.
+/// It is kept for convenience access.
 @property (nonatomic, strong) NSArray *projects;
 
+// IBOutlets
+
+/// The NSComboBox that handles selecting a project.
+/// When a project is selected, this change is reflected in the activityComboBox's content.
+@property (weak) IBOutlet NSComboBox *projectComboBox;
+
+/// The NSComboBox that handles selecting an activity.
+/// When the 'project' member is changed, the content of the activityComboBox will be reloaded to mirror the available activities in the selected project.
+@property (weak) IBOutlet NSComboBox *activityComboBox;
+
+/// The NSColorWell responsible for picking a color when a new project is created.
+/// Disabled when an existing project is selected (changing color is not supported at the moment).
+@property (weak) IBOutlet NSColorWell *projectColorWell;
+
+/// Starts recording the activity/project.
+/// Disabled when the project/activity field is not filled or the selected activity is already recording.
+@property (weak) IBOutlet NSButton *recordButton;
+
+// Some necessary outlets for fading status message in/out.
 @property (weak) IBOutlet NSImageView *willCreateNewProjectWarningImage;
 @property (weak) IBOutlet NSTextField *willCreateNewProjectWarningLabel;
 
@@ -34,6 +56,9 @@
 
 @property (weak) IBOutlet NSImageView *willUseAlreadyExistingColorWarningImage;
 @property (weak) IBOutlet NSTextField *willUseAlreadyExistingColorWarningLabel;
+
+@property (weak) IBOutlet NSImageView *alreadyRecordingThisActivityImage;
+@property (weak) IBOutlet NSTextField *alreadyRecordingThisActivityLabel;
 
 @end
 
@@ -57,12 +82,14 @@
     [self resetComboBoxes];
     [self updateColorWell];
     [self updateRecordButtonState];
-    self.willCreateNewProjectWarningImage.alphaValue = 0.0f;
-    self.willCreateNewProjectWarningLabel.alphaValue = 0.0f;
-    self.willCreateNewActivityWarningImage.alphaValue = 0.0f;
-    self.willCreateNewActivityWarningLabel.alphaValue = 0.0f;
+    self.willCreateNewProjectWarningImage.alphaValue        = 0.0f;
+    self.willCreateNewProjectWarningLabel.alphaValue        = 0.0f;
+    self.willCreateNewActivityWarningImage.alphaValue       = 0.0f;
+    self.willCreateNewActivityWarningLabel.alphaValue       = 0.0f;
     self.willUseAlreadyExistingColorWarningImage.alphaValue = 0.0f;
     self.willUseAlreadyExistingColorWarningLabel.alphaValue = 0.0f;
+    self.alreadyRecordingThisActivityImage.alphaValue       = 0.0f;
+    self.alreadyRecordingThisActivityLabel.alphaValue       = 0.0f;
 
     [self.window setLevel:NSFloatingWindowLevel];
     [super windowDidLoad];
@@ -91,6 +118,14 @@
     [self showColorAlreadyInUseWarning:NO];
 }
 
+- (IBAction)activityComboBoxDidHitReturn:(id)sender
+{
+    if([self.recordButton isEnabled]) {
+        [self recordButtonClicked:sender];
+    }
+}
+
+
 /// Delegates to KSProjectController to start recording based on the current selection.
 /// If the project does not exist yet, it will be created in the process; same goes for the activity.
 /// @warning Invoking this method will close the window, /regardless/ of whether or not errors are encountered!
@@ -101,6 +136,9 @@
     LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Trying to start recording activity.");
     
     if(!self.project) {
+        
+        LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Need to create new project first...");
+        
         if(self.activity) {
             // impossible!
             LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
@@ -112,6 +150,7 @@
         
         activityToRecord = [self activityForProject:project];
         [[KSProjectController sharedProjectController] createProject:project success:^{
+            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Successfully created project on server! ()%@", project);
             // project was successfully created!
             [[KSProjectController sharedProjectController] startRecordingActivity:activityToRecord];
             LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
@@ -289,10 +328,29 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [self.willUseAlreadyExistingColorWarningLabel.animator setAlphaValue:show];
 }
 
+- (void)showAlreadyRecordingThisActivityWarning:(BOOL)show
+{
+    [self.alreadyRecordingThisActivityImage.animator setAlphaValue:show];
+    [self.alreadyRecordingThisActivityLabel.animator setAlphaValue:show];
+}
+
 - (void)updateRecordButtonState
 {
-    if((self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length) ||
-       (self.project && self.activity))
+    BOOL isAlreadyRecordingThisActivity = NO;
+    KSActivity *currentlyRecordingActvitiy = [[KSProjectController sharedProjectController] currentlyRecordingActivity];
+    
+    if(self.project &&
+       self.project == currentlyRecordingActvitiy.project &&
+       [self.activityComboBox.stringValue isEqualToString:currentlyRecordingActvitiy.name]) {
+        isAlreadyRecordingThisActivity = YES;
+        [self showAlreadyRecordingThisActivityWarning:YES];
+    } else {
+        [self showAlreadyRecordingThisActivityWarning:NO];
+    }
+    
+    if(!isAlreadyRecordingThisActivity &&
+       ((self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length) ||
+       (self.project && self.activity)))
         [self.recordButton setEnabled:YES];
     else
         [self.recordButton setEnabled:NO];
@@ -314,7 +372,6 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     }];
     return activity;
 }
-
 
 - (void)showAlreadyRecordingWarning
 {

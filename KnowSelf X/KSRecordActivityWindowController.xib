@@ -8,6 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="KSRecordActivityWindowController">
             <connections>
                 <outlet property="activityComboBox" destination="Emr-Tb-cHy" id="UBi-Yn-wxL"/>
+                <outlet property="alreadyRecordingThisActivityImage" destination="OeT-hB-gtS" id="3s5-td-Q7G"/>
+                <outlet property="alreadyRecordingThisActivityLabel" destination="gdA-sQ-Z2G" id="Y4i-xs-wjW"/>
                 <outlet property="projectColorWell" destination="lXR-iF-1OG" id="hUU-Bc-6Tu"/>
                 <outlet property="projectComboBox" destination="6B6-ER-pAh" id="M5r-fB-kWI"/>
                 <outlet property="recordButton" destination="mkF-Fe-eXu" id="JK8-0u-abd"/>
@@ -79,10 +81,13 @@
                             <comboBox toolTip="Type to record an existing activity or create a new one." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emr-Tb-cHy">
                                 <rect key="frame" x="73" y="67" width="218" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Type to add new activity" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="nNB-f9-W1q">
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Type to add new activity" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="nNB-f9-W1q">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <action selector="activityComboBoxDidHitReturn:" target="-2" id="hja-BJ-TDv"/>
+                                    </connections>
                                 </comboBoxCell>
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="wxw-Tw-rOt"/>
@@ -164,6 +169,20 @@ Gw
                                 <rect key="frame" x="139" y="97" width="15" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="pTt-4S-irx"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdA-sQ-Z2G" userLabel="This activity is already recording ">
+                                <rect key="frame" x="126" y="53" width="162" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This activity is already recording" id="Fro-Ve-HQQ">
+                                    <font key="font" size="10" name="LucidaGrande"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeT-hB-gtS" userLabel="This activity is already recording">
+                                <rect key="frame" x="112" y="55" width="15" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSInfo" id="AnM-ec-w6p"/>
                             </imageView>
                         </subviews>
                     </customView>

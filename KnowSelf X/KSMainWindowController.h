@@ -18,13 +18,11 @@
 
 @property(nonatomic, strong) NSArray *tabViewControllers;
 
-@property (weak) IBOutlet NSToolbarItem *projectsToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
 @property (weak) IBOutlet NSToolbar *toolbar;
 
 
-- (IBAction)projectsButtonPressed:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
 
 @end

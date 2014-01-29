@@ -12,7 +12,6 @@
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
 #import "KSSettingsViewController.h"
-#import "KSProjectsViewController.h"
 #import "KSSensorController.h"
 
 #import "KSProject+Addons.h"
@@ -41,21 +40,15 @@
 {
     // init viewControllers
     KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
-    KSProjectsViewController *projectsViewController = [[KSProjectsViewController alloc] init];
     
-    self.tabViewControllers = @[projectsViewController, settingsViewController];
-    
-    NSTabViewItem *projectsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSProjectsTabViewIdentifier];
-    [projectsTabViewItem setView:projectsViewController.view];
+    self.tabViewControllers = @[settingsViewController];
     
     NSTabViewItem *settingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSettingsTabViewIdentifier];
     [settingsTabViewItem setView:settingsViewController.view];
     
-    [self.tabView addTabViewItem:projectsTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
     
     [self createMenubarItem];
-    
     
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
@@ -79,23 +72,7 @@
     [self.toolbar setSelectedItemIdentifier:@"Settings"];
 }
 
-- (IBAction)projectsButtonPressed:(id)sender {
-//    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
-//                                                      self.window.frame.origin.y,
-//                                                      338,
-//                                                      504))
-//                  display:YES
-//                  animate:YES];
-    [self.tabView selectTabViewItemWithIdentifier:kKSProjectsTabViewIdentifier];
-}
-
 - (IBAction)settingsButtonPressed:(id)sender {
-//    [self.window setFrame:NSRectFromCGRect(CGRectMake(self.window.frame.origin.x,
-//                                                      self.window.frame.origin.y,
-//                                                      338,
-//                                                      500))
-//                  display:YES
-//                  animate:YES];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

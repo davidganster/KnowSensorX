@@ -72,4 +72,14 @@ static NSDateFormatter *timestampFormatter;
     return !([systemVersion floatValue] <= 10.8f); // available in OS X Mavericks (and probably above)
 }
 
+
++ (BOOL)isFirstStart
+{
+    BOOL hasBeenStartedBefore = [[NSUserDefaults standardUserDefaults] boolForKey:kKSIsFirstStartKey];
+    if(!hasBeenStartedBefore) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kKSIsFirstStartKey];
+    }
+    return !hasBeenStartedBefore;
+}
+
 @end

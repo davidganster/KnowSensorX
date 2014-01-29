@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EF051F8017F9D2600013065F /* KSSensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF051F7F17F9D2600013065F /* KSSensorController.m */; };
-		EF051F8617F9D5320013065F /* KSProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF051F8417F9D5320013065F /* KSProjectsViewController.m */; };
-		EF051F8717F9D5320013065F /* KSProjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF051F8517F9D5320013065F /* KSProjectsViewController.xib */; };
 		EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A317F7512200BC7282 /* KSActivity+Addons.m */; };
 		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
 		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
@@ -124,9 +122,6 @@
 		EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
 		EF051F7E17F9D2600013065F /* KSSensorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSensorController.h; sourceTree = "<group>"; };
 		EF051F7F17F9D2600013065F /* KSSensorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSensorController.m; sourceTree = "<group>"; };
-		EF051F8317F9D5320013065F /* KSProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProjectsViewController.h; sourceTree = "<group>"; };
-		EF051F8417F9D5320013065F /* KSProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProjectsViewController.m; sourceTree = "<group>"; };
-		EF051F8517F9D5320013065F /* KSProjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSProjectsViewController.xib; sourceTree = "<group>"; };
 		EF0840A217F7512200BC7282 /* KSActivity+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSActivity+Addons.h"; sourceTree = "<group>"; };
 		EF0840A317F7512200BC7282 /* KSActivity+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSActivity+Addons.m"; sourceTree = "<group>"; };
 		EF0840A817F76AB600BC7282 /* KSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUtils.h; sourceTree = "<group>"; };
@@ -781,9 +776,6 @@
 				EF9EC4C317C0F51F00A4A5A0 /* KSSettingsViewController.h */,
 				EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */,
 				EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */,
-				EF051F8317F9D5320013065F /* KSProjectsViewController.h */,
-				EF051F8417F9D5320013065F /* KSProjectsViewController.m */,
-				EF051F8517F9D5320013065F /* KSProjectsViewController.xib */,
 			);
 			name = "Views&Windows";
 			sourceTree = "<group>";
@@ -877,7 +869,6 @@
 				EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */,
 				EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */,
 				EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */,
-				EF051F8717F9D5320013065F /* KSProjectsViewController.xib in Resources */,
 				EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */,
 				EFA7DE9E180F2620000A8B4E /* WindowTitle.scpt in Resources */,
 				EFE8F32917BD3BE100D6369E /* KSMainWindowController.xib in Resources */,
@@ -912,7 +903,6 @@
 				EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */,
 				EFA6715717BBF98500C43BB0 /* MagicalRecord+Actions.m in Sources */,
 				EFE8F31B17BD2B9C00D6369E /* KSSensor.m in Sources */,
-				EF051F8617F9D5320013065F /* KSProjectsViewController.m in Sources */,
 				EFA6715617BBF98500C43BB0 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				EFA6718617BBFAD300C43BB0 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EFE8F32017BD3A6400D6369E /* KSFocusSensor.m in Sources */,

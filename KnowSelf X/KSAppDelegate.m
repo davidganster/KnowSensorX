@@ -86,17 +86,14 @@ void SignalHandler(int sig)
 
     
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
-    
-    // has to be set the first time, so just call it here
-    BOOL firstStart = [self isFirstStart];
-    if(firstStart) {
-        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
-    }
-    
     [self startKnowServer];
-    
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
-    [[self.mainWindowController window] makeKeyAndOrderFront:self];
+    [self.mainWindowController loadWindow]; // awakeFromNib needs to be called for the app to work.
+    // has to be set the first time, so just call it here
+    if([KSUtils isFirstStart]) {
+        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
+        [[self.mainWindowController window] makeKeyAndOrderFront:self];
+    }
 
     // The very first thing to do: Check if accessibility is enabled. This is required for the Idle Sensor to work correctly!
     // If accessibility is not enabled, this will show an alert and quit the app.
@@ -110,18 +107,6 @@ void SignalHandler(int sig)
         [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerUnreachable
                                                             object:nil];
     }];
-}
-
-
-
-- (BOOL)isFirstStart
-{
-    BOOL isFirstStart = [[NSUserDefaults standardUserDefaults] boolForKey:kKSIsFirstStartKey];
-    if(!isFirstStart) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kKSIsFirstStartKey];
-    }
-    
-    return isFirstStart;
 }
 
 - (void)startKnowServer

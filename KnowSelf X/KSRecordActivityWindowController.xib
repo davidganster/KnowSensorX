@@ -78,7 +78,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <comboBox toolTip="Type to record an existing activity or create a new one." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emr-Tb-cHy">
+                            <comboBox toolTip="Type to record an existing activity or create a new one with that name." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emr-Tb-cHy">
                                 <rect key="frame" x="73" y="67" width="218" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Type to add new activity" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="nNB-f9-W1q">

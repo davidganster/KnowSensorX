@@ -20,11 +20,14 @@
 /// Private property for storing the shared instance's AFNetworking client.
 @property(nonatomic, strong) AFHTTPClient *client;
 
-/// Private property for storing the 'reachability-changed-to-reachable' block
-@property (copy) void (^nowReachable)();
+/// Indicates if the API Client should continue to check for reachability on its own.
+@property(nonatomic, assign) BOOL checkForReachability;
 
-/// Private property for storing the 'reachability-changed-to-unreachable' block
-@property (copy) void (^nowUnreachable)();
+/**
+ Private method that periodically checks reachability. Will send a notification when the notification status changes.
+ @param interval Time to start the next check after receiving a response from the server.
+ */
+- (void)checkReachabilityWithTimeInterval:(NSTimeInterval)interval;
 
 @end
 
@@ -50,28 +53,32 @@
         NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
         self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
         _serverReachable = NO;
-        _nowReachable = ^void () {};
-        _nowUnreachable = ^void () {};
     }
     return self;
 }
 
 #pragma mark Public Methods.
-- (void)setReachabilityStatusChangedBlockReachable:(void (^)())reachable
-                                       unreachable:(void (^)())unreachable
-{
-    self.nowReachable = reachable;
-    self.nowUnreachable = unreachable;
-}
-
 - (void)setServerReachable:(BOOL)serverReachable
 {
     if(self.serverReachable && !serverReachable) {
-        self.nowUnreachable();
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerUnreachable
+                                                            object:nil];
     } else if(!self.serverReachable && serverReachable) {
-        self.nowReachable();
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerReachable
+                                                            object:nil];
     }
     _serverReachable = serverReachable;
+}
+
+- (void)startCheckingForServerReachability
+{
+    self.checkForReachability = YES;
+    [self checkReachabilityWithTimeInterval:0];
+}
+
+- (void)stopCheckingForServerReachability
+{
+    self.checkForReachability = NO;
 }
 
 #pragma mark - Project related calls
@@ -495,6 +502,30 @@
     }];
     
     [self.client enqueueHTTPRequestOperation:requestOperation];
+}
+
+- (void)checkReachabilityWithTimeInterval:(NSTimeInterval)interval
+{
+    NSString *testURL = [[[KSUserInfo sharedUserInfo] serverAddress]
+                         stringByAppendingString:@"/Resources/Images/btn_first_highlighted.png"];
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:testURL parameters:nil];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server now reachable (detected when checking for reachability)!");
+        [self setServerReachable:YES];
+        [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerUp];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server no longer reachable (detected when checking for reachability)!");
+        [self setServerReachable:NO];
+        [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerDown];
+    }];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if(self.checkForReachability) {
+            [self.client enqueueHTTPRequestOperation:operation];
+        }
+    });
 }
 
 #pragma mark Helper

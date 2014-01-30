@@ -94,19 +94,14 @@ void SignalHandler(int sig)
         LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
         [[self.mainWindowController window] makeKeyAndOrderFront:self];
     }
-
+    
+    [[KSAPIClient sharedClient] startCheckingForServerReachability];
+    
     // The very first thing to do: Check if accessibility is enabled. This is required for the Idle Sensor to work correctly!
     // If accessibility is not enabled, this will show an alert and quit the app.
     [self checkIfAccessabilityIsEnabled];
 
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"KnowSensor X started.");
-    [[KSAPIClient sharedClient] setReachabilityStatusChangedBlockReachable:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerReachable
-                                                            object:nil];
-    } unreachable:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerUnreachable
-                                                            object:nil];
-    }];
 }
 
 - (void)startKnowServer

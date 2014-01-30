@@ -18,8 +18,6 @@
 /// Indicates whether or not the server is reachable at the moment.
 /// Will update whenever a message has been sent succesfully/with an error.
 /// When the flag changes, one of the blocks given in setReachabilityStatusChangedBlockReachable:unreachable: will be executed.
-/// NOTE: The KSAPIClient will NOT automatically check for reachability.
-/// This flag will only every change when the user tries to send messages to the server.
 @property(nonatomic, assign, readonly) BOOL serverReachable;
 
 /** Singleton-Accessor for the shared object. Only work through this object, don't create your own!
@@ -28,15 +26,16 @@
  */
 + (KSAPIClient *)sharedClient;
 
-// TODO: There should be a mechanism that pokes the server every x seconds until it is reachable, that will actually call the blocks correctly.
-// TODO: Refactor this, the APIClient should just send a notification as soon as a connection is established/lost.
-/** Allows to configure blocks for when the reachability changes. 
- Especially interesting for monitoring when the server is up and ready for events.
- @param reachable The block to be executed when the server is reachable.
- @param unreachable The block to be executed when the server is not reachable any more.
+/** Tells the API Client to start checking whether the server is up or down.
+ Intervals between checks are chosen by the API Client itself.
+ Notifications are sent when the reachability status changes.
  */
-- (void)setReachabilityStatusChangedBlockReachable:(void (^)())reachable
-                                       unreachable:(void (^)())unreachable;
+- (void)startCheckingForServerReachability;
+
+/** Tells the API Client to stop checking whether the server is up or down.
+ @note This does not stop notifications from different sources (all API calls will still generate down/up notifications)
+ */
+- (void)stopCheckingForServerReachability;
 
 /** Asynchronously loads all projects and returns them as a parameter in the success-block if the call has been successful.
     In case of an error, the failure block will be called with an NSError object.

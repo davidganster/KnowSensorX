@@ -83,6 +83,8 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoUserNameKey @"UserName"
 #define kKSUserInfoDeviceNameKey @"DeviceName"
 #define kKSUserInfoServerAddressKey @"ServerAddress"
+#define kKSUserInfoSpecialApplicationsKey @"SpecialApplications"
+#define kKSUserInfoSpecialApplicationsAreBlacklistKey @"isBlacklist"
 
 #define kKSIsFirstStartKey @"firstStart"
 #define kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped @"alreadyRecordingActivityWarning"

@@ -115,7 +115,9 @@ void SignalHandler(int sig)
     [self.knowServerTask setLaunchPath:@"/bin/sh"];
     [self.knowServerTask setArguments:@[[kKSKnowServerRelativeBasePath stringByAppendingString:@"startKnowServer.sh"]]];
     [self.knowServerTask setStandardInput:[NSPipe pipe]];
+    
 //    [self.knowServerTask setStandardOutput:nil];
+    
     [self.knowServerTask launch];
     
     taskPID = self.knowServerTask.processIdentifier;

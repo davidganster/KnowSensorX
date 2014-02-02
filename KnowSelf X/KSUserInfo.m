@@ -55,7 +55,7 @@
     if(!applications) {
         applications = [NSArray array];
     }
-    _specialApplications = [NSSet setWithArray:applications];
+    _specialApplications = [NSMutableSet setWithArray:applications];
 
     if([KSUtils isFirstStart]) {
         _specialApplicationsAreBlacklist = YES;
@@ -68,7 +68,7 @@
     self.serverAddress = kKSServerBaseURL;
     self.userID = NSFullUserName();
     self.deviceID = (__bridge NSString *)SCDynamicStoreCopyComputerName(NULL, NULL);
-    self.specialApplications = [NSSet set];
+    self.specialApplications = [NSMutableSet set];
     self.specialApplicationsAreBlacklist = YES;
 }
 
@@ -107,7 +107,8 @@
 
 - (void)setSpecialApplications:(NSSet *)specialApplications
 {
-    _specialApplications = specialApplications;
+    // we only ever assign mutable copies to our object, and act as if it was immutable.
+    _specialApplications = [specialApplications mutableCopy];
     if(!specialApplications) {
         [[NSUserDefaults standardUserDefaults] setNilValueForKey:kKSUserInfoSpecialApplicationsKey];
     } else {
@@ -116,6 +117,24 @@
                                                   forKey:kKSUserInfoSpecialApplicationsKey];
     }
 }
+
+
+- (void)addSpecialApplicationsObject:(NSURL *)object
+{
+    NSMutableSet *applications = (NSMutableSet *)self.specialApplications;
+    [applications addObject:object];
+    [[NSUserDefaults standardUserDefaults] setObject:[applications allObjects]
+                                              forKey:kKSUserInfoSpecialApplicationsKey];
+}
+
+- (void)removeSpecialApplicationsObject:(NSURL *)object
+{
+    NSMutableSet *applications = (NSMutableSet *)self.specialApplications;
+    [applications removeObject:object];
+    [[NSUserDefaults standardUserDefaults] setObject:[applications allObjects]
+                                              forKey:kKSUserInfoSpecialApplicationsKey];
+}
+
 
 
 - (void)setSpecialApplicationsAreBlacklist:(BOOL)specialApplicationsAreBlacklist

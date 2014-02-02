@@ -12,6 +12,7 @@
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
 #import "KSSettingsViewController.h"
+#import "KSSpecialApplicationsViewController.h"
 #import "KSSensorController.h"
 
 #import "KSProject+Addons.h"
@@ -40,12 +41,17 @@
 {
     // init viewControllers
     KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
+    KSSpecialApplicationsViewController *specialApplicationsViewController = [[KSSpecialApplicationsViewController alloc] init];
     
-    self.tabViewControllers = @[settingsViewController];
+    self.tabViewControllers = @[specialApplicationsViewController, settingsViewController];
+    
+    NSTabViewItem *specialApplicationsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSpecialApplicationsTabViewIdentifier];
+    [specialApplicationsTabViewItem setView:specialApplicationsViewController.view];
     
     NSTabViewItem *settingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSettingsTabViewIdentifier];
     [settingsTabViewItem setView:settingsViewController.view];
     
+    [self.tabView addTabViewItem:specialApplicationsTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
     
     [self createMenubarItem];
@@ -59,7 +65,6 @@
 - (void)createMenubarItem
 {
     self.menuController = [[KSMenuController alloc] init];
-    
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     [self.statusItem setImage:[NSImage imageNamed:@"statusbar_icon"]];
     [self.statusItem setMenu:self.menuController.menu];
@@ -72,7 +77,13 @@
     [self.toolbar setSelectedItemIdentifier:@"Settings"];
 }
 
-- (IBAction)settingsButtonPressed:(id)sender {
+- (IBAction)specialApplicationsButtonPressed:(id)sender
+{
+    [self.tabView selectTabViewItemWithIdentifier:kKSSpecialApplicationsTabViewIdentifier];
+}
+
+- (IBAction)settingsButtonPressed:(id)sender
+{
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

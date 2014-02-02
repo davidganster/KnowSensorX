@@ -22,7 +22,7 @@
 /// Defaults to 127.0.0.1:8182.
 @property(nonatomic, strong) NSString *serverAddress;
 
-/// A set of application names that can be treated as a white- or blacklist.
+/// A set of NSStrings (application paths) that can be treated as a white- or blacklist.
 /// Defaults to an empty set.
 @property(nonatomic, strong) NSSet *specialApplications;
 
@@ -36,5 +36,9 @@
 /// Resets every stored user info to its default value.
 /// That includes: 'deviceID', 'userID', 'serverAddress', 'specialApplications' and 'treatSpecialApplicationsAsBlackList'
 - (void)resetToDefaults;
+
+// Methods to modify the 'specialApplications' set.
+- (void)addSpecialApplicationsObject:(NSURL *)object;
+- (void)removeSpecialApplicationsObject:(NSURL *)object;
 
 @end

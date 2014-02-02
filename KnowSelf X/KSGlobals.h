@@ -50,7 +50,7 @@
 #define kKSSensorNameFocusSensor @"Focus Sensor"
 #define kKSSensorNameIdleSensor @"Idle Sensor"
 
-#define kKSProjectsTabViewIdentifier @"ProjectsTabView"
+#define kKSSpecialApplicationsTabViewIdentifier @"SpecialApplicationsTabView"
 #define kKSSettingsTabViewIdentifier @"SettingsTabView"
 
 #define kKSUserNameTextFieldIdentifier @"userNameTextField"

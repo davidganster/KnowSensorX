@@ -106,7 +106,7 @@
                 KSProject *project = [KSProject createOrFetchWithData:projectDict
                                                             inContext:[NSManagedObjectContext defaultContext]];
                 if(project) {
-                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported project from \n%@\n", projectDict);
+//                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported project from \n%@\n", projectDict);
                     [projects addObject:project];
 
                 } else {
@@ -178,7 +178,7 @@
                 KSActivity *activity = [KSActivity createOrFetchWithData:activityDict
                                                                inContext:[NSManagedObjectContext defaultContext]];
                 if(activity) {
-                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", activityDict);
+//                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", activityDict);
                     [activities addObject:activity];
                 } else {
                     LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", activityDict);
@@ -237,7 +237,7 @@
             KSActivity *activity = [KSActivity createOrFetchWithData:jsonObject
                                                            inContext:[NSManagedObjectContext defaultContext]];
             if(activity) {
-                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", jsonObject);
+//                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", jsonObject);
             } else {
                 LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", jsonObject);
             }
@@ -493,7 +493,6 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"yay!");
         finishedBlock(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self setServerReachable:NO];

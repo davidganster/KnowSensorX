@@ -138,7 +138,7 @@
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing AppleScript: %@", errorInfo);
         return nil;
     } else {
-        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got url or file: %@", [result stringValue]);
+//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got url or file: %@", [result stringValue]);
     }
     
     return [result stringValue];
@@ -155,7 +155,7 @@
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing Applescript: %@", errorDict);
         return nil;
     } else {
-        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got window title: %@", [result stringValue]);
+//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got window title: %@", [result stringValue]);
     }
     return [result stringValue];
 }

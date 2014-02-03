@@ -55,7 +55,7 @@
     // default value is the idle time of this object.
     if(!timeInterval)
         timeInterval = self.minimumIdleTime;
-    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Now listening for user idle with minimum idle time: %g", timeInterval);
+//    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Now listening for user idle with minimum idle time: %g", timeInterval);
     self.userIsIdling = NO;
     self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                       target:self
@@ -83,7 +83,7 @@
         else
             self.idleTimeSoFar = 0.f;
         
-        LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
+//        LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
         [self createTimerWithTimeInterval:self.minimumIdleTime - actualIdleTime];
     }
 }
@@ -147,7 +147,7 @@
     
     CFTimeInterval idleTime = CGEventSourceSecondsSinceLastEventType(kCGEventSourceStateCombinedSessionState,
                                                                      kCGAnyInputEventType);
-    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Polling for idle end, idle time: %f", idleTime);
+//    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Polling for idle end, idle time: %f", idleTime);
     [self.lock lock];
     if(idleTime < self.minimumIdleTime && self.userIsIdling) {
         LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Idle end detected through polling.");

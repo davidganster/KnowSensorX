@@ -81,7 +81,7 @@
         if(error) {
             LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to send event! %@", error);
         } else {
-            LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Sent data successfully!");
+//            LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Sent data successfully!");
         }
     }];
 }

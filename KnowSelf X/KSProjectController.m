@@ -140,7 +140,7 @@
 - (void)finishPollSuccesful:(BOOL)success
 {
     if(success) {
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project and activity list successfully updated (project count = %lu, activity count = %lu)", [self.projectList count], [self.activityList count]);
+//        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Project and activity list successfully updated (project count = %lu, activity count = %lu)", [self.projectList count], [self.activityList count]);
     } else {
         LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"Could not load project list! Will try again in %f seconds.", self.timeIntervalBetweenPolls);
     }

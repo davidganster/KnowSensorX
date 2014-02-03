@@ -35,20 +35,26 @@
         firstTime = NO;
         // tags: don't record = 1 (is blacklist), record only = 0 (whitelist).
         [self.isBlacklistPopupButton selectItemWithTag:[[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]];
+        [self sortApplications];
     }
 }
 
 - (void)sortApplications
 {
-//    [self.applications sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//        // todo
-//    }];
+    [self.applications sortUsingComparator:^NSComparisonResult(NSString *url1, NSString *url2) {
+        NSURL *app1 = [NSURL URLWithString:url1];
+        NSURL *app2 = [NSURL URLWithString:url2];
+        NSString *appName1 = [app1 lastPathComponent];
+        NSString *appName2 = [app2 lastPathComponent];
+        return [appName1 compare:appName2 options:NSCaseInsensitiveSearch];
+    }];
 }
 
 - (IBAction)addButtonPressed:(id)sender
 {
     // open file dialog
     NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setDirectoryURL:[NSURL URLWithString:@"/Applications/"]];
     [panel setCanChooseFiles:YES];
     [panel setAllowsMultipleSelection:YES];
     [panel setAllowedFileTypes:@[@"app"]];
@@ -58,16 +64,27 @@
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
         for (NSURL *url in [panel URLs]) {
-            [[KSUserInfo sharedUserInfo] addSpecialApplicationsObject:url];
+            [[KSUserInfo sharedUserInfo] addSpecialApplicationsObject:[url absoluteString]];
         }
     }
+    
     self.applications = [[[[KSUserInfo sharedUserInfo] specialApplications] allObjects] mutableCopy];
+    [self sortApplications];
     [self.applicationsTableView reloadData];
 }
 
 - (IBAction)removeButtonPressed:(id)sender
 {
     NSIndexSet *selectedRows = [self.applicationsTableView selectedRowIndexes];
+    [self.applications removeObjectsAtIndexes:selectedRows];
+    [[KSUserInfo sharedUserInfo] setSpecialApplications:[NSSet setWithArray:self.applications]];
+    [self.applicationsTableView reloadData];
+}
+
+- (IBAction)blacklistPopupSelected:(NSPopUpButton *)sender
+{
+    NSInteger selectedIndex = sender.indexOfSelectedItem;
+    [[KSUserInfo sharedUserInfo] setSpecialApplicationsAreBlacklist:selectedIndex];
 }
 
 #pragma mark - TableView DataSource
@@ -82,8 +99,9 @@
 {
     NSTableCellView *applicationCell = [tableView makeViewWithIdentifier:@"ApplicationView" owner:self];
     
-    NSString *title = [self.applications[row] lastPathComponent];
-    NSBundle *appBundle = [NSBundle bundleWithURL:self.applications[row]];
+    NSURL *url = [NSURL URLWithString:self.applications[row]];
+    NSString *title = [url lastPathComponent];
+    NSBundle *appBundle = [NSBundle bundleWithURL:url];
     NSString *fullPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:appBundle.bundleIdentifier];
     NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:fullPath];
     applicationCell.textField.stringValue = title;
@@ -93,13 +111,22 @@
 }
 
 #pragma mark - TableView Delegate
-- (BOOL)tableView:(NSTableView *)tableView
-      acceptDrop:(id<NSDraggingInfo>)info
-             row:(NSInteger)row
-   dropOperation:(NSTableViewDropOperation)dropOperation
-{
-    // TODO
-    return NO;
-}
+
+//- (NSDragOperation)tableView:(NSTableView *)tableView
+//               validateDrop:(id<NSDraggingInfo>)info
+//                proposedRow:(NSInteger)row
+//      proposedDropOperation:(NSTableViewDropOperation)dropOperation
+//{
+//    return NSDragOperationCopy;
+//}
+//
+//- (BOOL)tableView:(NSTableView *)tableView
+//      acceptDrop:(id<NSDraggingInfo>)info
+//             row:(NSInteger)row
+//   dropOperation:(NSTableViewDropOperation)dropOperation
+//{
+//    // TODO
+//    return NO;
+//}
 
 @end

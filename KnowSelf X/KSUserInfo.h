@@ -38,7 +38,7 @@
 - (void)resetToDefaults;
 
 // Methods to modify the 'specialApplications' set.
-- (void)addSpecialApplicationsObject:(NSURL *)object;
-- (void)removeSpecialApplicationsObject:(NSURL *)object;
+- (void)addSpecialApplicationsObject:(NSString *)object;
+- (void)removeSpecialApplicationsObject:(NSString *)object;
 
 @end

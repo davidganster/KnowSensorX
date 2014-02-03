@@ -57,9 +57,11 @@
     }
     _specialApplications = [NSMutableSet setWithArray:applications];
 
+    _specialApplicationsAreBlacklist = [[NSUserDefaults standardUserDefaults] boolForKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
     if([KSUtils isFirstStart]) {
         _specialApplicationsAreBlacklist = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:_specialApplicationsAreBlacklist forKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
+        [[NSUserDefaults standardUserDefaults] setBool:_specialApplicationsAreBlacklist
+                                                forKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
     }
 }
 
@@ -119,7 +121,7 @@
 }
 
 
-- (void)addSpecialApplicationsObject:(NSURL *)object
+- (void)addSpecialApplicationsObject:(NSString *)object
 {
     NSMutableSet *applications = (NSMutableSet *)self.specialApplications;
     [applications addObject:object];
@@ -127,7 +129,7 @@
                                               forKey:kKSUserInfoSpecialApplicationsKey];
 }
 
-- (void)removeSpecialApplicationsObject:(NSURL *)object
+- (void)removeSpecialApplicationsObject:(NSString *)object
 {
     NSMutableSet *applications = (NSMutableSet *)self.specialApplications;
     [applications removeObject:object];

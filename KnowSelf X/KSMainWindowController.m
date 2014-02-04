@@ -59,7 +59,8 @@
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
-    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+//    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+    [self settingsButtonPressed:nil];
 }
 
 - (void)createMenubarItem
@@ -79,11 +80,27 @@
 
 - (IBAction)specialApplicationsButtonPressed:(id)sender
 {
+    NSRect frame = [self.window frame];
+    frame.size.width = 480.f;
+    CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
+    frame.size.height = 272.f + toolbarHeight;
+    frame.origin.y += self.window.frame.size.height;
+    frame.origin.y -= 272.f+toolbarHeight;
+    [self.window setFrame:frame display:YES animate:YES];
     [self.tabView selectTabViewItemWithIdentifier:kKSSpecialApplicationsTabViewIdentifier];
 }
 
 - (IBAction)settingsButtonPressed:(id)sender
 {
+    NSRect frame = [self.window frame];
+//    NSRect newViewFrame = [[self.tabViewControllers[1] view] bounds];
+    frame.size.width = 400.f;
+    CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
+    frame.size.height = 157.f + toolbarHeight;
+//    frame.size.height = newViewFrame.size.height + toolbarHeight;
+    frame.origin.y += self.window.frame.size.height;
+    frame.origin.y -= 157.f + toolbarHeight;
+    [self.window setFrame:frame display:YES animate:YES];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

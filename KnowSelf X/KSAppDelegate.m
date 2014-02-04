@@ -28,6 +28,7 @@ void HandleExceptions(NSException *exception)
 {
     LogMessage(kKSLogTagOther, kKSLogLevelError, @"Uncaught exception raised: %@", exception);
     LogMessage(kKSLogTagOther, kKSLogLevelError, @"I won't go alone!1!!!1! Killing KnowServer as well.");
+    [[NSUserDefaults standardUserDefaults] synchronize];
     kill(taskPID, SIGKILL);
 }
 
@@ -35,6 +36,7 @@ void SignalHandler(int sig)
 {
     LogMessage(kKSLogTagOther, kKSLogLevelError, @"KILLED BY SIGNAL: %i", sig);
     LogMessage(kKSLogTagOther, kKSLogLevelError, @"I won't go alone!1!!!1! Killing KnowServer as well.");
+    [[NSUserDefaults standardUserDefaults] synchronize];
     kill(taskPID, SIGKILL);
 }
 
@@ -159,6 +161,8 @@ void SignalHandler(int sig)
     
     // tear down KnowServer as well
     [self stopKnowServer];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     //[NSApp replyToApplicationShouldTerminate:YES];
     return NSTerminateNow; // NSTerminateLater

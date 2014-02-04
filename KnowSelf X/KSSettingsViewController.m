@@ -18,10 +18,6 @@
 - (id)init
 {
     self = [super initWithNibName:@"KSSettingsViewController" bundle:nil];
-    if (self) {
-        // Initialization code here.
-    }
-    
     return self;
 }
 

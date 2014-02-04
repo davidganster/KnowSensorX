@@ -8,6 +8,7 @@
 
 #import "KSFocusSensor.h"
 #import "KSFocusEvent+Addons.h"
+#import "KSUserInfo.h"
 
 
 @interface KSFocusSensor ()
@@ -60,21 +61,37 @@
         }
         
         KSFocusEvent *loseFocusEvent = nil;
-        if(self.previousApplication) {
+        if(self.previousApplication && [self shouldRecordApplication:self.previousApplication]) {
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle
                                                          type:KSEventTypeDidLoseFocus];
+        } else {
+            if(self.previousApplication) {
+                LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not stop recording application: %@", self.previousApplication.localizedName);
+            }
         }
         
         self.previousApplication = frontApp;
         self.previousFileOrUrl = fileOrUrl;
         self.previousWindowTitle = windowTitle;
         
-        KSFocusEvent *currentEvent = [self createEventFromApplication:frontApp
-                                                          withFileUrl:fileOrUrl
-                                                          windowTitle:windowTitle
-                                                                 type:KSEventTypeDidGetFocus];
+        
+        KSFocusEvent *currentEvent = nil;
+        if([self shouldRecordApplication:frontApp]) {
+            currentEvent = [self createEventFromApplication:frontApp
+                                                withFileUrl:fileOrUrl
+                                                windowTitle:windowTitle
+                                                       type:KSEventTypeDidGetFocus];
+        } else {
+            LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not start recording application: %@", frontApp.localizedName);
+        }
+        
+        if(!loseFocusEvent && !currentEvent)
+            return;
+        
+        // Saving the context here should not be necessary.
+        // The recorded events can be discarded immediately after sending to server!
 #ifndef kKSIsSaveToPersistentStoreDisabled
         [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
             // will be executed on the main thread
@@ -84,11 +101,14 @@
                 if(loseFocusEvent) {
                     [self.delegate sensor:self didRecordEvent:loseFocusEvent];
                 }
-                [self.delegate sensor:self didRecordEvent:currentEvent];
+                
+                if(currentEvent) {
+                    [self.delegate sensor:self didRecordEvent:currentEvent];
+                }
                 
 #ifndef kKSIsSaveToPersistentStoreDisabled
             } else {
-                LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
+                    LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
             }
         }];
 #endif
@@ -96,6 +116,26 @@
 }
 
 #pragma mark Helper
+
+- (BOOL)shouldRecordApplication:(NSRunningApplication *)application
+{
+    BOOL ignoreApplication = NO;
+    
+    if([[[KSUserInfo sharedUserInfo] specialApplications] containsObject:[application.bundleURL absoluteString]]) {
+        // specialApplications contains the previous app...
+        if([[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {
+            // ... which means it is on the blacklist. We ignore this app!
+            ignoreApplication  = YES;
+        }
+    } else {
+        // specialApplications does not contain the previous app...
+        if(![[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {
+            // ... which means it isn't on the whitelist. We ignore this app!
+            ignoreApplication = YES;
+        }
+    }
+    return !ignoreApplication;
+}
 
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
                                  withFileUrl:(NSString *)fileOrUrl

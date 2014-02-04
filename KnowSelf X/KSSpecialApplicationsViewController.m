@@ -30,6 +30,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     static BOOL firstTime = YES;
     if(firstTime) {
         firstTime = NO;

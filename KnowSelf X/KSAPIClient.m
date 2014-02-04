@@ -510,11 +510,15 @@
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:testURL parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server now reachable (detected when checking for reachability)!");
+        if(!self.serverReachable) {
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server now reachable (detected when checking for reachability)!");
+        }
         [self setServerReachable:YES];
         [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerUp];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server no longer reachable (detected when checking for reachability)!");
+        if(self.serverReachable) {
+            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server no longer reachable (detected when checking for reachability)!");
+        }
         [self setServerReachable:NO];
         [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerDown];
     }];

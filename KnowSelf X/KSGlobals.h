@@ -52,6 +52,8 @@
 
 #define kKSSpecialApplicationsTabViewIdentifier @"SpecialApplicationsTabView"
 #define kKSSettingsTabViewIdentifier @"SettingsTabView"
+#define kKSURLMappingsTabViewIdentifier @"URLMappingsTabView"
+
 
 #define kKSUserNameTextFieldIdentifier @"userNameTextField"
 #define kKSDeviceNameTextFieldIdentifier @"deviceNameTextField"
@@ -85,6 +87,8 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoServerAddressKey @"ServerAddress"
 #define kKSUserInfoSpecialApplicationsKey @"SpecialApplications"
 #define kKSUserInfoSpecialApplicationsAreBlacklistKey @"isBlacklist"
+#define kKSUserInfoURLMappingsKey @"URLMappings"
+
 
 #define kKSIsFirstStartKey @"firstStart"
 #define kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped @"alreadyRecordingActivityWarning"
@@ -138,7 +142,7 @@ typedef enum KSEventTypeEnum {
 #define kKSLogTagFocusSensor @"Focus Sensor"
 #define kKSLogTagIdleSensor @"Idle Sensor"
 #define kKSLogTagAPIClient @"API Client"
-#define kKSLogTagRecordActivityWindow @"Record Activity Window"
+#define kKSLogTagUI @"User Interface"
 #define kKSLogTagSensorController @"Sensor Controller"
 #define kKSLogTagProjectController @"Project Controller"
 #define kKSLogTagOther @"Unspecified"

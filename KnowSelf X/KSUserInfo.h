@@ -24,11 +24,18 @@
 
 /// A set of NSStrings (application paths) that can be treated as a white- or blacklist.
 /// Defaults to an empty set.
+/// @note Use the 'add-/removeSpecialApplicationsObject:' methods to modify the set.
 @property(nonatomic, strong) NSSet *specialApplications;
 
 /// Determines whether the 'specialApplications' are treated as a black- or whitelist.
 /// Defaults to YES.
 @property(nonatomic, assign) BOOL specialApplicationsAreBlacklist;
+
+/// Maps from NSString (the URL to map) to NSString (the displayed name on the server)
+/// The keys (URLs) will be matched (using a regular expression) against the URLs retrieved from browsers.
+/// The corresponding values (names) are the names that will be displayed in the Web Application.
+/// Readonly.
+@property(nonatomic, strong, readonly) NSDictionary *URLMappings;
 
 /// Returns the singleton for retrieving/setting global user infos.
 + (KSUserInfo *)sharedUserInfo;
@@ -40,5 +47,4 @@
 // Methods to modify the 'specialApplications' set.
 - (void)addSpecialApplicationsObject:(NSString *)object;
 - (void)removeSpecialApplicationsObject:(NSString *)object;
-
 @end

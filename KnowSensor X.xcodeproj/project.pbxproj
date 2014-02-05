@@ -21,6 +21,8 @@
 		EF535B2F183C1D5C00F31871 /* KSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF535B2E183C1D5C00F31871 /* KSMenuController.m */; };
 		EF535B31183C1FCE00F31871 /* KSMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF535B30183C1FCE00F31871 /* KSMenu.xib */; };
 		EF75B7AC1801AD6600D00508 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EF7E34A118A25CF200CE2E3E /* KSURLMappingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7E349F18A25CF200CE2E3E /* KSURLMappingViewController.m */; };
+		EF7E34A218A25CF200CE2E3E /* KSURLMappingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7E34A018A25CF200CE2E3E /* KSURLMappingViewController.xib */; };
 		EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE45E17F308B80032ADF2 /* KSProject.m */; };
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
 		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
@@ -147,6 +149,9 @@
 		EF535B30183C1FCE00F31871 /* KSMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSMenu.xib; sourceTree = "<group>"; };
 		EF75B7AA1801AD6600D00508 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
+		EF7E349E18A25CF200CE2E3E /* KSURLMappingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSURLMappingViewController.h; sourceTree = "<group>"; };
+		EF7E349F18A25CF200CE2E3E /* KSURLMappingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSURLMappingViewController.m; sourceTree = "<group>"; };
+		EF7E34A018A25CF200CE2E3E /* KSURLMappingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSURLMappingViewController.xib; sourceTree = "<group>"; };
 		EF7FE45D17F308B80032ADF2 /* KSProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProject.h; sourceTree = "<group>"; };
 		EF7FE45E17F308B80032ADF2 /* KSProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProject.m; sourceTree = "<group>"; };
 		EF7FE46017F308B90032ADF2 /* KSActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSActivity.h; sourceTree = "<group>"; };
@@ -784,6 +789,9 @@
 				EF151748189E91B400BC2671 /* KSSpecialApplicationsViewController.h */,
 				EF151749189E91B400BC2671 /* KSSpecialApplicationsViewController.m */,
 				EF15174A189E91B400BC2671 /* KSSpecialApplicationsViewController.xib */,
+				EF7E349E18A25CF200CE2E3E /* KSURLMappingViewController.h */,
+				EF7E349F18A25CF200CE2E3E /* KSURLMappingViewController.m */,
+				EF7E34A018A25CF200CE2E3E /* KSURLMappingViewController.xib */,
 			);
 			name = "Views&Windows";
 			sourceTree = "<group>";
@@ -875,6 +883,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */,
+				EF7E34A218A25CF200CE2E3E /* KSURLMappingViewController.xib in Resources */,
 				EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */,
 				EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */,
 				EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */,
@@ -907,6 +916,7 @@
 				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
 				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
+				EF7E34A118A25CF200CE2E3E /* KSURLMappingViewController.m in Sources */,
 				EF421CC9186F504000A6F01C /* NSColor+HexParsing.m in Sources */,
 				EFA6714F17BBF98500C43BB0 /* NSManagedObject+MagicalRequests.m in Sources */,
 				EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */,

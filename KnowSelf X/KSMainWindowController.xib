@@ -39,26 +39,35 @@
                     <constraint firstItem="13" firstAttribute="top" secondItem="2" secondAttribute="top" id="xqS-QV-dPK"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="893B3B5D-27BF-4210-8776-A6BF5B65B89A" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="5">
+            <toolbar key="toolbar" implicitIdentifier="893B3B5D-27BF-4210-8776-A6BF5B65B89A" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="small" id="5">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="9"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="34"/>
                     <toolbarItem implicitItemIdentifier="690AFDCE-B75F-4CDC-A99C-3F4AF8747E61" explicitItemIdentifier="SpecialApplications" label="Special Applications" paletteLabel="Special Applications" tag="-1" image="NSListViewTemplate" selectable="YES" id="35">
+                        <size key="minSize" width="18" height="18"/>
+                        <size key="maxSize" width="18" height="18"/>
                         <connections>
                             <action selector="specialApplicationsButtonPressed:" target="-2" id="DUO-4S-dVo"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="9E879467-9D09-4204-A684-73C56C670579" explicitItemIdentifier="Settings" label="Settings" paletteLabel="Settings" tag="-1" image="NSAdvanced" selectable="YES" id="36">
+                    <toolbarItem implicitItemIdentifier="9E879467-9D09-4204-A684-73C56C670579" explicitItemIdentifier="Settings" label="Settings" paletteLabel="Settings" tag="-1" image="NSActionTemplate" selectable="YES" id="36">
                         <connections>
                             <action selector="settingsButtonPressed:" target="-2" id="77"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="F1D72066-4EDC-4F15-99F8-E7BA9C9115DF" explicitItemIdentifier="Info" label="Info" paletteLabel="Info" tag="-1" image="NSInfo" id="78"/>
+                    <toolbarItem implicitItemIdentifier="F1D72066-4EDC-4F15-99F8-E7BA9C9115DF" explicitItemIdentifier="Info" label="Info" paletteLabel="Info" tag="-1" image="NSInfo" selectable="YES" id="78"/>
+                    <toolbarItem implicitItemIdentifier="8F2D7118-A40D-400C-B13D-BBB733BCE49B" explicitItemIdentifier="URLMappings" label="URL Mappings" paletteLabel="URL Mappings" tag="-1" image="NSBookmarksTemplate" selectable="YES" id="fZP-Cx-oBe">
+                        <connections>
+                            <action selector="URLMappingsButtonPressed:" target="-2" id="oPh-gu-IzO"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="36"/>
                     <toolbarItem reference="35"/>
+                    <toolbarItem reference="fZP-Cx-oBe"/>
+                    <toolbarItem reference="34"/>
                     <toolbarItem reference="9"/>
                     <toolbarItem reference="78"/>
                 </defaultToolbarItems>
@@ -69,7 +78,8 @@
         </window>
     </objects>
     <resources>
-        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSBookmarksTemplate" width="17" height="12"/>
         <image name="NSInfo" width="32" height="32"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
     </resources>

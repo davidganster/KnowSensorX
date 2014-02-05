@@ -21,6 +21,7 @@
 #import "KSAPIClient.h"
 #import "KSProjectController.h"
 #import "KSMenuController.h"
+#import "KSURLMappingViewController.h"
 
 @interface KSMainWindowController ()
 
@@ -42,8 +43,9 @@
     // init viewControllers
     KSSettingsViewController *settingsViewController = [[KSSettingsViewController alloc] init];
     KSSpecialApplicationsViewController *specialApplicationsViewController = [[KSSpecialApplicationsViewController alloc] init];
+    KSURLMappingViewController *urlMappingsViewController = [[KSURLMappingViewController alloc] init];
     
-    self.tabViewControllers = @[specialApplicationsViewController, settingsViewController];
+    self.tabViewControllers = @[specialApplicationsViewController, settingsViewController, urlMappingsViewController];
     
     NSTabViewItem *specialApplicationsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSpecialApplicationsTabViewIdentifier];
     [specialApplicationsTabViewItem setView:specialApplicationsViewController.view];
@@ -51,15 +53,19 @@
     NSTabViewItem *settingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSSettingsTabViewIdentifier];
     [settingsTabViewItem setView:settingsViewController.view];
     
+    NSTabViewItem *urlMappingsTabViewItem = [[NSTabViewItem alloc] initWithIdentifier:kKSURLMappingsTabViewIdentifier];
+    [urlMappingsTabViewItem setView:urlMappingsViewController.view];
+    
     [self.tabView addTabViewItem:specialApplicationsTabViewItem];
     [self.tabView addTabViewItem:settingsTabViewItem];
+    [self.tabView addTabViewItem:urlMappingsTabViewItem];
     
     [self createMenubarItem];
     
     // TODO: move this to some callback for when the server is up. (said callback doesn't exist yet)
     [[KSSensorController sharedSensorController] startRecordingEvents];
     
-//    [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+    [self.toolbar setSelectedItemIdentifier:@"Settings"];
     [self settingsButtonPressed:nil];
 }
 
@@ -72,36 +78,36 @@
     [self.statusItem setHighlightMode:YES];
 }
 
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-    [self.toolbar setSelectedItemIdentifier:@"Settings"];
-}
-
 - (IBAction)specialApplicationsButtonPressed:(id)sender
 {
-    NSRect frame = [self.window frame];
-    frame.size.width = 480.f;
-    CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
-    frame.size.height = 272.f + toolbarHeight;
-    frame.origin.y += self.window.frame.size.height;
-    frame.origin.y -= 272.f+toolbarHeight;
-    [self.window setFrame:frame display:YES animate:YES];
+    [self resizeWindowToSize:CGSizeMake(480.f, 272.f)];
     [self.tabView selectTabViewItemWithIdentifier:kKSSpecialApplicationsTabViewIdentifier];
 }
 
 - (IBAction)settingsButtonPressed:(id)sender
 {
-    NSRect frame = [self.window frame];
-//    NSRect newViewFrame = [[self.tabViewControllers[1] view] bounds];
-    frame.size.width = 400.f;
-    CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
-    frame.size.height = 157.f + toolbarHeight;
-//    frame.size.height = newViewFrame.size.height + toolbarHeight;
-    frame.origin.y += self.window.frame.size.height;
-    frame.origin.y -= 157.f + toolbarHeight;
-    [self.window setFrame:frame display:YES animate:YES];
+    [self resizeWindowToSize:CGSizeMake(400.f, 157.f)];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
+}
+
+- (IBAction)URLMappingsButtonPressed:(id)sender
+{
+    [self resizeWindowToSize:CGSizeMake(480.f, 314.f)];
+    [self.tabView selectTabViewItemWithIdentifier:kKSURLMappingsTabViewIdentifier];
+}
+
+#pragma mark - Helper
+- (void)resizeWindowToSize:(CGSize)size
+{
+    NSRect frame = [self.window frame];
+    //    NSRect newViewFrame = [[self.tabViewControllers[1] view] bounds];
+    frame.size.width = size.width;
+    CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
+    frame.size.height = size.height + toolbarHeight;
+    //    frame.size.height = newViewFrame.size.height + toolbarHeight;
+    frame.origin.y += self.window.frame.size.height;
+    frame.origin.y -= size.height + toolbarHeight;
+    [self.window setFrame:frame display:YES animate:YES];
 }
 
 @end

@@ -8,6 +8,12 @@
 
 #import "KSUserInfo.h"
 
+@interface KSUserInfo ()
+
+@property(readwrite) NSMutableDictionary *URLMappings;
+
+@end
+
 @implementation KSUserInfo
 
 + (KSUserInfo *)sharedUserInfo
@@ -63,6 +69,13 @@
         [[NSUserDefaults standardUserDefaults] setBool:_specialApplicationsAreBlacklist
                                                 forKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
     }
+    
+    _URLMappings = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kKSUserInfoURLMappingsKey] mutableCopy];
+    if(_URLMappings) {
+        _URLMappings = [NSMutableDictionary dictionary];
+    }
+    
+    _URLMappings = [NSMutableDictionary dictionaryWithObject:@"my url" forKey:@"www.google.com"];
 }
 
 - (void)resetToDefaults
@@ -72,6 +85,7 @@
     self.deviceID = (__bridge NSString *)SCDynamicStoreCopyComputerName(NULL, NULL);
     self.specialApplications = [NSMutableSet set];
     self.specialApplicationsAreBlacklist = YES;
+    self.URLMappings = [NSMutableDictionary dictionary];
 }
 
 #pragma mark Setters
@@ -106,7 +120,6 @@
                                                   forKey:kKSUserInfoServerAddressKey];
 }
 
-
 - (void)setSpecialApplications:(NSSet *)specialApplications
 {
     // we only ever assign mutable copies to our object, and act as if it was immutable.
@@ -119,7 +132,6 @@
                                                   forKey:kKSUserInfoSpecialApplicationsKey];
     }
 }
-
 
 - (void)addSpecialApplicationsObject:(NSString *)object
 {
@@ -137,13 +149,18 @@
                                               forKey:kKSUserInfoSpecialApplicationsKey];
 }
 
-
-
 - (void)setSpecialApplicationsAreBlacklist:(BOOL)specialApplicationsAreBlacklist
 {
     _specialApplicationsAreBlacklist = specialApplicationsAreBlacklist;
     [[NSUserDefaults standardUserDefaults] setBool:_specialApplicationsAreBlacklist
                                             forKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
+}
+
+- (void)setURLMappings:(NSDictionary *)URLMappings
+{
+    _URLMappings = [URLMappings mutableCopy];
+    [[NSUserDefaults standardUserDefaults] setObject:_URLMappings
+                                              forKey:kKSUserInfoURLMappingsKey];
 }
 
 @end

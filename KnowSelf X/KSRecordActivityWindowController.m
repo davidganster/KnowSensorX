@@ -133,15 +133,15 @@
 {
     KSActivity *activityToRecord = nil;
     
-    LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Trying to start recording activity.");
+    LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Trying to start recording activity.");
     
     if(!self.project) {
         
-        LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Need to create new project first...");
+        LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Need to create new project first...");
         
         if(self.activity) {
             // impossible!
-            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
+            LogMessage(kKSLogTagUI, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
             return;
         }
         KSProject *project = [KSProject createInContext:[NSManagedObjectContext defaultContext]];
@@ -150,13 +150,13 @@
         
         activityToRecord = [self activityForProject:project];
         [[KSProjectController sharedProjectController] createProject:project success:^{
-            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Successfully created project on server! ()%@", project);
+            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully created project on server! ()%@", project);
             // project was successfully created!
             [[KSProjectController sharedProjectController] startRecordingActivity:activityToRecord];
-            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
+            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
         } failure:^(NSError *error) {
             // what to do?
-            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"could not create project on server: %@", [error description]);
+            LogMessage(kKSLogTagUI, kKSLogLevelError, @"could not create project on server: %@", [error description]);
         }];
     } else {
         activityToRecord = [self activityForProject:self.project];
@@ -187,7 +187,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     } else if(aComboBox == self.activityComboBox) {
         return [self.project.activities count];
     }
-    LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Do not recognize combo box %@", aComboBox);
+    LogMessage(kKSLogTagUI, kKSLogLevelError, @"Do not recognize combo box %@", aComboBox);
     return 0;
 }
 
@@ -199,7 +199,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     } else if(aComboBox == self.activityComboBox) {
         return [self.project.activities[index] name];
     }
-    LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Do not recognize combo box %@", aComboBox);
+    LogMessage(kKSLogTagUI, kKSLogLevelError, @"Do not recognize combo box %@", aComboBox);
     return nil;
 }
 
@@ -215,7 +215,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
         } else if(comboBox == self.activityComboBox) {
             self.activity = (index != NSNotFound) ? [self.project activities][index] : nil;
         } else {
-            LogMessage(kKSLogTagRecordActivityWindow, kKSLogLevelError, @"Do not recognize combo box %@", comboBox);
+            LogMessage(kKSLogTagUI, kKSLogLevelError, @"Do not recognize combo box %@", comboBox);
             return;
         }
         [self updateRecordButtonState];

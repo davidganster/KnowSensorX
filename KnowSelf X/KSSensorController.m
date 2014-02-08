@@ -45,6 +45,7 @@
         KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
         [focusSensor setFocusDelegate:self];
         KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
+        idleSensor.minimumIdleTime = [[KSUserInfo sharedUserInfo] minimumIdleTime] * 60.f;
         _sensors = @[focusSensor, idleSensor];
     }
     return self;

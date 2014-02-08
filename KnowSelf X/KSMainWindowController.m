@@ -86,7 +86,7 @@
 
 - (IBAction)settingsButtonPressed:(id)sender
 {
-    [self resizeWindowToSize:CGSizeMake(400.f, 157.f)];
+    [self resizeWindowToSize:CGSizeMake(400.f, 195.f)];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

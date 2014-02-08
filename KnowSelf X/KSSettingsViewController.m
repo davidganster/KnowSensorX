@@ -11,6 +11,9 @@
 
 @interface KSSettingsViewController ()
 
+@property (weak) IBOutlet NSTextField *minimumIdleTimeLabel;
+@property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
+
 @end
 
 @implementation KSSettingsViewController
@@ -27,6 +30,9 @@
     self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
     self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
     self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
+    int idleTimeInMinutes = [[KSUserInfo sharedUserInfo] minimumIdleTime] / 60;
+    [self.minimumIdleTimeSlider setIntegerValue:idleTimeInMinutes];
+    self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%i", idleTimeInMinutes];
 }
 
 - (IBAction)textFieldDidReturn:(NSTextField *)sender
@@ -62,7 +68,14 @@
     self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
     self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
     self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
+    self.minimumIdleTimeLabel.stringValue   = [NSString stringWithFormat:@"%i", (int)[[KSUserInfo sharedUserInfo] minimumIdleTime] / 60];
 }
 
+- (IBAction)sliderDidChangeValue:(NSSlider *)sender
+{
+    NSInteger value = sender.integerValue;
+    [[KSUserInfo sharedUserInfo] setMinimumIdleTime:value*60];
+    self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%li", (long)value];
+}
 
 @end

@@ -33,6 +33,10 @@
         _idleTimeSoFar = 0;
         _userIsIdling = NO;
         _lock = [[NSLock alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(idleTimeChanged:)
+                                                     name:kKSNotificationKeyIdleTimeChanged
+                                                   object:nil];
     }
     return self;
 }
@@ -46,8 +50,18 @@
         _minimumIdleTime = idleTime;
         _idleTimeSoFar = 0;
         _userIsIdling = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(idleTimeChanged:)
+                                                     name:kKSNotificationKeyIdleTimeChanged
+                                                   object:nil];
+
     }
     return self;
+}
+
+- (void)idleTimeChanged:(NSNotification *)notification
+{
+    self.minimumIdleTime = [notification.userInfo[kKSNotificationUserInfoKeyNewIdleTime] floatValue];
 }
 
 - (void)createTimerWithTimeInterval:(CFTimeInterval)timeInterval

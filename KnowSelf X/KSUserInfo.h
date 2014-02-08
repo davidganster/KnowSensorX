@@ -37,6 +37,12 @@
 /// Readonly.
 @property(nonatomic, strong) NSDictionary *URLMappings;
 
+/// The minimum idle time in seconds before an idle event is registered.
+/// Changing this value will emitt a notification with the key 'kKSNotificationKeyIdleTimeChanged'.
+/// The userInfo dictionary contained in the generated notification contains
+/// the new idle time for the key 'kKSNotificationUserInfoKeyNewIdleTime'
+@property(nonatomic, assign) CGFloat minimumIdleTime;
+
 /// Returns the singleton for retrieving/setting global user infos.
 + (KSUserInfo *)sharedUserInfo;
 

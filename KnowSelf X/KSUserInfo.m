@@ -70,6 +70,11 @@
                           @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
                           @"www.google.*" : @"Google"} mutableCopy];
     }
+    
+    _minimumIdleTime = [[NSUserDefaults standardUserDefaults] floatForKey:kKSUserInfoMinimumIdleTimeKey];
+    if(_minimumIdleTime < 1) {
+        _minimumIdleTime = kKSIdleSensorMinimumIdleTime;
+    }
 }
 
 - (void)resetToDefaults
@@ -82,6 +87,7 @@
     self.URLMappings = [@{@"127.0.0.1:8182" : @"KnowSelf WebApp",
                           @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
                           @"www.google.*" : @"Google"} mutableCopy];
+    self.minimumIdleTime = kKSIdleSensorMinimumIdleTime;
 }
 
 #pragma mark Setters
@@ -171,6 +177,17 @@
     [(NSMutableDictionary *)self.URLMappings removeObjectForKey:URL];
     [[NSUserDefaults standardUserDefaults] setObject:_URLMappings
                                               forKey:kKSUserInfoURLMappingsKey];    
+}
+
+
+- (void)setMinimumIdleTime:(CGFloat)minimumIdleTime
+{
+    _minimumIdleTime = minimumIdleTime;
+    [[NSUserDefaults standardUserDefaults] setFloat:_minimumIdleTime
+                                             forKey:kKSUserInfoMinimumIdleTimeKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyIdleTimeChanged
+                                                        object:nil
+                                                      userInfo:@{kKSNotificationUserInfoKeyNewIdleTime:@(minimumIdleTime)}];
 }
 
 

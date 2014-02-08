@@ -8,10 +8,13 @@
 
 #import "KSSensor.h"
 
+/**
+ *  KSSensor subclass that deals with detecting when the user idles and resumes work.
+ *  @author David Ganster
+ */
 @interface KSIdleSensor : KSSensor
 
 /// The minimum time the user has to be idle before an event is logged in seconds.
-/// Defaults to 600 (10 minutes).
 @property(nonatomic, assign) CGFloat minimumIdleTime;
 
 @end

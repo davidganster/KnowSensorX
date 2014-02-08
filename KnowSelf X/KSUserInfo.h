@@ -48,6 +48,7 @@
 - (void)addSpecialApplicationsObject:(NSString *)object;
 - (void)removeSpecialApplicationsObject:(NSString *)object;
 
-- (void)addURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
+// Methods to mofify the 'URLMappings' dictionary.
+- (void)addOrReplaceURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
 - (void)removeURLMappingWithURL:(NSString *)URL;
 @end

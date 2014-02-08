@@ -8,10 +8,51 @@
 
 #import "KSSensor.h"
 
-/** This class catches and handles all "focus-change" events.
- * It generates events when an application gets and loses the focus, and hands it to its delegate.
- * @author David Ganster
+@class KSFocusSensor;
+
+/**
+ *  Simple protocol for decoupling application-specific behaviour from the focus sensor, 
+ *  such as URL mappings and whether or not to record specific applications.
+ *  @author David Ganster
+ */
+@protocol KSFocusSensorDelegate <NSObject>
+@optional
+
+/**
+ *  Asks the focusDelegate for an alternative representation of the given URL,
+ *  which will be used in the recorded event. 
+ *  This makes for a nicer representation in the Web Application.
+ *  If this method is not implemented or nil is returned, 
+ *  the given URL will be used to represent the homepage.
+ *
+ *  @param sensor The KSFocusSensor object that recorded the URL.
+ *  @param URL    The URL that has been returned from the active browser.
+ *  @return       The alternative representation of the given URL.
+ */
+- (NSString *)focusSensor:(KSFocusSensor *)sensor mappedNameForURL:(NSString *)URL;
+
+/**
+ *  Asks the focusDelegate whether or not a specific application should be recorded.
+ *  This method is invoked for every application on both getting and losing focus.
+ *  If this method is not implemented, the sensor will assume 'YES'.
+ *  @note This method will be called on a background thread.
+ *
+ *  @param sensor      The KSFocusSensor object that recorded the application.
+ *  @param application The application in question.
+ *  @return            YES if the sensor should create a KSFocusEvent and invoke the sensor:didRecordEvent: method on its delegate.
+ */
+- (BOOL)focusSensor:(KSFocusSensor *)sensor shouldRecordApplication:(NSRunningApplication *)application;
+
+@end
+
+/** 
+ *  This class catches and handles all "focus-change" events.
+ *  It generates events when an application gets and loses the focus, and hands it to its delegate.
+ *  @author David Ganster
  */
 @interface KSFocusSensor : KSSensor
+
+/// Optional delegate for KSFocusSensor-specific delegate method. See KSFocusSensorDelegate for more information.
+@property(nonatomic, strong) id<KSFocusSensorDelegate> focusDelegate;
 
 @end

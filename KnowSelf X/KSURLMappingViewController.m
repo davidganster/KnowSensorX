@@ -43,7 +43,7 @@
         NSString *oldURL = [[KSUserInfo sharedUserInfo] URLMappings][self.URL];
         if(oldURL) {
             [[KSUserInfo sharedUserInfo] removeURLMappingWithURL:self.URL];
-            [[KSUserInfo sharedUserInfo] addURLMappingWithMappedName:self.mappedName forURL:self.URL];
+            [[KSUserInfo sharedUserInfo] addOrReplaceURLMappingWithMappedName:self.mappedName forURL:self.URL];
         }
     }
     _URL = URL;
@@ -53,7 +53,7 @@
 {
     if(self.URL && self.mappedName) {
         // full new entry, will update the exisiting one with the new data!
-        [[KSUserInfo sharedUserInfo] addURLMappingWithMappedName:mappedName forURL:self.URL];
+        [[KSUserInfo sharedUserInfo] addOrReplaceURLMappingWithMappedName:mappedName forURL:self.URL];
     }
     _mappedName = mappedName;
 }

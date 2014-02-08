@@ -52,7 +52,9 @@
 {
     dispatch_async(self.applescriptQueue, ^{
         NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
-        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp];
+        BOOL isURL = NO;
+        NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp isURL:&isURL];
+
         NSString *windowTitle = [self windowTitleOfApplication:frontApp];
         if(self.previousApplication.processIdentifier == frontApp.processIdentifier &&
            ([self.previousFileOrUrl isEqualToString:fileOrUrl] || self.previousFileOrUrl == fileOrUrl)) {
@@ -62,6 +64,14 @@
         
         KSFocusEvent *loseFocusEvent = nil;
         if(self.previousApplication && [self shouldRecordApplication:self.previousApplication]) {
+            if([self isBrowser:self.previousApplication]) {
+                if(self.previousFileOrUrl &&
+                   self.focusDelegate &&
+                   [self.focusDelegate respondsToSelector:@selector(focusSensor:mappedNameForURL:)]) {
+                    self.previousFileOrUrl = [self.focusDelegate focusSensor:self
+                                                            mappedNameForURL:self.previousFileOrUrl];
+                }
+            }
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle
@@ -79,6 +89,14 @@
         
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
+            if(isURL) {
+                if(fileOrUrl &&
+                   self.focusDelegate &&
+                   [self.focusDelegate respondsToSelector:@selector(focusSensor:mappedNameForURL:)]) {
+                    fileOrUrl = [self.focusDelegate focusSensor:self
+                                               mappedNameForURL:fileOrUrl];
+                }
+            }
             currentEvent = [self createEventFromApplication:frontApp
                                                 withFileUrl:fileOrUrl
                                                 windowTitle:windowTitle
@@ -117,24 +135,15 @@
 
 #pragma mark Helper
 
+/// Asks the delegate whether or not to record the application in question.
 - (BOOL)shouldRecordApplication:(NSRunningApplication *)application
 {
-    BOOL ignoreApplication = NO;
-    
-    if([[[KSUserInfo sharedUserInfo] specialApplications] containsObject:[application.bundleURL absoluteString]]) {
-        // specialApplications contains the previous app...
-        if([[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {
-            // ... which means it is on the blacklist. We ignore this app!
-            ignoreApplication  = YES;
-        }
-    } else {
-        // specialApplications does not contain the previous app...
-        if(![[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {
-            // ... which means it isn't on the whitelist. We ignore this app!
-            ignoreApplication = YES;
-        }
+    BOOL shouldRecordApplication = YES;
+    if(self.focusDelegate && [self.focusDelegate respondsToSelector:@selector(focusSensor:shouldRecordApplication:)]) {
+        shouldRecordApplication = [self.focusDelegate focusSensor:self
+                                          shouldRecordApplication:application];
     }
-    return !ignoreApplication;
+    return shouldRecordApplication;
 }
 
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
@@ -155,18 +164,18 @@
 }
 
 
-- (NSString *)urlOrFileOfApplication:(NSRunningApplication *)application
+- (NSString *)urlOrFileOfApplication:(NSRunningApplication *)application isURL:(BOOL *)isURL;
 {
     NSString *scriptName = nil;
     NSString *functionName = nil;
-    
     if([self isBrowser:application]) {
         scriptName = @"UrlFromBrowser";
         functionName = @"getactiveurl";
+        *isURL = YES;
     } else {
-        
         scriptName = @"ActiveFile";
         functionName = @"getactivefile";
+        *isURL = NO;
     }
     NSDictionary *errorInfo = nil;
     NSAppleEventDescriptor *result = [KSUtils executeApplescriptWithName:scriptName

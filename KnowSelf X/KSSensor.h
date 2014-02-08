@@ -40,7 +40,9 @@
 
 @end
 
-// these methods are meant for internal use only, and should not be called from outside.
+/**
+ * The methods included in this category are meant to be overridden in subclases, and for internal use only - they should not be called from outside.
+ */
 @interface KSSensor (SubclassingHooks)
 
 - (BOOL)_registerForEvents;

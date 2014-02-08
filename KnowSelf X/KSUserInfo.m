@@ -66,7 +66,9 @@
     
     _URLMappings = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kKSUserInfoURLMappingsKey] mutableCopy];
     if(!_URLMappings) {
-        _URLMappings = [NSMutableDictionary dictionary];
+        _URLMappings = [@{@"127.0.0.1:8182" : @"KnowSelf WebApp",
+                          @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
+                          @"www.google.*" : @"Google"} mutableCopy];
     }
 }
 
@@ -77,7 +79,9 @@
     self.deviceID = (__bridge NSString *)SCDynamicStoreCopyComputerName(NULL, NULL);
     self.specialApplications = [NSMutableSet set];
     self.specialApplicationsAreBlacklist = YES;
-    self.URLMappings = [NSMutableDictionary dictionary];
+    self.URLMappings = [@{@"127.0.0.1:8182" : @"KnowSelf WebApp",
+                          @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
+                          @"www.google.*" : @"Google"} mutableCopy];
 }
 
 #pragma mark Setters
@@ -155,7 +159,7 @@
                                               forKey:kKSUserInfoURLMappingsKey];
 }
 
-- (void)addURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
+- (void)addOrReplaceURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
 {
     [(NSMutableDictionary *)self.URLMappings setObject:mappedName forKey:URL];
     [[NSUserDefaults standardUserDefaults] setObject:_URLMappings

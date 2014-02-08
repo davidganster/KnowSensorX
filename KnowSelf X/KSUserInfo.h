@@ -35,7 +35,7 @@
 /// The keys (URLs) will be matched (using a regular expression) against the URLs retrieved from browsers.
 /// The corresponding values (names) are the names that will be displayed in the Web Application.
 /// Readonly.
-@property(nonatomic, strong, readonly) NSDictionary *URLMappings;
+@property(nonatomic, strong) NSDictionary *URLMappings;
 
 /// Returns the singleton for retrieving/setting global user infos.
 + (KSUserInfo *)sharedUserInfo;
@@ -47,4 +47,7 @@
 // Methods to modify the 'specialApplications' set.
 - (void)addSpecialApplicationsObject:(NSString *)object;
 - (void)removeSpecialApplicationsObject:(NSString *)object;
+
+- (void)addURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
+- (void)removeURLMappingWithURL:(NSString *)URL;
 @end

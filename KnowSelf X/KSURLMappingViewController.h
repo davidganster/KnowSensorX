@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+ *  Handles the user interaction with the saved URL mappings.
+ */
 @interface KSURLMappingViewController : NSViewController<NSTableViewDataSource, NSTableViewDelegate>
 
 @end

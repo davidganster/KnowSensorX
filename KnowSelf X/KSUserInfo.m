@@ -8,12 +8,6 @@
 
 #import "KSUserInfo.h"
 
-@interface KSUserInfo ()
-
-@property(readwrite) NSMutableDictionary *URLMappings;
-
-@end
-
 @implementation KSUserInfo
 
 + (KSUserInfo *)sharedUserInfo
@@ -71,11 +65,9 @@
     }
     
     _URLMappings = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kKSUserInfoURLMappingsKey] mutableCopy];
-    if(_URLMappings) {
+    if(!_URLMappings) {
         _URLMappings = [NSMutableDictionary dictionary];
     }
-    
-    _URLMappings = [NSMutableDictionary dictionaryWithObject:@"my url" forKey:@"www.google.com"];
 }
 
 - (void)resetToDefaults
@@ -162,5 +154,20 @@
     [[NSUserDefaults standardUserDefaults] setObject:_URLMappings
                                               forKey:kKSUserInfoURLMappingsKey];
 }
+
+- (void)addURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
+{
+    [(NSMutableDictionary *)self.URLMappings setObject:mappedName forKey:URL];
+    [[NSUserDefaults standardUserDefaults] setObject:_URLMappings
+                                              forKey:kKSUserInfoURLMappingsKey];
+}
+
+- (void)removeURLMappingWithURL:(NSString *)URL
+{
+    [(NSMutableDictionary *)self.URLMappings removeObjectForKey:URL];
+    [[NSUserDefaults standardUserDefaults] setObject:_URLMappings
+                                              forKey:kKSUserInfoURLMappingsKey];    
+}
+
 
 @end

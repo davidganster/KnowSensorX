@@ -67,6 +67,7 @@
     
     [self.toolbar setSelectedItemIdentifier:@"Settings"];
     [self settingsButtonPressed:nil];
+    [self.window setLevel:NSFloatingWindowLevel];
 }
 
 - (void)createMenubarItem
@@ -86,7 +87,7 @@
 
 - (IBAction)settingsButtonPressed:(id)sender
 {
-    [self resizeWindowToSize:CGSizeMake(400.f, 195.f)];
+    [self resizeWindowToSize:CGSizeMake(426.f, 198.f)];
     [self.tabView selectTabViewItemWithIdentifier:kKSSettingsTabViewIdentifier];
 }
 

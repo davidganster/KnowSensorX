@@ -93,8 +93,21 @@
             [_URLMappings addObject:mapping];
         }
         [self sortURLMappings];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userInfoDidImport:)
+                                                     name:kKSNotificationUserInfoDidImport
+                                                   object:nil];
+
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kKSNotificationUserInfoDidImport
+                                                  object:nil];
 }
 
 - (void)awakeFromNib
@@ -113,6 +126,11 @@
         // double clicked into last row+1 or below: add new row.
         [self addMappingButtonPressed:nil];
     }
+}
+
+- (void)userInfoDidImport:(NSNotification *)notification
+{
+    [self.tableView reloadData];
 }
 
 - (IBAction)addMappingButtonPressed:(id)sender

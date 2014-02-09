@@ -77,6 +77,7 @@
     }
 }
 
+#pragma mark - Public methods
 - (void)resetToDefaults
 {
     self.serverAddress = kKSServerBaseURL;
@@ -88,6 +89,61 @@
                           @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
                           @"www.google.*" : @"Google"} mutableCopy];
     self.minimumIdleTime = kKSIdleSensorMinimumIdleTime;
+}
+
+- (BOOL)saveUserInfoToPath:(NSURL *)path includeUserData:(BOOL)includeUserData
+{
+    // build a dictionary with all values, then save it to the specified path
+    NSMutableDictionary *dictionary = [@{kKSUserInfoDeviceNameKey : self.deviceID,
+                                         kKSUserInfoServerAddressKey : self.serverAddress,
+                                         kKSUserInfoUserNameKey : self.userID,
+                                         kKSUserInfoMinimumIdleTimeKey : @(self.minimumIdleTime),
+                                         kKSUserInfoSpecialApplicationsAreBlacklistKey : @(self.specialApplicationsAreBlacklist),
+                                         kKSUserInfoSpecialApplicationsKey : [self.specialApplications allObjects],
+                                         kKSUserInfoURLMappingsKey : self.URLMappings} mutableCopy];
+    
+    if(!includeUserData) {
+        [dictionary removeObjectsForKeys:@[kKSUserInfoDeviceNameKey, kKSUserInfoUserNameKey]];
+    }
+    
+    if([dictionary writeToURL:path atomically:YES])
+        return YES;
+    return NO;
+}
+
+- (BOOL)loadUserInfoFromPath:(NSURL *)path
+{
+    // get the dictionary from the given plist, then update all properties
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfURL:path];
+    if(dictionary) {
+        // only overwrite non-nil objects!
+        NSString *userID = dictionary[kKSUserInfoUserNameKey];
+        if(userID) self.userID = userID;
+        
+        NSString *serverAddress = dictionary[kKSUserInfoServerAddressKey];
+        if(serverAddress) self.serverAddress = serverAddress;
+        
+        NSString *deviceName = dictionary[kKSUserInfoDeviceNameKey];
+        if(deviceName) self.deviceID = deviceName;
+        
+        NSNumber *minimumIdleTime = dictionary[kKSUserInfoMinimumIdleTimeKey];
+        if(minimumIdleTime) self.minimumIdleTime = [minimumIdleTime floatValue];
+        
+        NSNumber *isBlacklist = dictionary[kKSUserInfoSpecialApplicationsAreBlacklistKey];
+        if(isBlacklist) self.specialApplicationsAreBlacklist = [isBlacklist boolValue];
+        
+        NSArray *specialApps = dictionary[kKSUserInfoSpecialApplicationsKey];
+        if(specialApps) self.specialApplications = [NSMutableSet setWithArray:specialApps];
+        
+        NSDictionary *URLMappings = dictionary[kKSUserInfoURLMappingsKey];
+        if(URLMappings) self.URLMappings = URLMappings;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationUserInfoDidImport
+                                                            object:nil];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark Setters

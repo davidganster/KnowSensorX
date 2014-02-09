@@ -43,12 +43,37 @@
 /// the new idle time for the key 'kKSNotificationUserInfoKeyNewIdleTime'
 @property(nonatomic, assign) CGFloat minimumIdleTime;
 
-/// Returns the singleton for retrieving/setting global user infos.
+/**
+ *  Returns the shared KSUserInfo object for retrieving/setting global user infos.
+ *
+ *  @return The singleton object.
+ */
 + (KSUserInfo *)sharedUserInfo;
 
-/// Resets every stored user info to its default value.
-/// That includes: 'deviceID', 'userID', 'serverAddress', 'specialApplications' and 'treatSpecialApplicationsAsBlackList'
+/**
+ *  Resets every value stored in KSUserInfo to its default value.
+ */
 - (void)resetToDefaults;
+
+/**
+ *  Saves all values in KSUserInfo to the given path as a plist file.
+ *
+ *  @param path Absolute path (including filename) where the file should be saved.
+ *  @param includeUserData If YES, the backup will also include personal data such as the user's name and deviceID.
+ *  @return YES if the file could be saved, else NO.
+ */
+- (BOOL)saveUserInfoToPath:(NSURL *)path includeUserData:(BOOL)includeUserData;
+
+/**
+ *  Loads all values in KSUserInfo from the given path to a plist file.
+ *  Nil values are ignored and left as they are.
+ *  This makes it possible to exclude certain attributes from import/export.
+ *  After loading is finished, a 'kKSNotificationUserInfoDidImport' notification will be emitted.
+ *
+ *  @param path Absolute path to the plist file to be loaded.
+ *  @return YES if the file could be loaded, else NO.
+ */
+- (BOOL)loadUserInfoFromPath:(NSURL *)path;
 
 // Methods to modify the 'specialApplications' set.
 - (void)addSpecialApplicationsObject:(NSString *)object;

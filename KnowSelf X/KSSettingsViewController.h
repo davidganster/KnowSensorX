@@ -15,8 +15,4 @@
 @property (weak) IBOutlet NSTextField *serverAddressTextField;
 @property (weak) IBOutlet NSTextField *deviceNameTextField;
 
-- (IBAction)textFieldDidReturn:(NSTextField *)sender;
-- (IBAction)resetToDefaultsButtonClicked:(id)sender;
-- (IBAction)applyButtonClicked:(id)sender;
-
 @end

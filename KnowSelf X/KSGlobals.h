@@ -76,6 +76,7 @@ typedef enum KSEventTypeEnum {
 #define kKSNotificationKeyUserIdleStart @"UserIdleStart"
 #define kKSNotificationKeyUserIdleEnd  @"UserIdleEnd"
 #define kKSNotificationKeyIdleTimeChanged @"IdleTimeChanged"
+#define kKSNotificationUserInfoDidImport @"UserInfoDidImport"
 
 #define kKSNotificationUserInfoKeyNewIdleTime @"NewIdleTime"
 
@@ -92,7 +93,6 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoSpecialApplicationsAreBlacklistKey @"isBlacklist"
 #define kKSUserInfoURLMappingsKey @"URLMappings"
 #define kKSUserInfoMinimumIdleTimeKey @"MinimumIdleTime"
-
 
 #define kKSIsFirstStartKey @"firstStart"
 #define kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped @"alreadyRecordingActivityWarning"

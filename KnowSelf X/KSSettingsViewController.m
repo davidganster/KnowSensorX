@@ -49,18 +49,53 @@
     }
 }
 
+- (IBAction)importSettingsButtonClicked:(NSButton *)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setAllowedFileTypes:@[@"ksxsettings"]];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setAllowsOtherFileTypes:NO];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setCanChooseFiles:YES];
+    
+    if([openPanel runModal] == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        if(![[KSUserInfo sharedUserInfo] loadUserInfoFromPath:[url absoluteURL]]) {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"Could not load settings"];
+            [alert setInformativeText:@"Settings could not be imported - the file might be corrupt."];
+            [alert runModal];
+        }
+        [self updateTextFields];
+    }
+}
+
+- (IBAction)exportSettingsButtonClicked:(NSButton *)sender
+{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setCanCreateDirectories:YES];
+    [savePanel setCanSelectHiddenExtension:NO];
+    [savePanel setAllowedFileTypes:@[@"ksxsettings"]];
+    [savePanel setAllowsOtherFileTypes:NO];
+    [savePanel setPreventsApplicationTerminationWhenModal:YES];
+    [savePanel setNameFieldStringValue:@"Settings"];
+    
+    if([savePanel runModal] == NSFileHandlingPanelOKButton) {
+        NSURL *url = [savePanel URL];
+        if(![[KSUserInfo sharedUserInfo] saveUserInfoToPath:[url absoluteURL] includeUserData:NO]) {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"Could not save settings"];
+            [alert setInformativeText:[NSString stringWithFormat:@"Settings could not be exported - you might not have permissions to write to %@!", url.absoluteString]];
+            [alert runModal];
+        }
+    }
+}
+
 - (IBAction)resetToDefaultsButtonClicked:(id)sender
 {
     [[KSUserInfo sharedUserInfo] resetToDefaults];
     [self updateTextFields];
-}
-
-- (IBAction)applyButtonClicked:(id)sender
-{
-    KSUserInfo *userInfo = [KSUserInfo sharedUserInfo];
-    [userInfo setUserID:self.userNameTextField.stringValue];
-    [userInfo setDeviceID:self.deviceNameTextField.stringValue];
-    [userInfo setServerAddress:self.serverAddressTextField.stringValue];
 }
 
 - (void)updateTextFields

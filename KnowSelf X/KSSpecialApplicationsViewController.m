@@ -24,8 +24,19 @@
     self = [super initWithNibName:@"KSSpecialApplicationsViewController" bundle:nil];
     if (self) {
         _applications = [[[[KSUserInfo sharedUserInfo] specialApplications] allObjects] mutableCopy];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userInfoDidImport:)
+                                                     name:kKSNotificationUserInfoDidImport
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kKSNotificationUserInfoDidImport
+                                                  object:nil];
 }
 
 - (void)awakeFromNib
@@ -49,6 +60,12 @@
         NSString *appName2 = [app2 lastPathComponent];
         return [appName1 compare:appName2 options:NSCaseInsensitiveSearch];
     }];
+}
+
+
+- (void)userInfoDidImport:(NSNotification *)notification
+{
+    [self.applicationsTableView reloadData];
 }
 
 - (IBAction)addButtonPressed:(id)sender

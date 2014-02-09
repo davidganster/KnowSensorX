@@ -39,7 +39,7 @@
                     <constraint firstItem="13" firstAttribute="top" secondItem="2" secondAttribute="top" id="xqS-QV-dPK"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="893B3B5D-27BF-4210-8776-A6BF5B65B89A" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="small" id="5">
+            <toolbar key="toolbar" implicitIdentifier="893B3B5D-27BF-4210-8776-A6BF5B65B89A" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="labelOnly" sizeMode="small" id="5">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="9"/>

@@ -77,9 +77,9 @@
                                                   windowTitle:self.previousWindowTitle
                                                          type:KSEventTypeDidLoseFocus];
         } else {
-            if(self.previousApplication) {
-                LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not stop recording application: %@", self.previousApplication.localizedName);
-            }
+//            if(self.previousApplication) {
+//                LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not stop recording application: %@", self.previousApplication.localizedName);
+//            }
         }
         
         self.previousApplication = frontApp;
@@ -102,7 +102,7 @@
                                                 windowTitle:windowTitle
                                                        type:KSEventTypeDidGetFocus];
         } else {
-            LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not start recording application: %@", frontApp.localizedName);
+//            LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not start recording application: %@", frontApp.localizedName);
         }
         
         if(!loseFocusEvent && !currentEvent)
@@ -151,6 +151,8 @@
                                  windowTitle:(NSString *)windowTitle
                                         type:(KSEventType)type
 {
+    static KSFocusEvent *oldEvent = nil;
+    
     KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext defaultContext]];
     [currentEvent setTimestamp:[NSDate date]];
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
@@ -160,6 +162,19 @@
     [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
     [currentEvent setScreenshotPath:nil];
     [currentEvent setType:type];
+    
+    if(oldEvent &&
+       ([[KSUtils dateAsString:oldEvent.timestamp] isEqualToString:[KSUtils dateAsString:currentEvent.timestamp]]) &&
+       (oldEvent.windowTitle == currentEvent.windowTitle ||
+        oldEvent.processID == currentEvent.processID)) {
+           LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"WARNING: Two events with the exact same timestamp recorded - how is this possible? The two events were:\n1) %@ \n2) %@", oldEvent, currentEvent);
+//           oldEvent = currentEvent;
+//           return nil;
+    }
+    
+    oldEvent = currentEvent;
+    LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Recording focus event: %@", currentEvent);
+    
     return currentEvent;
 }
 

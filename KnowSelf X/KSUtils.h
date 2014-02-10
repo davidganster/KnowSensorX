@@ -8,29 +8,51 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Provides commonly used convenience methods that don't belong to any specific class.
+ */
 @interface KSUtils : NSObject
 
 /**
- Converts the given date into a string using a NSDateFormatter. The date formatter is kept in memory since recreating it is slow. The date formatter is not customizable.
+ *  Used to get the string representation of the timestamp property.
+ *  An NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
+ *  @note The NSDateFormatter will only be initialized the first time this is called and is not customizable.
+ *
+ *  @param date The date to be converted to an NSString object.
+ *
+ *  @return A string representing the given date.
  */
 + (NSString *)dateAsString:(NSDate *)date;
 
 /**
- Helper for easily executing an AppleScript file and obtaining its event descriptor.
- Loading and executing the script may take some time, so be sure to call this method on a background thread.
+ *  Executes the apple script with the given name, function and arguments.
+ *  Any errors that occur either during execution or loading will be written to the errorDict.
+ *  @note This method only searches inside the application's main bundle, so it cannot be used to
+ *        execute scripts that are not included in the application.
+ *  @warning Executing a script might take some time, so be sure to call this on a background thread.
+ *
+ *  @param scriptName   The file name script to be executed, without the extension.
+ *  @param functionName The name of the function in the script to be executed.
+ *  @param args         The arguments that will be passed to the executed function.
+ *  @param errorDict    A pointer to a dictionary that will contain any errors that occured (or be nil after the method returns).
+ *
+ *  @return The NSAppleEventDescriptor obtained by executing the apple script.
  */
 + (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
                                           functionName:(NSString *)functionName
                                              arguments:(NSArray *)args
                                        errorDictionary:(NSDictionary **)errorDict;
 /**
- Checks whether or the the popup for changing accessability settings is available (OS X >= 10.9)
+ *  Checks if the accessibility popup is available on this version of OS X (currently >= 10.9).
+ *
+ *  @return YES if the accessibility popup is available, NO otherwise.
  */
 + (BOOL)accessibilityPopupAvailable;
 
 /**
- Retrieves the NSUserDefaults bool 'isFirstStart' to check whether or not the program has been launched before.
- Will also automatically write 'YES' to the user defaults after the first start.
+ *  Checks if the app has been started before.
+ *
+ *  @return YES iff the app has not been started before.
  */
 + (BOOL)isFirstStart;
 

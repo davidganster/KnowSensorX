@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  This class provides access to all settings and information entered by the user.
+ *  This includes general information such as the user's name and device ID, but also 
+ *  more specific data such as URL mappings and black/whitelists.
+ */
 @interface KSUserInfo : NSObject
 
 /// The identifier of the current computer.

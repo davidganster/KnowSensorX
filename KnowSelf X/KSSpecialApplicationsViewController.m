@@ -65,6 +65,9 @@
 
 - (void)userInfoDidImport:(NSNotification *)notification
 {
+    [self.isBlacklistPopupButton selectItemWithTag:[[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]];
+    self.applications = [[[[KSUserInfo sharedUserInfo] specialApplications] allObjects] mutableCopy];
+    [self sortApplications];
     [self.applicationsTableView reloadData];
 }
 

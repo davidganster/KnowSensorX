@@ -48,4 +48,15 @@
     return self.processName;
 }
 
+
+- (NSString *)description
+{
+    NSMutableString *description = [[super description] mutableCopy];
+    [description appendFormat:@"processID   = %@, ", self.processID];
+    [description appendFormat:@"processName = %@, ", self.processName];
+    [description appendFormat:@"filePath    = %@, ", self.filePath];
+    [description appendFormat:@"windowTitle = %@\n", self.windowTitle];
+    return description;
+}
+
 @end

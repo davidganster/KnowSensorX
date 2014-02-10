@@ -46,7 +46,7 @@
 }
 
 
--(void)dealloc
+- (void)dealloc
 {
     if(self.isActive)
        [self _unregisterForEvents];

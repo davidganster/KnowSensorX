@@ -125,6 +125,12 @@
     if(self.tableView.clickedRow >= self.URLMappings.count) {
         // double clicked into last row+1 or below: add new row.
         [self addMappingButtonPressed:nil];
+    } else {
+        // double clicked into existing column/row: edit that cell.
+        [self.tableView editColumn:self.tableView.clickedColumn
+                               row:self.tableView.clickedRow
+                         withEvent:nil
+                            select:YES];
     }
 }
 

@@ -37,8 +37,8 @@
 {
     NSMutableString *desc = [[NSMutableString alloc] init];
     [desc appendFormat:@"Event type = %@, ", [self typeAsString]];
-    [desc appendFormat:@"Sensor ID = %@, ", self.sensorID];
-    [desc appendFormat:@"Timestamp: %@\n", self.timestamp];
+    [desc appendFormat:@"Sensor ID  = %@, ", self.sensorID];
+    [desc appendFormat:@"Timestamp  = %@\n", [KSUtils dateAsString:self.timestamp]];
     return desc;
 }
 

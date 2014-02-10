@@ -101,11 +101,9 @@
 - (void)resizeWindowToSize:(CGSize)size
 {
     NSRect frame = [self.window frame];
-    //    NSRect newViewFrame = [[self.tabViewControllers[1] view] bounds];
     frame.size.width = size.width;
     CGFloat toolbarHeight = self.window.frame.size.height - [self.window.contentView bounds].size.height;
     frame.size.height = size.height + toolbarHeight;
-    //    frame.size.height = newViewFrame.size.height + toolbarHeight;
     frame.origin.y += self.window.frame.size.height;
     frame.origin.y -= size.height + toolbarHeight;
     [self.window setFrame:frame display:YES animate:YES];

@@ -15,8 +15,6 @@ static NSDateFormatter *timestampFormatter;
 
 @implementation KSUtils
 
-/// Used to get the string representation of the timestamp property.
-/// A NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
 + (NSString *)dateAsString:(NSDate *)date
 {
     if(!timestampFormatter) {
@@ -71,7 +69,6 @@ static NSDateFormatter *timestampFormatter;
     LogMessage(@"DEBUG ONLY", 0, @"OS VERSION = %@", systemVersion);
     return !([systemVersion floatValue] <= 10.8f); // available in OS X Mavericks (and probably above)
 }
-
 
 + (BOOL)isFirstStart
 {

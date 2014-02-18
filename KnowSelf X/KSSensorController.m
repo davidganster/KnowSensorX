@@ -45,7 +45,7 @@
         KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
         [focusSensor setFocusDelegate:self];
         KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
-        idleSensor.minimumIdleTime = [[KSUserInfo sharedUserInfo] minimumIdleTime] * 60.f;
+        idleSensor.minimumIdleTime = [[KSUserInfo sharedUserInfo] minimumIdleTime];
         _sensors = @[focusSensor, idleSensor];
     }
     return self;
@@ -118,9 +118,11 @@
 }
 
 #pragma mark KSSensorDelegateProtocol
+
 /// This implementation of the KSSensorDelegateProtocol will simply upload the recorded event to the KnowServer using
-/// the 'sendEvent:finished:' convenience method of the KSAPIClient class.
-- (void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event
+/// the 'sendEvent:finished:' convenience method of the KSAPIClient class,
+/// and then call the provided finished block - regardloess of whether the upload was successful or not.
+- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event finished:(void (^)(void))finished
 {
     [[KSAPIClient sharedClient] sendEvent:event finished:^(NSError *error) {
         if(error) {
@@ -128,6 +130,8 @@
         } else {
 //            LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Sent data successfully!");
         }
+        if(finished)
+            finished();
     }];
 }
 

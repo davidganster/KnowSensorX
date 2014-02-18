@@ -12,14 +12,14 @@
 @implementation KSIdleEvent (Addons)
 
 // we don't want the timestamp in the data field of idle events.
-- (BOOL) exportTimestamp:(NSDictionary *)result
+- (BOOL)exportTimestamp:(NSDictionary *)result
 {
     return YES;
 }
 
 - (BOOL)exportIdleSinceTimestamp:(NSMutableDictionary *)result
 {
-    static NSString *key = @"Idlesincetimestamp";
+    static NSString *key = @"idlesincetimestamp";
     NSString *idleTimeString = [KSUtils dateAsString:self.idleSinceTimestamp];
     if(idleTimeString)
         [result setObject:idleTimeString forKey:key];

@@ -15,6 +15,6 @@
 @interface KSIdleSensor : KSSensor
 
 /// The minimum time the user has to be idle before an event is logged in seconds.
-@property(nonatomic, assign) CGFloat minimumIdleTime;
+@property(atomic, assign) CGFloat minimumIdleTime;
 
 @end

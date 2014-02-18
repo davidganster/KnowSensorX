@@ -17,13 +17,17 @@
  */
 @protocol KSSensorDelegateProtocol <NSObject>
 
+
 /**
  *  Indicates to the receiver that a sensor has recorded an event.
+ *  The `finished` block might be necessary if some part of the application relies on synchronization of events.
+ *  @note The implementing class must be prepared to handle cases in which `finished` is nil.
  *
- *  @param sensor The sensor that generated the event.
- *  @param event  The event that was recorded by the sensor.
+ *  @param sensor   The sensor that generated the event.
+ *  @param event    The event that was recorded by the sensor.
+ *  @param finished The block to be executed when the delegate finished processing the event.
  */
-- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event;
+- (void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event finished:(void (^)(void))finished;
 
 @end
 

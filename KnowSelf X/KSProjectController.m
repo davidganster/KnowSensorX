@@ -78,8 +78,8 @@
                     if([projects isEqualToArray:self.projectList] && [activities isEqualToArray:self.activityList]) {
                         [self finishPollSuccesful:YES]; // nothing has changed.
                     } else {
-                        
-                        // The server sends every activity multiple times - but we only care about the name and project.
+                        // The server might send every activity multiple times (for each time this activity was recorded)
+                        // - but we only care about the name and project.
                         // O(n^2) is not pretty, but necessary without additional data.
                         NSMutableArray *activitiesWithoutDuplicates = [NSMutableArray new];
                         for (KSActivity *duplicateCandidate in activities) {

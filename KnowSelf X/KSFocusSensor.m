@@ -115,14 +115,23 @@
             // will be executed on the main thread
             if(success) {
 #endif
-                // we call the delegate regardless of whether saving to persistent store is enabled or not
+                // we have to wait for the server to process the first event before sending another one.
+                // the first event MUST be a lose focus event!
                 if(loseFocusEvent) {
-                    [self.delegate sensor:self didRecordEvent:loseFocusEvent];
+                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^{
+                        if(currentEvent) {
+                            // if this application is on the blacklist, only the loseFocus event will have been sent.
+                            [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
+                        }
+                    }];
+                } else {
+                    // no lose focus event -> don't stop recording this application and move on to the current event.
+                    if(currentEvent) {
+                        // if this application is on the blacklist, nothing will be sent.
+                        [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
+                    }
                 }
                 
-                if(currentEvent) {
-                    [self.delegate sensor:self didRecordEvent:currentEvent];
-                }
                 
 #ifndef kKSIsSaveToPersistentStoreDisabled
             } else {
@@ -236,7 +245,8 @@
 - (void)sendLoseFocusEventForCurrentApplication
 {
     KSFocusEvent *loseFocusEvent = nil;
-    if(self.previousApplication) {
+    if(self.previousApplication &&
+       [self.focusDelegate focusSensor:self shouldRecordApplication:self.previousApplication]) {
         loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                               withFileUrl:self.previousFileOrUrl
                                               windowTitle:self.previousWindowTitle
@@ -250,7 +260,7 @@
 #ifndef kKSIsSaveToPersistentStoreDisabled
     [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
 #endif
-    [self.delegate sensor:self didRecordEvent:loseFocusEvent];
+    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:nil];
 }
 
 @end
@@ -265,6 +275,9 @@
                                                     selector:@selector(handleTimerFired:)
                                                     userInfo:nil
                                                      repeats:YES];
+        if([self.timer respondsToSelector:@selector(setTolerance:)]) {
+            [self.timer setTolerance:0.1f]; // even a small tolerance will improve power savings.
+        }
     });
     
     if(self.timer)

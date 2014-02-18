@@ -62,6 +62,9 @@
 - (void)idleTimeChanged:(NSNotification *)notification
 {
     self.minimumIdleTime = [notification.userInfo[kKSNotificationUserInfoKeyNewIdleTime] floatValue];
+    [self.idleTimer invalidate];
+    self.idleTimer = nil;
+    [self createTimerWithTimeInterval:0];
 }
 
 - (void)createTimerWithTimeInterval:(CFTimeInterval)timeInterval
@@ -69,13 +72,17 @@
     // default value is the idle time of this object.
     if(!timeInterval)
         timeInterval = self.minimumIdleTime;
-//    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Now listening for user idle with minimum idle time: %g", timeInterval);
+    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Now listening for user idle with minimum idle time: %g", timeInterval);
     self.userIsIdling = NO;
     self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                       target:self
                                                     selector:@selector(checkUserIdleTime)
                                                     userInfo:nil
                                                      repeats:NO];
+    // OS X >= 10.9 power savings improvement:
+    if([self.idleTimer respondsToSelector:@selector(setTolerance:)]) {
+        [self.idleTimer setTolerance:1.0f]; // even one second tolerance will improve power savings.
+    }
 }
 
 - (void)checkUserIdleTime
@@ -97,7 +104,7 @@
         else
             self.idleTimeSoFar = 0.f;
         
-//        LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
+        LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"User idled %g seconds so far. Will wait another %g seconds and then check again.", actualIdleTime, self.minimumIdleTime - actualIdleTime);
         [self createTimerWithTimeInterval:self.minimumIdleTime - actualIdleTime];
     }
 }
@@ -192,7 +199,7 @@
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
                                           idleSinceSeconds:idledTime];
     
-    [self.delegate sensor:self didRecordEvent:idleEvent];
+    [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
     [self createTimerWithTimeInterval:self.minimumIdleTime];
     // post notification: other sensors should reactivate themselves now.
     [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
@@ -210,7 +217,7 @@
     [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
 #endif
         
-        [self.delegate sensor:self didRecordEvent:idleEvent];
+        [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
         
 #ifndef kKSIsSaveToPersistentStoreDisabled
     }];
@@ -236,7 +243,7 @@
     [idleEvent setTimeOfRecording:[NSDate date]];
     [idleEvent setIdleSinceSeconds:@(idleTime)];
     if(type == KSEventTypeIdleEnd) {
-        [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:idleTime sinceDate:[NSDate date]]];
+        [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:-idleTime sinceDate:[NSDate date]]];
     }
     [idleEvent setSensorID:self.sensorID];
     return idleEvent;

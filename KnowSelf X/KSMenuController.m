@@ -81,7 +81,7 @@
     [self setProjectList:controller.currentProjectList];
 }
 
--(void)projectController:(KSProjectController *)controller activeActivityChangedToActivity:(KSActivity *)activity
+- (void)projectController:(KSProjectController *)controller activeActivityChangedToActivity:(KSActivity *)activity
 {
     [self setCurrentActivity:activity];
 }

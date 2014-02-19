@@ -46,4 +46,14 @@
     return @"Idle Sensor";
 }
 
+
+- (NSString *)description
+{
+    NSMutableString *description = [[super description] mutableCopy];
+    [description appendFormat:@"idleSinceTimeStamp   = %@, ", self.idleSinceTimestamp];
+    [description appendFormat:@"idleSinceSeconds = %@, ", self.idleSinceSeconds];
+    return description;
+}
+
+
 @end

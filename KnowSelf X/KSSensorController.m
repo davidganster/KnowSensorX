@@ -101,6 +101,11 @@
 {
     BOOL ignoreApplication = NO;
     
+    if([kKSFocusSensorBlockedApplicationNames containsObject:application.localizedName]) {
+        LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Will ignore application %@", application.localizedName);
+        return NO;
+    }
+    
     if([[[KSUserInfo sharedUserInfo] specialApplications] containsObject:[application.bundleURL absoluteString]]) {
         // specialApplications contains the previous app...
         if([[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {

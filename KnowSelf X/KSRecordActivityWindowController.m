@@ -144,7 +144,7 @@
             LogMessage(kKSLogTagUI, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
             return;
         }
-        KSProject *project = [KSProject createInContext:[NSManagedObjectContext defaultContext]];
+        KSProject *project = [KSProject createInContext:[NSManagedObjectContext contextForCurrentThread]];
         [project setName:[self.projectComboBox stringValue]];
         [project setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
         

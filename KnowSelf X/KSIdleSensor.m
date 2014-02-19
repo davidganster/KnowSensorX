@@ -127,7 +127,11 @@
     self.idleTimer = nil;
     
     [self sendUserIdleStartEvent];
-    [self registerForIdleEndEvents];
+    // if the sender was a 'NSWorkspaceWillSleep' notification, we don't want to register idle end events -
+    // because some other event might occur right before when the system goes to sleep (in which case the idle time is 0)
+    if(![sender isKindOfClass:[NSNotification class]]) {
+        [self registerForIdleEndEvents];
+    }
 }
 
 /// Registers an eventHandler for any keyboard/mouse events, as those will end the user's idle.
@@ -142,6 +146,9 @@
         [self.lock lock];
         // user idle end was detected by the polling loop (pollIdleEnd)
         if(self.userIsIdling == NO) {
+            [NSEvent removeMonitor:self.eventHandler];
+            self.eventHandler = nil;
+            LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Event handler was too late, user is already active.");
             [self.lock unlock];
             return;
         }
@@ -188,8 +195,11 @@
 /// Warning: you need to make sure that this method is only ever called ONCE per idle wakeup.
 - (void)handleIdleEnd
 {
-    [NSEvent removeMonitor:self.eventHandler];
-    self.eventHandler = nil;
+    if(self.eventHandler) {
+        [NSEvent removeMonitor:self.eventHandler];
+        self.eventHandler = nil;
+    }
+    
     LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"User Idle wakeup detected!");
     // user idle ended, but not recognized by the event handler.
     self.userIsIdling = NO;
@@ -199,11 +209,12 @@
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
                                           idleSinceSeconds:idledTime];
     
-    [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
-    [self createTimerWithTimeInterval:self.minimumIdleTime];
-    // post notification: other sensors should reactivate themselves now.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
-                                                        object:nil];
+    [self.delegate sensor:self didRecordEvent:idleEvent finished:^{
+        [self createTimerWithTimeInterval:self.minimumIdleTime];
+        // post notification: other sensors should reactivate themselves now.
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
+                                                            object:nil];
+    }];
 }
 
 - (void)sendUserIdleStartEvent
@@ -214,7 +225,7 @@
     self.idleStartDate = [idleEvent timestamp];
     
 #ifndef kKSIsSaveToPersistentStoreDisabled
-    [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+    [[NSManagedObjectContext contextForCurrentThread] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
 #endif
         
         [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
@@ -237,7 +248,7 @@
         return nil;
     }
     
-    KSIdleEvent *idleEvent = [KSIdleEvent createInContext:[NSManagedObjectContext defaultContext]];
+    KSIdleEvent *idleEvent = [KSIdleEvent createInContext:[NSManagedObjectContext contextForCurrentThread]];
     [idleEvent setType:type];
     [idleEvent setTimestamp:[NSDate date]];
     [idleEvent setTimeOfRecording:[NSDate date]];
@@ -262,6 +273,11 @@
                                                                name:NSWorkspaceWillSleepNotification
                                                              object:nil];
     
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
+                                                           selector:@selector(handleIdleEnd)
+                                                               name:NSWorkspaceDidWakeNotification
+                                                             object:nil];
+    
     return YES;
 }
 
@@ -276,6 +292,10 @@
     
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
                                                                   name:NSWorkspaceWillSleepNotification
+                                                                object:nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
+                                                                  name:NSWorkspaceDidWakeNotification
                                                                 object:nil];
     return YES;
 }

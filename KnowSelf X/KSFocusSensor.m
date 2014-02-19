@@ -111,7 +111,7 @@
         // Saving the context here should not be necessary.
         // The recorded events can be discarded immediately after sending to server!
 #ifndef kKSIsSaveToPersistentStoreDisabled
-        [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+        [[NSManagedObjectContext contextForCurrentThread] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
             // will be executed on the main thread
             if(success) {
 #endif
@@ -162,7 +162,7 @@
 {
     static KSFocusEvent *oldEvent = nil;
     
-    KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext defaultContext]];
+    KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext contextForCurrentThread]];
     [currentEvent setTimestamp:[NSDate date]];
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
     [currentEvent setProcessName:application.localizedName];
@@ -182,7 +182,7 @@
     }
     
     oldEvent = currentEvent;
-    LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Recording focus event: %@", currentEvent);
+//    LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Recording focus event: %@", currentEvent);
     
     return currentEvent;
 }
@@ -251,16 +251,22 @@
                                               withFileUrl:self.previousFileOrUrl
                                               windowTitle:self.previousWindowTitle
                                                      type:KSEventTypeDidLoseFocus];
+    } else {
+        LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Will not send lose focus event upon unregistering for events. (black/whitelist)");
     }
     
     self.previousApplication = nil;
     self.previousFileOrUrl = nil;
     self.previousWindowTitle = nil;
     
+    if(loseFocusEvent) {
 #ifndef kKSIsSaveToPersistentStoreDisabled
-    [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
+        [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
 #endif
-    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:nil];
+        [self.delegate sensor:self
+               didRecordEvent:loseFocusEvent
+                     finished:nil];
+    }
 }
 
 @end
@@ -269,16 +275,15 @@
 
 - (BOOL)_registerForEvents
 {
-    KS_dispatch_sync_reentrant(self.applescriptQueue, ^{
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                      target:self
-                                                    selector:@selector(handleTimerFired:)
-                                                    userInfo:nil
-                                                     repeats:YES];
-        if([self.timer respondsToSelector:@selector(setTolerance:)]) {
-            [self.timer setTolerance:0.1f]; // even a small tolerance will improve power savings.
-        }
-    });
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(handleTimerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
+    if([self.timer respondsToSelector:@selector(setTolerance:)]) {
+        [self.timer setTolerance:0.1f]; // even a small tolerance will improve power savings.
+    }
     
     if(self.timer)
         return YES;
@@ -288,7 +293,7 @@
 
 - (BOOL)_unregisterForEvents
 {
-    KS_dispatch_sync_reentrant(self.applescriptQueue, ^{
+    dispatch_async(self.applescriptQueue, ^{
         [self.timer invalidate];
         self.timer = nil;
         

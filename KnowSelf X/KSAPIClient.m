@@ -549,12 +549,20 @@
     NSMutableDictionary *resultDict = [NSMutableDictionary new];
     [resultDict setObject:base64EncodedDataField forKey:kKSJSONKeyData];
     
+//    @try {
     [resultDict setObject:[[KSUserInfo sharedUserInfo] deviceID] forKey:kKSJSONKeyDeviceID];
     [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
     [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
     [resultDict setObject:[event timestampAsString]              forKey:kKSJSONKeyTimeStamp];
     [resultDict setObject:[event typeAsString]                   forKey:kKSJSONKeyType];
     [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
+//    }
+//    @catch (NSException *exception) {
+//        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Exception when converting to dictionary!!!");
+//        return nil;
+//    }
+//    @finally {
+//    }
     
     return resultDict;
 }

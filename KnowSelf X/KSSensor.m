@@ -24,7 +24,8 @@
 - (BOOL)startRecordingEvents
 {
     BOOL success = NO;
-    if((success = [self _registerForEvents]))
+    if(self.isActive || // no need to start recording again
+       (success = [self _registerForEvents]))
       [self setActive:YES];
     else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not register sensor '%@' for events!", self.name);
@@ -36,7 +37,8 @@
 - (BOOL)stopRecordingEvents
 {
     BOOL success = NO;
-    if((success = [self _unregisterForEvents]))
+    if(!self.isActive || // no need to stop recording again
+       (success = [self _unregisterForEvents]))
         [self setActive:NO];
     else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not unregister sensor '%@' for events!", self.name);

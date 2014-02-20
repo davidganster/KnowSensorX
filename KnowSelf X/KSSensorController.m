@@ -133,7 +133,16 @@
         if(error) {
             LogMessage(kKSLogTagOther, kKSLogLevelError, @"Error when trying to send event! %@", error);
         } else {
-//            LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Sent data successfully!");
+            // this event has successfully been sent to the server, so there is no need to keep it around any longer.
+            NSManagedObjectContext *context = event.managedObjectContext;
+            [context deleteObject:event];
+            [context processPendingChanges];
+            [context saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+                if(context != [NSManagedObjectContext defaultContext]) {
+                    [[NSManagedObjectContext defaultContext] deleteObject:event];
+                    [[NSManagedObjectContext defaultContext] save:nil];
+                }
+            }];
         }
         if(finished)
             finished();

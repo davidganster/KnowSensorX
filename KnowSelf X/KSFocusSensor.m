@@ -8,6 +8,7 @@
 
 #import "KSFocusSensor.h"
 #import "KSFocusEvent+Addons.h"
+#import "KSScreenshotGrabber.h"
 #import "KSUserInfo.h"
 
 
@@ -51,7 +52,10 @@
 - (void)handleTimerFired:(id)sender
 {
     dispatch_async(self.applescriptQueue, ^{
+        
+        
         NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
+        
         BOOL isURL = NO;
         NSString *fileOrUrl = [self urlOrFileOfApplication:frontApp isURL:&isURL];
 
@@ -75,6 +79,7 @@
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle
+                                                   screenshot:nil
                                                          type:KSEventTypeDidLoseFocus];
         } else {
 //            if(self.previousApplication) {
@@ -89,6 +94,9 @@
         
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
+            // todo: make scale dynamic
+            NSData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp scale:0.5];
+            
             if(isURL) {
                 if(fileOrUrl &&
                    self.focusDelegate &&
@@ -100,6 +108,7 @@
             currentEvent = [self createEventFromApplication:frontApp
                                                 withFileUrl:fileOrUrl
                                                 windowTitle:windowTitle
+                                                 screenshot:screenshotData
                                                        type:KSEventTypeDidGetFocus];
         } else {
 //            LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not start recording application: %@", frontApp.localizedName);
@@ -158,6 +167,7 @@
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
                                  withFileUrl:(NSString *)fileOrUrl
                                  windowTitle:(NSString *)windowTitle
+                                  screenshot:(NSData *)screenshotData
                                         type:(KSEventType)type
 {
     static KSFocusEvent *oldEvent = nil;
@@ -169,7 +179,7 @@
     [currentEvent setSensorID:self.sensorID];
     [currentEvent setFilePath:fileOrUrl ?: @""];
     [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
-    [currentEvent setScreenshotPath:nil];
+    [currentEvent setScreenshot:screenshotData];
     [currentEvent setType:type];
     
     if(oldEvent &&
@@ -250,6 +260,7 @@
         loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                               withFileUrl:self.previousFileOrUrl
                                               windowTitle:self.previousWindowTitle
+                                               screenshot:nil
                                                      type:KSEventTypeDidLoseFocus];
     } else {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Will not send lose focus event upon unregistering for events. (black/whitelist)");

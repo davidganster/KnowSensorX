@@ -2,8 +2,8 @@
 //  KSFocusEvent.m
 //  KnowSensor X
 //
-//  Created by David Ganster on 25/08/13.
-//  Copyright (c) 2013 David Ganster. All rights reserved.
+//  Created by David Ganster on 20/02/14.
+//  Copyright (c) 2014 David Ganster. All rights reserved.
 //
 
 #import "KSFocusEvent.h"
@@ -14,9 +14,9 @@
 @dynamic filePath;
 @dynamic processID;
 @dynamic processName;
-@dynamic screenshotPath;
-@dynamic windowTitle;
-@dynamic windowhandle;
 @dynamic runtimeID;
+@dynamic screenshot;
+@dynamic windowhandle;
+@dynamic windowTitle;
 
 @end

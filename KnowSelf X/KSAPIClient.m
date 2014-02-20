@@ -487,9 +487,9 @@
     [request setHTTPBody:dictAsNSData];
     
     
-    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"jsonString = %@", [[NSString alloc] initWithData:dictAsNSData
-                                                                                              encoding:NSUTF8StringEncoding]);
-    
+//    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"jsonString = %@", [[NSString alloc] initWithData:dictAsNSData
+//                                                                                              encoding:NSUTF8StringEncoding]);
+//    
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];

@@ -10,7 +10,6 @@
 		EF051F8017F9D2600013065F /* KSSensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF051F7F17F9D2600013065F /* KSSensorController.m */; };
 		EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A317F7512200BC7282 /* KSActivity+Addons.m */; };
 		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
-		EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */; };
 		EF102BC717C9FF3C00A04153 /* KSEvent+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */; };
 		EF15174B189E91B400BC2671 /* KSSpecialApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF151749189E91B400BC2671 /* KSSpecialApplicationsViewController.m */; };
 		EF15174C189E91B400BC2671 /* KSSpecialApplicationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF15174A189E91B400BC2671 /* KSSpecialApplicationsViewController.xib */; };
@@ -35,6 +34,8 @@
 		EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */; };
 		EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */; };
 		EFA1629218104F0F002D481B /* KSProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA1629118104F0F002D481B /* KSProjectController.m */; };
+		EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */; };
+		EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */; };
 		EFA670D117BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
 		EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA670D917BBF6DE00C43BB0 /* InfoPlist.strings */; };
 		EFA670DD17BBF6DE00C43BB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670DC17BBF6DE00C43BB0 /* main.m */; };
@@ -130,8 +131,6 @@
 		EF0840A317F7512200BC7282 /* KSActivity+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSActivity+Addons.m"; sourceTree = "<group>"; };
 		EF0840A817F76AB600BC7282 /* KSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUtils.h; sourceTree = "<group>"; };
 		EF0840A917F76AB600BC7282 /* KSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUtils.m; sourceTree = "<group>"; };
-		EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSFocusEvent+Properties.h"; sourceTree = "<group>"; };
-		EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSFocusEvent+Properties.m"; sourceTree = "<group>"; };
 		EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSEvent+Addons.h"; sourceTree = "<group>"; };
 		EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSEvent+Addons.m"; sourceTree = "<group>"; };
 		EF151748189E91B400BC2671 /* KSSpecialApplicationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSpecialApplicationsViewController.h; sourceTree = "<group>"; };
@@ -174,6 +173,10 @@
 		EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSSettingsViewController.xib; sourceTree = "<group>"; };
 		EFA1629018104F0F002D481B /* KSProjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProjectController.h; sourceTree = "<group>"; };
 		EFA1629118104F0F002D481B /* KSProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProjectController.m; sourceTree = "<group>"; };
+		EFA3306318B6672300E61E7C /* KSScreenshotGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSScreenshotGrabber.h; sourceTree = "<group>"; };
+		EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSScreenshotGrabber.m; sourceTree = "<group>"; };
+		EFA3306618B6725F00E61E7C /* NSImage+ProportionalScaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ProportionalScaling.h"; sourceTree = "<group>"; };
+		EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ProportionalScaling.m"; sourceTree = "<group>"; };
 		EFA670CD17BBF6DE00C43BB0 /* KnowSensor X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KnowSensor X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EFA670D317BBF6DE00C43BB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -386,6 +389,17 @@
 				EF75B7AB1801AD6600D00508 /* STPrivilegedTask.m */,
 			);
 			name = "Privileged Task";
+			sourceTree = "<group>";
+		};
+		EFA3306218B6670D00E61E7C /* Focus Sensor Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EFA3306318B6672300E61E7C /* KSScreenshotGrabber.h */,
+				EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */,
+				EFA3306618B6725F00E61E7C /* NSImage+ProportionalScaling.h */,
+				EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */,
+			);
+			name = "Focus Sensor Helpers";
 			sourceTree = "<group>";
 		};
 		EFA670C417BBF6DE00C43BB0 = {
@@ -739,8 +753,6 @@
 				EFE8F31517BD258400D6369E /* KSFocusEvent+Addons.m */,
 				EF99932F17C40053002E7458 /* KSIdleEvent+Addons.h */,
 				EF99933017C40053002E7458 /* KSIdleEvent+Addons.m */,
-				EF102BBF17C92DC400A04153 /* KSFocusEvent+Properties.h */,
-				EF102BC017C92DC400A04153 /* KSFocusEvent+Properties.m */,
 				EF102BC517C9FF3C00A04153 /* KSEvent+Addons.h */,
 				EF102BC617C9FF3C00A04153 /* KSEvent+Addons.m */,
 				EF7FE46317F30CEC0032ADF2 /* KSProject+Addons.h */,
@@ -754,6 +766,7 @@
 		EFE8F31717BD2B4900D6369E /* Sensors */ = {
 			isa = PBXGroup;
 			children = (
+				EFA3306218B6670D00E61E7C /* Focus Sensor Helpers */,
 				EFE8F31917BD2B9C00D6369E /* KSSensor.h */,
 				EFE8F31A17BD2B9C00D6369E /* KSSensor.m */,
 				EFE8F31E17BD3A6400D6369E /* KSFocusSensor.h */,
@@ -925,6 +938,7 @@
 				EFA6715617BBF98500C43BB0 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				EFA6718617BBFAD300C43BB0 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EFE8F32017BD3A6400D6369E /* KSFocusSensor.m in Sources */,
+				EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */,
 				EFA6714417BBF98500C43BB0 /* MagicalImportFunctions.m in Sources */,
 				EFE8F31217BD1C9C00D6369E /* NSMutableDictionary+Addons.m in Sources */,
 				EFA6714517BBF98500C43BB0 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
@@ -944,7 +958,6 @@
 				EFA6718217BBFAD300C43BB0 /* AFHTTPClient.m in Sources */,
 				EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */,
 				EFA6714D17BBF98500C43BB0 /* NSManagedObject+MagicalFinders.m in Sources */,
-				EF102BC117C92DC400A04153 /* KSFocusEvent+Properties.m in Sources */,
 				EFE8F30F17BD1C4800D6369E /* NSManagedObject+Addons.m in Sources */,
 				EFA6716B17BBF9E100C43BB0 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */,
@@ -962,6 +975,7 @@
 				EFE8F31617BD258400D6369E /* KSFocusEvent+Addons.m in Sources */,
 				EFA6714A17BBF98500C43BB0 /* NSString+MagicalDataImport.m in Sources */,
 				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
+				EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */,
 				EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
 				EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */,

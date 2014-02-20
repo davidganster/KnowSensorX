@@ -2,8 +2,8 @@
 //  KSFocusEvent.h
 //  KnowSensor X
 //
-//  Created by David Ganster on 25/08/13.
-//  Copyright (c) 2013 David Ganster. All rights reserved.
+//  Created by David Ganster on 20/02/14.
+//  Copyright (c) 2014 David Ganster. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,9 +16,9 @@
 @property (nonatomic, retain) NSString * filePath;
 @property (nonatomic, retain) NSString * processID;
 @property (nonatomic, retain) NSString * processName;
-@property (nonatomic, retain) NSString * screenshotPath;
-@property (nonatomic, retain) NSString * windowTitle;
-@property (nonatomic, retain) NSString * windowhandle;
 @property (nonatomic, retain) NSString * runtimeID;
+@property (nonatomic, retain) NSData * screenshot;
+@property (nonatomic, retain) NSString * windowhandle;
+@property (nonatomic, retain) NSString * windowTitle;
 
 @end

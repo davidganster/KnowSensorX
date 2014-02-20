@@ -7,7 +7,7 @@
 //
 
 #import "KSFocusEvent+Addons.h"
-#import "KSFocusEvent+Properties.h"
+#import "NSData-Base64Extensions.h"
 
 @implementation KSFocusEvent (Addons)
 
@@ -19,28 +19,16 @@
     self.runtimeID = @"";
 }
 
-// TODO: actually export the screenshot in one of those methods.
-- (BOOL)exportScreenshotPath:(NSMutableDictionary *)result
+- (BOOL)exportScreenshot:(NSMutableDictionary *)result
 {
-    // TODO: refactor this mess of screenshots/screenshotPaths.
-    
-    // we use the internal screenShot property here, and only use the screenShotPath for later reference, in case we need it sometime...
-    NSArray *keys = [NSArray arrayWithObject:@"NSImageCompressionFactor"];
-    NSArray *objects = [NSArray arrayWithObject:@"1.0"];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-    
-    NSImage *image = self.screenshot;
-    
-    id objectToSet = [NSNull null];
-    if(image) {
-        NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
-        NSData *tiff_data = [imageRep representationUsingType:NSPNGFileType properties:dictionary];
-        objectToSet = tiff_data ?: [NSNull null];
+    if(self.screenshot) {
+        // todo: which encoding do we need?!
+//        NSString *screenshotAsString = [self.screenshot encodeBase64WithNewlines:NO];
+//        [result setObject:screenshotAsString forKey:@"screenshot"];
+//        return YES;
+        return YES;
     }
-    
-    [result setObject:objectToSet forKey:@"screenshot"];
-    
-    return YES;
+    return NO;
 }
 
 - (NSString *)application

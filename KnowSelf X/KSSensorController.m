@@ -63,16 +63,28 @@
     return success;
 }
 
-- (BOOL)stopRecordingEvents
+- (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished
 {
-    BOOL success = YES;
-    for (KSSensor *sensor in self.sensors) {
-        success &= [sensor stopRecordingEvents];
-    }
+    static  NSEnumerator *enumerator = nil;
+    if(!enumerator)
+        enumerator = [self.sensors objectEnumerator];
     
-    LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Stopping to record events %@.", success ? @" was successful" : @"FAILED");
-
-    return success;
+    __block BOOL success = YES;
+    void (^ loop)(BOOL successSoFar) = ^void(BOOL successSoFar) {
+        success &= successSoFar;
+        KSSensor *sensor = [enumerator nextObject];
+        if(sensor) {
+            [sensor stopRecordingEventsFinished:^(BOOL successful) {
+                [self stopRecordingEventsFinished:finished];
+            }];
+        } else {
+            enumerator = nil;
+            if(finished)
+                finished(success);
+        }
+    };
+    
+    loop(YES);
 }
 
 #pragma mark KSFocusSensorDelegate
@@ -127,7 +139,7 @@
 /// This implementation of the KSSensorDelegateProtocol will simply upload the recorded event to the KnowServer using
 /// the 'sendEvent:finished:' convenience method of the KSAPIClient class,
 /// and then call the provided finished block - regardloess of whether the upload was successful or not.
-- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event finished:(void (^)(void))finished
+- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event finished:(void (^)(BOOL success))finished
 {
     [[KSAPIClient sharedClient] sendEvent:event finished:^(NSError *error) {
         if(error) {
@@ -145,7 +157,7 @@
             }];
         }
         if(finished)
-            finished();
+            finished(!error);
     }];
 }
 

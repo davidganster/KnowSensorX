@@ -26,7 +26,7 @@
     BOOL success = NO;
     if(self.isActive || // no need to start recording again
        (success = [self _registerForEvents]))
-      [self setActive:YES];
+        [self setActive:YES];
     else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not register sensor '%@' for events!", self.name);
     }
@@ -34,24 +34,25 @@
 }
 
 
-- (BOOL)stopRecordingEvents
+- (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished
 {
-    BOOL success = NO;
-    if(!self.isActive || // no need to stop recording again
-       (success = [self _unregisterForEvents]))
-        [self setActive:NO];
-    else {
-        LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not unregister sensor '%@' for events!", self.name);
+    if(self.isActive) { // no need to stop recording again
+        [self _unregisterForEventsFinished:^(BOOL successful) {
+            if(successful) {
+                [self setActive:NO];
+            } else {
+                LogMessage(kKSLogTagOther, kKSLogLevelError, @"ERROR: could not unregister sensor '%@' for events!", self.name);
+            }
+            finished(successful);
+        }];
     }
-    
-    return success;
 }
 
 
 - (void)dealloc
 {
     if(self.isActive)
-       [self _unregisterForEvents];
+        [self _unregisterForEventsFinished:nil];
 }
 
 @end
@@ -65,10 +66,9 @@
     return NO;
 }
 
-- (BOOL)_unregisterForEvents
+- (void)_unregisterForEventsFinished:(void (^)(BOOL))finished
 {
     NSAssert(FALSE, @"Subclass needs to overwrite 'unregisterForEvents'.");
-    return NO;
 }
 
 @end

@@ -17,6 +17,7 @@
 @interface KSAppDelegate ()
 
 @property(nonatomic, strong) NSTask *knowServerTask;
+@property(nonatomic, assign) BOOL isTerminated;
 
 @end
 
@@ -70,6 +71,8 @@ void SignalHandler(int sig)
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.isTerminated = NO;
+    
     // installs HandleExceptions as the Uncaught Exception Handler (as well as SignalHandler)
     NSSetUncaughtExceptionHandler(&HandleExceptions);
     struct sigaction newSignalAction;
@@ -154,23 +157,25 @@ void SignalHandler(int sig)
     // stop all event recording for smooth shutdown
     // important: do this /before/ cleaning up MagicalRecord! (otherwise the defaultContext will be gone)
     // TODO: add finishedBlock and call [NSApp replyToApplicationShouldTerminate:YES];
-//    [[KSSensorController sharedSensorController] stopRecordingEvents];
+    [[KSSensorController sharedSensorController] stopRecordingEventsFinished:^(BOOL successful) {
+        // since we never save anything persistently, this doesn't seem very useful:
+        //    [MagicalRecord cleanUp];
 
-    // since we never save anything, this doesn't seem very useful:
-//    [MagicalRecord cleanUp];
-    
-    // tear down KnowServer as well
-    [self stopKnowServer];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //[NSApp replyToApplicationShouldTerminate:YES];
-    return NSTerminateNow; // NSTerminateLater
+        // tear down KnowServer as well
+        [self stopKnowServer];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.isTerminated = YES;
+        [NSApp replyToApplicationShouldTerminate:YES];
+    }];
+
+    return NSTerminateLater;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    [self applicationShouldTerminate:nil];
+    if(!self.isTerminated) {
+        [self applicationShouldTerminate:nil];
+    }
 }
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

@@ -188,7 +188,7 @@
 {
     if(sender.state == NSOffState) {
         [sender setState:NSOnState];
-        [[KSSensorController sharedSensorController] stopRecordingEvents];
+        [[KSSensorController sharedSensorController] stopRecordingEventsFinished:nil];
     } else if(sender.state == NSOnState) {
         [sender setState:NSOffState];
         [[KSSensorController sharedSensorController] startRecordingEvents];

@@ -27,7 +27,7 @@
  *  @param event    The event that was recorded by the sensor.
  *  @param finished The block to be executed when the delegate finished processing the event.
  */
-- (void)sensor:(KSSensor *)sensor didRecordEvent:(KSEvent *)event finished:(void (^)(void))finished;
+- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event finished:(void (^)(BOOL success))finished;
 
 @end
 
@@ -75,10 +75,9 @@
  *  Tells the sensor to stop recording events. Calling this method will set `isActive` to `NO`.
  *  @note TODO: make this asynchronous and add a finished-block.
  *
- *  @return YES iff the sensor successfully stopped recording events.
  *  @warning This method is not meant for subclassing. See KSSensor+SubclassingHooks for further information.
  */
-- (BOOL)stopRecordingEvents;
+- (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished;
 
 @end
 
@@ -100,6 +99,6 @@
  *
  *  @return YES iff unregistering for events was successful.
  */
-- (BOOL)_unregisterForEvents;
+- (void)_unregisterForEventsFinished:(void (^)(BOOL successful))finished;
 
 @end

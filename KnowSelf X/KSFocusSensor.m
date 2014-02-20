@@ -36,7 +36,7 @@
         _name = kKSSensorNameFocusSensor;
         _applescriptQueue = dispatch_queue_create("com.kc.KnowSensorX.ASQueue", DISPATCH_QUEUE_SERIAL);
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_unregisterForEvents) // will send didLoseFocus event
+                                                 selector:@selector(userStartedIdling:) // will send didLoseFocus event
                                                      name:kKSNotificationKeyUserIdleStart
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -45,6 +45,11 @@
                                                    object:nil];
     }
     return self;
+}
+
+- (void)userStartedIdling:(NSNotification *)notification
+{
+    [self _unregisterForEventsFinished:nil];
 }
 
 #pragma mark Event Handling
@@ -127,7 +132,7 @@
                 // we have to wait for the server to process the first event before sending another one.
                 // the first event MUST be a lose focus event!
                 if(loseFocusEvent) {
-                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^{
+                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^(BOOL success){
                         if(currentEvent) {
                             // if this application is on the blacklist, only the loseFocus event will have been sent.
                             [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
@@ -252,7 +257,7 @@
     return [browserNames containsObject:application.localizedName];
 }
 
-- (void)sendLoseFocusEventForCurrentApplication
+- (void)sendLoseFocusEventForCurrentApplicationFinished:(void (^)(BOOL succesful))finished
 {
     KSFocusEvent *loseFocusEvent = nil;
     if(self.previousApplication &&
@@ -274,9 +279,10 @@
 #ifndef kKSIsSaveToPersistentStoreDisabled
         [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
 #endif
+        
         [self.delegate sensor:self
                didRecordEvent:loseFocusEvent
-                     finished:nil];
+                     finished:finished];
     }
 }
 
@@ -302,16 +308,13 @@
         return NO;
 }
 
-- (BOOL)_unregisterForEvents
+- (void)_unregisterForEventsFinished:(void (^)(BOOL))finished
 {
     dispatch_async(self.applescriptQueue, ^{
         [self.timer invalidate];
         self.timer = nil;
-        
-        [self sendLoseFocusEventForCurrentApplication];
+        [self sendLoseFocusEventForCurrentApplicationFinished:finished];
     });
-    
-    return YES; // nothing can go wrong here
 }
 
 @end

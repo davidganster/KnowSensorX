@@ -209,7 +209,7 @@
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleEnd
                                           idleSinceSeconds:idledTime];
     
-    [self.delegate sensor:self didRecordEvent:idleEvent finished:^{
+    [self.delegate sensor:self didRecordEvent:idleEvent finished:^(BOOL success){
         [self createTimerWithTimeInterval:self.minimumIdleTime];
         // post notification: other sensors should reactivate themselves now.
         [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleEnd
@@ -281,7 +281,7 @@
     return YES;
 }
 
-- (BOOL)_unregisterForEvents
+- (void)_unregisterForEventsFinished:(void (^)(BOOL successful))finished
 {
     KSIdleSensor *selfAsSubclass = (KSIdleSensor *)self;
     if(selfAsSubclass.eventHandler) {
@@ -297,7 +297,7 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
                                                                   name:NSWorkspaceDidWakeNotification
                                                                 object:nil];
-    return YES;
+    finished(YES);
 }
 
 @end

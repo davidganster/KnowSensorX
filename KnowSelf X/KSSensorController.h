@@ -20,6 +20,6 @@
 + (KSSensorController *)sharedSensorController;
 
 - (BOOL)startRecordingEvents;
-- (BOOL)stopRecordingEvents;
+- (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished;
 
 @end

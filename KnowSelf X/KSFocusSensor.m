@@ -100,7 +100,7 @@
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
             // todo: make scale dynamic
-            NSData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp scale:0.5];
+            KSScreenshotData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp scale:0.5];
             
             if(isURL) {
                 if(fileOrUrl &&
@@ -132,21 +132,14 @@
                 // we have to wait for the server to process the first event before sending another one.
                 // the first event MUST be a lose focus event!
                 if(loseFocusEvent) {
-                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^(BOOL success){
-                        if(currentEvent) {
-                            // if this application is on the blacklist, only the loseFocus event will have been sent.
-                            [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
-                        }
-                    }];
-                } else {
-                    // no lose focus event -> don't stop recording this application and move on to the current event.
-                    if(currentEvent) {
-                        // if this application is on the blacklist, nothing will be sent.
-                        [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
-                    }
+                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:nil];
                 }
                 
+                if(currentEvent) {
+                    [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
+                }
                 
+            
 #ifndef kKSIsSaveToPersistentStoreDisabled
             } else {
                     LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
@@ -172,7 +165,7 @@
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
                                  withFileUrl:(NSString *)fileOrUrl
                                  windowTitle:(NSString *)windowTitle
-                                  screenshot:(NSData *)screenshotData
+                                  screenshot:(KSScreenshotData *)screenshotData
                                         type:(KSEventType)type
 {
     static KSFocusEvent *oldEvent = nil;
@@ -185,6 +178,7 @@
     [currentEvent setFilePath:fileOrUrl ?: @""];
     [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
     [currentEvent setScreenshot:screenshotData];
+//    [currentEvent setScreenshot:nil];
     [currentEvent setType:type];
     
     if(oldEvent &&

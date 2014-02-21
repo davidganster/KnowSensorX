@@ -8,10 +8,12 @@
 
 #import "KSScreenshotGrabber.h"
 #import "NSImage+ProportionalScaling.h"
+#import "KSScreenshotData.h"
+#import "NSData-Base64Extensions.h"
 
 @implementation KSScreenshotGrabber
 
-+ (NSData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale
++ (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale
 {
     // todo
     CGWindowID windowID = [KSScreenshotGrabber windowIDForAppName:application.localizedName];
@@ -21,7 +23,14 @@
         NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:screenShotData];
         screenShotData = [imageRep representationUsingType:NSJPEGFileType
                                                 properties:@{NSImageCompressionFactor : @(0.5)}];
-        return screenShotData;
+        
+        KSScreenshotData *data = [KSScreenshotData createInContext:[NSManagedObjectContext contextForCurrentThread]];
+        [data setWidthInPixel:@(screenshot.size.width)];
+        [data setHeightInPixel:@(screenshot.size.height)];
+        [data setImageFormat:@"jpg"];
+        NSString *base64String = [screenShotData encodeBase64WithNewlines:NO];
+        [data setPixelDataBase64Encoded:base64String];
+        return data;
 
     }
     return nil;

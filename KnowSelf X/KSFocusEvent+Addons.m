@@ -19,17 +19,19 @@
     self.runtimeID = @"";
 }
 
-- (BOOL)exportScreenshot:(NSMutableDictionary *)result
-{
-    if(self.screenshot) {
-        // todo: which encoding do we need?!
+//- (BOOL)exportScreenshot:(NSMutableDictionary *)result
+//{
+//    if(self.screenshot) {
+//        // todo: which encoding do we need?!
+//        NSMutableDictionary *imageDict = [NSMutableDictionary dictionary];
+//        [imageDict setObject:@"jpg" forKey:@"imageFormat"];
 //        NSString *screenshotAsString = [self.screenshot encodeBase64WithNewlines:NO];
 //        [result setObject:screenshotAsString forKey:@"screenshot"];
 //        return YES;
-        return YES;
-    }
-    return NO;
-}
+//        return YES;
+//    }
+//    return NO;
+//}
 
 - (NSString *)application
 {

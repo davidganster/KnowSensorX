@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class KSScreenshotData;
+
 @interface KSScreenshotGrabber : NSObject
 
-+ (NSData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale;
++ (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale;
 
 @end

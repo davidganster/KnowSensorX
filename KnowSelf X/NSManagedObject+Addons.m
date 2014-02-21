@@ -287,6 +287,10 @@ static char const * const ErrorsOnLastImportKey = "ErrorsOnLastImport";
                         relationshipsToIgnore:relationshipsToIgnore];
         return subDict;
     }
+    else if([relationship isOptional] && subentity == nil) {
+        // this is completely normal, optional relationships can be nil.
+        return nil;
+    }
     else if ([relationship isToMany]) {
         NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:[subentity count]];
         for (id sub in subentity) {
@@ -303,8 +307,7 @@ static char const * const ErrorsOnLastImportKey = "ErrorsOnLastImport";
         }
         return results;
     }
-    else
-    {
+    else {
         NSLog(@"this should not happen, since we only include relationships here, not attribute");
         return nil;
     }

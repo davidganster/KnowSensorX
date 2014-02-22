@@ -12,10 +12,14 @@
 
 @implementation KSScreenshotData
 
-@dynamic heightInPixel;
-@dynamic imageFormat;
-@dynamic pixelDataBase64Encoded;
-@dynamic widthInPixel;
-@dynamic focusEvent;
+- (NSDictionary *)dictRepresentation
+{
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    [dataDict setObject:self.heightInPixel forKey:@"heightInPixel"];
+    [dataDict setObject:self.widthInPixel forKey:@"widthInPixel"];
+    [dataDict setObject:self.imageFormat forKey:@"imageFormat"];
+    [dataDict setObject:self.pixelDataBase64Encoded forKey:@"pixelDataBase64Encoded"];
+    return dataDict;
+}
 
 @end

@@ -17,4 +17,7 @@
 @property (nonatomic, retain) NSDate * timestamp;
 @property (nonatomic) uint16 type;
 
+- (NSString *)typeAsString;
+- (NSString *)timestampAsString;
+
 @end

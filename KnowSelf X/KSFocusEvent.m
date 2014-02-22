@@ -9,15 +9,50 @@
 #import "KSFocusEvent.h"
 #import "KSScreenshotData.h"
 
-
 @implementation KSFocusEvent
 
-@dynamic filePath;
-@dynamic processID;
-@dynamic processName;
-@dynamic runtimeID;
-@dynamic windowhandle;
-@dynamic windowTitle;
-@dynamic screenshot;
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _windowhandle = @"";
+        _runtimeID = @"";
+    }
+    return self;
+}
+
+- (NSDictionary *)dictRepresentation
+{
+    NSMutableDictionary *dataDict = [[super dictRepresentation] mutableCopy];
+    [dataDict setObject:self.filePath forKey:@"path"];
+    [dataDict setObject:self.processID forKey:@"processid"];
+    [dataDict setObject:self.processName forKey:@"processname"];
+    [dataDict setObject:self.windowTitle forKey:@"windowtitle"];
+    if(self.screenshot)
+        [dataDict setObject:[self.screenshot dictRepresentation] forKey:@"screenshot"];
+    else
+        [dataDict setObject:[NSNull null] forKey:@"screenshot"];
+    
+    // unused keys:
+    [dataDict setObject:self.runtimeID forKey:@"runtimeid"];
+    [dataDict setObject:self.windowhandle forKey:@"windowhandle"];
+    return dataDict;
+}
+
+- (NSString *)application
+{
+    return self.processName;
+}
+
+- (NSString *)description
+{
+    NSMutableString *description = [[super description] mutableCopy];
+    [description appendFormat:@"processID   = %@, ", self.processID];
+    [description appendFormat:@"processName = %@, ", self.processName];
+    [description appendFormat:@"filePath    = %@, ", self.filePath];
+    [description appendFormat:@"windowTitle = %@\n", self.windowTitle];
+    return description;
+}
+
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <CoreData/CoreData.h>
+#import "KSExportable.h"
 
-@interface KSEvent_InternalWithAdditionalMethods : NSManagedObject
+@interface KSEvent_InternalWithAdditionalMethods : KSExportable
 
 /// This method is specific to the events and does not require an additional variable.
 /// For example, the KSIdleSensor will always return 'Idle Sensor', while the KSFocusSensor will return its 'processName' field.

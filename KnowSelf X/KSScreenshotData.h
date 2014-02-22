@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "KSExportable.h"
 
 @class KSFocusEvent;
 
-@interface KSScreenshotData : NSManagedObject
+@interface KSScreenshotData : KSExportable
 
 @property (nonatomic, retain) NSNumber * heightInPixel;
 @property (nonatomic, retain) NSString * imageFormat;
 @property (nonatomic, retain) NSString * pixelDataBase64Encoded;
 @property (nonatomic, retain) NSNumber * widthInPixel;
-@property (nonatomic, retain) KSFocusEvent *focusEvent;
 
 @end

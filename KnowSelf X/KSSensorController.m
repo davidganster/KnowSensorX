@@ -10,7 +10,7 @@
 #import "KSIdleSensor.h"
 #import "KSFocusSensor.h"
 #import "KSAPIClient.h"
-#import "KSEvent+Addons.h"
+#import "KSEvent.h"
 #import "KSUserInfo.h"
 
 @interface KSSensorController ()
@@ -180,7 +180,12 @@
     [self addEventBufferObject:event withFinishedBlock:finished];
 }
 
-- (void)addEventBufferObject:(KSEvent *)event withFinishedBlock:(void (^)(BOOL success))finished
+/// This method ensures that the events are sent in the order they are submitted.
+/// dispatch_async on a serial queue will enqueue the given operation at the end of
+/// the queue, ensuring correct execution order.
+/// (dispatch_async is equivalent to dispatch_barrier_async when used on a serial queue)
+- (void)addEventBufferObject:(KSEvent *)event
+           withFinishedBlock:(void (^)(BOOL success))finished
 {
     dispatch_async(self.eventBufferQueue, ^{
         [self.eventBuffer addObject:event];
@@ -201,13 +206,12 @@
             LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count before starting: %lu", (unsigned long)[self.eventBuffer count]);
             KSEvent *currentEvent = nil;
             currentEvent = self.eventBuffer[0];
-            currentEvent = [currentEvent inContext:[NSManagedObjectContext contextForCurrentThread]];
+            //currentEvent = [currentEvent inContext:[NSManagedObjectContext contextForCurrentThread]];
             [[KSAPIClient sharedClient] sendEvent:currentEvent finished:^(NSError *error) {
                 dispatch_async(self.eventBufferQueue, ^{
                     if(!error) {
                         KSEvent *event = nil;
                         event = self.eventBuffer[0];
-                        event = [event inContext:[NSManagedObjectContext contextForCurrentThread]];
                         NSString *eventDescription = [event description];
                         if([self.eventFinishedBlocks objectForKey:eventDescription] != nil) {
                             void (^block)() = [self.eventFinishedBlocks objectForKey:eventDescription];
@@ -218,17 +222,6 @@
                         }
                         [self.eventBuffer removeObjectAtIndex:0];
                         LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count after removal: %lu", (unsigned long)[self.eventBuffer count]);
-                        // delete event to save memory:
-                        NSManagedObjectContext *context = event.managedObjectContext;
-                        [context deleteObject:event];
-                        [context processPendingChanges];
-                        [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                            if(context != [NSManagedObjectContext defaultContext]) {
-                                [[NSManagedObjectContext defaultContext] deleteObject:event];
-                                [[NSManagedObjectContext defaultContext] save:nil];
-                            }
-                        }];
-                        
                         [self emptyQueue];
                     } else {
                         if(!self.waitForReachability) {

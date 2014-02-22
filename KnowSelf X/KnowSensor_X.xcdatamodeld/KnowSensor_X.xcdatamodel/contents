@@ -45,65 +45,6 @@
             </userInfo>
         </relationship>
     </entity>
-    <entity name="KSEvent" representedClassName="KSEvent" syncable="YES">
-        <attribute name="sensorID" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="ignoreOnExport" value="YES"/>
-            </userInfo>
-        </attribute>
-        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="ignoreOnExport" value="YES"/>
-            </userInfo>
-        </attribute>
-    </entity>
-    <entity name="KSFocusEvent" representedClassName="KSFocusEvent" parentEntity="KSEvent" syncable="YES">
-        <attribute name="filePath" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="path"/>
-            </userInfo>
-        </attribute>
-        <attribute name="processID" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="processid"/>
-            </userInfo>
-        </attribute>
-        <attribute name="processName" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="processname"/>
-            </userInfo>
-        </attribute>
-        <attribute name="runtimeID" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="runtimeid"/>
-            </userInfo>
-        </attribute>
-        <attribute name="windowhandle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="windowTitle" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="windowtitle"/>
-            </userInfo>
-        </attribute>
-        <relationship name="screenshot" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSScreenshotData" inverseName="focusEvent" inverseEntity="KSScreenshotData" syncable="YES"/>
-    </entity>
-    <entity name="KSIdleEvent" representedClassName="KSIdleEvent" parentEntity="KSEvent" syncable="YES">
-        <attribute name="idleSinceSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="idlesinceseconds"/>
-            </userInfo>
-        </attribute>
-        <attribute name="idleSinceTimestamp" optional="YES" attributeType="Date" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="idlesincetimestamp"/>
-            </userInfo>
-        </attribute>
-        <attribute name="timeOfRecording" optional="YES" attributeType="Date" syncable="YES">
-            <userInfo>
-                <entry key="exportMappedKeyName" value="timestamp"/>
-            </userInfo>
-        </attribute>
-    </entity>
     <entity name="KSProject" representedClassName="KSProject" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -120,19 +61,8 @@
             </userInfo>
         </relationship>
     </entity>
-    <entity name="KSScreenshotData" representedClassName="KSScreenshotData" syncable="YES">
-        <attribute name="heightInPixel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="imageFormat" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pixelDataBase64Encoded" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
-        <attribute name="widthInPixel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="focusEvent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSFocusEvent" inverseName="screenshot" inverseEntity="KSFocusEvent" syncable="YES"/>
-    </entity>
     <elements>
         <element name="KSActivity" positionX="-171" positionY="-0" width="128" height="163"/>
-        <element name="KSEvent" positionX="27" positionY="-135" width="128" height="90"/>
-        <element name="KSFocusEvent" positionX="-180" positionY="-207" width="128" height="148"/>
-        <element name="KSIdleEvent" positionX="27" positionY="53" width="128" height="88"/>
         <element name="KSProject" positionX="-405" positionY="3" width="128" height="103"/>
-        <element name="KSScreenshotData" positionX="-398" positionY="-217" width="128" height="118"/>
     </elements>
 </model>

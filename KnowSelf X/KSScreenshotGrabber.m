@@ -15,7 +15,6 @@
 
 + (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale
 {
-    // todo
     CGWindowID windowID = [KSScreenshotGrabber windowIDForAppName:application.localizedName];
     if(windowID) {
         NSImage *screenshot = [KSScreenshotGrabber takeScreenShotForWindowWithID:windowID scale:scale];
@@ -24,14 +23,13 @@
         screenShotData = [imageRep representationUsingType:NSJPEGFileType
                                                 properties:@{NSImageCompressionFactor : @(0.5)}];
         
-        KSScreenshotData *data = [KSScreenshotData createInContext:[NSManagedObjectContext contextForCurrentThread]];
+        KSScreenshotData *data = [[KSScreenshotData alloc] init];
         [data setWidthInPixel:@(screenshot.size.width)];
         [data setHeightInPixel:@(screenshot.size.height)];
         [data setImageFormat:@"jpg"];
         NSString *base64String = [screenShotData encodeBase64WithNewlines:NO];
         [data setPixelDataBase64Encoded:base64String];
         return data;
-
     }
     return nil;
 }

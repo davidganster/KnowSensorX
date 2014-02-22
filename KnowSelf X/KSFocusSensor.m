@@ -7,10 +7,9 @@
 //
 
 #import "KSFocusSensor.h"
-#import "KSFocusEvent+Addons.h"
 #import "KSScreenshotGrabber.h"
 #import "KSUserInfo.h"
-
+#import "KSFocusEvent.h"
 
 @interface KSFocusSensor ()
 
@@ -133,11 +132,6 @@
         
         // Saving the context here should not be necessary.
         // The recorded events can be discarded immediately after sending to server!
-#ifndef kKSIsSaveToPersistentStoreDisabled
-        [[NSManagedObjectContext contextForCurrentThread] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-            // will be executed on the main thread
-            if(success) {
-#endif
                 // we have to wait for the server to process the first event before sending another one.
                 // the first event MUST be a lose focus event!
                 if(loseFocusEvent) {
@@ -147,14 +141,6 @@
                 if(currentEvent) {
                     [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
                 }
-                
-            
-#ifndef kKSIsSaveToPersistentStoreDisabled
-            } else {
-                    LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Saving the recorded event (%@) failed...", currentEvent);
-            }
-        }];
-#endif
     });
 }
 
@@ -179,7 +165,7 @@
 {
     static KSFocusEvent *oldEvent = nil;
 
-    KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext contextForCurrentThread]];
+    KSFocusEvent *currentEvent = [[KSFocusEvent alloc] init];
     [currentEvent setTimestamp:[NSDate date]];
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
     [currentEvent setProcessName:application.localizedName];
@@ -277,11 +263,7 @@
     self.previousFileOrUrl = nil;
     self.previousWindowTitle = nil;
     
-    if(loseFocusEvent) {
-#ifndef kKSIsSaveToPersistentStoreDisabled
-        [loseFocusEvent.managedObjectContext saveOnlySelfAndWait];
-#endif
-        
+    if(loseFocusEvent) {        
         [self.delegate sensor:self
                didRecordEvent:loseFocusEvent
                      finished:finished];

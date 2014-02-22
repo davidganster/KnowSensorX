@@ -11,7 +11,7 @@
 #import "NSData-Base64Extensions.h"
 #import "NSManagedObject+Addons.h"
 #import "KSUserInfo.h"
-#import "KSEvent+Addons.h"
+#import "KSEvent.h"
 #import "KSProject+Addons.h"
 #import "KSActivity+Addons.h"
 
@@ -460,6 +460,8 @@
 {
     if(!event || !path) {
         LogMessage(kKSLogTagAPIClient, kKSLogLevelDebug, @"Need both event and path to be not nil when sending data!");
+        NSError *error = [NSError errorWithDomain:@"EventOrPathNil" code:-101 userInfo:nil];
+        finishedBlock(error);
         return;
     }
     
@@ -535,6 +537,9 @@
 
 - (NSDictionary *)dictionaryFromEvent:(KSEvent *)event serializationError:(NSError **)error
 {
+    if([event.typeAsString isEqualToString:kKSEventTypeDidStartIdle]) {
+        LogMessage(@"asd", 1, @"asd");
+    }
     // the data-field is represented by the exported object.
     NSDictionary *dataFieldDict = [event dictRepresentation];
     NSData *jsonEncodedDataField = [NSJSONSerialization dataWithJSONObject:dataFieldDict

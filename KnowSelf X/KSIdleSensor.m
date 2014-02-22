@@ -7,7 +7,7 @@
 //
 
 #import "KSIdleSensor.h"
-#import "KSIdleEvent+Addons.h"
+#import "KSIdleEvent.h"
 
 @interface KSIdleSensor ()
 
@@ -223,17 +223,8 @@
     KSIdleEvent *idleEvent = [self createIdleEventWithType:KSEventTypeIdleStart
                                           idleSinceSeconds:self.minimumIdleTime];
     self.idleStartDate = [idleEvent timestamp];
-    
-#ifndef kKSIsSaveToPersistentStoreDisabled
-    [[NSManagedObjectContext contextForCurrentThread] saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-#endif
-        
-        [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
-        
-#ifndef kKSIsSaveToPersistentStoreDisabled
-    }];
-#endif
-    
+
+    [self.delegate sensor:self didRecordEvent:idleEvent finished:nil];
     // post notification: other sensors can deactivate themselves now.
     [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyUserIdleStart
                                                         object:nil];
@@ -249,7 +240,7 @@
         return nil;
     }
     
-    KSIdleEvent *idleEvent = [KSIdleEvent createInContext:[NSManagedObjectContext contextForCurrentThread]];
+    KSIdleEvent *idleEvent = [[KSIdleEvent alloc] init];
     [idleEvent setType:type];
     [idleEvent setTimestamp:[NSDate date]];
     [idleEvent setTimeOfRecording:[NSDate date]];

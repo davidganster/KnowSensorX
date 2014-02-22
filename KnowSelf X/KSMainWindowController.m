@@ -8,7 +8,7 @@
 
 #import "KSMainWindowController.h"
 #import "KSEvent.h"
-#import "KSFocusEvent+Addons.h"
+#import "KSFocusEvent.h"
 #import "KSFocusSensor.h"
 #import "KSIdleSensor.h"
 #import "KSSettingsViewController.h"

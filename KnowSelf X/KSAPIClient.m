@@ -12,8 +12,8 @@
 #import "NSManagedObject+Addons.h"
 #import "KSUserInfo.h"
 #import "KSEvent.h"
-#import "KSProject+Addons.h"
-#import "KSActivity+Addons.h"
+#import "KSProject.h"
+#import "KSActivity.h"
 
 @interface KSAPIClient ()
 
@@ -103,9 +103,8 @@
             NSArray *projectDicts = (NSArray *)jsonObject;
             NSMutableArray *projects = [NSMutableArray array];
             for (NSDictionary *projectDict in projectDicts) {
-                KSProject *project = [KSProject createOrFetchWithData:projectDict
-                                                            inContext:[NSManagedObjectContext defaultContext]];
-                if(project) {
+                KSProject *project = [[KSProject alloc] init];
+                if([project importValuesForKeysWithObject:projectDict]) {
 //                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported project from \n%@\n", projectDict);
                     [projects addObject:project];
 
@@ -113,24 +112,7 @@
                     LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import project from \n%@\n", projectDict);
                 }
             }
-            
-#ifndef kKSIsSaveToPersistentStoreDisabled
-            // after having created all the objects, save them and then call the success/failure blocks:
-            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
-                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
-                // better to check the error pointer instead:
-                if(!error) {
-#endif
-                    // whether or not saving to persistent store is enabled - the success block will always be called.
-                    success(projects);
-                    
-#ifndef kKSIsSaveToPersistentStoreDisabled
-                } else {
-                    failure(error);
-                }
-            }];
-#endif
-            
+            success(projects);
         } else {
             LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
             failure(jsonParseError);
@@ -175,9 +157,8 @@
             NSMutableArray *activities = [NSMutableArray array];
             for (NSDictionary *activityDict in responseArray) {
                 // parse activities here
-                KSActivity *activity = [KSActivity createOrFetchWithData:activityDict
-                                                               inContext:[NSManagedObjectContext defaultContext]];
-                if(activity) {
+                KSActivity *activity = [[KSActivity alloc] init];
+                if([activity importValuesForKeysWithObject:activityDict]) {
 //                    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", activityDict);
                     [activities addObject:activity];
                 } else {
@@ -234,30 +215,13 @@
                                                           error:&jsonParseError];
         
         if(!jsonParseError && [jsonObject isKindOfClass:[NSDictionary class]]) {
-            KSActivity *activity = [KSActivity createOrFetchWithData:jsonObject
-                                                           inContext:[NSManagedObjectContext defaultContext]];
-            if(activity) {
+            KSActivity *activity = [[KSActivity alloc] init];
+            if([activity importValuesForKeysWithObject:jsonObject]) {
 //                LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Successfully imported activity from \n%@\n", jsonObject);
             } else {
                 LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", jsonObject);
             }
-       
-#ifndef kKSIsSaveToPersistentStoreDisabled
-                // after having created all the objects, save them and then call the success/failure blocks:
-                [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
-                    // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
-                    // better to check the error pointer instead:
-                    if(!error) {
-#endif
-                        // whether or not saving to persistent store is enabled - the success block will always be called.
-                        success(activity);
-                        
-#ifndef kKSIsSaveToPersistentStoreDisabled
-                    } else {
-                        failure(error);
-                    }
-                }];
-#endif
+            success(activity);
         } else {
             if(jsonParseError) {
                 LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Did not get valid json object from server:\n%@\n", jsonObject);
@@ -327,7 +291,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
     
-    [activity setIsStartingRecording:@(YES)];
+    [activity setIsStartingRecording:YES];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity with dict representation: \n%@", activityDict);
@@ -377,7 +341,7 @@
     
     [activity setEndDate:[NSDate date]];
 
-    [activity setIsStartingRecording:@(NO)];
+    [activity setIsStartingRecording:NO];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity with dict representation: \n%@", activityDict);

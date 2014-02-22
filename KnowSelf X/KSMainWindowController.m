@@ -15,8 +15,8 @@
 #import "KSSpecialApplicationsViewController.h"
 #import "KSSensorController.h"
 
-#import "KSProject+Addons.h"
-#import "KSActivity+Addons.h"
+#import "KSProject.h"
+#import "KSActivity.h"
 #import "KSUserInfo.h"
 #import "KSAPIClient.h"
 #import "KSProjectController.h"

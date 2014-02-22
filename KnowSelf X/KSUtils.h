@@ -24,6 +24,9 @@
  */
 + (NSString *)dateAsString:(NSDate *)date;
 
+
++ (NSDate *)dateFromString:(NSString *)string;
+
 /**
  *  Executes the apple script with the given name, function and arguments.
  *  Any errors that occur either during execution or loading will be written to the errorDict.

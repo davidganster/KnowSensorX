@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EF051F8017F9D2600013065F /* KSSensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF051F7F17F9D2600013065F /* KSSensorController.m */; };
-		EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A317F7512200BC7282 /* KSActivity+Addons.m */; };
 		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
 		EF15174B189E91B400BC2671 /* KSSpecialApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF151749189E91B400BC2671 /* KSSpecialApplicationsViewController.m */; };
 		EF15174C189E91B400BC2671 /* KSSpecialApplicationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF15174A189E91B400BC2671 /* KSSpecialApplicationsViewController.xib */; };
@@ -23,7 +22,6 @@
 		EF7EFAB018B7ADFE00763507 /* KSScreenshotData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7EFAAF18B7ADFE00763507 /* KSScreenshotData.m */; };
 		EF7FE45F17F308B80032ADF2 /* KSProject.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE45E17F308B80032ADF2 /* KSProject.m */; };
 		EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46117F308B90032ADF2 /* KSActivity.m */; };
-		EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */; };
 		EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */; };
 		EF90723C186F46F800768113 /* KSRecordActivityWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF90723A186F46F800768113 /* KSRecordActivityWindowController.m */; };
 		EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */; };
@@ -39,7 +37,6 @@
 		EFA670E117BBF6DE00C43BB0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = EFA670DF17BBF6DE00C43BB0 /* Credits.rtf */; };
 		EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670E317BBF6DE00C43BB0 /* KSAppDelegate.m */; };
 		EFA670E717BBF6DE00C43BB0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFA670E517BBF6DE00C43BB0 /* MainMenu.xib */; };
-		EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */; };
 		EFA670F317BBF6DE00C43BB0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670F217BBF6DE00C43BB0 /* XCTest.framework */; };
 		EFA670F417BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
 		EFA670FC17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA670FA17BBF6DE00C43BB0 /* InfoPlist.strings */; };
@@ -123,8 +120,6 @@
 		EF02C12417CC0F1200548F75 /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
 		EF051F7E17F9D2600013065F /* KSSensorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSensorController.h; sourceTree = "<group>"; };
 		EF051F7F17F9D2600013065F /* KSSensorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSensorController.m; sourceTree = "<group>"; };
-		EF0840A217F7512200BC7282 /* KSActivity+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSActivity+Addons.h"; sourceTree = "<group>"; };
-		EF0840A317F7512200BC7282 /* KSActivity+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSActivity+Addons.m"; sourceTree = "<group>"; };
 		EF0840A817F76AB600BC7282 /* KSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUtils.h; sourceTree = "<group>"; };
 		EF0840A917F76AB600BC7282 /* KSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUtils.m; sourceTree = "<group>"; };
 		EF151748189E91B400BC2671 /* KSSpecialApplicationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSpecialApplicationsViewController.h; sourceTree = "<group>"; };
@@ -151,8 +146,6 @@
 		EF7FE45E17F308B80032ADF2 /* KSProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProject.m; sourceTree = "<group>"; };
 		EF7FE46017F308B90032ADF2 /* KSActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSActivity.h; sourceTree = "<group>"; };
 		EF7FE46117F308B90032ADF2 /* KSActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSActivity.m; sourceTree = "<group>"; };
-		EF7FE46317F30CEC0032ADF2 /* KSProject+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSProject+Addons.h"; sourceTree = "<group>"; };
-		EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSProject+Addons.m"; sourceTree = "<group>"; };
 		EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSIdleEvent.h; sourceTree = "<group>"; };
 		EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSIdleEvent.m; sourceTree = "<group>"; };
 		EF907239186F46F800768113 /* KSRecordActivityWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSRecordActivityWindowController.h; sourceTree = "<group>"; };
@@ -184,7 +177,6 @@
 		EFA670E217BBF6DE00C43BB0 /* KSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAppDelegate.h; sourceTree = "<group>"; };
 		EFA670E317BBF6DE00C43BB0 /* KSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSAppDelegate.m; sourceTree = "<group>"; };
 		EFA670E617BBF6DE00C43BB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KnowSensor_X.xcdatamodel; sourceTree = "<group>"; };
 		EFA670F117BBF6DE00C43BB0 /* KnowSensor XTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KnowSensor XTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670F217BBF6DE00C43BB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EFA670F917BBF6DE00C43BB0 /* KnowSensor XTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KnowSensor XTests-Info.plist"; sourceTree = "<group>"; };
@@ -691,18 +683,6 @@
 		EFE8F2EC17BD09D200D6369E /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				EFE8F31317BD255700D6369E /* CoreData+Categories */,
-				EFE8F2ED17BD09DD00D6369E /* AutoGenerated */,
-				EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */,
-				EFA5774B18B9429D00A9F2A1 /* KSExportable.h */,
-				EFA5774E18B9528D00A9F2A1 /* KSImportable.h */,
-			);
-			name = DataModel;
-			sourceTree = "<group>";
-		};
-		EFE8F2ED17BD09DD00D6369E /* AutoGenerated */ = {
-			isa = PBXGroup;
-			children = (
 				EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */,
 				EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */,
 				EF7FE46017F308B90032ADF2 /* KSActivity.h */,
@@ -715,8 +695,10 @@
 				EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */,
 				EF7EFAAE18B7ADFE00763507 /* KSScreenshotData.h */,
 				EF7EFAAF18B7ADFE00763507 /* KSScreenshotData.m */,
+				EFA5774B18B9429D00A9F2A1 /* KSExportable.h */,
+				EFA5774E18B9528D00A9F2A1 /* KSImportable.h */,
 			);
-			name = AutoGenerated;
+			name = DataModel;
 			sourceTree = "<group>";
 		};
 		EFE8F2FD17BD1B8700D6369E /* Categories */ = {
@@ -738,17 +720,6 @@
 				EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */,
 			);
 			name = Categories;
-			sourceTree = "<group>";
-		};
-		EFE8F31317BD255700D6369E /* CoreData+Categories */ = {
-			isa = PBXGroup;
-			children = (
-				EF7FE46317F30CEC0032ADF2 /* KSProject+Addons.h */,
-				EF7FE46417F30CEC0032ADF2 /* KSProject+Addons.m */,
-				EF0840A217F7512200BC7282 /* KSActivity+Addons.h */,
-				EF0840A317F7512200BC7282 /* KSActivity+Addons.m */,
-			);
-			name = "CoreData+Categories";
 			sourceTree = "<group>";
 		};
 		EFE8F31717BD2B4900D6369E /* Sensors */ = {
@@ -914,7 +885,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFA670EA17BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld in Sources */,
 				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
 				EFE8F30917BD1BE800D6369E /* NSMutableArray+Addons.m in Sources */,
 				EF7E34A118A25CF200CE2E3E /* KSURLMappingViewController.m in Sources */,
@@ -955,14 +925,12 @@
 				EFA6719117BBFC2200C43BB0 /* JSONKit.m in Sources */,
 				EFA6715517BBF98500C43BB0 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				EFA6718A17BBFAD300C43BB0 /* UIImageView+AFNetworking.m in Sources */,
-				EF7FE46517F30CEC0032ADF2 /* KSProject+Addons.m in Sources */,
 				EFA6715B17BBF98500C43BB0 /* MagicalRecord+Setup.m in Sources */,
 				EFA6714617BBF98500C43BB0 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				EFA6714A17BBF98500C43BB0 /* NSString+MagicalDataImport.m in Sources */,
 				EFE8F30C17BD1BE800D6369E /* NSArray+Addons.m in Sources */,
 				EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */,
 				EF7EFAB018B7ADFE00763507 /* KSScreenshotData.m in Sources */,
-				EF0840A417F7512200BC7282 /* KSActivity+Addons.m in Sources */,
 				EFA6716D17BBF9E100C43BB0 /* NSValue+NDFourCharCode.m in Sources */,
 				EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */,
 				EFA6714817BBF98500C43BB0 /* NSObject+MagicalDataImport.m in Sources */,
@@ -1231,19 +1199,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */,
-			);
-			currentVersion = EFA670E917BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodel */;
-			path = KnowSensor_X.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = EFA670C517BBF6DE00C43BB0 /* Project object */;
 }

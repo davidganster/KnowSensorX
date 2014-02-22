@@ -8,8 +8,8 @@
 
 #import "KSProjectController.h"
 #import "KSAPIClient.h"
-#import "KSProject+Addons.h"
-#import "KSActivity+Addons.h"
+#import "KSProject.h"
+#import "KSActivity.h"
 
 @interface KSProjectController ()
 

@@ -20,10 +20,10 @@
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * name;
 
-/// @warning This property is read from the field 'project', which contains the name of the project when loading an activity, `but` the server expects the 'projectID' when sending data to the server. This is why 'exportProjectName' is overwritten in 'KSActivity+Addons.m' .
+/// @warning This property is read from the field 'project', which contains the name of the project when loading an activity, `but` the server expects the 'projectID' when sending data to the server. This is why 'isStartingRecording' is needed.
 @property (nonatomic, retain) NSString * projectName;
 @property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSNumber * isStartingRecording;
+@property (nonatomic, assign) BOOL isStartingRecording;
 @property (nonatomic, retain) KSProject *project;
 
 @end

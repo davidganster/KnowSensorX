@@ -26,6 +26,17 @@ static NSDateFormatter *timestampFormatter;
     return dateAsString;
 }
 
++ (NSDate *)dateFromString:(NSString *)string
+{
+    if(!timestampFormatter) {
+        timestampFormatter = [[NSDateFormatter alloc] init];
+        [timestampFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
+        [timestampFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+    NSDate *dateFromString = [timestampFormatter dateFromString:string];
+    return dateFromString;
+}
+
 + (NSAppleEventDescriptor *)executeApplescriptWithName:(NSString *)scriptName
                                           functionName:(NSString *)functionName
                                              arguments:(NSArray *)args

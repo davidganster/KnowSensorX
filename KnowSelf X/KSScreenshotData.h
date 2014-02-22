@@ -12,7 +12,7 @@
 
 @class KSFocusEvent;
 
-@interface KSScreenshotData : KSExportable
+@interface KSScreenshotData :NSObject <KSExportable>
 
 @property (nonatomic, retain) NSNumber * heightInPixel;
 @property (nonatomic, retain) NSString * imageFormat;

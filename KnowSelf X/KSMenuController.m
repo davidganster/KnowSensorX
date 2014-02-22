@@ -7,8 +7,8 @@
 //
 
 #import "KSMenuController.h"
-#import "KSProject+Addons.h"
-#import "KSActivity+Addons.h"
+#import "KSProject.h"
+#import "KSActivity.h"
 #import "KSSensorController.h"
 #import "KSUserInfo.h"
 #import "KSAppDelegate.h"

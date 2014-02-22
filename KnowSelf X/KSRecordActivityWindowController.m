@@ -9,8 +9,8 @@
 #import "KSRecordActivityWindowController.h"
 #import "KSProjectController.h"
 #import "NSColor+HexParsing.h"
-#import "KSActivity+Addons.h"
-#import "KSProject+Addons.h"
+#import "KSActivity.h"
+#import "KSProject.h"
 
 #import <QuartzCore/QuartzCore.h>
 

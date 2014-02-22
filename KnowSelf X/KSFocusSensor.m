@@ -17,6 +17,7 @@
 @property(nonatomic, strong) NSRunningApplication *previousApplication;
 @property(nonatomic, strong) NSString *previousFileOrUrl;
 @property(nonatomic, strong) NSString *previousWindowTitle;
+@property(nonatomic, strong) KSScreenshotData *previousScreenshot;
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) dispatch_queue_t applescriptQueue;
 
@@ -81,10 +82,16 @@
                                                             mappedNameForURL:self.previousFileOrUrl];
                 }
             }
+            KSScreenshotData *screenshotData = nil;
+            if(!self.previousScreenshot) {
+                // this app didn't get a screenshot when it got focus, let's try to make one now!
+                screenshotData = [KSScreenshotGrabber screenshotDataForApplication:self.previousApplication
+                                                                             scale:0.5f];
+            }
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle
-                                                   screenshot:nil
+                                                   screenshot:screenshotData
                                                          type:KSEventTypeDidLoseFocus];
         } else {
 //            if(self.previousApplication) {
@@ -95,12 +102,14 @@
         self.previousApplication = frontApp;
         self.previousFileOrUrl = fileOrUrl;
         self.previousWindowTitle = windowTitle;
-        
+        self.previousScreenshot = nil;
         
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
             // todo: make scale dynamic
-            KSScreenshotData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp scale:0.5];
+            KSScreenshotData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp
+                                                                                           scale:0.5];
+            self.previousScreenshot = screenshotData;
             
             if(isURL) {
                 if(fileOrUrl &&
@@ -169,7 +178,7 @@
                                         type:(KSEventType)type
 {
     static KSFocusEvent *oldEvent = nil;
-    
+
     KSFocusEvent *currentEvent = [KSFocusEvent createInContext:[NSManagedObjectContext contextForCurrentThread]];
     [currentEvent setTimestamp:[NSDate date]];
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
@@ -178,7 +187,6 @@
     [currentEvent setFilePath:fileOrUrl ?: @""];
     [currentEvent setWindowTitle:windowTitle ?: application.localizedName];
     [currentEvent setScreenshot:screenshotData];
-//    [currentEvent setScreenshot:nil];
     [currentEvent setType:type];
     
     if(oldEvent &&

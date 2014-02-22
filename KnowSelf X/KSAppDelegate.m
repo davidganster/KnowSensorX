@@ -154,9 +154,9 @@ void SignalHandler(int sig)
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+    // don't wait for reachability, just try to get the events to the server as quickly as possible:
+    [[KSSensorController sharedSensorController] setWaitForReachability:NO];
     // stop all event recording for smooth shutdown
-    // important: do this /before/ cleaning up MagicalRecord! (otherwise the defaultContext will be gone)
-    // TODO: add finishedBlock and call [NSApp replyToApplicationShouldTerminate:YES];
     [[KSSensorController sharedSensorController] stopRecordingEventsFinished:^(BOOL successful) {
         // since we never save anything persistently, this doesn't seem very useful:
         //    [MagicalRecord cleanUp];
@@ -165,6 +165,8 @@ void SignalHandler(int sig)
         [self stopKnowServer];
         [[NSUserDefaults standardUserDefaults] synchronize];
         self.isTerminated = YES;
+        
+        // TODO: check if stopping actually worked and warn user if it didn't.
         [NSApp replyToApplicationShouldTerminate:YES];
     }];
 
@@ -178,7 +180,7 @@ void SignalHandler(int sig)
     }
 }
 
--(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     return NO;
 }

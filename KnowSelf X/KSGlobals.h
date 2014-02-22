@@ -152,6 +152,7 @@ typedef enum KSEventTypeEnum {
 #define kKSLogTagUI @"User Interface"
 #define kKSLogTagSensorController @"Sensor Controller"
 #define kKSLogTagProjectController @"Project Controller"
+#define kKSLogTagScreenshotGrabber @"Screenshot Grabber"
 #define kKSLogTagOther @"Unspecified"
 
 #endif

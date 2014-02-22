@@ -15,13 +15,16 @@
 
 @interface KSSensorController ()
 
-/// Used to store events until the server becomes reachable, and send them as soon as it becomes reachable again.
-@property(nonatomic, strong) NSMutableArray *eventBuffer;
-
 /// The queue which will be used to work on the eventBuffer.
 @property(nonatomic, assign) dispatch_queue_t eventBufferQueue;
 
+/// Used to store events until the server becomes reachable, and send them as soon as it becomes reachable again.
+/// If the `waitForReachability` flag is set to NO, the KSSensorDelegate will
+/// immediately try to send the event again in the case of an error.
+@property(nonatomic, strong) NSMutableArray *eventBuffer;
+
 /// Flag that indicates that the queue is being emptied right now - meaning that the process is not going to be started again.
+/// This flag is strictly meant for internal use, and has to be set (and read) on the eventBufferQueue.
 @property(nonatomic, assign) BOOL queueIsBeingEmptied;
 
 /// Finished-blocks can be stored per event -
@@ -57,6 +60,7 @@
         _eventBuffer = [NSMutableArray array];
         _eventBufferQueue = dispatch_queue_create("Event Buffer Queue", DISPATCH_QUEUE_SERIAL);
         _eventFinishedBlocks = [NSMutableDictionary dictionary];
+        _waitForReachability = YES;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(serverReachable)
@@ -64,6 +68,14 @@
                                                    object:nil];
     }
     return self;
+}
+
+
+- (void)setWaitForReachability:(BOOL)waitForReachability
+{
+    dispatch_async(self.eventBufferQueue, ^{
+        _waitForReachability = waitForReachability;
+    });
 }
 
 - (BOOL)startRecordingEvents
@@ -188,30 +200,13 @@
         if([self.eventBuffer count]) {
             LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count before starting: %lu", (unsigned long)[self.eventBuffer count]);
             KSEvent *currentEvent = nil;
-            @try {
-                currentEvent = self.eventBuffer[0];
-            }
-            @catch (NSException *exception)
-            {
-                LogMessage(@"bla", 1, @"asd");
-            }
-            @finally {
-            }
+            currentEvent = self.eventBuffer[0];
             currentEvent = [currentEvent inContext:[NSManagedObjectContext contextForCurrentThread]];
             [[KSAPIClient sharedClient] sendEvent:currentEvent finished:^(NSError *error) {
                 dispatch_async(self.eventBufferQueue, ^{
                     if(!error) {
                         KSEvent *event = nil;
-                        @try {
-                            event = self.eventBuffer[0];
-                        }
-                        @catch (NSException *exception)
-                        {
-                            LogMessage(@"bla", 1, @"asd");
-                        }
-                        @finally {
-                            
-                        }
+                        event = self.eventBuffer[0];
                         event = [event inContext:[NSManagedObjectContext contextForCurrentThread]];
                         NSString *eventDescription = [event description];
                         if([self.eventFinishedBlocks objectForKey:eventDescription] != nil) {
@@ -227,7 +222,7 @@
                         NSManagedObjectContext *context = event.managedObjectContext;
                         [context deleteObject:event];
                         [context processPendingChanges];
-                        [context saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+                        [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                             if(context != [NSManagedObjectContext defaultContext]) {
                                 [[NSManagedObjectContext defaultContext] deleteObject:event];
                                 [[NSManagedObjectContext defaultContext] save:nil];
@@ -236,10 +231,14 @@
                         
                         [self emptyQueue];
                     } else {
-                        self.queueIsBeingEmptied = NO;
-                        // do NOT remove object from queue, but wait until the server is available again.
-                        LogMessage(kKSLogTagSensorController,
-                                   kKSLogLevelError, @"Could not send event %@. Will try when the server is available again (or another event is generated).", self.eventBuffer[0]);
+                        if(!self.waitForReachability) {
+                            [self emptyQueue];
+                        } else {
+                            self.queueIsBeingEmptied = NO;
+                            // do NOT remove object from queue, but wait until the server is available again.
+                            LogMessage(kKSLogTagSensorController,
+                                       kKSLogLevelError, @"Could not send event %@. Will try when the server is available again (or another event is generated).", self.eventBuffer[0]);
+                        }
                     }
                 });
             }];

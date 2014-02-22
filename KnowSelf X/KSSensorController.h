@@ -16,6 +16,11 @@
 /// Array of sensors currently held by the KSSensorController.
 @property(nonatomic, strong, readonly) NSArray *sensors;
 
+/// This flag indicates if the KSSensorDelegate will continuously try to empty its queue
+/// or wait for a `ServerReachable` notification before retrying in case an error occurs.
+/// Defaults to YES.
+@property(nonatomic, assign) BOOL waitForReachability;
+
 /// Accessor to the singleton object.
 + (KSSensorController *)sharedSensorController;
 

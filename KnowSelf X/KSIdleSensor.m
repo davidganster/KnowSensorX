@@ -241,7 +241,8 @@
 
 #pragma mark Helper
 /// Creates an idle event with the given type (KSEventTypeIdleStart/KSEventTypeIdleEnd)
-- (KSIdleEvent *)createIdleEventWithType:(KSEventType)type idleSinceSeconds:(CFTimeInterval)idleTime
+- (KSIdleEvent *)createIdleEventWithType:(KSEventType)type
+                        idleSinceSeconds:(CFTimeInterval)idleTime
 {
     if(type != KSEventTypeIdleStart && type != KSEventTypeIdleEnd) {
         LogMessage(kKSLogTagIdleSensor, kKSLogLevelError, @"ERROR: Can only create Idle event with type KSEventIdleStart or KSEventIdleEnd, not %i", type);
@@ -254,7 +255,8 @@
     [idleEvent setTimeOfRecording:[NSDate date]];
     [idleEvent setIdleSinceSeconds:@(idleTime)];
     if(type == KSEventTypeIdleEnd) {
-        [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:-idleTime sinceDate:[NSDate date]]];
+        [idleEvent setIdleSinceTimestamp:[NSDate dateWithTimeInterval:-idleTime
+                                                            sinceDate:[NSDate date]]];
     }
     [idleEvent setSensorID:self.sensorID];
     return idleEvent;
@@ -283,13 +285,6 @@
 
 - (void)_unregisterForEventsFinished:(void (^)(BOOL successful))finished
 {
-    KSIdleSensor *selfAsSubclass = (KSIdleSensor *)self;
-    if(selfAsSubclass.eventHandler) {
-        [NSEvent removeMonitor:selfAsSubclass.eventHandler];
-    }
-    [selfAsSubclass.idleTimer invalidate];
-    selfAsSubclass.idleTimer = nil;
-    
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
                                                                   name:NSWorkspaceWillSleepNotification
                                                                 object:nil];
@@ -297,7 +292,34 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
                                                                   name:NSWorkspaceDidWakeNotification
                                                                 object:nil];
-    finished(YES);
+
+    KSIdleSensor *selfAsSubclass = (KSIdleSensor *)self;
+    [selfAsSubclass.lock lock];
+    if(selfAsSubclass.eventHandler) {
+        [NSEvent removeMonitor:selfAsSubclass.eventHandler];
+    }
+    [selfAsSubclass.idleTimer invalidate];
+    selfAsSubclass.idleTimer = nil;
+    
+    // user might just be idling (if this is a scheduled shutdown)
+    if(selfAsSubclass.userIsIdling) {
+        // no more idleEnd-events will be recognized if 'userIsIdling' is NO.
+        selfAsSubclass.userIsIdling = NO;
+        [selfAsSubclass.lock unlock];
+        CFTimeInterval idledTime = -[selfAsSubclass.idleStartDate timeIntervalSinceNow];
+        
+        KSIdleEvent *idleEvent = [selfAsSubclass createIdleEventWithType:KSEventTypeIdleEnd
+                                                        idleSinceSeconds:idledTime];
+        [selfAsSubclass.delegate sensor:self
+                         didRecordEvent:idleEvent
+                               finished:^(BOOL success) {
+                                   finished(success);
+        }];
+
+    } else {
+        [selfAsSubclass.lock unlock];
+        finished(YES);
+    }
 }
 
 @end

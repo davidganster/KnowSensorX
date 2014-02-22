@@ -32,4 +32,16 @@
     return self.color && self.name && self.projectID;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if(![object isKindOfClass:[KSProject class]]) {
+        return NO;
+    }
+    KSProject *other = (KSProject *)object;
+    // projects cannot change at all:
+    if([self.projectID isEqualToString:other.projectID])
+        return YES;
+    return NO;
+}
+
 @end

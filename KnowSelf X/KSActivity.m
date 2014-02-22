@@ -67,4 +67,18 @@
     return YES;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if(![object isKindOfClass:[KSActivity class]])
+        return NO;
+    
+    KSActivity *other = (KSActivity *)object;
+    // activities might change in their end dates:
+    if([self.activityID isEqualToString:other.activityID] &&
+       ([self.endDate isEqualToDate:other.endDate] ||
+        self.endDate == other.endDate))
+        return YES;
+    return NO;
+}
+
 @end

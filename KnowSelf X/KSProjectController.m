@@ -72,29 +72,32 @@
         // Refresh project list
         [[KSAPIClient sharedClient] loadProjectsWithSuccess:^(NSArray *projects) {
             [[KSAPIClient sharedClient] loadAllActivities:^(NSArray *activities) {
+                
+                // The server might send every activity multiple times (for each time this activity was recorded)
+                // - but we only care about the name and project.
+                // O(n^2) is not pretty, but necessary without additional data.
+                NSMutableArray *activitiesWithoutDuplicates = [NSMutableArray new];
+                for (KSActivity *duplicateCandidate in activities) {
+                    BOOL isAlreadyContained = NO;
+                    for (KSActivity *activity in activitiesWithoutDuplicates) {
+                        if(duplicateCandidate.name == activity.name &&
+                           duplicateCandidate.projectName == activity.projectName) {
+                            isAlreadyContained = YES;
+                            break;
+                        }
+                    }
+                    if(!isAlreadyContained) {
+                        [activitiesWithoutDuplicates addObject:duplicateCandidate];
+                    }
+                }
+
                 // Both projects and activities are now loaded.
                 // If one of the calls returns an error, the list is not updated.
                 dispatch_async(self.refreshProjectListQueue, ^{
-                    if([projects isEqualToArray:self.projectList] && [activities isEqualToArray:self.activityList]) {
+                    if([projects isEqualToArray:self.projectList] &&
+                       [activitiesWithoutDuplicates isEqualToArray:self.activityList]) {
                         [self finishPollSuccesful:YES]; // nothing has changed.
                     } else {
-                        // The server might send every activity multiple times (for each time this activity was recorded)
-                        // - but we only care about the name and project.
-                        // O(n^2) is not pretty, but necessary without additional data.
-                        NSMutableArray *activitiesWithoutDuplicates = [NSMutableArray new];
-                        for (KSActivity *duplicateCandidate in activities) {
-                            BOOL isAlreadyContained = NO;
-                            for (KSActivity *activity in activitiesWithoutDuplicates) {
-                                if(duplicateCandidate.name == activity.name &&
-                                   duplicateCandidate.projectName == activity.projectName) {
-                                    isAlreadyContained = YES;
-                                    break;
-                                }
-                            }
-                            if(!isAlreadyContained) {
-                                [activitiesWithoutDuplicates addObject:duplicateCandidate];
-                            }
-                        }
                         
                         // something has changed, need to update lists
                         for (KSProject *project in projects) {

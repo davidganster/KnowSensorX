@@ -12,13 +12,5 @@
 
 @implementation KSActivity
 
-@dynamic activityID;
-@dynamic color;
-@dynamic endDate;
-@dynamic name;
-@dynamic projectName;
-@dynamic startDate;
-@dynamic isStartingRecording;
-@dynamic project;
 
 @end

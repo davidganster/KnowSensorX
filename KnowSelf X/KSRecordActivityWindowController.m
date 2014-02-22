@@ -144,7 +144,7 @@
             LogMessage(kKSLogTagUI, kKSLogLevelError, @"Project == nil, but activity != nil! Abort send.");
             return;
         }
-        KSProject *project = [KSProject createInContext:[NSManagedObjectContext contextForCurrentThread]];
+        KSProject *project = [[KSProject alloc] init];
         [project setName:[self.projectComboBox stringValue]];
         [project setColor:[[self.projectColorWell color] hexStringWithLeadingHashtag:YES]];
         
@@ -360,16 +360,13 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 /// @note The newly created activity will be added to the given project's `activities` relationship.
 - (KSActivity *)activityForProject:(KSProject *)project
 {
-    __block KSActivity *activity = nil;
-    [project.managedObjectContext performBlockAndWait:^{
-        activity = [KSActivity createInContext:project.managedObjectContext];
-        [activity setName:[self.activityComboBox stringValue]];
-        [activity setStartDate:[[NSDate alloc] init]];
-        [activity setActivityID:@""]; // empty string for export.
-        [activity setProject:project];
-        [activity setProjectName:project.name];
-        [activity.managedObjectContext saveOnlySelfAndWait];
-    }];
+    KSActivity *activity = nil;
+    activity = [[KSActivity alloc] init];
+    [activity setName:[self.activityComboBox stringValue]];
+    [activity setStartDate:[[NSDate alloc] init]];
+    [activity setActivityID:@""]; // empty string for export.
+    [activity setProject:project];
+    [activity setProjectName:project.name];
     return activity;
 }
 

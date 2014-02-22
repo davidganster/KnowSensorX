@@ -8,16 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "KSEvent_InternalWithAdditionalMethods.h"
+#import "KSExportable.h"
 
-
-@interface KSEvent : KSEvent_InternalWithAdditionalMethods
+@interface KSEvent : NSObject<KSExportable>
 
 @property (nonatomic, retain) NSString * sensorID;
 @property (nonatomic, retain) NSDate * timestamp;
 @property (nonatomic) uint16 type;
 
 - (NSString *)typeAsString;
+- (NSString *)application;
 - (NSString *)timestampAsString;
++ (NSString *)stringForType:(KSEventType)type;
 
 @end

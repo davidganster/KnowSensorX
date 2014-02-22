@@ -122,9 +122,7 @@
                         // If it isn't - tough luck, it will be next time.
                         for (KSProject *project in self.projectList) {
                             if([currentActivity.projectName isEqualToString:project.name]) {
-                                [currentActivity.managedObjectContext performBlockAndWait:^{
-                                    currentActivity.project = project;
-                                }];
+                                currentActivity.project = project;
                                 break;
                             }
                         }
@@ -294,10 +292,7 @@
 - (void)createProject:(KSProject *)project success:(void (^)())success failure:(void (^)(NSError *error))failure
 {
     [[KSAPIClient sharedClient] createProject:project success:^(NSString *newProjectID) {
-        [project.managedObjectContext performBlockAndWait:^{
-            project.projectID = newProjectID;
-            [project.managedObjectContext saveOnlySelfAndWait];
-        }];
+        project.projectID = newProjectID;
         [self addProjectListObject:project]; // Will dispatch to correct queue and notify observers.
         LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
         if(success)
@@ -318,12 +313,9 @@
         self.isStartingNewRecording = YES;
         void (^startRecording)() = ^void() {
             [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-                [activity.managedObjectContext performBlockAndWait:^{
-                    activity.activityID = newActivityID;
+                activity.activityID = newActivityID;
 //                    activity.projectName = activity.project.name; // just to make sure it is properly set
-                    self.currentlyRecordingActivity = activity;
-                    [activity.managedObjectContext saveOnlySelfAndWait];
-                }];
+                self.currentlyRecordingActivity = activity;
                 LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
                 self.isStartingNewRecording = NO;
             } failure:^(NSError *error) {

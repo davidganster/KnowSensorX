@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "KSExportable.h"
+#import "KSImportable.h"
 
 @class KSProject;
 
-@interface KSActivity : NSManagedObject
+@interface KSActivity : NSObject<KSExportable, KSImportable>
 
 @property (nonatomic, retain) NSString * activityID;
 @property (nonatomic, retain) NSString * color;

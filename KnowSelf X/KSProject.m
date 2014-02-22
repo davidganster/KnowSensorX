@@ -12,9 +12,4 @@
 
 @implementation KSProject
 
-@dynamic color;
-@dynamic name;
-@dynamic projectID;
-@dynamic activities;
-
 @end

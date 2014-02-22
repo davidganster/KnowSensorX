@@ -28,13 +28,11 @@
 		EF90723C186F46F800768113 /* KSRecordActivityWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF90723A186F46F800768113 /* KSRecordActivityWindowController.m */; };
 		EF90723D186F46F800768113 /* KSRecordActivityWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */; };
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
-		EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */; };
 		EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */; };
 		EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */; };
 		EFA1629218104F0F002D481B /* KSProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA1629118104F0F002D481B /* KSProjectController.m */; };
 		EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */; };
 		EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */; };
-		EFA5774D18B9429D00A9F2A1 /* KSExportable.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA5774C18B9429D00A9F2A1 /* KSExportable.m */; };
 		EFA670D117BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
 		EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA670D917BBF6DE00C43BB0 /* InfoPlist.strings */; };
 		EFA670DD17BBF6DE00C43BB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670DC17BBF6DE00C43BB0 /* main.m */; };
@@ -162,8 +160,6 @@
 		EF90723B186F46F800768113 /* KSRecordActivityWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSRecordActivityWindowController.xib; sourceTree = "<group>"; };
 		EF99933517C413DC002E7458 /* KSUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUserInfo.h; sourceTree = "<group>"; };
 		EF99933617C413DC002E7458 /* KSUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUserInfo.m; sourceTree = "<group>"; };
-		EF99934117C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSEvent_InternalWithAdditionalMethods.h; sourceTree = "<group>"; };
-		EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSEvent_InternalWithAdditionalMethods.m; sourceTree = "<group>"; };
 		EF9EC4C317C0F51F00A4A5A0 /* KSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSettingsViewController.h; sourceTree = "<group>"; };
 		EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSettingsViewController.m; sourceTree = "<group>"; };
 		EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSSettingsViewController.xib; sourceTree = "<group>"; };
@@ -174,7 +170,7 @@
 		EFA3306618B6725F00E61E7C /* NSImage+ProportionalScaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ProportionalScaling.h"; sourceTree = "<group>"; };
 		EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ProportionalScaling.m"; sourceTree = "<group>"; };
 		EFA5774B18B9429D00A9F2A1 /* KSExportable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSExportable.h; sourceTree = "<group>"; };
-		EFA5774C18B9429D00A9F2A1 /* KSExportable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSExportable.m; sourceTree = "<group>"; };
+		EFA5774E18B9528D00A9F2A1 /* KSImportable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSImportable.h; sourceTree = "<group>"; };
 		EFA670CD17BBF6DE00C43BB0 /* KnowSensor X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KnowSensor X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EFA670D317BBF6DE00C43BB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -697,11 +693,9 @@
 			children = (
 				EFE8F31317BD255700D6369E /* CoreData+Categories */,
 				EFE8F2ED17BD09DD00D6369E /* AutoGenerated */,
-				EF99934117C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.h */,
-				EF99934217C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m */,
 				EFA670E817BBF6DE00C43BB0 /* KnowSensor_X.xcdatamodeld */,
 				EFA5774B18B9429D00A9F2A1 /* KSExportable.h */,
-				EFA5774C18B9429D00A9F2A1 /* KSExportable.m */,
+				EFA5774E18B9528D00A9F2A1 /* KSImportable.h */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -946,7 +940,6 @@
 				EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */,
 				EFA6715C17BBF98500C43BB0 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				EFE8F30B17BD1BE800D6369E /* NSString+Repeat.m in Sources */,
-				EF99934317C4170A002E7458 /* KSEvent_InternalWithAdditionalMethods.m in Sources */,
 				EFE8F30A17BD1BE800D6369E /* NSMutableIndexSet+Addons.m in Sources */,
 				EFA6718217BBFAD300C43BB0 /* AFHTTPClient.m in Sources */,
 				EFE8F2F017BD0D1B00D6369E /* KSFocusEvent.m in Sources */,
@@ -991,7 +984,6 @@
 				EFABBDEE17C2CE1B00043481 /* NSData-Base64Extensions.m in Sources */,
 				EFA6714C17BBF98500C43BB0 /* NSManagedObject+MagicalDataImport.m in Sources */,
 				EFA6718517BBFAD300C43BB0 /* AFJSONRequestOperation.m in Sources */,
-				EFA5774D18B9429D00A9F2A1 /* KSExportable.m in Sources */,
 				EFA6714717BBF98500C43BB0 /* NSNumber+MagicalDataImport.m in Sources */,
 				EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */,
 				EFA6715D17BBF98500C43BB0 /* MagicalRecord.m in Sources */,

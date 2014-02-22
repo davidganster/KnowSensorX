@@ -19,6 +19,12 @@
     return dict;
 }
 
+- (NSString *)application
+{
+    NSAssert(NO, @"Subclass of KSEvent must overwrite '- (NSString *) application'.");
+    return nil;
+}
+
 - (NSString *)typeAsString
 {
     return [KSEvent stringForType:self.type];
@@ -30,5 +36,21 @@
     return [KSUtils dateAsString:self.timestamp];
 }
 
++ (NSString *)stringForType:(KSEventType)type
+{
+    switch (type) {
+        case KSEventTypeDidGetFocus:
+            return kKSEventTypeDidGetFocus;
+        case KSEventTypeDidLoseFocus:
+            return kKSEventTypeDidLoseFocus;
+        case KSEventTypeIdleStart:
+            return kKSEventTypeDidStartIdle;
+        case KSEventTypeIdleEnd:
+            return kKSEventTypeDidEndIdle;
+        default:
+            return @"unknown type";
+            break;
+    }
+}
 
 @end

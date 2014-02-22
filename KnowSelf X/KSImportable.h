@@ -1,5 +1,5 @@
 //
-//  KSExportable.h
+//  KSImportable.h
 //  KnowSensor X
 //
 //  Created by David Ganster on 22/02/14.
@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol KSExportable <NSObject>
+@protocol KSImportable<NSObject>
 
-- (NSDictionary *)dictRepresentation;
+- (BOOL)importValuesForKeysWithObject:(NSDictionary *)dictionary;
 
 @end

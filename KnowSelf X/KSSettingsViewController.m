@@ -71,7 +71,7 @@
             [alert setInformativeText:@"Settings could not be imported - the file might be corrupt."];
             [alert runModal];
         }
-        [self updateTextFields];
+        [self updateUI];
     }
 }
 
@@ -99,15 +99,17 @@
 - (IBAction)resetToDefaultsButtonClicked:(id)sender
 {
     [[KSUserInfo sharedUserInfo] resetToDefaults];
-    [self updateTextFields];
+    [self updateUI];
 }
 
-- (void)updateTextFields
+- (void)updateUI
 {
     self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
     self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
     self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
     self.minimumIdleTimeLabel.stringValue   = [NSString stringWithFormat:@"%i", (int)[[KSUserInfo sharedUserInfo] minimumIdleTime] / 60];
+    self.screenshotQualitySlider.integerValue = [[KSUserInfo sharedUserInfo] screenshotQuality];
+    self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
 }
 
 - (IBAction)sliderDidChangeValue:(NSSlider *)sender

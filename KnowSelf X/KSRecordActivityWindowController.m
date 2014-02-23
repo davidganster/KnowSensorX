@@ -14,6 +14,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#define RecordButtonTagRecord 1
+#define RecordButtonTagStop   2
+
 @interface KSRecordActivityWindowController ()
 
 /// The project represented by the projectComboBox.
@@ -95,16 +98,24 @@
     [super windowDidLoad];
 }
 
-- (IBAction)recordButtonClicked:(id)sender
+- (IBAction)recordButtonClicked:(NSButton *)sender
 {
-    if([[KSProjectController sharedProjectController] currentlyRecordingActivity] &&
-       ![[NSUserDefaults standardUserDefaults] boolForKey:kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped]) {
-        // display warning dialog!
-        [self showAlreadyRecordingWarning];
-        return;
+    if(sender.tag == RecordButtonTagRecord) {
+        if([[KSProjectController sharedProjectController] currentlyRecordingActivity] &&
+           ![[NSUserDefaults standardUserDefaults] boolForKey:kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped]) {
+            // display warning dialog!
+            [self showAlreadyRecordingWarning];
+            return;
+        }
+        [self startRecordingActivity];
+    } else if(sender.tag == RecordButtonTagStop) {
+        [[KSProjectController sharedProjectController] stopRecordingCurrentActivitySuccess:^{
+            // nothing
+        } failure:^(NSError *error) {
+            // nothing
+        }];
+        [self close];
     }
-    
-    [self startRecordingActivity];
 }
 
 - (IBAction)colorWellDidPickColor:(id)sender {
@@ -350,10 +361,15 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     
     if(!isAlreadyRecordingThisActivity &&
        ((self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length) ||
-       (self.project && self.activity)))
+        (self.project && self.activity))) {
+           [self.recordButton setTitle:@"Record"];
+           [self.recordButton setTag:RecordButtonTagRecord];
         [self.recordButton setEnabled:YES];
-    else
-        [self.recordButton setEnabled:NO];
+    } else if(isAlreadyRecordingThisActivity) {
+        [self.recordButton setTitle:@"Stop"];
+        [self.recordButton setTag:RecordButtonTagStop];
+        [self.recordButton setEnabled:YES];
+    }
 }
 
 /// Creates a new KSActivity in the defaultContext with the given project and string value of the activityComboBox.

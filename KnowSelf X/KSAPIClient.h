@@ -12,6 +12,9 @@
 @class KSActivity;
 @class KSProject;
 
+/**
+ *  Provides a convenient ac
+ */
 @interface KSAPIClient : NSObject
 
 

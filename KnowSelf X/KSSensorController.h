@@ -24,7 +24,21 @@
 /// Accessor to the singleton object.
 + (KSSensorController *)sharedSensorController;
 
+/**
+ *  Tells all sensors in `sensors` to register for events.
+ *
+ *  @return YES iff all sensors returned YES when asked to start recording events.
+ */
 - (BOOL)startRecordingEvents;
+
+/**
+ *  Tells all sensors in `sensors` to unregister for events. 
+ *  Since this operation is asynchronous (sensors might need to wait
+ *  for events to be processed on another thread), it will return immediately.
+ *  To compensate, the given block will be executed once all sensors have finished unsubscribing from events.
+ *
+ *  @param finished The block to be executed when all sensors are done unsubscribing.
+ */
 - (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished;
 
 @end

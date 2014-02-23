@@ -109,7 +109,8 @@
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theString) autorelease];
 #else
-	return (__bridge NSURL*)theString;
+	return (__bridge NSString *)(theString);
+//    return [NSURL URLWithString:(__bridge NSString *)(theString)];
 #endif
 }
 

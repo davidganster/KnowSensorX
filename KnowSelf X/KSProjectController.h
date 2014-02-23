@@ -86,7 +86,9 @@
  @param success The block to be executed if the call has been successful
  @param failure The block to be executed if the call has failed
  */
-- (void)createProject:(KSProject *)project success:(void (^)())success failure:(void (^)(NSError *error))failure;
+- (void)createProject:(KSProject *)project
+              success:(void (^)())success
+              failure:(void (^)(NSError *error))failure;
 
 
 /** Starts the recording of an activity on the server.
@@ -101,7 +103,8 @@
  @param success The block to be executed in case of success.
  @param failure The block to be executed in case of failure. An NSError object describing the reason is passed.
  */
-- (void)stopRecordingCurrentActivitySuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
+- (void)stopRecordingCurrentActivitySuccess:(void (^)())success
+                                    failure:(void (^)(NSError *error))failure;
 
 /** Returns the active project list managed by the ProjectController. 
  Since no timestamp/creation date is known, projects are ordered in the way they are received from the server.

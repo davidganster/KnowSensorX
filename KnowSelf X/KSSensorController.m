@@ -35,6 +35,7 @@
 
 @implementation KSSensorController
 
+#pragma mark Public methods.
 + (KSSensorController *)sharedSensorController
 {
     static KSSensorController *_sharedController = nil;
@@ -46,30 +47,6 @@
     return _sharedController;
 
 }
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // init sensors:
-        KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
-        [focusSensor setFocusDelegate:self];
-        KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
-        idleSensor.minimumIdleTime = [[KSUserInfo sharedUserInfo] minimumIdleTime];
-        _sensors = @[focusSensor, idleSensor];
-        _eventBuffer = [NSMutableArray array];
-        _eventBufferQueue = dispatch_queue_create("Event Buffer Queue", DISPATCH_QUEUE_SERIAL);
-        _eventFinishedBlocks = [NSMutableDictionary dictionary];
-        _waitForReachability = YES;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(serverReachable)
-                                                     name:kKSNotificationKeyServerReachable
-                                                   object:nil];
-    }
-    return self;
-}
-
 
 - (void)setWaitForReachability:(BOOL)waitForReachability
 {
@@ -92,11 +69,15 @@
 
 - (void)stopRecordingEventsFinished:(void (^)(BOOL successful))finished
 {
+    // Used to enumerate all sensors while looping - needs to be static because this method will be called multiple times.
     static  NSEnumerator *enumerator = nil;
     if(!enumerator)
         enumerator = [self.sensors objectEnumerator];
     
     __block BOOL success = YES;
+    // This block is the actual loop: As the current sensor to stop recording events,
+    // passing a finished block that will call this method again.
+    // Once all sensors are done, the original finished block that was passed will be executed.
     void (^ loop)(BOOL successSoFar) = ^void(BOOL successSoFar) {
         success &= successSoFar;
         KSSensor *sensor = [enumerator nextObject];
@@ -114,18 +95,6 @@
     loop(YES);
 }
 
-#pragma mark Server Reachability Listener
-- (void)serverReachable
-{
-    dispatch_async(self.eventBufferQueue, ^{
-        if(!self.queueIsBeingEmptied) {
-            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Server is reachable, will start sending %lu remaining events!", [self.eventBuffer count]);
-            self.queueIsBeingEmptied = YES;
-            [self emptyQueue];
-        }
-    });
-}
-
 #pragma mark KSFocusSensorDelegate
 - (NSString *)focusSensor:(KSFocusSensor *)sensor mappedNameForURL:(NSString *)recordedURL
 {
@@ -141,10 +110,10 @@
     for (NSString *URLToMatch in [dictionary allKeys]) {
         if ([recordedURL rangeOfString:URLToMatch
                                options:NSRegularExpressionSearch].location != NSNotFound) {
-//            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Replacing '%@' (matched by '%@') with '%@'.", recordedURL, URLToMatch, dictionary[URLToMatch]);
             return dictionary[URLToMatch];
         }
     }
+    // No match, just return the original URL.
     return recordedURL;
 }
 
@@ -175,15 +144,72 @@
 
 #pragma mark KSSensorDelegateProtocol
 
-- (void)sensor:(KSSensor *) sensor didRecordEvent:(KSEvent *)event finished:(void (^)(BOOL success))finished;
+- (void)sensor:(KSSensor *)sensor
+didRecordEvent:(KSEvent *)event
+      finished:(void (^)(BOOL success))finished;
 {
     [self addEventBufferObject:event withFinishedBlock:finished];
 }
 
-/// This method ensures that the events are sent in the order they are submitted.
-/// dispatch_async on a serial queue will enqueue the given operation at the end of
-/// the queue, ensuring correct execution order.
-/// (dispatch_async is equivalent to dispatch_barrier_async when used on a serial queue)
+#pragma mark Private methods
+/**
+ *  Internal method.
+ *  Designated initializer.
+ *  @warning Do not create a KSSensorController on your own. Use the singleton acessor (`sharedSensorController`) instead.
+ *
+ *  @return The new, fully initialized KSSensorController.
+ */
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // init sensors:
+        KSFocusSensor *focusSensor = [[KSFocusSensor alloc] initWithDelegate:self];
+        [focusSensor setFocusDelegate:self];
+        KSIdleSensor *idleSensor = [[KSIdleSensor alloc] initWithDelegate:self];
+        idleSensor.minimumIdleTime = [[KSUserInfo sharedUserInfo] minimumIdleTime];
+        _sensors = @[focusSensor, idleSensor];
+        _eventBuffer = [NSMutableArray array];
+        _eventBufferQueue = dispatch_queue_create("Event Buffer Queue", DISPATCH_QUEUE_SERIAL);
+        _eventFinishedBlocks = [NSMutableDictionary dictionary];
+        _waitForReachability = YES;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(serverReachable)
+                                                     name:kKSNotificationKeyServerReachable
+                                                   object:nil];
+    }
+    return self;
+}
+
+/**
+ *  Internal method.
+ *  It is called upon receiving a kKSNotificationKeyServerReachable notification.
+ *  If the eventBuffer is not being emptied right now, this will start emptying the queue.
+ *  This behaviour is useful when waiting for the server to become reachable, and then sending
+ *  all events that have been queued up.
+ */
+- (void)serverReachable
+{
+    dispatch_async(self.eventBufferQueue, ^{
+        if(!self.queueIsBeingEmptied) {
+            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Server is reachable, will start sending %lu remaining events!", [self.eventBuffer count]);
+            self.queueIsBeingEmptied = YES;
+            [self emptyQueue];
+        }
+    });
+}
+
+/**
+ *  Internal method.
+ *  This method ensures that the events are sent in the order they are submitted.
+ *  dispatch_async on a serial queue will enqueue the given operation at the end of
+ *  the queue, ensuring correct execution order.
+ *  (dispatch_async is equivalent to dispatch_barrier_async when used on a serial queue)
+ *
+ *  @param event    The event to be added to the eventBuffer.
+ *  @param finished The block to be executed when the event has successfully been sent.
+ */
 - (void)addEventBufferObject:(KSEvent *)event
            withFinishedBlock:(void (^)(BOOL success))finished
 {
@@ -199,6 +225,19 @@
     });
 }
 
+/**
+ *  Internal method.
+ *  Emptied the eventBuffer queue one by one, always removing the first (0th) element 
+ *  of the array upon successful completion.
+ *  If a finished-block has been issued for the successfully sent event, it will be called and removed from the list.
+ *  In case of an error while sending the event, the `waitForReachability` flag is checked.
+ *  If it evaluates to NO, the KSSensorController will immediately try sending the event again, 
+ *  without waiting for reachability to change. This is useful when stopping the recording of events, 
+ *  where we want to get our queue emptied as quickly as possible.
+ *  If `waitForReachability` is YES, on the other hand, the process of emptying the 
+ *  queue will be stopped until a `kKSNotificationKeyServerReachable` notification is received 
+ *  or another event is added to the queue.
+ */
 - (void)emptyQueue
 {
     dispatch_async(self.eventBufferQueue, ^{

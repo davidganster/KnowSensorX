@@ -83,12 +83,8 @@ void SignalHandler(int sig)
     sigaction(SIGBUS, &newSignalAction, NULL);
 //    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught... The server will keep running in that case :(
 
-//    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"dg.KnowSensor_X"];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-
 //    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
 //                     kLoggerOption_BrowseBonjour);
-
     
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
     [self startKnowServer];

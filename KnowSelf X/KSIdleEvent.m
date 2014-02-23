@@ -14,10 +14,13 @@
 - (NSDictionary *)dictRepresentation
 {
     NSMutableDictionary *dataDict = [[super dictRepresentation] mutableCopy];
-    [dataDict setObject:self.timeOfRecording forKey:@"timestamp"];
+    NSString *timeOfRecordingString = [KSUtils dateAsString:self.timeOfRecording];
+    [dataDict setObject:timeOfRecordingString forKey:@"timestamp"];
+    
     [dataDict setObject:self.idleSinceSeconds forKey:@"idlesinceseconds"];
     if(self.idleSinceTimestamp) {
-        [dataDict setObject:self.idleSinceTimestamp forKey:@"idlesincetimestamps"];
+        NSString *idleSinceTimestampString = [KSUtils dateAsString:self.idleSinceTimestamp];
+        [dataDict setObject:idleSinceTimestampString forKey:@"idlesincetimestamp"];
     }
     return dataDict;
 }

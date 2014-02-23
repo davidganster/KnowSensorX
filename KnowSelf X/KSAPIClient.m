@@ -9,7 +9,6 @@
 #import "KSAPIClient.h"
 #import "AFNetworking.h"
 #import "NSData-Base64Extensions.h"
-#import "NSManagedObject+Addons.h"
 #import "KSUserInfo.h"
 #import "KSEvent.h"
 #import "KSProject.h"
@@ -165,23 +164,7 @@
                     LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Could not import activity from \n%@\n", activityDict);
                 }
             }
-            
-#ifndef kKSIsSaveToPersistentStoreDisabled
-            // after having created all the objects, save them and then call the success/failure blocks:
-            [[NSManagedObjectContext defaultContext] saveOnlySelfWithCompletion:^(BOOL saveSuccessful, NSError *error) {
-                // the saveSuccessful flag is not reliable as it will be set to NO if ANY of the parent contexts have no changes!
-                // better to check the error pointer instead:
-                if(!error) {
-#endif
-                    // whether or not saving to persistent store is enabled - the success block will always be called.
                     success(activities);
-                    
-#ifndef kKSIsSaveToPersistentStoreDisabled
-                } else {
-                    failure(error);
-                }
-            }];
-#endif
         } else {
             // Unexpected answer
             LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Received invalid JSON object: %@", jsonObject);
@@ -501,9 +484,6 @@
 
 - (NSDictionary *)dictionaryFromEvent:(KSEvent *)event serializationError:(NSError **)error
 {
-    if([event.typeAsString isEqualToString:kKSEventTypeDidStartIdle]) {
-        LogMessage(@"asd", 1, @"asd");
-    }
     // the data-field is represented by the exported object.
     NSDictionary *dataFieldDict = [event dictRepresentation];
     NSData *jsonEncodedDataField = [NSJSONSerialization dataWithJSONObject:dataFieldDict

@@ -8,6 +8,7 @@
 
 #import "KSIdleSensor.h"
 #import "KSIdleEvent.h"
+#import "KSIdleTimeHelper.h"
 
 @interface KSIdleSensor ()
 
@@ -18,6 +19,8 @@
 @property(nonatomic, strong) NSLock *lock;
 /// The return value of [NSEvent addGlobalMonitorForEventsMatchingMasks:handler:] must be saved somewhere because it cannot be retained by the handler:-block alone.
 @property(nonatomic, strong) id eventHandler;
+
+@property(nonatomic, strong) id globalEventMonitor;
 
 @end
 
@@ -37,6 +40,12 @@
                                                  selector:@selector(idleTimeChanged:)
                                                      name:kKSNotificationKeyIdleTimeChanged
                                                    object:nil];
+        
+        [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask)
+                                                                         handler:^(NSEvent *someEvent) {
+                                                                             LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"event: %@", someEvent);
+                                                                         }];
+
     }
     return self;
 }
@@ -87,9 +96,7 @@
 
 - (void)checkUserIdleTime
 {
-    CFTimeInterval idleTime = CGEventSourceSecondsSinceLastEventType(kCGEventSourceStateCombinedSessionState,
-                                                                     kCGAnyInputEventType);
-    
+    CFTimeInterval idleTime = SystemIdleTime();
     // that's not the actual idle time, since we might have had some idle time left from the last event.
     CFTimeInterval actualIdleTime = idleTime + self.idleTimeSoFar;
     if(actualIdleTime >= self.minimumIdleTime) {
@@ -173,8 +180,7 @@
     if(!self.userIsIdling)
         return;
     
-    CFTimeInterval idleTime = CGEventSourceSecondsSinceLastEventType(kCGEventSourceStateCombinedSessionState,
-                                                                     kCGAnyInputEventType);
+    CFTimeInterval idleTime = SystemIdleTime();
 //    LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Polling for idle end, idle time: %f", idleTime);
     [self.lock lock];
     if(idleTime < self.minimumIdleTime && self.userIsIdling) {

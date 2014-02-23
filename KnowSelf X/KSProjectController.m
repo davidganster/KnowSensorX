@@ -29,7 +29,10 @@
 /// Specifies whether or not to continue the polling loop. Will be YES until `stopUpdatingProjectList` is called.
 @property(atomic, assign) BOOL continuePolling;
 
-// debug
+/// Indicates if a new activity is just about to start recording.
+/// In this case, we will ignore the return value of `loadActiveActivity:` in
+/// `updateProjectListWithDelay:` (it might return the 'old' active activity,
+/// not the one that we just started to record).
 @property(nonatomic, assign) BOOL isStartingNewRecording;
 
 @end
@@ -40,16 +43,12 @@
 @synthesize timeIntervalBetweenPolls = _timeIntervalBetweenPolls;
 
 #pragma mark - Private Methods
-+ (KSProjectController *)sharedProjectController
-{
-    static dispatch_once_t onceToken;
-    static KSProjectController *controller = nil;
-    dispatch_once(&onceToken, ^{
-        controller = [[KSProjectController alloc] init];
-    });
-    return controller;
-}
-
+/**
+ *  Designated initializer. 
+ *  @warning Do not attempt to create a KSProjectController on your own. Use the singleton-accessor (`sharedProjectController`) instead.
+ *
+ *  @return A new, fully initialized instance of KSProjectController.
+ */
 - (KSProjectController *)init
 {
     self = [super init];
@@ -65,6 +64,17 @@
 }
 
 #pragma mark - Updating the project list
+/**
+ *  Internal method.
+ *  Sends a request for all projects and all activities to the server and waits for 
+ *  a positive reply from the server. Upon completion of both calls, the project list and activity list
+ *  will be updated, notifying all observers in the process.
+ *  Regardless of the API calls worked, the KSProjectController will continue calling this method after
+ *  `timeIntervalBetweenPolls` has passed.
+ *  To stop polling, call `stopUpdatingProjectList` - this will set `continuePolling` to NO.
+ *
+ *  @param delayInSeconds Amount of time in seconds to wait before starting the new poll.
+ */
 - (void)updateProjectListWithDelay:(double)delayInSeconds
 {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -138,6 +148,13 @@
     });
 }
 
+/**
+ *  Internal method. Called when `updateProjectListWithDelay:` is done with one poll - 
+ *  whether it was successful or not.
+ *  The `success` parameter is currently only used for debug purposes (i.e. for logging).
+ *
+ *  @param success Indicates whether or not the poll was successful. Only used for logging at the moment.
+ */
 - (void)finishPollSuccesful:(BOOL)success
 {
     if(success) {
@@ -150,7 +167,16 @@
 }
 
 #pragma mark - Notifying observers
-- (void)notifyObserversAboutProjectListChangeWithAddedObjects:(NSArray *)addedObjects deletedObjects:(NSArray *)deletedObjects
+/**
+ *  Internal method. 
+ *  This method will loop through all observers of project events and notfify them about changes
+ *  to the project list.
+ *
+ *  @param addedObjects   The objects that have been added to the project list.
+ *  @param deletedObjects The object that have been deleted from the project list.
+ */
+- (void)notifyObserversAboutProjectListChangeWithAddedObjects:(NSArray *)addedObjects
+                                               deletedObjects:(NSArray *)deletedObjects
 {
     for (id<KSProjectControllerEventObserver> observer in self.projectEventObservers) {
         if([observer respondsToSelector:@selector(projectController:projectListChangedWithAddedProjects:deletedProjects:)])
@@ -158,6 +184,11 @@
     }
 }
 
+/**
+ *  Internal method.
+ *  This method will loop through all observers of project events and notfify them about the change 
+ *  of the active activity.
+ */
 - (void)notifyObserversAboutNewActiveActivity
 {
     for (id<KSProjectControllerEventObserver> observer in self.projectEventObservers) {
@@ -167,7 +198,12 @@
 }
 
 #pragma mark - Custom Getters/Setters
-
+/**
+ *  Sets the new time interval between two polls for project/activity updates.
+ *  @note This method returns immediately, dispatching to the internal queue for refreshing projects, meaning you cannot assume the property to be set correctly upon return.
+ *
+ *  @param timeIntervalBetweenPolls The new time interval between two polls. Will be used after the current poll is finished.
+ */
 - (void)setTimeIntervalBetweenPolls:(CFTimeInterval)timeIntervalBetweenPolls
 {
     // do this AFTER the current queue finishes.
@@ -176,6 +212,12 @@
     });
 }
 
+/**
+ *  Getter for the current time interval between polls.
+ *  @note This method synchronously dipatches to the internal queue for refreshing projects, so it might take some time to return (potentially 2 round trips to the server)!
+ *
+ *  @return The time interval between two polls.
+ */
 - (CFTimeInterval)timeIntervalBetweenPolls
 {
     __block CFTimeInterval timeInterval;
@@ -185,6 +227,13 @@
     return timeInterval;
 }
 
+/**
+ *  Internal method. 
+ *  Sets the currently active activity. Also notifies observers about the change.
+ *  @warning Attempting to modify the active activity with bogus data from outside might corrupt the state of the KSProjectController.
+ *
+ *  @param currentlyRecordingActivity The new currently recording activity. Must match the value returned from the server.
+ */
 - (void)setCurrentlyRecordingActivity:(KSActivity *)currentlyRecordingActivity
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
@@ -196,15 +245,13 @@
     });
 }
 
-- (NSArray *)currentProjectList
-{
-    __block NSArray *projects;
-    KS_dispatch_sync_reentrant(self.refreshProjectListQueue, ^{
-        projects = self.projectList;
-    });
-    return projects;
-}
-
+/**
+ *  Internal method.
+ *  Adds an object to the project list, dispatching asynchronously to the internal project list queue.
+ *  Observers will be notified about the change.
+ *
+ *  @param project The project to be added.
+ */
 - (void)addProjectListObject:(KSProject *)project
 {
     // All updates on the projectList must happen on the refreshProjectListQueue.
@@ -218,6 +265,13 @@
     });
 }
 
+/**
+ *  Internal method.
+ *  Removes the given project from the project list, dispatching asynchronously to the internal project list queue.
+ *  Observers will be notified about the change.
+ *
+ *  @param project The project to be removed from the project list.
+ */
 - (void)removeProjectListObject:(KSProject *)project
 {
     // All updates on the projectList must happen on the refreshProjectListQueue.
@@ -233,6 +287,12 @@
     });
 }
 
+/**
+ *  Sets the project list to the given project list, analyzes changes to the project list and
+ *  notifies observers about the changes.
+ *
+ *  @param projectList The new project list.
+ */
 - (void)setProjectList:(NSMutableArray *)projectList
 {
     KS_dispatch_async_reentrant(self.refreshProjectListQueue, ^{
@@ -258,6 +318,25 @@
 
 #pragma mark -
 #pragma mark Public Methods
+
++ (KSProjectController *)sharedProjectController
+{
+    static dispatch_once_t onceToken;
+    static KSProjectController *controller = nil;
+    dispatch_once(&onceToken, ^{
+        controller = [[KSProjectController alloc] init];
+    });
+    return controller;
+}
+
+- (NSArray *)currentProjectList
+{
+    __block NSArray *projects;
+    KS_dispatch_sync_reentrant(self.refreshProjectListQueue, ^{
+        projects = self.projectList;
+    });
+    return projects;
+}
 
 - (void)startUpdatingProjectListWithTimeBetweenPolls:(CFTimeInterval)timeIntervalInSeconds
 {

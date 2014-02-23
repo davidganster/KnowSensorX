@@ -62,13 +62,22 @@
 //------------------------------------------------------------------------------
 // Enum Constants
 //------------------------------------------------------------------------------
-/// used for switch-statements on the type property of a KSEvent object.
+
+/// Used for switch-statements on the type property of a KSEvent object.
 typedef enum KSEventTypeEnum {
     KSEventTypeDidGetFocus,
     KSEventTypeDidLoseFocus,
     KSEventTypeIdleStart,
     KSEventTypeIdleEnd
 } KSEventType;
+
+/// Used to select an appropriate screenshot quality.
+typedef enum KSScreenshotQuality {
+    KSScreenshotQualitySmall    = 0,    // Favor small file size over image quality
+    KSScreenshotQualityMedium   = 1,    // Happy medium between file size and image quality
+    KSScreenshotQualityOriginal = 2,    // Full image, resulting in great quality but large file size.
+    KSScreenshotQualityNone     = 0xFF  // No screenshot.
+} KSScreenshotQuality;
 
 //------------------------------------------------------------------------------
 // Notifications
@@ -93,6 +102,8 @@ typedef enum KSEventTypeEnum {
 #define kKSUserInfoSpecialApplicationsAreBlacklistKey @"isBlacklist"
 #define kKSUserInfoURLMappingsKey @"URLMappings"
 #define kKSUserInfoMinimumIdleTimeKey @"MinimumIdleTime"
+#define kKSUserInfoShouldRecordScreenshotsKey @"shouldRecordScreenshots"
+#define kKSUserInfoScreenshotQualityKey @"screenshotQuality"
 
 #define kKSIsFirstStartKey @"firstStart"
 #define kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped @"alreadyRecordingActivityWarning"

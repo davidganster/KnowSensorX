@@ -134,12 +134,23 @@
         }
     } else {
         // specialApplications does not contain the previous app...
-        if(![[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist]) {
-            // ... which means it isn't on the whitelist. We ignore this app!
+        if(![[KSUserInfo sharedUserInfo] specialApplicationsAreBlacklist] &&
+           [[[KSUserInfo sharedUserInfo] specialApplications] count]) {
+            // ... that means it isn't on the whitelist (which isn't empty). We ignore this app!
             ignoreApplication = YES;
         }
     }
     return !ignoreApplication;
+}
+
+- (KSScreenshotQuality)focusSensor:(KSFocusSensor *)sensor
+   screenshotQualityForApplication:(NSRunningApplication *)application
+{
+    // deciding per application is not supported at the moment.
+    if(![[KSUserInfo sharedUserInfo] shouldRecordScreenshots]) {
+        return KSScreenshotQualityNone;
+    }
+    return [[KSUserInfo sharedUserInfo] screenshotQuality];
 }
 
 #pragma mark KSSensorDelegateProtocol

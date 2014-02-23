@@ -13,11 +13,13 @@
 
 @implementation KSScreenshotGrabber
 
-+ (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application scale:(CGFloat)scale
++ (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application
+                                             scale:(CGFloat)scale
 {
     CGWindowID windowID = [KSScreenshotGrabber windowIDForAppName:application.localizedName];
     if(windowID) {
-        NSImage *screenshot = [KSScreenshotGrabber takeScreenShotForWindowWithID:windowID scale:scale];
+        NSImage *screenshot = [KSScreenshotGrabber takeScreenShotForWindowWithID:windowID
+                                                                           scale:scale];
         NSData *screenShotData = [screenshot TIFFRepresentation];
         NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:screenShotData];
         screenShotData = [imageRep representationUsingType:NSJPEGFileType

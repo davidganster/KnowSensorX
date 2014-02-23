@@ -14,7 +14,7 @@
 @interface KSUtils : NSObject
 
 /**
- *  Used to get the string representation of the timestamp property.
+ *  Used to get the string representation of the given date.
  *  An NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
  *  @note The NSDateFormatter will only be initialized the first time this is called and is not customizable.
  *
@@ -24,7 +24,15 @@
  */
 + (NSString *)dateAsString:(NSDate *)date;
 
-
+/**
+ *  Used to get the date representation of the given string.
+ *  An NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
+ *  @note The NSDateFormatter will only be initialized the first time this is called and is not customizable.
+ *
+ *  @param string The string to be converted to an NSDate object.
+ *
+ *  @return A date representing the given string.
+ */
 + (NSDate *)dateFromString:(NSString *)string;
 
 /**
@@ -58,6 +66,18 @@
  *  @return YES iff the app has not been started before.
  */
 + (BOOL)isFirstStart;
+
+/**
+ *  Returns a float that will be used to appropriately scale images.
+ *  This method takes into consideration the screen scale (otherwise, images taken on
+ *  retina-devices will be four times larger).
+ *
+ *  @param quality The given image quality
+ *
+ *  @return The factor by which the image should be scaled down.
+ */
++ (CGFloat)scaleForScreenshotQuality:(KSScreenshotQuality)quality;
+
 
 static inline void KS_dispatch_async_reentrant(dispatch_queue_t queue, dispatch_block_t block)
 {

@@ -13,6 +13,8 @@
 
 @property (weak) IBOutlet NSTextField *minimumIdleTimeLabel;
 @property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
+@property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox;
+@property (weak) IBOutlet NSSlider *screenshotQualitySlider;
 
 @end
 
@@ -33,6 +35,8 @@
     int idleTimeInMinutes = [[KSUserInfo sharedUserInfo] minimumIdleTime] / 60;
     [self.minimumIdleTimeSlider setIntegerValue:idleTimeInMinutes];
     self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%i", idleTimeInMinutes];
+    self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
+    [self.screenshotQualitySlider setIntegerValue:[[KSUserInfo sharedUserInfo] screenshotQuality]];
 }
 
 - (IBAction)textFieldDidReturn:(NSTextField *)sender
@@ -108,9 +112,19 @@
 
 - (IBAction)sliderDidChangeValue:(NSSlider *)sender
 {
-    NSInteger value = sender.integerValue;
-    [[KSUserInfo sharedUserInfo] setMinimumIdleTime:value*60];
-    self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%li", (long)value];
+    if(sender == self.minimumIdleTimeSlider) {
+        NSInteger value = sender.integerValue;
+        [[KSUserInfo sharedUserInfo] setMinimumIdleTime:value*60];
+        self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%li", (long)value];
+    } else if(sender == self.screenshotQualitySlider) {
+        NSInteger value = sender.integerValue;
+        [[KSUserInfo sharedUserInfo] setScreenshotQuality:(int)value];
+    }
+}
+
+- (IBAction)recordScreenshotsValueChanged:(NSButton *)sender
+{
+    [[KSUserInfo sharedUserInfo] setShouldRecordScreenshots:sender.state];
 }
 
 @end

@@ -43,6 +43,19 @@
  */
 - (BOOL)focusSensor:(KSFocusSensor *)sensor shouldRecordApplication:(NSRunningApplication *)application;
 
+/**
+ *  Asks the focusDelegate whether or not screenshots should be recorded for the given application.
+ *  This method is invoked when an application gets focus - and possibly when it loses focus as well,
+ *  should the first attempt to grab a screenshot have failed.
+ *
+ *  @param sensor       The KSFocusSensor object that wants to take screenshots.
+ *  @param application  The application in question.
+ *  @return             YES if the sensor should record a screenshot for this application.
+ */
+- (KSScreenshotQuality)focusSensor:(KSFocusSensor *)sensor
+   screenshotQualityForApplication:(NSRunningApplication *)application;
+
+
 @end
 
 /** 

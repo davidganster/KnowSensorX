@@ -28,6 +28,7 @@
 		EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF99933617C413DC002E7458 /* KSUserInfo.m */; };
 		EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */; };
 		EF9EC4C717C0F51F00A4A5A0 /* KSSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */; };
+		EFA10F9E18BA64AF00B8808A /* KSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA10F9D18BA64AF00B8808A /* KSTextField.m */; };
 		EFA1629218104F0F002D481B /* KSProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA1629118104F0F002D481B /* KSProjectController.m */; };
 		EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */; };
 		EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */; };
@@ -129,6 +130,8 @@
 		EF9EC4C417C0F51F00A4A5A0 /* KSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSettingsViewController.m; sourceTree = "<group>"; };
 		EF9EC4C517C0F51F00A4A5A0 /* KSSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSSettingsViewController.xib; sourceTree = "<group>"; };
 		EFA10F9518BA4C0500B8808A /* KSIdleTimeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSIdleTimeHelper.h; sourceTree = "<group>"; };
+		EFA10F9C18BA64AF00B8808A /* KSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTextField.h; sourceTree = "<group>"; };
+		EFA10F9D18BA64AF00B8808A /* KSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTextField.m; sourceTree = "<group>"; };
 		EFA1629018104F0F002D481B /* KSProjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProjectController.h; sourceTree = "<group>"; };
 		EFA1629118104F0F002D481B /* KSProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProjectController.m; sourceTree = "<group>"; };
 		EFA3306318B6672300E61E7C /* KSScreenshotGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSScreenshotGrabber.h; sourceTree = "<group>"; };
@@ -296,6 +299,15 @@
 				EFA10F9518BA4C0500B8808A /* KSIdleTimeHelper.h */,
 			);
 			name = "Idle Sensor Helpers";
+			sourceTree = "<group>";
+		};
+		EFA10F9B18BA648900B8808A /* Custom UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				EFA10F9C18BA64AF00B8808A /* KSTextField.h */,
+				EFA10F9D18BA64AF00B8808A /* KSTextField.m */,
+			);
+			name = "Custom UI Elements";
 			sourceTree = "<group>";
 		};
 		EFA3306218B6670D00E61E7C /* Focus Sensor Helpers */ = {
@@ -569,6 +581,7 @@
 		EFE8F32417BD3BAE00D6369E /* Views&Windows */ = {
 			isa = PBXGroup;
 			children = (
+				EFA10F9B18BA648900B8808A /* Custom UI Elements */,
 				EF535B26183C10D400F31871 /* Menu */,
 				EFE8F32517BD3BE100D6369E /* KSMainWindowController.h */,
 				EFE8F32617BD3BE100D6369E /* KSMainWindowController.m */,
@@ -718,6 +731,7 @@
 				EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */,
 				EFF2572E17FB17DE00D2C72C /* LaunchAtLoginController.m in Sources */,
 				EFA670E417BBF6DE00C43BB0 /* KSAppDelegate.m in Sources */,
+				EFA10F9E18BA64AF00B8808A /* KSTextField.m in Sources */,
 				EFE8F30B17BD1BE800D6369E /* NSString+Repeat.m in Sources */,
 				EFE8F30A17BD1BE800D6369E /* NSMutableIndexSet+Addons.m in Sources */,
 				EFA6718217BBFAD300C43BB0 /* AFHTTPClient.m in Sources */,

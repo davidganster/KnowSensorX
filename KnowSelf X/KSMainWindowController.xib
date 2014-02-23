@@ -20,7 +20,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="468" y="518" width="508" height="293"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="508" height="293"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -44,7 +44,7 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="9"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="34"/>
-                    <toolbarItem implicitItemIdentifier="690AFDCE-B75F-4CDC-A99C-3F4AF8747E61" explicitItemIdentifier="SpecialApplications" label="Special Applications" paletteLabel="Special Applications" tag="-1" image="NSListViewTemplate" selectable="YES" id="35">
+                    <toolbarItem implicitItemIdentifier="690AFDCE-B75F-4CDC-A99C-3F4AF8747E61" explicitItemIdentifier="SpecialApplications" label="Manage Applications" paletteLabel="Manage Applications" tag="-1" image="NSListViewTemplate" selectable="YES" id="35">
                         <size key="minSize" width="18" height="18"/>
                         <size key="maxSize" width="18" height="18"/>
                         <connections>
@@ -56,7 +56,6 @@
                             <action selector="settingsButtonPressed:" target="-2" id="77"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="F1D72066-4EDC-4F15-99F8-E7BA9C9115DF" explicitItemIdentifier="Info" label="Info" paletteLabel="Info" tag="-1" image="NSInfo" selectable="YES" id="78"/>
                     <toolbarItem implicitItemIdentifier="8F2D7118-A40D-400C-B13D-BBB733BCE49B" explicitItemIdentifier="URLMappings" label="URL Mappings" paletteLabel="URL Mappings" tag="-1" image="NSBookmarksTemplate" selectable="YES" id="fZP-Cx-oBe">
                         <connections>
                             <action selector="URLMappingsButtonPressed:" target="-2" id="oPh-gu-IzO"/>
@@ -69,7 +68,6 @@
                     <toolbarItem reference="fZP-Cx-oBe"/>
                     <toolbarItem reference="34"/>
                     <toolbarItem reference="9"/>
-                    <toolbarItem reference="78"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>
@@ -80,7 +78,6 @@
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSBookmarksTemplate" width="17" height="12"/>
-        <image name="NSInfo" width="32" height="32"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
     </resources>
 </document>

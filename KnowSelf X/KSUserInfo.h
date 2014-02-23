@@ -48,6 +48,14 @@
 /// the new idle time for the key 'kKSNotificationUserInfoKeyNewIdleTime'
 @property(nonatomic, assign) CGFloat minimumIdleTime;
 
+/// Indicated whether or not screenshots should recorded and sent along focus-change events.
+/// Defaults to YES.
+@property(nonatomic, assign) BOOL shouldRecordScreenshots;
+
+/// Quality with which to record (= scale) screenshots.
+/// Defaults to kKSScreenshotQualityMedium.
+@property(nonatomic, assign) KSScreenshotQuality screenshotQuality;
+
 /**
  *  Returns the shared KSUserInfo object for retrieving/setting global user infos.
  *

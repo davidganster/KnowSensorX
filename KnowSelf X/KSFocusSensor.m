@@ -82,10 +82,13 @@
                 }
             }
             KSScreenshotData *screenshotData = nil;
-            if(!self.previousScreenshot) {
+            KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
+                                          screenshotQualityForApplication:self.previousApplication];
+            if(!self.previousScreenshot &&
+               quality != KSScreenshotQualityNone) {
                 // this app didn't get a screenshot when it got focus, let's try to make one now!
                 screenshotData = [KSScreenshotGrabber screenshotDataForApplication:self.previousApplication
-                                                                             scale:0.5f];
+                                                                             scale:[KSUtils scaleForScreenshotQuality:quality]];
             }
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
@@ -106,8 +109,14 @@
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
             // todo: make scale dynamic
-            KSScreenshotData *screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp
-                                                                                           scale:0.5];
+            KSScreenshotData *screenshotData = nil;
+            KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
+                                          screenshotQualityForApplication:frontApp];
+            if(quality != KSScreenshotQualityNone) {
+                 screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp
+                                                                              scale:[KSUtils scaleForScreenshotQuality:quality]];
+            }
+            
             self.previousScreenshot = screenshotData;
             
             if(isURL) {

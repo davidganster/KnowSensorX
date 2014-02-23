@@ -58,10 +58,15 @@
     _specialApplications = [NSMutableSet setWithArray:applications];
 
     _specialApplicationsAreBlacklist = [[NSUserDefaults standardUserDefaults] boolForKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
+    
+    _shouldRecordScreenshots = [[NSUserDefaults standardUserDefaults] boolForKey:kKSUserInfoShouldRecordScreenshotsKey];
+    
+    _screenshotQuality = (int)[[NSUserDefaults standardUserDefaults] integerForKey:kKSUserInfoScreenshotQualityKey];
+
     if([KSUtils isFirstStart]) {
-        _specialApplicationsAreBlacklist = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:_specialApplicationsAreBlacklist
-                                                forKey:kKSUserInfoSpecialApplicationsAreBlacklistKey];
+        self.specialApplicationsAreBlacklist = YES;
+        self.shouldRecordScreenshots = YES;
+        self.screenshotQuality = KSScreenshotQualityMedium;
     }
     
     _URLMappings = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kKSUserInfoURLMappingsKey] mutableCopy];
@@ -88,7 +93,9 @@
     self.URLMappings = [@{@"127.0.0.1:8182" : @"KnowSelf WebApp",
                           @"http://127.0.0.1:8182/?showobservations=1" : @"KnowSelf Diary",
                           @"www.google.*" : @"Google"} mutableCopy];
+    self.shouldRecordScreenshots = YES;
     self.minimumIdleTime = kKSIdleSensorMinimumIdleTime;
+    self.screenshotQuality = KSScreenshotQualityMedium;
 }
 
 - (BOOL)saveUserInfoToPath:(NSURL *)path includeUserData:(BOOL)includeUserData
@@ -99,6 +106,8 @@
                                          kKSUserInfoUserNameKey : self.userID,
                                          kKSUserInfoMinimumIdleTimeKey : @(self.minimumIdleTime),
                                          kKSUserInfoSpecialApplicationsAreBlacklistKey : @(self.specialApplicationsAreBlacklist),
+                                         kKSUserInfoShouldRecordScreenshotsKey : @(self.shouldRecordScreenshots),
+                                         kKSUserInfoScreenshotQualityKey :@(self.screenshotQuality),
                                          kKSUserInfoSpecialApplicationsKey : [self.specialApplications allObjects],
                                          kKSUserInfoURLMappingsKey : self.URLMappings} mutableCopy];
     
@@ -138,6 +147,11 @@
         NSDictionary *URLMappings = dictionary[kKSUserInfoURLMappingsKey];
         if(URLMappings) self.URLMappings = URLMappings;
         
+        NSNumber *shouldRecordScreenshots = dictionary[kKSUserInfoShouldRecordScreenshotsKey];
+        if(shouldRecordScreenshots) self.shouldRecordScreenshots = [shouldRecordScreenshots boolValue];
+        
+        NSNumber *screenshotQuality = dictionary[kKSUserInfoScreenshotQualityKey];
+        if(screenshotQuality) self.screenshotQuality = [screenshotQuality integerValue];
         [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationUserInfoDidImport
                                                             object:nil];
         return YES;
@@ -246,5 +260,18 @@
                                                       userInfo:@{kKSNotificationUserInfoKeyNewIdleTime:@(minimumIdleTime)}];
 }
 
+- (void)setShouldRecordScreenshots:(BOOL)shouldRecordScreenshots
+{
+    _shouldRecordScreenshots = shouldRecordScreenshots;
+    [[NSUserDefaults standardUserDefaults] setBool:_shouldRecordScreenshots
+                                            forKey:kKSUserInfoShouldRecordScreenshotsKey];
+}
+
+- (void)setScreenshotQuality:(KSScreenshotQuality)screenshotQuality
+{
+    _screenshotQuality = screenshotQuality;
+    [[NSUserDefaults standardUserDefaults] setInteger:_screenshotQuality
+                                               forKey:kKSUserInfoScreenshotQualityKey];
+}
 
 @end

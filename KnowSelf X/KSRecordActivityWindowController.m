@@ -25,7 +25,6 @@
 
 /// The activity represented by the activityComboBox.
 /// Will change upon autocompletion and selecting an object from the combo box, but is ultimately ignored since a new activity has to be created anyway.
-// TODO: Remove this member.
 @property (nonatomic, strong) KSActivity *activity;
 
 /// An array of KSProject objects, mirroring the KSProjectController's list.
@@ -51,11 +50,11 @@
 @property (weak) IBOutlet NSButton *recordButton;
 
 // Some necessary outlets for fading status message in/out.
-@property (weak) IBOutlet NSImageView *willCreateNewProjectWarningImage;
-@property (weak) IBOutlet NSTextField *willCreateNewProjectWarningLabel;
+@property (weak) IBOutlet NSImageView *willCreateNewProjectInfoImage;
+@property (weak) IBOutlet NSTextField *willCreateNewProjectInfoLabel;
 
-@property (weak) IBOutlet NSImageView *willCreateNewActivityWarningImage;
-@property (weak) IBOutlet NSTextField *willCreateNewActivityWarningLabel;
+@property (weak) IBOutlet NSImageView *willCreateNewActivityInfoImage;
+@property (weak) IBOutlet NSTextField *willCreateNewActivityInfoLabel;
 
 @property (weak) IBOutlet NSImageView *willUseAlreadyExistingColorWarningImage;
 @property (weak) IBOutlet NSTextField *willUseAlreadyExistingColorWarningLabel;
@@ -82,13 +81,17 @@
 
 - (void)windowDidLoad
 {
-    [self resetComboBoxes];
+    if(self.project != nil)
+        [self.projectComboBox  setStringValue:self.project.name];
+    if(self.activity != nil)
+        [self.activityComboBox setStringValue:self.activity.name];
+    
     [self updateColorWell];
     [self updateRecordButtonState];
-    self.willCreateNewProjectWarningImage.alphaValue        = 0.0f;
-    self.willCreateNewProjectWarningLabel.alphaValue        = 0.0f;
-    self.willCreateNewActivityWarningImage.alphaValue       = 0.0f;
-    self.willCreateNewActivityWarningLabel.alphaValue       = 0.0f;
+    self.willCreateNewProjectInfoImage.alphaValue        = 0.0f;
+    self.willCreateNewProjectInfoLabel.alphaValue        = 0.0f;
+    self.willCreateNewActivityInfoImage.alphaValue       = 0.0f;
+    self.willCreateNewActivityInfoLabel.alphaValue       = 0.0f;
     self.willUseAlreadyExistingColorWarningImage.alphaValue = 0.0f;
     self.willUseAlreadyExistingColorWarningLabel.alphaValue = 0.0f;
     self.alreadyRecordingThisActivityImage.alphaValue       = 0.0f;
@@ -98,6 +101,12 @@
     [super windowDidLoad];
 }
 
+/**
+ *  Triggered by clicking the record button or hitting return on the keyboard.
+ *  Decides if the selected activity should be recorded or stopped based on the tag of `sender`.
+ *
+ *  @param sender The button that generated the event. Its tag can either be `RecordButtonTagRecord` or `RecordButtonTagStop`. If the tag does not equal either of those constants, this method does nothing.
+ */
 - (IBAction)recordButtonClicked:(NSButton *)sender
 {
     if(sender.tag == RecordButtonTagRecord) {
@@ -118,6 +127,13 @@
     }
 }
 
+/**
+ *  Called when the colorwell notifies the WindowController about the picked color.
+ *  This method checks if the picked color is equal to the color of any of the projects
+ *  and displays a warning if that is the case.
+ *
+ *  @param sender The colorwell that generated the event. Unused.
+ */
 - (IBAction)colorWellDidPickColor:(id)sender {
     for (KSProject *project in self.projects) {
         NSColor *color = [NSColor colorWithHexColorString:project.color];
@@ -129,17 +145,15 @@
     [self showColorAlreadyInUseWarning:NO];
 }
 
-- (IBAction)activityComboBoxDidHitReturn:(id)sender
-{
-    if([self.recordButton isEnabled]) {
-        [self recordButtonClicked:sender];
-    }
-}
-
-
 /// Delegates to KSProjectController to start recording based on the current selection.
 /// If the project does not exist yet, it will be created in the process; same goes for the activity.
 /// @warning Invoking this method will close the window, /regardless/ of whether or not errors are encountered!
+
+/**
+ *  Delegates to KSProjectController to start recording based on the current selection.
+ *  If the project does not exist yet, it will be created in the process; same goes for the activity.
+ *  @warning Invoking this method will close the window, /regardless/ of whether or not errors are encountered!
+ */
 - (void)startRecordingActivity
 {
     KSActivity *activityToRecord = nil;
@@ -289,7 +303,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     _project = project;
     [self updateColorWell];
     BOOL shouldShowWarning = !project && self.projectComboBox.stringValue.length;
-    [self showNewProjectWarning:shouldShowWarning];
+    [self showNewProjectInfo:shouldShowWarning];
 }
 
 - (void)setActivity:(KSActivity *)activity
@@ -301,14 +315,11 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 
 
 #pragma mark - Helpers
-- (void)resetComboBoxes
-{
-    if(self.project != nil)
-        [self.projectComboBox  setStringValue:self.project.name];
-    if(self.activity != nil)
-        [self.activityComboBox setStringValue:self.activity.name];
-}
-
+/**
+ *  Helper method to update the color well's color and state (enabled/disabled) based on the currenlty
+ *  selected project.
+ *  Also dismisses the color panel if it is currently showing.
+ */
 - (void)updateColorWell
 {
     if(self.project.color != nil)
@@ -322,30 +333,54 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     }
 }
 
-- (void)showNewProjectWarning:(BOOL)show
+/**
+ *  Shows or hides the 'A new project will be created' info using a fade animation.
+ *
+ *  @param show Indicates if the info should be shown or hidden.
+ */
+- (void)showNewProjectInfo:(BOOL)show
 {
-    [self.willCreateNewProjectWarningImage.animator setAlphaValue:show];
-    [self.willCreateNewProjectWarningLabel.animator setAlphaValue:show];
+    [self.willCreateNewProjectInfoImage.animator setAlphaValue:show];
+    [self.willCreateNewProjectInfoLabel.animator setAlphaValue:show];
 }
 
+/**
+ *  Shows or hides the 'A new activity will be created' info using a fade animation.
+ *
+ *  @param show Indicates if the info should be shown or hidden.
+ */
 - (void)showNewActivityWarning:(BOOL)show
 {
-    [self.willCreateNewActivityWarningImage.animator setAlphaValue:show];
-    [self.willCreateNewActivityWarningLabel.animator setAlphaValue:show];
+    [self.willCreateNewActivityInfoImage.animator setAlphaValue:show];
+    [self.willCreateNewActivityInfoLabel.animator setAlphaValue:show];
 }
 
+/**
+ *  Shows or hides the 'This color is alreay in use' warning using a fade animation.
+ *
+ *  @param show Indicates if the warning should be shown or hidden.
+ */
 - (void)showColorAlreadyInUseWarning:(BOOL)show
 {
     [self.willUseAlreadyExistingColorWarningImage.animator setAlphaValue:show];
     [self.willUseAlreadyExistingColorWarningLabel.animator setAlphaValue:show];
 }
 
+/**
+ *  Shows or hides the 'This activity is already recording' info using a fade animation.
+ *
+ *  @param show Indicates if the info should be shown or hidden.
+ */
 - (void)showAlreadyRecordingThisActivityWarning:(BOOL)show
 {
     [self.alreadyRecordingThisActivityImage.animator setAlphaValue:show];
     [self.alreadyRecordingThisActivityLabel.animator setAlphaValue:show];
 }
 
+/**
+ *  Updates the state of the record button depending on the values of the project/activity combo boxes.
+ *  It also swaps the record button for a 'Stop' button if the selected activity is already recording.
+ */
 - (void)updateRecordButtonState
 {
     BOOL isAlreadyRecordingThisActivity = NO;
@@ -366,12 +401,10 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
            
         [self.recordButton setTitle:@"Record"];
         [self.recordButton setTag:RecordButtonTagRecord];
-        [self.recordButton setKeyEquivalent:@"\r"];
         [self.recordButton setEnabled:YES];
     } else if(isAlreadyRecordingThisActivity) {
         [self.recordButton setTitle:@"Stop"];
         [self.recordButton setTag:RecordButtonTagStop];
-        [self.recordButton setKeyEquivalent:@"\r"];
         [self.recordButton setEnabled:YES];
     } else {
         [self.recordButton setTitle:@"Record"];
@@ -380,8 +413,14 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     }
 }
 
-/// Creates a new KSActivity in the defaultContext with the given project and string value of the activityComboBox.
-/// @note The newly created activity will be added to the given project's `activities` relationship.
+/**
+ *  Creates a new KSActivity with the given project and string value of the activityComboBox.
+ *  @note The newly created activity will be added to the given project's `activities` relationship once the activity has been pushed to the server (which will return a new project list containing this activity).
+ *
+ *  @param project The project that will be connected to the new activity.
+ *
+ *  @return A new KSActivity object initialized to the current time, the name from the activityCombobox, and the given project.
+ */
 - (KSActivity *)activityForProject:(KSProject *)project
 {
     KSActivity *activity = nil;
@@ -394,6 +433,11 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     return activity;
 }
 
+/**
+ *  Helper to display an alert if another activity is already recording when the user clicks 'Record'.
+ *  This alert will only be displayed if the user has not ticked its suppressionButton before (this value
+ *  is stored in the NSUserDefaults for the key `kKSHasWarnedIfAlreadyRecordingActivityShouldBeStopped`).
+ */
 - (void)showAlreadyRecordingWarning
 {
     NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Another activity (\"%@\") is already recording!", [[[KSProjectController sharedProjectController] currentlyRecordingActivity] name]]

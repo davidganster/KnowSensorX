@@ -25,6 +25,13 @@
 
 @interface KSMainWindowController ()
 
+@property(nonatomic, strong) NSArray *tabViewControllers;
+
+@property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
+@property (weak) IBOutlet NSToolbarItem *specialApplicationsToolbarItem;
+@property (weak) IBOutlet NSTabView *tabView;
+@property (weak) IBOutlet NSToolbar *toolbar;
+
 /// The status item that is displayed in the MenuBar. Has to be retained, otherwise it will immediately be deallocated.
 @property(nonatomic, strong) NSStatusItem *statusItem;
 

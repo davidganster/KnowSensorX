@@ -13,10 +13,10 @@
                 <outlet property="projectColorWell" destination="lXR-iF-1OG" id="hUU-Bc-6Tu"/>
                 <outlet property="projectComboBox" destination="6B6-ER-pAh" id="M5r-fB-kWI"/>
                 <outlet property="recordButton" destination="mkF-Fe-eXu" id="JK8-0u-abd"/>
-                <outlet property="willCreateNewActivityWarningImage" destination="OJV-f4-c0W" id="KdC-oF-zPf"/>
-                <outlet property="willCreateNewActivityWarningLabel" destination="c3Z-qB-9Cf" id="vwj-0E-WLT"/>
-                <outlet property="willCreateNewProjectWarningImage" destination="es5-hd-PAn" id="Nt0-34-fjy"/>
-                <outlet property="willCreateNewProjectWarningLabel" destination="EGx-fC-qQE" id="O2l-9i-B3M"/>
+                <outlet property="willCreateNewActivityInfoImage" destination="OJV-f4-c0W" id="JoR-1Y-VNX"/>
+                <outlet property="willCreateNewActivityInfoLabel" destination="c3Z-qB-9Cf" id="Qq1-Na-lSX"/>
+                <outlet property="willCreateNewProjectInfoImage" destination="es5-hd-PAn" id="LUV-Jb-J3u"/>
+                <outlet property="willCreateNewProjectInfoLabel" destination="EGx-fC-qQE" id="Du5-wo-dc2"/>
                 <outlet property="willUseAlreadyExistingColorWarningIMage" destination="a0c-9G-0B6" id="Pyf-sX-Vcq"/>
                 <outlet property="willUseAlreadyExistingColorWarningImage" destination="a0c-9G-0B6" id="A66-F2-NQ1"/>
                 <outlet property="willUseAlreadyExistingColorWarningLabel" destination="lCo-o6-rSS" id="eVt-gA-8bR"/>

@@ -16,14 +16,4 @@
  */
 @interface KSMainWindowController : NSWindowController<NSTabViewDelegate, KSProjectControllerEventObserver>
 
-@property(nonatomic, strong) NSArray *tabViewControllers;
-
-@property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
-@property (weak) IBOutlet NSToolbarItem *specialApplicationsToolbarItem;
-@property (weak) IBOutlet NSTabView *tabView;
-@property (weak) IBOutlet NSToolbar *toolbar;
-
-
-- (IBAction)settingsButtonPressed:(id)sender;
-
 @end

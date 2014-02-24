@@ -71,7 +71,7 @@
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="izI-9u-fUp"/>
-                <menuItem title="Quit KnowSelf X" id="QHB-in-CZ7">
+                <menuItem title="Quit KnowSensor X" id="QHB-in-CZ7">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="quit:" target="-2" id="IbO-OL-eQs"/>

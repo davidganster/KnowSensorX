@@ -261,6 +261,41 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		EF2D36A118BABA3400117CCE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				EFA5774B18B9429D00A9F2A1 /* KSExportable.h */,
+				EFA5774E18B9528D00A9F2A1 /* KSImportable.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		EF2D36A218BABA4600117CCE /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */,
+				EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */,
+				EFE8F2F417BD0D1C00D6369E /* KSEvent.h */,
+				EFE8F2F517BD0D1C00D6369E /* KSEvent.m */,
+				EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */,
+				EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */,
+				EF7EFAAE18B7ADFE00763507 /* KSScreenshotData.h */,
+				EF7EFAAF18B7ADFE00763507 /* KSScreenshotData.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		EF2D36A318BABA5A00117CCE /* Projects/Activities */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE46017F308B90032ADF2 /* KSActivity.h */,
+				EF7FE46117F308B90032ADF2 /* KSActivity.m */,
+				EF7FE45D17F308B80032ADF2 /* KSProject.h */,
+				EF7FE45E17F308B80032ADF2 /* KSProject.m */,
+			);
+			name = Projects/Activities;
+			sourceTree = "<group>";
+		};
 		EF4ED9C917E8A1140013DCAD /* NSLogger */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,20 +549,9 @@
 		EFE8F2EC17BD09D200D6369E /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				EF8B4C0418119BBC00EB31DE /* KSIdleEvent.h */,
-				EF8B4C0518119BBC00EB31DE /* KSIdleEvent.m */,
-				EF7FE46017F308B90032ADF2 /* KSActivity.h */,
-				EF7FE46117F308B90032ADF2 /* KSActivity.m */,
-				EF7FE45D17F308B80032ADF2 /* KSProject.h */,
-				EF7FE45E17F308B80032ADF2 /* KSProject.m */,
-				EFE8F2F417BD0D1C00D6369E /* KSEvent.h */,
-				EFE8F2F517BD0D1C00D6369E /* KSEvent.m */,
-				EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */,
-				EFE8F2EF17BD0D1B00D6369E /* KSFocusEvent.m */,
-				EF7EFAAE18B7ADFE00763507 /* KSScreenshotData.h */,
-				EF7EFAAF18B7ADFE00763507 /* KSScreenshotData.m */,
-				EFA5774B18B9429D00A9F2A1 /* KSExportable.h */,
-				EFA5774E18B9528D00A9F2A1 /* KSImportable.h */,
+				EF2D36A318BABA5A00117CCE /* Projects/Activities */,
+				EF2D36A218BABA4600117CCE /* Events */,
+				EF2D36A118BABA3400117CCE /* Protocols */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";

@@ -141,15 +141,18 @@
         
         // Saving the context here should not be necessary.
         // The recorded events can be discarded immediately after sending to server!
-                // we have to wait for the server to process the first event before sending another one.
-                // the first event MUST be a lose focus event!
-                if(loseFocusEvent) {
-                    [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:nil];
-                }
-                
+        // we have to wait for the server to process the first event before sending another one.
+        // the first event MUST be a lose focus event!
+        
+        if(loseFocusEvent) {
+            [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^(BOOL success) {
                 if(currentEvent) {
                     [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
                 }
+            }];
+        } else if(currentEvent) {
+            [self.delegate sensor:self didRecordEvent:currentEvent finished:nil];
+        }
     });
 }
 

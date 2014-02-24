@@ -40,12 +40,6 @@
                                                  selector:@selector(idleTimeChanged:)
                                                      name:kKSNotificationKeyIdleTimeChanged
                                                    object:nil];
-        
-        [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask | NSMouseMovedMask)
-                                                                         handler:^(NSEvent *someEvent) {
-                                                                             LogMessage(kKSLogTagIdleSensor, kKSLogLevelDebug, @"event: %@", someEvent);
-                                                                         }];
-
     }
     return self;
 }

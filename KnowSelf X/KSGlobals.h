@@ -125,7 +125,7 @@ typedef enum KSScreenshotQuality {
 #define kKSFocusSensorPollInterval 1.5f
 
 /// Workaround for the some processes that should never get the focus
-#define kKSFocusSensorBlockedApplicationNames @[@"loginwindow", @"usernotificationcenter"]
+#define kKSFocusSensorBlockedApplicationNames @[@"loginwindow", @"usernotificationcenter", @"securityagent"]
 
 /// Interval in seconds between two polls for the project/activity list.
 #define kKSProjectControllerPollInterval 3.0f

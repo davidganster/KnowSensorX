@@ -121,7 +121,7 @@
 {
     BOOL ignoreApplication = NO;
     
-    if([kKSFocusSensorBlockedApplicationNames containsObject:application.localizedName]) {
+    if([kKSFocusSensorBlockedApplicationNames containsObject:application.localizedName.lowercaseString]) {
         LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Will ignore application %@", application.localizedName);
         return NO;
     }

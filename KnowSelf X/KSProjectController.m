@@ -305,11 +305,11 @@
         [newProjects minusOrderedSet:oldProjects]; // all new (added) objects will remain
         [oldProjects minusOrderedSet:[NSOrderedSet orderedSetWithArray:projectList]]; // all old (deleted) objects will remain
         
-        if(newProjects.count == 0 && oldProjects.count == 0)
-            return; // nothing added, nothing removed - nothing to do.
         
         _projectList = projectList;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            // even if there are 0 'new' or 'deleted' projects - their activities might have changed!
             [self notifyObserversAboutProjectListChangeWithAddedObjects:[newProjects array]
                                                          deletedObjects:[oldProjects array]];
         });
@@ -395,11 +395,13 @@
         self.isStartingNewRecording = YES;
         void (^startRecording)() = ^void() {
             [[KSAPIClient sharedClient] startRecordingActivity:activity success:^(NSString *newActivityID) {
-                activity.activityID = newActivityID;
-//                    activity.projectName = activity.project.name; // just to make sure it is properly set
-                self.currentlyRecordingActivity = activity;
-                LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
-                self.isStartingNewRecording = NO;
+                dispatch_async(_refreshProjectListQueue, ^{
+                    activity.activityID = newActivityID;
+                    self.currentlyRecordingActivity = activity;
+                    
+                    LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
+                    self.isStartingNewRecording = NO;
+                });
             } failure:^(NSError *error) {
                 LogMessage(kKSLogTagProjectController, kKSLogLevelError, @"ERROR when trying to record acivity (name = %@): %@", activity.name, error);
             }];

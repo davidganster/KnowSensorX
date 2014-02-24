@@ -187,6 +187,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     dispatch_async(dispatch_get_main_queue(), ^{
         self.projects = controller.currentProjectList;
         [self.projectComboBox reloadData];
+        [self.activityComboBox reloadData];
     });
 }
 
@@ -362,13 +363,20 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     if(!isAlreadyRecordingThisActivity &&
        ((self.projectComboBox.stringValue.length && self.activityComboBox.stringValue.length) ||
         (self.project && self.activity))) {
-           [self.recordButton setTitle:@"Record"];
-           [self.recordButton setTag:RecordButtonTagRecord];
+           
+        [self.recordButton setTitle:@"Record"];
+        [self.recordButton setTag:RecordButtonTagRecord];
+        [self.recordButton setKeyEquivalent:@"\r"];
         [self.recordButton setEnabled:YES];
     } else if(isAlreadyRecordingThisActivity) {
         [self.recordButton setTitle:@"Stop"];
         [self.recordButton setTag:RecordButtonTagStop];
+        [self.recordButton setKeyEquivalent:@"\r"];
         [self.recordButton setEnabled:YES];
+    } else {
+        [self.recordButton setTitle:@"Record"];
+        [self.recordButton setTag:RecordButtonTagRecord];
+        [self.recordButton setEnabled:NO];
     }
 }
 

@@ -16,9 +16,10 @@
  *  @author David Ganster
  */
 @interface KSURLMapping : NSObject
-/// The URL to be mapped.
+/// The URL to be mapped. Setting this will automatically update the corresponding
+/// mapping in KSUserInfo if possible (if mappedName is set as well and this URL has been mapped before).
 @property(nonatomic, strong) NSString *URL;
-/// The mapped name.
+/// The mapped name. Setting this will automatically update the corresponding mapping in KSUserInfo.
 @property(nonatomic, strong) NSString *mappedName;
 
 /**
@@ -53,7 +54,8 @@
 {
     if(self.URL && self.mappedName) {
         // full new entry, will update the exisiting one with the new data!
-        [[KSUserInfo sharedUserInfo] addOrReplaceURLMappingWithMappedName:mappedName forURL:self.URL];
+        [[KSUserInfo sharedUserInfo] addOrReplaceURLMappingWithMappedName:mappedName
+                                                                   forURL:self.URL];
     }
     _mappedName = mappedName;
 }
@@ -120,6 +122,11 @@
     }
 }
 
+/**
+ *  Sent when the user doubleclicks inside the tableView.
+ *  If the click is detected to be in a valid row, this row (and column) is put in edit mode.
+ *  Should the click have been below the last valid row, a new row will be added and edited.
+ */
 - (void)doubleClick
 {
     if(self.tableView.clickedRow >= self.URLMappings.count) {
@@ -134,11 +141,25 @@
     }
 }
 
+/**
+ *  Handler for `kKSNotificationUserInfoDidImport` notifications.
+ *  Simply reloads the tableView with the new data.
+ *
+ *  @param notification The notification that has been sent by KSUserInfo. Unused.
+ */
 - (void)userInfoDidImport:(NSNotification *)notification
 {
     [self.tableView reloadData];
 }
 
+/**
+ *  Creates the temporary KSURLMapping object (if none existed) and reload the tableView.
+ *  This will cause the tableView to display the last row empty and in edit-mode.
+ *  If the temporary mapping had already existed, this will simply put the 
+ *  temporary row in edit mode.
+ *
+ *  @param sender The button that generated the event. Unused (so it is safe to call this method with a nil parameter).
+ */
 - (IBAction)addMappingButtonPressed:(id)sender
 {
     if(!self.tempMapping) {
@@ -153,6 +174,13 @@
                         select:YES];
 }
 
+/**
+ *  Removes the currently selected rows in the table view from the UI and deletes the corresponding
+ *  values from KSUserInfo as well.
+ *  The temporary mapping will be nil'd, should it be contained in the selection.
+ *
+ *  @param sender The button that generated the event. Unused.
+ */
 - (IBAction)removeMappingButtonPressed:(id)sender
 {
     NSMutableIndexSet *selectedIndexes = [[self.tableView selectedRowIndexes] mutableCopy];
@@ -226,7 +254,18 @@
     }
 }
 
-
+/**
+ *  This method has been overwritten to correctly handle 'Tab' key presses.
+ *  The new behaviour always selects the next column, or switches to the next
+ *  row/first column if possible.
+ *  Backtabs are also handled here in a similar fashion, but backwards.
+ *
+ *  @param control         The control that generated the event.
+ *  @param textView        The textView that registered the special key.
+ *  @param commandSelector The selector that was caught by the control. (We only handle 'insertTab:' and 'insertBacktab:').
+ *
+ *  @return YES iff the event was handled by us (namely when it's a insertTab: or insertBacktab: event).
+ */
 - (BOOL)control:(NSControl *)control
        textView:(NSTextView *)textView
 doCommandBySelector:(SEL)commandSelector
@@ -264,6 +303,10 @@ doCommandBySelector:(SEL)commandSelector
 
 
 #pragma mark - Helper
+/**
+ *  Helper method for sorting all URL mappings.
+ *  Sorting is done alphabetically over the URLs.
+ */
 - (void)sortURLMappings
 {
     [_URLMappings sortUsingComparator:^NSComparisonResult(KSURLMapping *obj1, KSURLMapping *obj2) {

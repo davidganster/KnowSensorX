@@ -36,6 +36,21 @@
     return nil;
 }
 
+#pragma mark - Helper
+
+/**
+ *  Helper method that tries to identify the appropriate window ID for the given application name.
+ *  It iterates through the list of all windows and returns the first one whose owner is equal
+ *  to the given appName. 
+ *  Since this is usually called from a getFocus event, the expected runtime is O(1), 
+ *  because the window list is ordered front-to-back.
+ *  The attempt to retrieve the window ID will fail if the application doesn't have a window.
+ *  In this case, the runtime will be O(n), where n is the number of open windows.
+ *
+ *  @param appName The name of the application, it will be used to search through the window list.
+ *
+ *  @return The window ID of the frontmost window of the given application name, or 0 if no window belonging to the application with the given name has been found.
+ */
 + (CGWindowID)windowIDForAppName:(NSString *)appName
 {
     // Ask the window server for the list of windows.
@@ -57,6 +72,15 @@
     return windowID;
 }
 
+/**
+ *  Helper method that captures a screenshot for the given window ID, and
+ *  scales it down by the given scale factor.
+ *
+ *  @param windowID The window ID for which to capture a screenshot.
+ *  @param scale    The scale by which to scale the captures screenshot
+ *
+ *  @return An NSImage of the window with `windowID`, scaled down by `scale`, or nil if capturing the screenshot failed for some reason.
+ */
 + (NSImage *)takeScreenShotForWindowWithID:(CGWindowID)windowID scale:(CGFloat)scale
 {
     CGImageRef windowImage = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow, windowID, kCGWindowImageDefault);

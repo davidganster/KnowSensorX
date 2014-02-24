@@ -8,11 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+ *  @author David Ganster
+ *  NSViewController subclass that manages the settings view.
+ *  Synchronizes the values to/from the KSUserInfo values.
+ */
 @interface KSSettingsViewController : NSViewController<NSTextFieldDelegate>
-
-@property (weak) IBOutlet NSView *hackToFixIB;
-@property (weak) IBOutlet NSTextField *userNameTextField;
-@property (weak) IBOutlet NSTextField *serverAddressTextField;
-@property (weak) IBOutlet NSTextField *deviceNameTextField;
 
 @end

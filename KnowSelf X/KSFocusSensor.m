@@ -140,11 +140,10 @@
         if(!loseFocusEvent && !currentEvent)
             return;
         
-        // Saving the context here should not be necessary.
-        // The recorded events can be discarded immediately after sending to server!
-        // we have to wait for the server to process the first event before sending another one.
-        // the first event MUST be a lose focus event!
-        
+        // We have to wait for the server to process the first event before sending another one.
+        // The first event MUST be a lose focus event!
+        // Overloading the server with events will result in 'dropped' events
+        // that last for 0 seconds.
         if(loseFocusEvent) {
             [self.delegate sensor:self didRecordEvent:loseFocusEvent finished:^(BOOL success) {
                 if(currentEvent) {

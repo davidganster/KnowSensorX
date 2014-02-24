@@ -25,12 +25,13 @@
 
 @interface KSMainWindowController ()
 
-@property(nonatomic, strong) NSArray *tabViewControllers;
-
 @property (weak) IBOutlet NSToolbarItem *settingsToolbarItem;
 @property (weak) IBOutlet NSToolbarItem *specialApplicationsToolbarItem;
 @property (weak) IBOutlet NSTabView *tabView;
 @property (weak) IBOutlet NSToolbar *toolbar;
+
+/// All the view controllers need to be retained somewhere, so we just put them in an array.
+@property(nonatomic, strong) NSArray *tabViewControllers;
 
 /// The status item that is displayed in the MenuBar. Has to be retained, otherwise it will immediately be deallocated.
 @property(nonatomic, strong) NSStatusItem *statusItem;
@@ -77,15 +78,6 @@
     [self.window setLevel:NSFloatingWindowLevel];
 }
 
-- (void)createMenubarItem
-{
-    self.menuController = [[KSMenuController alloc] init];
-    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    [self.statusItem setImage:[NSImage imageNamed:@"statusbar_icon"]];
-    [self.statusItem setMenu:self.menuController.menu];
-    [self.statusItem setHighlightMode:YES];
-}
-
 - (IBAction)specialApplicationsButtonPressed:(id)sender
 {
     [self resizeWindowToSize:CGSizeMake(480.f, 272.f)];
@@ -105,6 +97,24 @@
 }
 
 #pragma mark - Helper
+/**
+ *  Helper method that creates the KSMenuController and adds the status item to the status bar.
+ */
+- (void)createMenubarItem
+{
+    self.menuController = [[KSMenuController alloc] init];
+    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    [self.statusItem setImage:[NSImage imageNamed:@"statusbar_icon"]];
+    [self.statusItem setMenu:self.menuController.menu];
+    [self.statusItem setHighlightMode:YES];
+}
+
+/**
+ *  Helper method that resizes the window to the given size with a smooth animation, 
+ *  accounting for the y-offset and toolbar size.
+ *
+ *  @param size The new size for the window (without toolbar height).
+ */
 - (void)resizeWindowToSize:(CGSize)size
 {
     NSRect frame = [self.window frame];

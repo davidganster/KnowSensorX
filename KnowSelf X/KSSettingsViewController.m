@@ -11,10 +11,24 @@
 
 @interface KSSettingsViewController ()
 
+// IBOutlets, see nib file for info.
+/// This view is actually not needed anymore, it was once used as a workaround for a
+/// bug in interface builder.
+/// Since this bug has been resolved, this view doesn't do anything - but removing it would require
+/// moving all UI elements manually, which is more hassle than it's worth.
+@property (weak) IBOutlet NSView *hackToFixIB;
+@property (weak) IBOutlet NSTextField *userNameTextField;
+@property (weak) IBOutlet NSTextField *serverAddressTextField;
+@property (weak) IBOutlet NSTextField *deviceNameTextField;
 @property (weak) IBOutlet NSTextField *minimumIdleTimeLabel;
 @property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
-@property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox;
 @property (weak) IBOutlet NSSlider *screenshotQualitySlider;
+
+/// The value of this checkbox is connected to all labels below it (everything that has something to
+/// do with screenshot quality) using cocoa bindings to enable/disable them.
+/// Take a look at the corresponding .xib file for more info.
+@property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox;
+
 @end
 
 @implementation KSSettingsViewController
@@ -28,16 +42,15 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
-    self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
-    self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
-    int idleTimeInMinutes = [[KSUserInfo sharedUserInfo] minimumIdleTime] / 60;
-    [self.minimumIdleTimeSlider setIntegerValue:idleTimeInMinutes];
-    self.minimumIdleTimeLabel.stringValue = [NSString stringWithFormat:@"%i", idleTimeInMinutes];
-    self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
-    [self.screenshotQualitySlider setIntegerValue:[[KSUserInfo sharedUserInfo] screenshotQuality]];
+    [self updateUI];
 }
 
+/**
+ *  Sent when any of the text fields (server address, user name, device ID) end editing.
+ *  This method will update the according KSUserInfo field.
+ *
+ *  @param sender The text field that sent the event.
+ */
 - (IBAction)textFieldDidReturn:(NSTextField *)sender
 {
     KSUserInfo *userInfo = [KSUserInfo sharedUserInfo];
@@ -52,6 +65,12 @@
     }
 }
 
+/**
+ *  Opens an NSOpenPanel that lets the user choose from where to import the file.
+ *  Passes the obtained URL to the KSUserInfo class for further processing.
+ *
+ *  @param sender The button that generated the event. Unused.
+ */
 - (IBAction)importSettingsButtonClicked:(NSButton *)sender
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -74,6 +93,12 @@
     }
 }
 
+/**
+ *  Opens an NSOpenPanel that lets the user choose where to export the file.
+ *  Passes the obtained URL to the KSUserInfo class for further processing.
+ *
+ *  @param sender The button that generated the event. Unused.
+ */
 - (IBAction)exportSettingsButtonClicked:(NSButton *)sender
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
@@ -95,22 +120,24 @@
     }
 }
 
+/**
+ *  Resets all values to their defaults - both in KSUserInfo and the GUI.
+ *
+ *  @param sender The button that generated the event. Unused.
+ */
 - (IBAction)resetToDefaultsButtonClicked:(id)sender
 {
     [[KSUserInfo sharedUserInfo] resetToDefaults];
     [self updateUI];
 }
 
-- (void)updateUI
-{
-    self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
-    self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
-    self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
-    self.minimumIdleTimeLabel.stringValue   = [NSString stringWithFormat:@"%i", (int)[[KSUserInfo sharedUserInfo] minimumIdleTime] / 60];
-    self.screenshotQualitySlider.integerValue = [[KSUserInfo sharedUserInfo] screenshotQuality];
-    self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
-}
-
+/**
+ *  Called when any of the sliders (minimumIdleTimeSlider or screenshotQualitySlider) change their value.
+ *  The minimumIdleTimeSlider is continuous and updates the minimum idle time in KSUserInfo.
+ *  The screenshotQualitySlider is discrete and directly passes its value to KSUserInfo.
+ *
+ *  @param sender The NSSlider that generated the event. Used for determining which value to change.
+ */
 - (IBAction)sliderDidChangeValue:(NSSlider *)sender
 {
     if(sender == self.minimumIdleTimeSlider) {
@@ -123,9 +150,32 @@
     }
 }
 
+/**
+ *  Sent when the 'Record screenshots' check box changes its state.
+ *  The state is simply sent to KSUserInfo as the 'shouldRecordScreenshots' property.
+ *
+ *  @param sender The button that generated the event. Its state will be used as the new 'shouldRecordScreenshots' property in KSUserInfo.
+ */
 - (IBAction)recordScreenshotsValueChanged:(NSButton *)sender
 {
     [[KSUserInfo sharedUserInfo] setShouldRecordScreenshots:sender.state];
 }
+
+#pragma mark - Helper
+/**
+ *  Helper method for updating all UI fields to their corresponding KSUserInfo values.
+ */
+- (void)updateUI
+{
+    self.userNameTextField.stringValue      = [[KSUserInfo sharedUserInfo] userID];
+    self.serverAddressTextField.stringValue = [[KSUserInfo sharedUserInfo] serverAddress];
+    self.deviceNameTextField.stringValue    = [[KSUserInfo sharedUserInfo] deviceID];
+    int idleTimeInMinutes = [[KSUserInfo sharedUserInfo] minimumIdleTime] / 60;
+    self.minimumIdleTimeLabel.stringValue   = [NSString stringWithFormat:@"%i", idleTimeInMinutes];
+    [self.minimumIdleTimeSlider setIntegerValue:idleTimeInMinutes];
+    self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
+    self.screenshotQualitySlider.integerValue = [[KSUserInfo sharedUserInfo] screenshotQuality];
+}
+
 
 @end

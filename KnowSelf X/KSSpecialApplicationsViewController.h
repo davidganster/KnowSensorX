@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+ *  Manages a view where the user can edit their white- or blacklist.
+ *  Displays all chosen applications in a table view, and acts as the data source and delegate
+ *  of said table view.
+ */
 @interface KSSpecialApplicationsViewController : NSViewController<NSTableViewDataSource, NSTableViewDelegate>
 
 @end

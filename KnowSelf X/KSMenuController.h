@@ -13,12 +13,12 @@
 @class KSActivity;
 
 /**
- @author David Ganster
- The KSMenuController class encapsulates all interaction with the status bar menu, such as setting/updating
- the project list, current activity etc.
- @note The KSMenu is dependant on one layout constraint: The first 3 items are reserved
- for "Current Project/Activty", <current project/activity> and <seperator>.
- Any changes after these three items do not require any changes in code, but be careful if you insert new items at the front!
+ * @author David Ganster
+ * The KSMenuController class encapsulates all interaction with the status bar menu, such as setting/updating
+ * the project list, current activity etc. 
+ * @note The KSMenu is dependant on one layout constraint: The first 3 items are reserved
+ * for "Current Project/Activty", <current project/activity> and <seperator>.
+ * Any changes after these three items do not require any changes in code, but be careful if you insert new items at the front!
  */
 @interface KSMenuController : NSObject<KSProjectControllerEventObserver>
 

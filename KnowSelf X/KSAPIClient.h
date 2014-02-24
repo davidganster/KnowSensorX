@@ -13,7 +13,8 @@
 @class KSProject;
 
 /**
- *  Provides a convenient ac
+ *  Provides convenient high-level access to the KnowServer's API, providing finished-blocks
+ *  for all calls.
  */
 @interface KSAPIClient : NSObject
 

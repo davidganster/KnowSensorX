@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+ *  Simple wrapper for a NSTextField that changes its `textColor` when setting 'isEnabled` to NO.
+ */
 @interface KSTextField : NSTextField
 
 @end

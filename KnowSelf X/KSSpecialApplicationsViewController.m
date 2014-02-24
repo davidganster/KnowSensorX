@@ -131,23 +131,4 @@
     return applicationCell;
 }
 
-#pragma mark - TableView Delegate
-
-//- (NSDragOperation)tableView:(NSTableView *)tableView
-//               validateDrop:(id<NSDraggingInfo>)info
-//                proposedRow:(NSInteger)row
-//      proposedDropOperation:(NSTableViewDropOperation)dropOperation
-//{
-//    return NSDragOperationCopy;
-//}
-//
-//- (BOOL)tableView:(NSTableView *)tableView
-//      acceptDrop:(id<NSDraggingInfo>)info
-//             row:(NSInteger)row
-//   dropOperation:(NSTableViewDropOperation)dropOperation
-//{
-//    // TODO
-//    return NO;
-//}
-
 @end

@@ -10,7 +10,13 @@
 #import "KSFocusSensor.h"
 
 
-/// Singleton class that manages all KSSensor objects, server interactions regarding events, and event buffers.
+/**
+ *  Singleton class that manages all KSSensor objects, server interactions regarding events, and event buffers.
+ *  It provides a very limited interface to the outside, allowing other objects to start and stop recording events.
+ *  Starting and stopping the recording of events happens asynchronously, and stopping the recording provides
+ *  a finished-block for callbacks when all sensors have successfully stopped recording.
+ *  @author David Ganster
+ */
 @interface KSSensorController : NSObject<KSSensorDelegateProtocol, KSFocusSensorDelegate>
 
 /// Array of sensors currently held by the KSSensorController.
@@ -18,6 +24,8 @@
 
 /// This flag indicates if the KSSensorDelegate will continuously try to empty its queue
 /// or wait for a `ServerReachable` notification before retrying in case an error occurs.
+/// Setting this flag to NO will result in higher CPU usage, should the connection to the
+/// server be interrupted.
 /// Defaults to YES.
 @property(nonatomic, assign) BOOL waitForReachability;
 

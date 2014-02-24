@@ -88,11 +88,38 @@
  */
 - (BOOL)loadUserInfoFromPath:(NSURL *)path;
 
-// Methods to modify the 'specialApplications' set.
+/**
+ *  Adds an object to the `specialApplications` set.
+ *  This is the preferred way to add objects (as opposed to newly setting the set).
+ *
+ *  @param object The absolute string pointing to the application's bundle.
+ */
 - (void)addSpecialApplicationsObject:(NSString *)object;
+
+/**
+ *  Removes an object from the `specialApplications` set.
+ *  This is the preferred way to remove objects (as opposed to newly setting the set).
+ *
+ *  @param object The absolute string pointing to the application's bundle.
+ */
 - (void)removeSpecialApplicationsObject:(NSString *)object;
 
-// Methods to mofify the 'URLMappings' dictionary.
+
+/**
+ *  Sets the `mappedName` for the `URL` in the URLMappings dictionary.
+ *  This is the preferred way to add mappings (as opposed to newly setting the dictionary).
+ *
+ *  @param mappedName The name that will replace the URL.
+ *  @param URL        The URL to be replaced.
+ */
 - (void)addOrReplaceURLMappingWithMappedName:(NSString *)mappedName forURL:(NSString *)URL;
+
+/**
+ *  Removes an object from the `URLMappings` dictionary.
+ *  This is the preferred way to remove objects (as opposed to newly setting the dictionary).
+ *
+ *  @param object The URL for which the mapping should be removed.
+ */
 - (void)removeURLMappingWithURL:(NSString *)URL;
+
 @end

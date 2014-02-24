@@ -305,7 +305,6 @@
         [newProjects minusOrderedSet:oldProjects]; // all new (added) objects will remain
         [oldProjects minusOrderedSet:[NSOrderedSet orderedSetWithArray:projectList]]; // all old (deleted) objects will remain
         
-        
         _projectList = projectList;
         
         dispatch_async(dispatch_get_main_queue(), ^{

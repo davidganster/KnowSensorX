@@ -20,27 +20,44 @@
 #define kKSServerShowObservationsURL @"/?showobservations=1"
 
 // Further URLs:
+/// Path to be used for applicationDidLoseFocus events.
 #define kKSURLPathApplicationDidLoseFocusPath @"events/applicationDidLoseFocus"
+/// Path to be used for applicationDidGetFocus events.
 #define kKSURLPathApplicationDidGetFocusPath @"events/applicationDidGetFocus"
+/// Path to be used for userIdleStart events.
 #define kKSURLPathIdleDidStart @"events/userIdleStart"
+/// Path to be used for userIdleEnd events.
 #define kKSURLPathIdleDidEnd @"events/userIdleEnd"
 
 // IDs for api-calls
+/// Sensor ID for the Focus Sensor, important for the relevant API calls.
 #define kKSSensorIDFocusSensor @"FocusSensor"
+/// Sensor ID for the Idle Sensor, important for the relevant API calls.
 #define kKSSensorIDIdleSensor @"IdleSensor"
 
+/// applicationDidGetFocus-event type as string (used in API calls and for printing debug information)
 #define kKSEventTypeDidGetFocus @"applicationDidGetFocus"
+/// applicationDidLoseFocus-event type as string (used in API calls and for printing debug information)
 #define kKSEventTypeDidLoseFocus @"applicationDidLoseFocus"
+/// userIdleStart-event type as string (used in API calls and for printing debug information)
 #define kKSEventTypeDidStartIdle @"userIdleStart"
+/// userIdleEnd-event type as string (used in API calls and for printing debug information)
 #define kKSEventTypeDidEndIdle @"userIdleEnd"
 
 // JSON-dict keys
+/// Key for the event-JSON sent to the server. Maps to which application was recorded.
 #define kKSJSONKeyApplication @"application"
+/// Key for the event-JSON sent to the server. Maps to sensor-specific data.
 #define kKSJSONKeyData @"data"
+/// Key for the event-JSON sent to the server. Maps to the device ID.
 #define kKSJSONKeyDeviceID @"deviceid"
+/// Key for the event-JSON sent to the server. Maps to the event type.
 #define kKSJSONKeyType @"type"
+/// Key for the event-JSON sent to the server. Maps to the timestamp.
 #define kKSJSONKeyTimeStamp @"timestamp"
+/// Key for the event-JSON sent to the server. Maps to the ID of the sensor that generated the event.
 #define kKSJSONKeySensorID @"sensorid"
+/// Key for the event-JSON sent to the server. Maps to the user's ID.
 #define kKSJSONKeyUserID @"userid"
 
 //------------------------------------------------------------------------------
@@ -65,22 +82,22 @@
 
 /// Used for switch-statements on the type property of a KSEvent object.
 typedef enum KSEventTypeEnum {
-    KSEventTypeDidGetFocus,
-    KSEventTypeDidLoseFocus,
-    KSEventTypeIdleStart,
-    KSEventTypeIdleEnd
+    KSEventTypeDidGetFocus,     // Type for a 'did get focus' event.
+    KSEventTypeDidLoseFocus,    // Type for a 'did lose focus' event.
+    KSEventTypeIdleStart,       // Type for a 'idle start' event.
+    KSEventTypeIdleEnd          // Type for a 'idle end' event.
 } KSEventType;
 
 /// Used to select an appropriate screenshot quality.
 typedef enum KSScreenshotQuality {
-    KSScreenshotQualitySmall    = 0,    // Favor small file size over image quality
-    KSScreenshotQualityMedium   = 1,    // Happy medium between file size and image quality
+    KSScreenshotQualitySmall    = 0,    // Favor small file size over image quality.
+    KSScreenshotQualityMedium   = 1,    // Happy medium between file size and image quality.
     KSScreenshotQualityOriginal = 2,    // Full image, resulting in great quality but large file size.
     KSScreenshotQualityNone     = 0xFF  // No screenshot.
 } KSScreenshotQuality;
 
 //------------------------------------------------------------------------------
-// Notifications
+// Notification Keys
 //------------------------------------------------------------------------------
 #define kKSNotificationKeyUserIdleStart @"UserIdleStart"
 #define kKSNotificationKeyUserIdleEnd  @"UserIdleEnd"
@@ -114,7 +131,6 @@ typedef enum KSScreenshotQuality {
 
 /// Minimum idle time before an event is registered in seconds. Defaults to 600 (10 minutes)
 #define kKSIdleSensorMinimumIdleTime 240
-//#define kKSIdleSensorMinimumIdleTime 5
 
 /// The time in seconds between two polls when the user is idle.
 /// This is a workaround for the keyboard/mouse events sometimes not being registered by a NSEventMonitor
@@ -161,6 +177,6 @@ typedef enum KSScreenshotQuality {
 #define kKSLogTagSensorController @"Sensor Controller"
 #define kKSLogTagProjectController @"Project Controller"
 #define kKSLogTagScreenshotGrabber @"Screenshot Grabber"
-#define kKSLogTagOther @"Unspecified"
+#define kKSLogTagOther @"Other"
 
 #endif

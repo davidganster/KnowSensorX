@@ -82,14 +82,15 @@
                 }
             }
             KSScreenshotData *screenshotData = nil;
-            KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
-                                          screenshotQualityForApplication:self.previousApplication];
-            if(!self.previousScreenshot &&
-               quality != KSScreenshotQualityNone) {
-                // this app didn't get a screenshot when it got focus, let's try to make one now!
-                screenshotData = [KSScreenshotGrabber screenshotDataForApplication:self.previousApplication
-                                                                             scale:[KSUtils scaleForScreenshotQuality:quality]];
-            }
+            // the server doesn't support screenshots on 'loseFocus' :(
+//            KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
+//                                          screenshotQualityForApplication:self.previousApplication];
+//            if(!self.previousScreenshot &&
+//               quality != KSScreenshotQualityNone) {
+//                // this app didn't get a screenshot when it got focus, let's try to make one now!
+//                screenshotData = [KSScreenshotGrabber screenshotDataForApplication:self.previousApplication
+//                                                                             scale:[KSUtils scaleForScreenshotQuality:quality]];
+//            }
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle

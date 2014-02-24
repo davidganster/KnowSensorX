@@ -11,6 +11,7 @@
 #import "KSAPIClient.h"
 #import "KSSensorController.h"
 #import "STPrivilegedTask.h"
+#import "KSUserInfo.h"
 
 #import <ApplicationServices/ApplicationServices.h>
 
@@ -107,6 +108,10 @@ void SignalHandler(int sig)
 
 - (void)startKnowServer
 {
+    if(![[[KSUserInfo sharedUserInfo] serverAddress] isEqualToString:kKSServerBaseURL]) {
+        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Will not start KnowServer: BaseURL is different.");
+        return;
+    }
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Starting KnowServer...");
     
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer Base URL: %@", kKSKnowServerRelativeBasePath);

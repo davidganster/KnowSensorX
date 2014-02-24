@@ -15,7 +15,6 @@
 @property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
 @property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox;
 @property (weak) IBOutlet NSSlider *screenshotQualitySlider;
-
 @end
 
 @implementation KSSettingsViewController

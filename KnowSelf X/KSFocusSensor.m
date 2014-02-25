@@ -13,11 +13,16 @@
 
 @interface KSFocusSensor ()
 
+/// The previously recorded application. Needed to send lose focus events.
 @property(nonatomic, strong) NSRunningApplication *previousApplication;
+/// The previously recorded file (or url). Needed to send lose focus events.
 @property(nonatomic, strong) NSString *previousFileOrUrl;
+/// The previously recorded window title. Needed to send lose focus events.
 @property(nonatomic, strong) NSString *previousWindowTitle;
-@property(nonatomic, strong) KSScreenshotData *previousScreenshot;
+/// Every time this timer fires, the KSFocusSensor will check for new focus events.
 @property(nonatomic, strong) NSTimer *timer;
+/// The queue that will be used to record events - executing applescripts takes a while,
+/// so this needs to happen asynchronously.
 @property(nonatomic, assign) dispatch_queue_t applescriptQueue;
 
 @end
@@ -36,7 +41,7 @@
         _name = kKSSensorNameFocusSensor;
         _applescriptQueue = dispatch_queue_create("com.kc.KnowSensorX.ASQueue", DISPATCH_QUEUE_SERIAL);
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userStartedIdling:) // will send didLoseFocus event
+                                                 selector:@selector(_unregisterForEventsFinished:) // will send didLoseFocus event
                                                      name:kKSNotificationKeyUserIdleStart
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -47,18 +52,23 @@
     return self;
 }
 
-- (void)userStartedIdling:(NSNotification *)notification
-{
-    [self _unregisterForEventsFinished:nil];
-}
-
 #pragma mark Event Handling
 
+/**
+ *  Called every time the timer fires - which is every second.
+ *  Runs on the applescriptQueue.
+ *  Checks the currenlty frontmost application and compares it to the 
+ *  previouslyRecordedApplication.
+ *  If they are not the same, a lose/get focus event is created and handed to the
+ *  delegate.
+ *  The focusDelegate will be asked whether or not to record the application, as
+ *  well as for mapped URLs.
+ *
+ *  @param sender The timer that generated the event. Unused.
+ */
 - (void)handleTimerFired:(id)sender
 {
     dispatch_async(self.applescriptQueue, ^{
-        
-        
         NSRunningApplication *frontApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
         
         BOOL isURL = NO;
@@ -83,29 +93,16 @@
             }
             KSScreenshotData *screenshotData = nil;
             // the server doesn't support screenshots on 'loseFocus' :(
-//            KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
-//                                          screenshotQualityForApplication:self.previousApplication];
-//            if(!self.previousScreenshot &&
-//               quality != KSScreenshotQualityNone) {
-//                // this app didn't get a screenshot when it got focus, let's try to make one now!
-//                screenshotData = [KSScreenshotGrabber screenshotDataForApplication:self.previousApplication
-//                                                                             scale:[KSUtils scaleForScreenshotQuality:quality]];
-//            }
             loseFocusEvent = [self createEventFromApplication:self.previousApplication
                                                   withFileUrl:self.previousFileOrUrl
                                                   windowTitle:self.previousWindowTitle
                                                    screenshot:screenshotData
                                                          type:KSEventTypeDidLoseFocus];
-        } else {
-//            if(self.previousApplication) {
-//                LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not stop recording application: %@", self.previousApplication.localizedName);
-//            }
         }
         
         self.previousApplication = frontApp;
         self.previousFileOrUrl = fileOrUrl;
         self.previousWindowTitle = windowTitle;
-        self.previousScreenshot = nil;
         
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
@@ -117,8 +114,6 @@
                  screenshotData = [KSScreenshotGrabber screenshotDataForApplication:frontApp
                                                                               scale:[KSUtils scaleForScreenshotQuality:quality]];
             }
-            
-            self.previousScreenshot = screenshotData;
             
             if(isURL) {
                 if(fileOrUrl &&
@@ -133,8 +128,6 @@
                                                 windowTitle:windowTitle
                                                  screenshot:screenshotData
                                                        type:KSEventTypeDidGetFocus];
-        } else {
-//            LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Will not start recording application: %@", frontApp.localizedName);
         }
         
         if(!loseFocusEvent && !currentEvent)
@@ -158,7 +151,15 @@
 
 #pragma mark Helper
 
-/// Asks the delegate whether or not to record the application in question.
+/**
+ *  Asks the delegate whether or not to record the application in question.
+ *  Also checks if the delegate responds to the focusSensor:shouldRecordApplication:
+ *  message. If it doesn't, YES is returned.
+ *
+ *  @param application The application that might be reocrded.
+ *
+ *  @return return-value of the delegate or YES if the delegate didn't respond.
+ */
 - (BOOL)shouldRecordApplication:(NSRunningApplication *)application
 {
     BOOL shouldRecordApplication = YES;
@@ -169,14 +170,23 @@
     return shouldRecordApplication;
 }
 
+/**
+ *  Creates an event with the given parameters and returns it.
+ *
+ *  @param application    The application that will provide its name and process identifier.
+ *  @param fileOrUrl      Will be set as the event's filePath.
+ *  @param windowTitle    Will be set as the event's windowTitle.
+ *  @param screenshotData Will be set as the event's screenshotData.
+ *  @param type           Can be either KSEventTypeDidGetFocus or KSEventTypeDidLoseFocus.
+ *
+ *  @return The KSFocusEvent initialized with the given parameters.
+ */
 - (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)application
                                  withFileUrl:(NSString *)fileOrUrl
                                  windowTitle:(NSString *)windowTitle
                                   screenshot:(KSScreenshotData *)screenshotData
                                         type:(KSEventType)type
 {
-    static KSFocusEvent *oldEvent = nil;
-
     KSFocusEvent *currentEvent = [[KSFocusEvent alloc] init];
     [currentEvent setTimestamp:[NSDate date]];
     [currentEvent setProcessID:[NSString stringWithFormat:@"%i", application.processIdentifier]];
@@ -187,23 +197,24 @@
     [currentEvent setScreenshot:screenshotData];
     [currentEvent setType:type];
     
-    if(oldEvent &&
-       ([[KSUtils dateAsString:oldEvent.timestamp] isEqualToString:[KSUtils dateAsString:currentEvent.timestamp]]) &&
-       (oldEvent.windowTitle == currentEvent.windowTitle ||
-        oldEvent.processID == currentEvent.processID)) {
-           LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"WARNING: Two events with the exact same timestamp recorded - how is this possible? The two events were:\n1) %@ \n2) %@", oldEvent, currentEvent);
-//           oldEvent = currentEvent;
-//           return nil;
-    }
-    
-    oldEvent = currentEvent;
-//    LogMessage(kKSLogTagFocusSensor, kKSLogLevelDebug, @"Recording focus event: %@", currentEvent);
-    
     return currentEvent;
 }
 
-
-- (NSString *)urlOrFileOfApplication:(NSRunningApplication *)application isURL:(BOOL *)isURL;
+/**
+ *  Executes an AppleScript that tries to return the application's filePath.
+ *  The AppleScript that is be executed will either be 'URLFromBrowser' or 'ActiveFile',
+ *  depending on whether or not the application is a browser (checked via the
+ *  `isBrowser:` helper) the application.
+ *
+ *  @note This function will take a while to return, so it should not be called from the main thread.
+ *
+ *  @param application The application whose file/url should be extracted.
+ *  @param isURL       A second return value. The caller has to provide a valid memory address to write to. Indicates if the returned value is a http-URL or file path.
+ *
+ *  @return The URL or file path of the frontmost document opened in `application`.
+ */
+- (NSString *)urlOrFileOfApplication:(NSRunningApplication *)application
+                               isURL:(BOOL *)isURL;
 {
     NSString *scriptName = nil;
     NSString *functionName = nil;
@@ -225,13 +236,20 @@
     if(errorInfo) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing AppleScript: %@", errorInfo);
         return nil;
-    } else {
-//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got url or file: %@", [result stringValue]);
     }
     
     return [result stringValue];
 }
 
+/**
+ *  Executes an AppleScript that tries to return the application's window title.
+ *
+ *  @note This will only work for well-behaved Cocoa-applications.
+ *
+ *  @param application The application whose window title will be extracted.
+ *
+ *  @return The recorded window title or nil if the application didn't respond to the script.
+ */
 - (NSString *)windowTitleOfApplication:(NSRunningApplication *)application
 {
     NSDictionary *errorDict;
@@ -242,13 +260,19 @@
     if(errorDict) {
         LogMessage(kKSLogTagFocusSensor, kKSLogLevelError, @"Error when executing Applescript: %@", errorDict);
         return nil;
-    } else {
-//        LogMessage(kKSLogTagFocusSensor, kKSLogLevelInfo, @"Got window title: %@", [result stringValue]);
     }
     return [result stringValue];
 }
 
 #pragma mark HELPER
+/**
+ *  Helper method to check if the given application is a browser.
+ *  @note Firefox will not return YES, because it's not applescript-ready.
+ *
+ *  @param application The application whose name will be checked.
+ *
+ *  @return YES if the application is Safari, Chrome or Opera. No otherwise.
+ */
 - (BOOL)isBrowser:(NSRunningApplication *)application
 {
     static NSSet *browserNames = nil;
@@ -257,6 +281,11 @@
     return [browserNames containsObject:application.localizedName];
 }
 
+/**
+ *  Helper method that sends a 'loseFocus' event for the current application.
+ *
+ *  @param finished The finished block to be executed once the server has acknowledged the event.
+ */
 - (void)sendLoseFocusEventForCurrentApplicationFinished:(void (^)(BOOL succesful))finished
 {
     KSFocusEvent *loseFocusEvent = nil;

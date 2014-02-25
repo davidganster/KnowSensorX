@@ -44,16 +44,13 @@ void SignalHandler(int sig)
 
 - (void)checkIfAccessabilityIsEnabled
 {
-//    AXAPIEnabled();
-//    NSDictionary *options = @{(id)kAXTrustedCheckOptionPrompt: @YES};
-//    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
     BOOL accessibilityEnabled = NO;
     if([KSUtils accessibilityPopupAvailable]) {
         NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
          accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
         // 10.9 and above will display a dialog that will take the user to the System Preferences.
-        // 10.8 and below will need an extra dialog for this:
     } else {
+        // 10.8 and below will need an extra dialog for this:
         accessibilityEnabled = AXAPIEnabled();
         if(!accessibilityEnabled) {
             NSAlert *alert = [NSAlert alertWithMessageText:nil
@@ -84,6 +81,7 @@ void SignalHandler(int sig)
     sigaction(SIGBUS, &newSignalAction, NULL);
 //    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught... The server will keep running in that case :(
 
+    LoggerSetDefaultLogger(nil);
 //    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
 //                     kLoggerOption_BrowseBonjour);
     

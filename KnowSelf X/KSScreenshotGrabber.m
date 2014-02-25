@@ -11,6 +11,8 @@
 #import "KSScreenshotData.h"
 #import "NSData-Base64Extensions.h"
 
+static BOOL isTinyWindow = NO;
+
 @implementation KSScreenshotGrabber
 
 + (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application
@@ -44,6 +46,9 @@
  *  to the given appName. 
  *  Since this is usually called from a getFocus event, the expected runtime is O(1), 
  *  because the window list is ordered front-to-back.
+ *  Sometimes, an applications front window will be the status bar icon - in this case, the search
+ *  will be continued until a larger window of the same application is found.
+ *  (Skype is an example of an application that requires this workaround.)
  *  The attempt to retrieve the window ID will fail if the application doesn't have a window.
  *  In this case, the runtime will be O(n), where n is the number of open windows.
  *
@@ -63,6 +68,16 @@
     for (NSDictionary *dict in windowListArray) {
         if([dict[@"kCGWindowOwnerName"] isEqualToString:appName]) {
             windowID = [dict[@"kCGWindowNumber"] unsignedIntValue];
+            NSDictionary *boundsDict = dict[@"kCGWindowBounds"];
+            int width  = [boundsDict[@"Width"]  intValue];
+            int height = [boundsDict[@"Height"] intValue];
+            if(width < 50 && height < 50) {
+                // window is tiny... let's try to find a larger one
+                // (it's possible that this is only a status bar icon)
+                isTinyWindow = YES;
+                continue;
+            }
+            isTinyWindow = NO;
             break;
         }
     }
@@ -86,8 +101,10 @@
     CGImageRef windowImage = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow, windowID, kCGWindowImageDefault);
     NSImage *screenshot = [[NSImage alloc] initWithCGImage:windowImage
                                                       size:NSZeroSize];
-    screenshot = [screenshot imageByScalingProportionallyToSize:CGSizeMake(screenshot.size.width * scale,
-                                                                           screenshot.size.height * scale)];
+    if(!isTinyWindow) {
+        screenshot = [screenshot imageByScalingProportionallyToSize:CGSizeMake(screenshot.size.width * scale,
+                                                                               screenshot.size.height * scale)];
+    }
     CGImageRelease(windowImage);
     return screenshot;
 }

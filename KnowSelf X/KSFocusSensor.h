@@ -61,6 +61,9 @@
 /** 
  *  This class catches and handles all "focus-change" events.
  *  It generates events when an application gets and loses the focus, and hands it to its delegate.
+ *  Events are generated when a timer fires, this class does not subscribe to any 
+ *  NSWorkspace notifications, because a timer would be needed anyway to detect tab- or window 
+ *  switches within a single application.
  *  @author David Ganster
  */
 @interface KSFocusSensor : KSSensor

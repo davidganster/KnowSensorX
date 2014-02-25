@@ -11,16 +11,23 @@
 #import "KSIdleTimeHelper.h"
 
 @interface KSIdleSensor ()
-
+/// The timer that fires every `minimumIdleTime` seconds and checks for the user idle time.
+/// The timer might fire earlier if the user has already been idle for some time (but not enough
+/// to be recognized as 'idle'.
 @property(nonatomic, strong) NSTimer *idleTimer;
+/// The time the user has been idle since the last checked. Will be substracted from
+/// minimumIdleTime to get the next fireDate for the idleTimer.
 @property(nonatomic, assign) CFTimeInterval idleTimeSoFar;
+/// NSDate object indicating when the user has entered the 'idle' state.
 @property(nonatomic, strong) NSDate *idleStartDate;
+/// Indicates if the user is already idling. Needed for some internal logic (we don't want
+/// to record idle end/start events more than once).
 @property(nonatomic, assign) BOOL userIsIdling;
+/// Instead of a serial queue, a standard lock is used to synchronize access to the important
+/// properties (like `userIsIdling`).
 @property(nonatomic, strong) NSLock *lock;
 /// The return value of [NSEvent addGlobalMonitorForEventsMatchingMasks:handler:] must be saved somewhere because it cannot be retained by the handler:-block alone.
 @property(nonatomic, strong) id eventHandler;
-
-@property(nonatomic, strong) id globalEventMonitor;
 
 @end
 
@@ -44,32 +51,31 @@
     return self;
 }
 
-- (id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate andMinimumIdleTime:(CGFloat)idleTime
-{
-    self = [super initWithDelegate:delegate];
-    if(self) {
-        _sensorID = kKSSensorIDIdleSensor;
-        _name = kKSSensorNameIdleSensor;
-        _minimumIdleTime = idleTime;
-        _idleTimeSoFar = 0;
-        _userIsIdling = NO;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(idleTimeChanged:)
-                                                     name:kKSNotificationKeyIdleTimeChanged
-                                                   object:nil];
-
-    }
-    return self;
-}
-
+/**
+ *  Listener for kKSNotificationKeyIdleTimeChanged.
+ *  Resets the timer and sets minimumIdleTime to the notification's
+ *  `kKSNotificationUserInfoKeyNewIdleTime` value (expected to be in seconds).
+ *  Starts a new timer with the new minimumIdleTime.
+ *
+ *  @param notification The notification containing the new idle time in its userInfo dictionary.
+ */
 - (void)idleTimeChanged:(NSNotification *)notification
 {
+    [self.lock lock];
     self.minimumIdleTime = [notification.userInfo[kKSNotificationUserInfoKeyNewIdleTime] floatValue];
     [self.idleTimer invalidate];
     self.idleTimer = nil;
+    [self.lock unlock];
     [self createTimerWithTimeInterval:0];
 }
 
+/**
+ *  Starts a new timer to listen for user idle. 
+ *  On OS X >= 10.9, a tolerance of one second will be applied to the timer to save energy.
+ *  This is where the one-second-resolution of the KSIdleSensor happens.
+ *
+ *  @param timeInterval The time interval after which to fire the timer.
+ */
 - (void)createTimerWithTimeInterval:(CFTimeInterval)timeInterval
 {
     // default value is the idle time of this object.
@@ -88,6 +94,11 @@
     }
 }
 
+/**
+ *  Checks the time since the last user input and reacts accordingly:
+ *  If the idleTime is larger than `minimumIdleTime`, an idleStart event will be sent,
+ *  and the KSIdleSensor will start listening for idleEnd events.
+ */
 - (void)checkUserIdleTime
 {
     CFTimeInterval idleTime = SystemIdleTime();
@@ -110,6 +121,13 @@
     }
 }
 
+/**
+ *  Handles the start of the user idling.
+ *  Stops the idle timer and registers for idle-end events.
+ *  Does nothing if the user is already idling.
+ *
+ *  @param sender <#sender description#>
+ */
 - (void)handleUserIdleStart:(id)sender
 {
     if(self.userIsIdling) {
@@ -120,12 +138,12 @@
     // update our state
     [self.lock lock];
     self.userIsIdling = YES;
-    [self.lock unlock];
 
     // update the timer
     self.idleTimeSoFar = 0.f;
     [self.idleTimer invalidate];
     self.idleTimer = nil;
+    [self.lock unlock];
     
     [self sendUserIdleStartEvent];
     // if the sender was a 'NSWorkspaceWillSleep' notification, we don't want to register idle end events -
@@ -135,8 +153,13 @@
     }
 }
 
-/// Registers an eventHandler for any keyboard/mouse events, as those will end the user's idle.
-/// Specal keys (such as 'cmd' or 'shift') will not end the idle state, whereas regular keys (such as letters, numbers or punctuation) will.
+/**
+ *  Registers an eventHandler for any keyboard/mouse events, as those will end the user's idle.
+ *  Specal keys (such as 'cmd' or 'shift') will not end the idle state, whereas 
+ *  regular keys (such as letters, numbers or punctuation) will.
+ *  Sometimes, the event handler will not register any events at all - as a fallback,
+ *  another timer is started that continuously checks the idle time every 10 seconds.
+ */
 - (void)registerForIdleEndEvents
 {
     LogMessage(kKSLogTagIdleSensor, kKSLogLevelInfo, @"Will try to register event handler for Key/Mouse events.");
@@ -168,6 +191,12 @@
     }
 }
 
+/**
+ *  Polls the idle time every kKSIdleSensorRegisterIdleEndPollInterval seconds (10.f seconds 
+ *  as of this writing).
+ *  Calls 'handleIdleEnd' if the idleTime gets smaller and the user is still idling (idle 
+ *  end might have been registered by the eventHandler already).
+ */
 - (void)pollIdleEnd
 {
     // user is no longer idling, no need to continue polling.
@@ -192,7 +221,14 @@
     });
 }
 
-/// Warning: you need to make sure that this method is only ever called ONCE per idle wakeup.
+
+
+/**
+ *  Removes the eventMonitor, sets 'userIsIdling' to NO, hands a userIdleEnd event to the delegate,
+ *  emits a kKSNotificationKeyUserIdleEnd and starts polling for idle time again.
+ *
+ *  @warning: You need to make sure that this method is only ever called ONCE per idle wakeup, and you have to hold the KSIdleSensor::lock when calling it.
+ */
 - (void)handleIdleEnd
 {
     if(self.eventHandler) {
@@ -217,6 +253,11 @@
     }];
 }
 
+/**
+ *  Creates a KSIdleEvent of type 'KSEventTypeIdleStart' and hands it to the delegate.
+ *  Emits a kKSNotificationKeyUserIdleEnd notification.
+ *
+ */
 - (void)sendUserIdleStartEvent
 {
     // create the event
@@ -231,7 +272,14 @@
 }
 
 #pragma mark Helper
-/// Creates an idle event with the given type (KSEventTypeIdleStart/KSEventTypeIdleEnd)
+/**
+ *  Creates and returns an idle event with the given type (KSEventTypeIdleStart/KSEventTypeIdleEnd).
+ *
+ *  @param type     The type of the event to be created.
+ *  @param idleTime How long the user has already been idle.
+ *
+ *  @return A new instance of KSIdleEvent, initialized to the current date, and with the given information.
+ */
 - (KSIdleEvent *)createIdleEventWithType:(KSEventType)type
                         idleSinceSeconds:(CFTimeInterval)idleTime
 {

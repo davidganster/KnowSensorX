@@ -275,7 +275,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
     
-    [activity setIsStartingRecording:YES];
+//    [activity setIsStartingRecording:NO];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity with dict representation: \n%@", activityDict);
@@ -325,7 +325,7 @@
     
     [activity setEndDate:[NSDate date]];
 
-    [activity setIsStartingRecording:NO];
+//    [activity setIsStartingRecording:NO];
     NSDictionary *activityDict = [activity dictRepresentation];
     
     LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity with dict representation: \n%@", activityDict);

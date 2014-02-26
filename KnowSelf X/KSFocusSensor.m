@@ -44,7 +44,7 @@
         _name = kKSSensorNameFocusSensor;
         _applescriptQueue = dispatch_queue_create("com.kc.KnowSensorX.ASQueue", DISPATCH_QUEUE_SERIAL);
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_unregisterForEventsFinished:) // will send didLoseFocus event
+                                                 selector:@selector(userStartedIdling:) // will send didLoseFocus event
                                                      name:kKSNotificationKeyUserIdleStart
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -55,7 +55,19 @@
     return self;
 }
 
+/**
+ *  Invoked when receiving a kKSNotificationKeyUserIdleStart notification.
+ *  Will call _unregisterForEventsFinished: with a nil finished block.
+ *
+ *  @param notification The 'user idle start' notification. Unused.
+ */
+- (void)userStartedIdling:(NSNotification *)notification
+{
+    [self _unregisterForEventsFinished:nil];
+}
+
 #pragma mark Event Handling
+/// @name Event Handling
 
 /**
  *  Called every time the timer fires - which is every second.
@@ -158,6 +170,7 @@
 }
 
 #pragma mark Helper
+/// @name Helper
 
 /**
  *  Asks the delegate whether or not to record the application in question.
@@ -272,7 +285,6 @@
     return [result stringValue];
 }
 
-#pragma mark HELPER
 /**
  *  Helper method to check if the given application is a browser.
  *  @note Firefox will not return YES, because it's not applescript-ready.
@@ -285,7 +297,7 @@
 {
     static NSSet *browserNames = nil;
     if(!browserNames)
-        browserNames = [NSSet setWithObjects:@"Safari", @"Google Chrome", @"Opera", nil];
+        browserNames = [NSSet setWithObjects:@"Safari", @"Google Chrome", @"Opera", @"SRWare Iron", @"Chromium", @"Dolphin", nil];
     return [browserNames containsObject:application.localizedName];
 }
 

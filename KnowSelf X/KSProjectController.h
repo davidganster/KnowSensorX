@@ -41,6 +41,8 @@
 /// The KSProjectController periodically asks the server for new projects and updates all observers when the list changes.
 @interface KSProjectController : NSObject
 
+///@name Public methods
+
 /// Accessor to the singleton object.
 + (KSProjectController *)sharedProjectController;
 

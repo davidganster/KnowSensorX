@@ -15,7 +15,6 @@
  *  It provides a very limited interface to the outside, allowing other objects to start and stop recording events.
  *  Starting and stopping the recording of events happens asynchronously, and stopping the recording provides
  *  a finished-block for callbacks when all sensors have successfully stopped recording.
- *  @author David Ganster
  */
 @interface KSSensorController : NSObject<KSSensorDelegateProtocol, KSFocusSensorDelegate>
 

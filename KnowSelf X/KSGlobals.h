@@ -130,7 +130,7 @@ typedef enum KSScreenshotQuality {
 //------------------------------------------------------------------------------
 
 /// Minimum idle time before an event is registered in seconds. Defaults to 600 (10 minutes)
-#define kKSIdleSensorMinimumIdleTime 240
+#define kKSIdleSensorMinimumIdleTime 600
 
 /// The time in seconds between two polls when the user is idle.
 /// This is a workaround for the keyboard/mouse events sometimes not being registered by a NSEventMonitor

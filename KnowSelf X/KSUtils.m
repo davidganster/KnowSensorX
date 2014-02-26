@@ -12,6 +12,7 @@
 
 // recreating DateFormatters is very slow, so this one is being reused:
 static NSDateFormatter *timestampFormatter;
+static NSDateFormatter *activityTimestampFormatter;
 
 @implementation KSUtils
 
@@ -28,12 +29,15 @@ static NSDateFormatter *timestampFormatter;
 
 + (NSDate *)dateFromString:(NSString *)string
 {
-    if(!timestampFormatter) {
-        timestampFormatter = [[NSDateFormatter alloc] init];
-        [timestampFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
-        [timestampFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    if(!activityTimestampFormatter) {
+        activityTimestampFormatter = [[NSDateFormatter alloc] init];
+        [activityTimestampFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        [activityTimestampFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     }
-    NSDate *dateFromString = [timestampFormatter dateFromString:string];
+    NSDate *dateFromString = [activityTimestampFormatter dateFromString:string];
+    if(!dateFromString) {
+        dateFromString = [timestampFormatter dateFromString:string];
+    }
     return dateFromString;
 }
 

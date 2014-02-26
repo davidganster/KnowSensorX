@@ -35,11 +35,11 @@
         [dataDict setObject:@"" forKey:@"id"];
     }
     
-    if(self.isStartingRecording) {
+//    if(!self.isStartingRecording) {
         [dataDict setObject:self.project.projectID forKey:@"project"];
-    } else {
-        [dataDict setObject:self.project.name forKey:@"project"];
-    }
+//    } else {
+//        [dataDict setObject:self.project.name forKey:@"project"];
+//    }
         
     return dataDict;
 }
@@ -55,6 +55,11 @@
         self.startDate = nil;
     } else {
         self.startDate   = [KSUtils dateFromString:startDateString];
+        if(!self.startDate)
+        {
+            int i = 5;
+            i += 2;
+        }
     }
     
     NSString *endDateString = dictionary[@"end_date"];

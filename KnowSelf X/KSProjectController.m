@@ -43,6 +43,8 @@
 @synthesize timeIntervalBetweenPolls = _timeIntervalBetweenPolls;
 
 #pragma mark - Private Methods
+/// @name Private Methods
+
 /**
  *  Designated initializer. 
  *  @warning Do not attempt to create a KSProjectController on your own. Use the singleton-accessor (`sharedProjectController`) instead.
@@ -64,6 +66,8 @@
 }
 
 #pragma mark - Updating the project list
+/// @name Managing the project/activity list
+
 /**
  *  Internal method.
  *  Sends a request for all projects and all activities to the server and waits for 
@@ -167,6 +171,8 @@
 }
 
 #pragma mark - Notifying observers
+/// @name Notifying observers
+
 /**
  *  Internal method. 
  *  This method will loop through all observers of project events and notfify them about changes
@@ -198,6 +204,8 @@
 }
 
 #pragma mark - Custom Getters/Setters
+/// Custom getters/setters
+
 /**
  *  Sets the new time interval between two polls for project/activity updates.
  *  @note This method returns immediately, dispatching to the internal queue for refreshing projects, meaning you cannot assume the property to be set correctly upon return.
@@ -317,6 +325,7 @@
 
 #pragma mark -
 #pragma mark Public Methods
+/// @name Public methods
 
 + (KSProjectController *)sharedProjectController
 {

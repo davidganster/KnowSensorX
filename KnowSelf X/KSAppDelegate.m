@@ -10,7 +10,6 @@
 #import "KSMainWindowController.h"
 #import "KSAPIClient.h"
 #import "KSSensorController.h"
-#import "STPrivilegedTask.h"
 #import "KSUserInfo.h"
 
 #import <ApplicationServices/ApplicationServices.h>

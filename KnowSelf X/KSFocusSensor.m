@@ -343,9 +343,9 @@
                                                 selector:@selector(handleTimerFired:)
                                                 userInfo:nil
                                                  repeats:YES];
-    if([self.timer respondsToSelector:@selector(setTolerance:)]) {
-        [self.timer setTolerance:0.1f]; // even a small tolerance will improve power savings.
-    }
+//    if([self.timer respondsToSelector:@selector(setTolerance:)]) {
+//        [self.timer setTolerance:0.1f]; // even a small tolerance will improve power savings.
+//    }
     
     if(self.timer)
         return YES;

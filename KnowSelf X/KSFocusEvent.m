@@ -24,10 +24,24 @@
 - (NSDictionary *)dictRepresentation
 {
     NSMutableDictionary *dataDict = [[super dictRepresentation] mutableCopy];
-    [dataDict setObject:self.filePath forKey:@"path"];
-    [dataDict setObject:self.processID forKey:@"processid"];
-    [dataDict setObject:self.processName forKey:@"processname"];
-    [dataDict setObject:self.windowTitle forKey:@"windowtitle"];
+    
+    NSString *filePathWithoutPercentEncoding = [self.filePath stringByRemovingPercentEncoding];
+    if(filePathWithoutPercentEncoding) {
+        [dataDict setObject:filePathWithoutPercentEncoding forKey:@"path"];
+    } else {
+        [dataDict setObject:@"" forKey:@"path"];
+    }
+    
+    [dataDict setObject:self.processID  forKey:@"processid"];
+    [dataDict setObject:[self.processName stringByRemovingPercentEncoding] forKey:@"processname"];
+    
+    NSString *windowTitleWithoutPercentEncoding = [self.windowhandle stringByRemovingPercentEncoding];
+    if(windowTitleWithoutPercentEncoding) {
+        [dataDict setObject:windowTitleWithoutPercentEncoding forKey:@"windowtitle"];
+    } else {
+        [dataDict setObject:@"" forKey:@"windowtitle"];
+    }
+    
     if(self.screenshot)
         [dataDict setObject:[self.screenshot dictRepresentation] forKey:@"screenshot"];
     else

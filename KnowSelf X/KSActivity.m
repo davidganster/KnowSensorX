@@ -16,7 +16,7 @@
 {
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
     
-    [dataDict setObject:self.name forKey:@"activity"];
+    [dataDict setObject:[self.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"activity"];
 
     NSString *endDateString = [KSUtils dateAsString:self.endDate];
     if(endDateString) {
@@ -47,9 +47,9 @@
 
 - (BOOL)importValuesForKeysWithObject:(NSDictionary *)dictionary
 {
-    self.activityID  = dictionary[@"id"];
-    self.name        = dictionary[@"activity"];
-    self.color       = dictionary[@"color"];
+    self.activityID  = [dictionary[@"id"] stringByRemovingPercentEncoding];
+    self.name        = [dictionary[@"activity"] stringByRemovingPercentEncoding];
+    self.color       = [dictionary[@"color"] stringByRemovingPercentEncoding];
     NSString *startDateString = dictionary[@"start_date"];
     if([startDateString isEqual:[NSNull null]] || startDateString == nil) {
         self.startDate = nil;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
         <development version="5000" identifier="xcode"/>
@@ -18,6 +18,7 @@
                 <outlet property="serverAddressChangedWarningImage" destination="5vL-hB-uyA" id="7Gk-d2-5uK"/>
                 <outlet property="serverAddressChangedWarningLabel" destination="gvE-Fb-Nxw" id="NjZ-jB-FwL"/>
                 <outlet property="serverAddressTextField" destination="154" id="hMo-4Y-2hB"/>
+                <outlet property="serverStatusIndicatorImage" destination="aSG-xj-VEz" id="SUW-n2-XdE"/>
                 <outlet property="shouldRecordScreenshotsCheckbox" destination="mG8-2Z-YQ1" id="2v3-GB-mua"/>
                 <outlet property="userNameTextField" destination="107" id="Pxe-Hi-gK2"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -29,11 +30,11 @@
             <rect key="frame" x="0.0" y="0.0" width="448" height="367"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IzA-XF-mma" userLabel="Enclosing View to Fix IB">
+                <customView id="IzA-XF-mma" userLabel="Enclosing View to Fix IB">
                     <rect key="frame" x="-5" y="0.0" width="453" height="367"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <button toolTip="Resets all settings to their default values - that includes white/blacklists and URL mappings!" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ikU-xr-fnS">
+                        <button toolTip="Resets all settings to their default values - that includes white/blacklists and URL mappings!" verticalHuggingPriority="750" id="ikU-xr-fnS">
                             <rect key="frame" x="292" y="6" width="147" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Reset to Defaults" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aXb-Xk-K1Y">
@@ -44,7 +45,7 @@
                                 <action selector="resetToDefaultsButtonClicked:" target="-2" id="P2C-Qf-X2m"/>
                             </connections>
                         </button>
-                        <button toolTip="Saves settings to a file that can be read and imported by KnowSensor X." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ac5-Aj-2A9">
+                        <button toolTip="Saves settings to a file that can be read and imported by KnowSensor X." verticalHuggingPriority="750" id="Ac5-Aj-2A9">
                             <rect key="frame" x="154" y="6" width="135" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Export Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8xr-hN-KwQ">
@@ -55,7 +56,7 @@
                                 <action selector="exportSettingsButtonClicked:" target="-2" id="f5K-qh-Qkf"/>
                             </connections>
                         </button>
-                        <button toolTip="Loads settings from a file. The chosen file needs to have been created with KnowSensor X!" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vzZ-pe-vlY">
+                        <button toolTip="Loads settings from a file. The chosen file needs to have been created with KnowSensor X!" verticalHuggingPriority="750" id="vzZ-pe-vlY">
                             <rect key="frame" x="14" y="6" width="137" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Import Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rzJ-DU-2bc">
@@ -66,14 +67,14 @@
                                 <action selector="importSettingsButtonClicked:" target="-2" id="4RL-Bc-p1A"/>
                             </connections>
                         </button>
-                        <box autoresizesSubviews="NO" fixedFrame="YES" title="General Settings" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="I9j-rZ-zcl">
+                        <box autoresizesSubviews="NO" title="General Settings" borderType="line" id="I9j-rZ-zcl">
                             <rect key="frame" x="16" y="154" width="425" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView">
                                 <rect key="frame" x="1" y="1" width="423" height="187"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="103">
                                         <rect key="frame" x="12" y="158" width="72" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User Name" id="104">
@@ -82,7 +83,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField identifier="userNameTextField" toolTip="The user name that will be used in any events sent to the server." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                    <textField identifier="userNameTextField" toolTip="The user name that will be used in any events sent to the server." verticalHuggingPriority="750" id="107">
                                         <rect key="frame" x="147" y="155" width="258" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="108">
@@ -95,7 +96,7 @@
                                             <outlet property="delegate" destination="-2" id="Frc-dl-Res"/>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="150">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="150">
                                         <rect key="frame" x="12" y="100" width="129" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Server Address/Port" id="151">
@@ -104,7 +105,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="Launch KnowSensor X when OS X launches" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="145">
+                                    <button toolTip="Launch KnowSensor X when OS X launches" id="145">
                                         <rect key="frame" x="12" y="44" width="152" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Launch on Startup" bezelStyle="regularSquare" imagePosition="right" inset="2" id="146">
@@ -115,8 +116,8 @@
                                             <binding destination="Xbi-WM-NX6" name="value" keyPath="launchAtLogin" id="nJZ-bT-qA8"/>
                                         </connections>
                                     </button>
-                                    <textField identifier="serverAddressTextField" toolTip="Only change this value if your KnowSelf web application is running on a remote server. The default value is 127.0.0.1:8182." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="154">
-                                        <rect key="frame" x="147" y="97" width="258" height="22"/>
+                                    <textField identifier="serverAddressTextField" toolTip="Only change this value if your KnowSelf web application is running on a remote server. The default value is 127.0.0.1:8182." verticalHuggingPriority="750" id="154">
+                                        <rect key="frame" x="147" y="97" width="238" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="http://127.0.0.1:8182" drawsBackground="YES" id="155">
                                             <font key="font" metaFont="system"/>
@@ -128,7 +129,7 @@
                                             <outlet property="delegate" destination="-2" id="8kM-pg-4tG"/>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="INu-bP-7kt">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="INu-bP-7kt">
                                         <rect key="frame" x="12" y="129" width="86" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Device Name" id="4dz-qU-zh6">
@@ -137,7 +138,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField identifier="deviceNameTextField" toolTip="The name for this particular device. This value will be sent to the server with all recorded events." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sod-fd-RXF">
+                                    <textField identifier="deviceNameTextField" toolTip="The name for this particular device. This value will be sent to the server with all recorded events." verticalHuggingPriority="750" id="Sod-fd-RXF">
                                         <rect key="frame" x="147" y="126" width="258" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="76Y-O4-5zB">
@@ -149,7 +150,7 @@
                                             <action selector="textFieldDidReturn:" target="-2" id="vRH-Ee-olc"/>
                                         </connections>
                                     </textField>
-                                    <slider toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQO-0d-6ce">
+                                    <slider toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." verticalHuggingPriority="750" id="qQO-0d-6ce">
                                         <rect key="frame" x="143" y="13" width="211" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="1" maxValue="60" doubleValue="10" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="JRh-Wv-U8m"/>
@@ -157,7 +158,7 @@
                                             <action selector="sliderDidChangeValue:" target="-2" id="iMW-OF-OFl"/>
                                         </connections>
                                     </slider>
-                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwu-Dh-gBr">
+                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" id="kwu-Dh-gBr">
                                         <rect key="frame" x="12" y="17" width="126" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Minimum Idle Time" id="KRy-k5-nho">
@@ -166,7 +167,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8R-V2-i8E">
+                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" id="M8R-V2-i8E">
                                         <rect key="frame" x="358" y="19" width="29" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1" id="gGZ-Ma-aAy">
@@ -175,7 +176,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qH0-Ds-XZd">
+                                    <textField toolTip="This value determines how much time needs to pass (in minutes) before the application detects you as 'idle'." horizontalHuggingPriority="251" verticalHuggingPriority="750" id="qH0-Ds-XZd">
                                         <rect key="frame" x="387" y="19" width="20" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="m" id="w2Y-hh-tUU">
@@ -184,8 +185,8 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvE-Fb-Nxw">
-                                        <rect key="frame" x="71" y="67" width="336" height="26"/>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="gvE-Fb-Nxw">
+                                        <rect key="frame" x="51" y="67" width="336" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="1En-Rl-IQS">
                                             <font key="font" size="10" name="LucidaGrande"/>
@@ -195,24 +196,30 @@ This setting requires a restart to take effect.</string>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5vL-hB-uyA">
-                                        <rect key="frame" x="47" y="72" width="16" height="16"/>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5vL-hB-uyA">
+                                        <rect key="frame" x="27" y="72" width="16" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSInfo" id="fMi-N7-dfZ"/>
+                                    </imageView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="PGn-9X-E3D">
+                                        <rect key="frame" x="389" y="100" width="16" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <string key="toolTip">Current server status. Green means everything looks fine, red means the server is currently unavailable. Gray means the status is unknown because a restart is required to check for this URL.</string>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="aSG-xj-VEz"/>
                                     </imageView>
                                 </subviews>
                             </view>
                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </box>
-                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Screenshots" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="tCz-oD-uIS">
+                        <box autoresizesSubviews="NO" title="Screenshots" borderType="line" id="tCz-oD-uIS">
                             <rect key="frame" x="16" y="47" width="425" height="103"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView">
                                 <rect key="frame" x="1" y="1" width="423" height="87"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mG8-2Z-YQ1">
+                                    <button id="mG8-2Z-YQ1">
                                         <rect key="frame" x="12" y="61" width="152" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Record Screenshots" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="JRs-PM-0A9">
@@ -224,7 +231,7 @@ This setting requires a restart to take effect.</string>
                                             <binding destination="I9E-vw-bqi" name="value" keyPath="values.shouldRecordScreenshots" id="VuI-Ms-ySq"/>
                                         </connections>
                                     </button>
-                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Bq-ZP-cRw">
+                                    <slider verticalHuggingPriority="750" id="3Bq-ZP-cRw">
                                         <rect key="frame" x="143" y="24" width="264" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="3" allowsTickMarkValuesOnly="YES" sliderType="linear" id="yOS-DU-ey9"/>
@@ -233,7 +240,7 @@ This setting requires a restart to take effect.</string>
                                             <binding destination="I9E-vw-bqi" name="enabled" keyPath="values.shouldRecordScreenshots" id="RRa-3z-zTE"/>
                                         </connections>
                                     </slider>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBQ-jN-U6I" customClass="KSTextField">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="YBQ-jN-U6I" customClass="KSTextField">
                                         <rect key="frame" x="131" y="5" width="45" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Smallest" id="OIK-UP-VFw">
@@ -245,7 +252,7 @@ This setting requires a restart to take effect.</string>
                                             <binding destination="I9E-vw-bqi" name="enabled" keyPath="values.shouldRecordScreenshots" id="XSi-TR-YT1"/>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ek-Db-ZEy" customClass="KSTextField">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0Ek-Db-ZEy" customClass="KSTextField">
                                         <rect key="frame" x="12" y="34" width="120" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <string key="toolTip">The quality in which screenshots are sent to the server. Choosing a higher value will result in higher network traffic and disk usage.</string>
@@ -258,7 +265,7 @@ This setting requires a restart to take effect.</string>
                                             <binding destination="I9E-vw-bqi" name="enabled" keyPath="values.shouldRecordScreenshots" id="MWL-aE-N2s"/>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WGZ-Mx-l2V" customClass="KSTextField">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="WGZ-Mx-l2V" customClass="KSTextField">
                                         <rect key="frame" x="214" y="5" width="123" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Medium (recommended)" id="H5V-mI-cAS">
@@ -270,7 +277,7 @@ This setting requires a restart to take effect.</string>
                                             <binding destination="I9E-vw-bqi" name="enabled" keyPath="values.shouldRecordScreenshots" id="Q1W-PA-Ja5"/>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8b-XT-AD4" customClass="KSTextField">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="U8b-XT-AD4" customClass="KSTextField">
                                         <rect key="frame" x="382" y="5" width="35" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Best" id="9wP-IJ-YV2">
@@ -297,5 +304,6 @@ This setting requires a restart to take effect.</string>
     </objects>
     <resources>
         <image name="NSInfo" width="32" height="32"/>
+        <image name="NSStatusNone" width="16" height="16"/>
     </resources>
 </document>

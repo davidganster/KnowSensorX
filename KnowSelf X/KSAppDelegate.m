@@ -153,13 +153,18 @@ void SignalHandler(int sig)
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+    if(![[KSAPIClient sharedClient] serverReachable]) {
+        // server isn't reachable - no point in waiting forever - just quit now.
+        [self stopKnowServer];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.isTerminated = YES;
+        return NSTerminateNow;
+    }
+    
     // don't wait for reachability, just try to get the events to the server as quickly as possible:
     [[KSSensorController sharedSensorController] setWaitForReachability:NO];
     // stop all event recording for smooth shutdown
     [[KSSensorController sharedSensorController] stopRecordingEventsFinished:^(BOOL successful) {
-        // since we never save anything persistently, this doesn't seem very useful:
-        //    [MagicalRecord cleanUp];
-
         // tear down KnowServer as well
         [self stopKnowServer];
         [[NSUserDefaults standardUserDefaults] synchronize];

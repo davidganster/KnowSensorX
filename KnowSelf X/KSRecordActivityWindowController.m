@@ -137,7 +137,9 @@
 - (IBAction)colorWellDidPickColor:(id)sender {
     for (KSProject *project in self.projects) {
         NSColor *color = [NSColor colorWithHexColorString:project.color];
-        if([color isEqualTo:self.projectColorWell.color]) {
+        if([color isEqualTo:self.projectColorWell.color] &&
+           !self.project &&
+           self.projectComboBox.stringValue.length) {
             [self showColorAlreadyInUseWarning:YES];
             return;
         }
@@ -304,6 +306,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [self updateColorWell];
     BOOL shouldShowWarning = !project && self.projectComboBox.stringValue.length;
     [self showNewProjectInfo:shouldShowWarning];
+    [self colorWellDidPickColor:nil]; // will check for color warning as well.
 }
 
 - (void)setActivity:(KSActivity *)activity
@@ -325,7 +328,7 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     if(self.project.color != nil)
         [self.projectColorWell setColor:[NSColor colorWithHexColorString:self.project.color]];
     
-    [self.projectColorWell setEnabled:!self.project];
+    [self.projectColorWell setEnabled:(!self.project && self.projectComboBox.stringValue.length)];
 
     // dismiss color panel if it's no longer editable
     if(![self.projectColorWell isEnabled] && [NSColorPanel sharedColorPanelExists]) {

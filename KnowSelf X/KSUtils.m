@@ -96,7 +96,7 @@ static NSDateFormatter *timestampFormatter;
     // has the focus.
     CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
     if(screenScale > 1) {
-        screenScale = 1.5; // scaling by 2 will be too small.
+        screenScale = 1.8; // scaling by 2 will be too small.
     }
     switch (quality) {
         case KSScreenshotQualityOriginal:

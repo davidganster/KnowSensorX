@@ -8,6 +8,7 @@
 
 #import "KSSettingsViewController.h"
 #import "KSUserInfo.h"
+#import "KSAPIClient.h"
 
 @interface KSSettingsViewController ()
 
@@ -23,11 +24,16 @@
 @property (weak) IBOutlet NSTextField *minimumIdleTimeLabel;
 @property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
 @property (weak) IBOutlet NSSlider *screenshotQualitySlider;
+@property (weak) IBOutlet NSImageCell *serverStatusIndicatorImage;
 
 /// The value of this checkbox is connected to all labels below it (everything that has something to
 /// do with screenshot quality) using cocoa bindings to enable/disable them.
 /// Take a look at the corresponding .xib file for more info.
 @property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox;
+
+/// Set to the value in the KSUserInfo when loading the view for the first time.
+/// Used to determine if we can show a valid server status indicator.
+@property(nonatomic, strong) NSString *knownServerReachabilityURL;
 
 @end
 
@@ -36,12 +42,21 @@
 - (id)init
 {
     self = [super initWithNibName:@"KSSettingsViewController" bundle:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateServerStatusImage)
+                                                 name:kKSNotificationKeyServerReachable
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateServerStatusImage)
+                                                 name:kKSNotificationKeyServerUnreachable
+                                               object:nil];
     return self;
 }
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.knownServerReachabilityURL = [[KSUserInfo sharedUserInfo] serverAddress];
     [self updateUI];
 }
 
@@ -60,6 +75,7 @@
         [userInfo setDeviceID:sender.stringValue];
     } else if([sender.identifier isEqualToString:kKSServerAddressTextFieldIdentifier]) {
         [userInfo setServerAddress:sender.stringValue];
+        [self updateServerStatusImage];
     } else {
         LogMessage(kKSLogTagOther, kKSLogLevelError, @"Unkown identifier '%@'", sender.identifier);
     }
@@ -109,9 +125,17 @@
     [savePanel setPreventsApplicationTerminationWhenModal:YES];
     [savePanel setNameFieldStringValue:@"Settings"];
     
+    NSButton *button = [[NSButton alloc] init];
+    [button setButtonType:NSSwitchButton];
+    [button setTitle:@"Export personal data"];
+    [button sizeToFit];
+    [savePanel setAccessoryView:button];
+
     if([savePanel runModal] == NSFileHandlingPanelOKButton) {
         NSURL *url = [savePanel URL];
-        if(![[KSUserInfo sharedUserInfo] saveUserInfoToPath:[url absoluteURL] includeUserData:NO]) {
+        BOOL includeUserData = ((NSButton *)savePanel.accessoryView).state == NSOnState;
+        if(![[KSUserInfo sharedUserInfo] saveUserInfoToPath:[url absoluteURL]
+                                            includeUserData:includeUserData]) {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setMessageText:@"Could not save settings"];
             [alert setInformativeText:[NSString stringWithFormat:@"Settings could not be exported - you might not have permissions to write to %@!", url.absoluteString]];
@@ -175,6 +199,23 @@
     [self.minimumIdleTimeSlider setIntegerValue:idleTimeInMinutes];
     self.shouldRecordScreenshotsCheckbox.state = [[KSUserInfo sharedUserInfo] shouldRecordScreenshots];
     self.screenshotQualitySlider.integerValue = [[KSUserInfo sharedUserInfo] screenshotQuality];
+    [self updateServerStatusImage];
+}
+
+/**
+ *  Updates the 'serverStatusIndicatorImage' to the current reachability state reported by the
+ *  KSAPIClient.
+ */
+- (void)updateServerStatusImage
+{
+    if(![self.serverAddressTextField.stringValue isEqualToString:self.knownServerReachabilityURL]) {
+        // not the same address, don't know about reachability!
+        self.serverStatusIndicatorImage.image = [NSImage imageNamed:@"NSStatusNone"];
+    } else if([[KSAPIClient sharedClient] serverReachable]) {
+        self.serverStatusIndicatorImage.image = [NSImage imageNamed:@"NSStatusAvailable"];
+    } else {
+        self.serverStatusIndicatorImage.image = [NSImage imageNamed:@"NSStatusUnavailable"];
+    }
 }
 
 

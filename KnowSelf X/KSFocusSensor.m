@@ -19,6 +19,9 @@
 @property(nonatomic, strong) NSString *previousFileOrUrl;
 /// The previously recorded window title. Needed to send lose focus events.
 @property(nonatomic, strong) NSString *previousWindowTitle;
+/// Indicates if the previous application has been recorded - the blocked applications might
+/// have changed between get/lose focus, but we always want to send lose focus events!
+@property(nonatomic, assign) BOOL hasRecordedPreviousApplication;
 /// Every time this timer fires, the KSFocusSensor will check for new focus events.
 @property(nonatomic, strong) NSTimer *timer;
 /// The queue that will be used to record events - executing applescripts takes a while,
@@ -82,7 +85,9 @@
         }
         
         KSFocusEvent *loseFocusEvent = nil;
-        if(self.previousApplication && [self shouldRecordApplication:self.previousApplication]) {
+        if(self.previousApplication &&
+           ([self shouldRecordApplication:self.previousApplication] ||
+            self.hasRecordedPreviousApplication)) {
             if([self isBrowser:self.previousApplication]) {
                 if(self.previousFileOrUrl &&
                    self.focusDelegate &&
@@ -106,7 +111,7 @@
         
         KSFocusEvent *currentEvent = nil;
         if([self shouldRecordApplication:frontApp]) {
-            // todo: make scale dynamic
+            self.hasRecordedPreviousApplication = YES;
             KSScreenshotData *screenshotData = nil;
             KSScreenshotQuality quality = [self.focusDelegate focusSensor:self
                                           screenshotQualityForApplication:frontApp];
@@ -128,6 +133,9 @@
                                                 windowTitle:windowTitle
                                                  screenshot:screenshotData
                                                        type:KSEventTypeDidGetFocus];
+        } else {
+            // should NOT record this application.
+            self.hasRecordedPreviousApplication = NO;
         }
         
         if(!loseFocusEvent && !currentEvent)

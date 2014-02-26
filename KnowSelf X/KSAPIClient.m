@@ -60,13 +60,14 @@
 - (void)setServerReachable:(BOOL)serverReachable
 {
     if(self.serverReachable && !serverReachable) {
+        _serverReachable = serverReachable;
         [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerUnreachable
                                                             object:nil];
     } else if(!self.serverReachable && serverReachable) {
+        _serverReachable = serverReachable;
         [[NSNotificationCenter defaultCenter] postNotificationName:kKSNotificationKeyServerReachable
                                                             object:nil];
     }
-    _serverReachable = serverReachable;
 }
 
 - (void)startCheckingForServerReachability
@@ -454,7 +455,7 @@
 
 - (void)checkReachabilityWithTimeInterval:(NSTimeInterval)interval
 {
-    NSString *testURL = [[[KSUserInfo sharedUserInfo] serverAddress]
+    NSString *testURL = [[self.client.baseURL absoluteString]
                          stringByAppendingString:@"/Resources/Images/btn_first_highlighted.png"];
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:testURL parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

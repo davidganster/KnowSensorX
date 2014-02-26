@@ -21,7 +21,6 @@
 
 /// Indicates whether or not the server is reachable at the moment.
 /// Will update whenever a message has been sent succesfully/with an error.
-/// When the flag changes, one of the blocks given in setReachabilityStatusChangedBlockReachable:unreachable: will be executed.
 @property(nonatomic, assign, readonly) BOOL serverReachable;
 
 /** Singleton-Accessor for the shared object. Only work through this object, don't create your own!

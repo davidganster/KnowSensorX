@@ -107,11 +107,22 @@
         return exactMatch;
     
     // If that didn't work, we want full regular expression matching:
+    NSRange bestRange;
+    bestRange.location = NSNotFound;
+    bestRange.length = 0;
+    NSString *bestMatchingURL = nil;
     for (NSString *URLToMatch in [dictionary allKeys]) {
-        if ([recordedURL rangeOfString:URLToMatch
-                               options:NSRegularExpressionSearch].location != NSNotFound) {
-            return dictionary[URLToMatch];
+        NSRange currentRange = [recordedURL rangeOfString:URLToMatch
+                                                  options:NSRegularExpressionSearch];
+        if (currentRange.location != NSNotFound &&
+            currentRange.length > bestRange.length) {
+            bestRange = currentRange;
+            bestMatchingURL = URLToMatch;
         }
+    }
+    
+    if(bestMatchingURL) {
+        return dictionary[bestMatchingURL];
     }
     // No match, just return the original URL.
     return recordedURL;

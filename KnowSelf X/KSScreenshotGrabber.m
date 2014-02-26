@@ -81,9 +81,9 @@ static BOOL isTinyWindow = NO;
             break;
         }
     }
-    if(windowID == 0) {
-        LogMessage(kKSLogTagScreenshotGrabber, kKSLogLevelInfo, @"Could not find window for application with name: %@", appName);
-    }
+//    if(windowID == 0) {
+//        LogMessage(kKSLogTagScreenshotGrabber, kKSLogLevelInfo, @"Could not find window for application with name: %@", appName);
+//    }
     return windowID;
 }
 

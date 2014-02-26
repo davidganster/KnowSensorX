@@ -384,7 +384,7 @@
     [[KSAPIClient sharedClient] createProject:project success:^(NSString *newProjectID) {
         project.projectID = newProjectID;
         [self addProjectListObject:project]; // Will dispatch to correct queue and notify observers.
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
+//        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully created project with new ID: %@", newProjectID);
         if(success)
             success();
     } failure:^(NSError *error) {
@@ -407,7 +407,7 @@
                     activity.activityID = newActivityID;
                     self.currentlyRecordingActivity = activity;
                     
-                    LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
+//                    LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully started to record activity with ID: %@", newActivityID);
                     self.isStartingNewRecording = NO;
                 });
             } failure:^(NSError *error) {
@@ -434,7 +434,7 @@
 {
     
     [[KSAPIClient sharedClient] stopRecordingActivity:self.currentlyRecordingActivity success:^{
-        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully stopped recording activity (name = %@)", self.currentlyRecordingActivity.name);
+//        LogMessage(kKSLogTagProjectController, kKSLogLevelInfo, @"Successfully stopped recording activity (name = %@)", self.currentlyRecordingActivity.name);
         self.currentlyRecordingActivity = nil;
 
         if(success)

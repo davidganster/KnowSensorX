@@ -87,7 +87,7 @@
 - (void)projectController:(KSProjectController *)controller projectListChangedWithAddedProjects:(NSArray *)addedObjects
          deletedProjects:(NSArray *)deletedProjects
 {
-    LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Project list changed!");
+//    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Project list changed!");
     
     // We don't really need to keep track of the changes here, since we just replace the full project list.
     [self setProjectList:controller.currentProjectList];

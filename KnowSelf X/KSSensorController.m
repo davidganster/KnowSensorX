@@ -64,7 +64,9 @@
         success &= [sensor startRecordingEvents];
     }
     
-    LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Starting to record events %@.", success ? @" was successful" : @"FAILED");
+    if(!success) {
+        LogMessage(kKSLogTagSensorController, kKSLogLevelError, @"Starting to record events FAILED.");
+    }
     
     return success;
 }
@@ -137,7 +139,7 @@
     BOOL ignoreApplication = NO;
     
     if([kKSFocusSensorBlockedApplicationNames containsObject:application.localizedName.lowercaseString]) {
-        LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Will ignore application %@", application.localizedName);
+//        LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Will ignore application %@", application.localizedName);
         return NO;
     }
     
@@ -221,7 +223,7 @@ didRecordEvent:(KSEvent *)event
 {
     dispatch_async(self.eventBufferQueue, ^{
         if(!self.queueIsBeingEmptied) {
-            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Server is reachable, will start sending %lu remaining events!", [self.eventBuffer count]);
+//            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Server is reachable, will start sending %lu remaining events!", [self.eventBuffer count]);
             self.queueIsBeingEmptied = YES;
             [self emptyQueue];
         }
@@ -270,7 +272,7 @@ didRecordEvent:(KSEvent *)event
 {
     dispatch_async(self.eventBufferQueue, ^{
         if([self.eventBuffer count]) {
-            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count before starting: %lu", (unsigned long)[self.eventBuffer count]);
+//            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count before starting: %lu", (unsigned long)[self.eventBuffer count]);
             KSEvent *currentEvent = nil;
             currentEvent = self.eventBuffer[0];
             //currentEvent = [currentEvent inContext:[NSManagedObjectContext contextForCurrentThread]];
@@ -288,7 +290,7 @@ didRecordEvent:(KSEvent *)event
                             [self.eventFinishedBlocks removeObjectForKey:eventDescription];
                         }
                         [self.eventBuffer removeObjectAtIndex:0];
-                        LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count after removal: %lu", (unsigned long)[self.eventBuffer count]);
+//                        LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"event buffer queue object count after removal: %lu", (unsigned long)[self.eventBuffer count]);
                         [self emptyQueue];
                     } else {
                         if(!self.waitForReachability) {
@@ -303,7 +305,7 @@ didRecordEvent:(KSEvent *)event
                 });
             }];
         } else {
-            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Queue emptied.");
+//            LogMessage(kKSLogTagSensorController, kKSLogLevelDebug, @"Queue emptied.");
             self.queueIsBeingEmptied = NO;
         }
     });

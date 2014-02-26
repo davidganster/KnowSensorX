@@ -248,7 +248,7 @@
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];
 
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"CreateProject successful.");
+//        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"CreateProject successful.");
         NSError *jsonError = nil;
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
         if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
@@ -278,7 +278,7 @@
 //    [activity setIsStartingRecording:NO];
     NSDictionary *activityDict = [activity dictRepresentation];
     
-    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity with dict representation: \n%@", activityDict);
+//    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity with dict representation: \n%@", activityDict);
     
     NSError *jsonSerializationError = nil;
     NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict
@@ -295,7 +295,7 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity successful.");
+//        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StartRecordingActivity successful.");
         NSError *jsonError = nil;
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
         if(!jsonError && [responseDict isKindOfClass:[NSDictionary class]]) {
@@ -328,7 +328,7 @@
 //    [activity setIsStartingRecording:NO];
     NSDictionary *activityDict = [activity dictRepresentation];
     
-    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity with dict representation: \n%@", activityDict);
+//    LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity with dict representation: \n%@", activityDict);
     
     NSError *jsonSerializationError = nil;
     NSData *activityData = [NSJSONSerialization dataWithJSONObject:activityDict
@@ -345,7 +345,7 @@
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setServerReachable:YES];
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity successful.");
+//        LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"StopRecordingActivity successful.");
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self setServerReachable:NO];
@@ -407,7 +407,7 @@
            finished:(void (^)(NSError *error))finishedBlock
 {
     if(!event || !path) {
-        LogMessage(kKSLogTagAPIClient, kKSLogLevelDebug, @"Need both event and path to be not nil when sending data!");
+        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Need both event and path to be not nil when sending data!");
         NSError *error = [NSError errorWithDomain:@"EventOrPathNil" code:-101 userInfo:nil];
         finishedBlock(error);
         return;
@@ -461,13 +461,13 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(!self.serverReachable) {
-            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server now reachable (detected when checking for reachability)!");
+//            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server now reachable (detected when checking for reachability)!");
         }
         [self setServerReachable:YES];
         [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerUp];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if(self.serverReachable) {
-            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server no longer reachable (detected when checking for reachability)!");
+//            LogMessage(kKSLogTagAPIClient, kKSLogLevelInfo, @"Server no longer reachable (detected when checking for reachability)!");
         }
         [self setServerReachable:NO];
         [self checkReachabilityWithTimeInterval:kKSAPIClientServerReachabilityPollIntervalServerDown];

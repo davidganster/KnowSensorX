@@ -84,13 +84,13 @@ void SignalHandler(int sig)
 //    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
 //                     kLoggerOption_BrowseBonjour);
     
-    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
+//    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
     [self startKnowServer];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [self.mainWindowController loadWindow]; // awakeFromNib needs to be called for the app to work.
     // has to be set the first time, so just call it here
     if([KSUtils isFirstStart]) {
-        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
+//        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
         [[self.mainWindowController window] makeKeyAndOrderFront:self];
     }
     
@@ -106,7 +106,7 @@ void SignalHandler(int sig)
 - (void)startKnowServer
 {
     if(![[[KSUserInfo sharedUserInfo] serverAddress] isEqualToString:kKSServerBaseURL]) {
-        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Will not start KnowServer: BaseURL is different.");
+//        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Will not start KnowServer: BaseURL is different.");
         return;
     }
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"Starting KnowServer...");

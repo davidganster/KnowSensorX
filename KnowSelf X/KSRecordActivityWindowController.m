@@ -160,11 +160,11 @@
 {
     KSActivity *activityToRecord = nil;
     
-    LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Trying to start recording activity.");
+//    LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Trying to start recording activity.");
     
     if(!self.project) {
         
-        LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Need to create new project first...");
+//        LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Need to create new project first...");
         
         if(self.activity) {
             // impossible!
@@ -177,13 +177,13 @@
         
         activityToRecord = [self activityForProject:project];
         [[KSProjectController sharedProjectController] createProject:project success:^{
-            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully created project on server! ()%@", project);
+//            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully created project on server! ()%@", project);
             // project was successfully created!
             [[KSProjectController sharedProjectController] startRecordingActivity:activityToRecord];
-            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
+//            LogMessage(kKSLogTagUI, kKSLogLevelInfo, @"Successfully started recording activity %@", [activityToRecord name]);
         } failure:^(NSError *error) {
             // what to do?
-            LogMessage(kKSLogTagUI, kKSLogLevelError, @"could not create project on server: %@", [error description]);
+//            LogMessage(kKSLogTagUI, kKSLogLevelError, @"could not create project on server: %@", [error description]);
         }];
     } else {
         activityToRecord = [self activityForProject:self.project];

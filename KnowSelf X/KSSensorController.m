@@ -36,6 +36,8 @@
 @implementation KSSensorController
 
 #pragma mark Public methods.
+/// @name Public methods
+
 + (KSSensorController *)sharedSensorController
 {
     static KSSensorController *_sharedController = nil;
@@ -96,6 +98,8 @@
 }
 
 #pragma mark KSFocusSensorDelegate
+/// @name KSFocusSensorDelegate methods
+
 - (NSString *)focusSensor:(KSFocusSensor *)sensor mappedNameForURL:(NSString *)recordedURL
 {
     NSDictionary *dictionary = [[KSUserInfo sharedUserInfo] URLMappings];
@@ -174,6 +178,8 @@ didRecordEvent:(KSEvent *)event
 }
 
 #pragma mark Private methods
+/// @name Private methods
+
 /**
  *  Internal method.
  *  Designated initializer.

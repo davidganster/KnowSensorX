@@ -96,17 +96,14 @@ static NSDateFormatter *activityTimestampFormatter;
 
 + (CGFloat)scaleForScreenshotQuality:(KSScreenshotQuality)quality
 {
-    // best effort: can only check which screen has the keyboard focus (= mainScreen), not which window
-    // has the focus.
+    // best effort: can only check which screen has the keyboard focus (= mainScreen),
+    // not which window has the focus.
     CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
-    if(screenScale > 1) {
-        screenScale = 1.8; // scaling by 2 will be too small.
-    }
     switch (quality) {
         case KSScreenshotQualityOriginal:
-            return 1.f/screenScale;
+            return 1.0f/screenScale;
         case KSScreenshotQualityMedium:
-            return 0.5f/screenScale;
+            return 0.4f/screenScale;
         case KSScreenshotQualitySmall:
             return 0.25/screenScale;
         default:

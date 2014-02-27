@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 /**
- *  @author David Ganster
  *  NSViewController subclass that manages the settings view.
  *  Synchronizes the values to/from the KSUserInfo values.
  */

@@ -13,7 +13,6 @@
 @class KSActivity;
 
 /**
- * @author David Ganster
  * The KSMenuController class encapsulates all interaction with the status bar menu, such as setting/updating
  * the project list, current activity etc. 
  * @note The KSMenu is dependant on one layout constraint: The first 3 items are reserved

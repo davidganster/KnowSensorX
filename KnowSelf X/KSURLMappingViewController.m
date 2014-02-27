@@ -13,7 +13,6 @@
  *  This class makes dealing with tableview cells easier as it encapsulates the validation logic 
  *  for URL mappings - this is important when adding a new mapping in the UI.
  *  It also automatically updates the corresponding entry in KSUserInfo, it any of its members are changed.
- *  @author David Ganster
  */
 @interface KSURLMapping : NSObject
 /// The URL to be mapped. Setting this will automatically update the corresponding

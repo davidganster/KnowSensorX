@@ -10,7 +10,6 @@
 #import "KSProjectController.h"
 
 /**
- * @author David Ganster
  * The KSRecordActivityWindowController is responsible for displaying a simple floating window that
  * lets the user record a new activity. Will also create a new project/activity if either does not exist.
  * Warns the user in case another activity is already recording (with an option to turn this warning off entirely).

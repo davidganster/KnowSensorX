@@ -11,8 +11,7 @@
 #import "KSProjectController.h"
 
 /**
- * @author David Ganster
- * This class manages the main window of the program. no logic being done here.
+ * This class manages the main window of the program. No logic being done here.
  */
 @interface KSMainWindowController : NSWindowController<NSTabViewDelegate, KSProjectControllerEventObserver>
 

@@ -12,7 +12,6 @@
  *  KSSensor subclass that deals with detecting when the user idles and resumes work.
  *  Will record idle events with one second resolution from the given minimumIdleTime 
  *  (implemented efficiently, not by checking every second).
- *  @author David Ganster
  */
 @interface KSIdleSensor : KSSensor
 

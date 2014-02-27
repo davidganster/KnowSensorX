@@ -10,6 +10,11 @@
 
 @implementation KSTextField
 
+/**
+ *  Calls [super setEnabled] and then adjusts the receiver's text color depending on the value of `flag`.
+ *
+ *  @param flag Controls the text color. YES stands for controlTextColor, NO means using the disabledControlTextColor.
+ */
 - (void)setEnabled:(BOOL)flag
 {
     [super setEnabled:flag];

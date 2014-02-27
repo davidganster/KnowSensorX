@@ -78,19 +78,13 @@ void SignalHandler(int sig)
     sigaction(SIGABRT, &newSignalAction, NULL);
     sigaction(SIGILL, &newSignalAction, NULL);
     sigaction(SIGBUS, &newSignalAction, NULL);
-//    sigaction(SIGKILL, &newSignalAction, NULL); // cannot be caught... The server will keep running in that case :(
 
-    LoggerSetDefaultLogger(nil);
-//    LoggerSetOptions(LoggerGetDefaultLogger(), //kLoggerOption_LogToConsole |
-//                     kLoggerOption_BrowseBonjour);
-    
-//    LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"Starting KnowSensor X.");
     [self startKnowServer];
     self.mainWindowController = [[KSMainWindowController alloc] initWithWindowNibName:@"KSMainWindowController"];
     [self.mainWindowController loadWindow]; // awakeFromNib needs to be called for the app to work.
+
     // has to be set the first time, so just call it here
     if([KSUtils isFirstStart]) {
-//        LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"First start.");
         [[self.mainWindowController window] makeKeyAndOrderFront:self];
     }
     

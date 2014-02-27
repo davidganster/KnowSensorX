@@ -15,22 +15,24 @@
 /// Protocol for callbacks for any observers of project related events.
 /// Multiple listeners can subscribe to these events, and the callbacks defined in this protocol
 /// will be called on all of them in the order they were added.
-/// Both methods are optional, as might not provide interesting information to some of the observers,
-/// and are generally not necessary for execution.
+/// Both methods are optional, as they might not provide interesting information to some of the observers,
+/// and are generally not required for proper execution of logic in the KSProjectController.
 @protocol KSProjectControllerEventObserver <NSObject>
 @optional
 
-/** Callback for when the list of projects has changed on the server. Activities will be connected with the given project lists.
- @param controller The controller object that initiated the change.
- @param addedProjects The projects that have been added since the last poll.
- @param deletedProjects The projects that have been deleted since the last poll.
+/** 
+ *  Callback for when the list of projects has changed on the server. Activities will be connected with the given project lists.
+ *  @param controller The controller object that initiated the change.
+ *  @param addedProjects The projects that have been added since the last poll.
+ *  @param deletedProjects The projects that have been deleted since the last poll.
  */
 - (void)projectController:(KSProjectController *)controller projectListChangedWithAddedProjects:(NSArray *)addedObjects
           deletedProjects:(NSArray *)deletedProjects;
 
 
-/** Callback for when the actively recording activity has changed on the server.
- @param activity The new active activity.
+/** 
+ *  Callback for when the actively recording activity has changed on the server.
+ *  @param activity The new active activity.
  */
 - (void)projectController:(KSProjectController *)controller activeActivityChangedToActivity:(KSActivity *)activity;
 
@@ -93,9 +95,12 @@
               failure:(void (^)(NSError *error))failure;
 
 
-/** Starts the recording of an activity on the server.
- In case the server is already recording a different activity, it will be stopped before starting this one.
- All observers will be notified on the main thread about the change.
+/**
+ *  Starts the recording of an activity on the server.
+ *  In case the server is already recording a different activity, it will be stopped before starting this one.
+ *  All observers will be notified on the main thread about the change.
+ *
+ *  @param activity The activity to be recorded.
  */
 - (void)startRecordingActivity:(KSActivity *)activity;
 

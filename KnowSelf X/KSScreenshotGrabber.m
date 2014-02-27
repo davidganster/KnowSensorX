@@ -14,7 +14,7 @@
 static BOOL isTinyWindow = NO;
 
 @implementation KSScreenshotGrabber
-
+/// @name Public methods
 + (KSScreenshotData *)screenshotDataForApplication:(NSRunningApplication *)application
                                              scale:(CGFloat)scale
 {
@@ -28,8 +28,9 @@ static BOOL isTinyWindow = NO;
                                                 properties:@{NSImageCompressionFactor : @(0.5)}];
         
         KSScreenshotData *data = [[KSScreenshotData alloc] init];
-        [data setWidthInPixel:@(screenshot.size.width)];
-        [data setHeightInPixel:@(screenshot.size.height)];
+        CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
+        [data setWidthInPixel:@(screenshot.size.width * screenScale)];
+        [data setHeightInPixel:@(screenshot.size.height * screenScale)];
         [data setImageFormat:@"jpg"];
         NSString *base64String = [screenShotData encodeBase64WithNewlines:NO];
         [data setPixelDataBase64Encoded:base64String];
@@ -39,6 +40,7 @@ static BOOL isTinyWindow = NO;
 }
 
 #pragma mark - Helper
+/// @name Private helpers
 
 /**
  *  Helper method that tries to identify the appropriate window ID for the given application name.

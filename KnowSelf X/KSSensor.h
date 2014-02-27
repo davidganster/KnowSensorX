@@ -93,11 +93,11 @@
  */
 - (BOOL)_registerForEvents;
 
-
 /**
  *  Will be called when the sensor stops recording events. Must be overwritten in a subclass.
  *
- *  @return YES iff unregistering for events was successful.
+ *  @param finished The finished block to call when unsubscribing is completed or has failed.
+ *  @note The finished block *must* be called, whether unscubscribing from events was successful or failed.
  */
 - (void)_unregisterForEventsFinished:(void (^)(BOOL successful))finished;
 

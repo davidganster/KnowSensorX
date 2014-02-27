@@ -13,7 +13,6 @@
 /**
  *  Simple protocol for decoupling application-specific behaviour from the focus sensor, 
  *  such as URL mappings and whether or not to record specific applications.
- *  @author David Ganster
  */
 @protocol KSFocusSensorDelegate <NSObject>
 @optional
@@ -64,7 +63,6 @@
  *  Events are generated when a timer fires, this class does not subscribe to any 
  *  NSWorkspace notifications, because a timer would be needed anyway to detect tab- or window 
  *  switches within a single application.
- *  @author David Ganster
  */
 @interface KSFocusSensor : KSSensor
 

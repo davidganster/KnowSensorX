@@ -35,7 +35,7 @@
     [dataDict setObject:self.processID  forKey:@"processid"];
     [dataDict setObject:[self.processName stringByRemovingPercentEncoding] forKey:@"processname"];
     
-    NSString *windowTitleWithoutPercentEncoding = [self.windowhandle stringByRemovingPercentEncoding];
+    NSString *windowTitleWithoutPercentEncoding = [self.windowTitle stringByRemovingPercentEncoding];
     if(windowTitleWithoutPercentEncoding) {
         [dataDict setObject:windowTitleWithoutPercentEncoding forKey:@"windowtitle"];
     } else {

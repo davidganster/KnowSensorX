@@ -103,7 +103,7 @@ static NSDateFormatter *activityTimestampFormatter;
         case KSScreenshotQualityOriginal:
             return 1.0f/screenScale;
         case KSScreenshotQualityMedium:
-            return 0.4f/screenScale;
+            return 0.5f/screenScale;
         case KSScreenshotQualitySmall:
             return 0.25/screenScale;
         default:

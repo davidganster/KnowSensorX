@@ -10,18 +10,6 @@
 
 @implementation KSUserInfo
 
-+ (KSUserInfo *)sharedUserInfo
-{
-    static KSUserInfo *_sharedUserInfo = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedUserInfo = [[KSUserInfo alloc] init];
-    });
-    
-    return _sharedUserInfo;
-}
-
-
 - (id)init
 {
     self = [super init];
@@ -31,6 +19,10 @@
     return self;
 }
 
+/**
+ *  Loads all properties from the standardUserDefaults, or sets them to the default values if
+ *  no entry for them is found.
+ */
 - (void)loadValuesFromUserDefaults
 {
     _deviceID = [[NSUserDefaults standardUserDefaults] stringForKey:kKSUserInfoDeviceNameKey];
@@ -83,6 +75,19 @@
 }
 
 #pragma mark - Public methods
+/// @name Public methods
+
++ (KSUserInfo *)sharedUserInfo
+{
+    static KSUserInfo *_sharedUserInfo = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedUserInfo = [[KSUserInfo alloc] init];
+    });
+    
+    return _sharedUserInfo;
+}
+
 - (void)resetToDefaults
 {
     self.serverAddress = kKSServerBaseURL;

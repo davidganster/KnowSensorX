@@ -26,14 +26,36 @@
 /// The type of the event.
 @property (nonatomic) KSEventType type;
 
-/// Helper method for getting the type as a string - needed for export to JSON and logging.
+
+/**
+ *  Helper method for getting the type as a string - needed for export to JSON and logging.
+ *
+ *  @return The type of the receiver in a string representation.
+ */
 - (NSString *)typeAsString;
-/// The application that has been recorded - not a member because some sensors might not actually record
-/// specific applications. The subclass must return a non-nil value here.
+
+/**
+ *  The application that has been recorded - not a member because some sensors might 
+ *  not actually record specific applications. The subclass must return a non-nil value here.
+ *
+ *  @return The application that recorded the event.
+ */
 - (NSString *)application;
-/// Returns `timestamp` as a string, using the KSUtils convenience method `stringFromDate:`.
+
+/**
+ *  Returns `timestamp` as a string, using the KSUtils convenience method `stringFromDate:`.
+ *
+ *  @return The `timestamp` of the receiver, formatted as an NSString.
+ */
 - (NSString *)timestampAsString;
-/// Returns the name for a given event-type. Needed for export to JSON and logging.
+
+/**
+ *  Converts the given event-type into a string. Needed for export to JSON and logging.
+ *
+ *  @param type The type to be converted.
+ *
+ *  @return The string representation of the given type.
+ */
 + (NSString *)stringForType:(KSEventType)type;
 
 @end

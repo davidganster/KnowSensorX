@@ -18,12 +18,26 @@
 /// Since this bug has been resolved, this view doesn't do anything - but removing it would require
 /// moving all UI elements manually, which is more hassle than it's worth.
 @property (weak) IBOutlet NSView *hackToFixIB;
+/// Text field for entering the user name.
+/// The entered value will be saved to KSUserInfo upon end editing.
 @property (weak) IBOutlet NSTextField *userNameTextField;
+/// Text field for entering the server address.
+/// The entered value will be saved to KSUserInfo upon end editing.
 @property (weak) IBOutlet NSTextField *serverAddressTextField;
+/// Text field for entering the device name.
+/// The entered value will be saved to KSUserInfo upon end editing.
 @property (weak) IBOutlet NSTextField *deviceNameTextField;
+/// Text field for displaying the minimum idle time.
+/// Used as a label to display the value selected using the minimumIdleTimeSlider.
 @property (weak) IBOutlet NSTextField *minimumIdleTimeLabel;
+/// Slider for setting the minimum idle time.
+/// The entered value will be saved to KSUserInfo upon releasing.
 @property (weak) IBOutlet NSSlider *minimumIdleTimeSlider;
+/// Slider for setting the screenshot quality.
+/// The entered value will be saved to KSUserInfo upon releasing.
 @property (weak) IBOutlet NSSlider *screenshotQualitySlider;
+/// The image cell for displaying the current server status.
+/// The used image will either be NSStatusAvailable, NSStatusUnavailable or NSStatusNone.
 @property (weak) IBOutlet NSImageCell *serverStatusIndicatorImage;
 
 /// The value of this checkbox is connected to all labels below it (everything that has something to
@@ -39,6 +53,13 @@
 
 @implementation KSSettingsViewController
 
+/**
+ *  Designated initializer. Do not use another method to initialize a KSSettingsViewController!
+ *  This method will load the appropriate nib file (KSSettingsViewController) and subscribe to
+ *  kKSNotificationKeyServerReachable and kKSNotificationKeyServerUnreachable notifications.
+ *
+ *  @return The fully initialized KSSettingsViewController.
+ */
 - (id)init
 {
     self = [super initWithNibName:@"KSSettingsViewController" bundle:nil];
@@ -53,6 +74,9 @@
     return self;
 }
 
+/**
+ *  Overwritten to update the UI and base server address when the view becomes visible.
+ */
 - (void)awakeFromNib
 {
     [super awakeFromNib];

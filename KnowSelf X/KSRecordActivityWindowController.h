@@ -16,8 +16,14 @@
  */
 @interface KSRecordActivityWindowController : NSWindowController<NSComboBoxDataSource, NSComboBoxDelegate, KSProjectControllerEventObserver, NSAlertDelegate>
 
-/** 
- Designated initializer. Do NOT use the standard -init message as the object will not be initialized correctly.
+/**
+ *  Designated initializer. Do not use another initializer to create a new instance.
+ *  Also loads the appropriate nib file (KSRecordActivityWindowController.xib).
+ *
+ *  @param project  The project to set by default.
+ *  @param activity The activity to set by default.
+ *
+ *  @return The newly created KSRecordActivityWindowController object.
  */
 - (id)initWithProject:(KSProject *)project activity:(KSActivity *)activity;
 

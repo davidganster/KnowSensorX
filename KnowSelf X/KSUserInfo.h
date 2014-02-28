@@ -118,7 +118,7 @@
  *  Removes an object from the `URLMappings` dictionary.
  *  This is the preferred way to remove objects (as opposed to newly setting the dictionary).
  *
- *  @param object The URL for which the mapping should be removed.
+ *  @param URL The URL for which the mapping should be removed.
  */
 - (void)removeURLMappingWithURL:(NSString *)URL;
 

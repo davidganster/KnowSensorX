@@ -64,7 +64,6 @@
 
 /**
  *  Tells the sensor to start recording events. Calling this method will set `isActive` to `YES`.
- *  @note TODO: make this asynchronous and add a finished-block.
  *
  *  @return YES iff the sensor successfully started recording events.
  *  @warning This method is not meant for subclassing. See KSSensor+SubclassingHooks for further information.
@@ -73,7 +72,8 @@
 
 /**
  *  Tells the sensor to stop recording events. Calling this method will set `isActive` to `NO`.
- *  @note TODO: make this asynchronous and add a finished-block.
+ *
+ *  @param finished The block that will be executed when the sensor has stopped recording events (or has failed to do so).
  *
  *  @warning This method is not meant for subclassing. See KSSensor+SubclassingHooks for further information.
  */

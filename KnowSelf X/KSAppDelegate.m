@@ -16,7 +16,9 @@
 
 @interface KSAppDelegate ()
 
+/// Strong reference to the NSTask that provides a handle to the KnowServer.
 @property(nonatomic, strong) NSTask *knowServerTask;
+/// Indicates if the app is already about to terminate in case 'exit:' is called twice.
 @property(nonatomic, assign) BOOL isTerminated;
 
 @end
@@ -41,6 +43,10 @@ void SignalHandler(int sig)
     kill(taskPID, SIGKILL);
 }
 
+/**
+ *  Checks if accessibiliy is enabled for KnowSensor X. On 10.9, the built-in way of checking and enabling is used, 
+ *  on 10.8 and below, an alert telling the user to go to the settings will be shown.
+ */
 - (void)checkIfAccessabilityIsEnabled
 {
     BOOL accessibilityEnabled = NO;
@@ -97,6 +103,11 @@ void SignalHandler(int sig)
     LogMessage(kKSLogTagOther, kKSLogLevelInfo, @"KnowSensor X started.");
 }
 
+/**
+ *  Starts the KnowServer if the serverAddress saved in KSUserInfo is equal to the server base url
+ *  (127.0.0.1:8182).
+ *  Otherwise, this method will simply return.
+ */
 - (void)startKnowServer
 {
     if(![[[KSUserInfo sharedUserInfo] serverAddress] isEqualToString:kKSServerBaseURL]) {
@@ -122,6 +133,10 @@ void SignalHandler(int sig)
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer started.");
 }
 
+/**
+ *  Stops the KnowServer if it is running.
+ *  Waits for it to exit, so this method might take some time to return.
+ */
 - (void)stopKnowServer
 {
     if(!self.knowServerTask.isRunning) return;
@@ -136,7 +151,7 @@ void SignalHandler(int sig)
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
 }
 
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.
+/// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];

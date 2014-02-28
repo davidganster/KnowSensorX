@@ -65,8 +65,11 @@
 @interface KSURLMappingViewController ()
 
 // IBOutlets
+/// @ignore
 @property (weak) IBOutlet NSTableColumn *URLColumn;
+/// @ignore
 @property (weak) IBOutlet NSTableColumn *mappedNameColumn;
+/// @ignore
 @property (weak) IBOutlet NSTableView *tableView;
 
 /// This class uses the `URLMappings` dictionary from the KSUserInfo class,

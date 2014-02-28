@@ -65,14 +65,13 @@
 
 /** Adds an object to the list of observers that will be notified when the project list changes.
  The list is updated periodically
- TODO: add configurable time interval for this.
- @param obsever The object to be added to the list of observers for the project list.
+ @param observer The object to be added to the list of observers for the project list.
 */
 - (void)addObserverForProjectRelatedEvents:(id<KSProjectControllerEventObserver>)observer;
 
 /** Removes an object to the list of observers that will be notified when the project list changes.
  The list is updated periodically
- @param obsever The object to be removed from the list of observers for the project list.
+ @param observer The object to be removed from the list of observers for the project list.
  */
 - (void)removeObserverForProjectRelatedEvents:(id<KSProjectControllerEventObserver>)observer;
 

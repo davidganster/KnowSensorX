@@ -50,16 +50,21 @@
 @property (weak) IBOutlet NSButton *recordButton;
 
 // Some necessary outlets for fading status message in/out.
+/// @ignore
 @property (weak) IBOutlet NSImageView *willCreateNewProjectInfoImage;
+/// @ignore
 @property (weak) IBOutlet NSTextField *willCreateNewProjectInfoLabel;
-
+/// @ignore
 @property (weak) IBOutlet NSImageView *willCreateNewActivityInfoImage;
+/// @ignore
 @property (weak) IBOutlet NSTextField *willCreateNewActivityInfoLabel;
-
+/// @ignore
 @property (weak) IBOutlet NSImageView *willUseAlreadyExistingColorWarningImage;
+/// @ignore
 @property (weak) IBOutlet NSTextField *willUseAlreadyExistingColorWarningLabel;
-
+/// @ignore
 @property (weak) IBOutlet NSImageView *alreadyRecordingThisActivityImage;
+/// @ignore
 @property (weak) IBOutlet NSTextField *alreadyRecordingThisActivityLabel;
 
 @end
@@ -79,6 +84,10 @@
     return self;
 }
 
+/**
+ *  Resets the UI and sets the window to be 'floating' (that means it will not 
+ *  hide behind other windows when it loses the focus).
+ */
 - (void)windowDidLoad
 {
     if(self.project != nil)
@@ -219,7 +228,6 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     return 0;
 }
 
-
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
     if(aComboBox == self.projectComboBox) {
@@ -232,6 +240,12 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 }
 
 #pragma mark - NSComboBoxDelegate
+/**
+ *  Called when the user enters text in either of the combo boxes.
+ *  This will update the project/activity properties of the receiver.
+ *
+ *  @param notification Holds the combo box that generated the event. Used to figure out if a project/activity was selected.
+ */
 - (void)controlTextDidChange:(NSNotification *)notification
 {
     NSComboBox *comboBox = notification.object;
@@ -250,6 +264,15 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     }
 }
 
+/**
+ *  Used for combo box autocompletion.
+ *  Returns the completed string given the `string`.
+ *
+ *  @param aComboBox The combo box that asks for the completion.
+ *  @param string    The string to be completed.
+ *
+ *  @return The completed string.
+ */
 - (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string
 {
     if(!string) return nil;
@@ -266,6 +289,15 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     return nil;
 }
 
+/**
+ *  Used for combo box autocompletion.
+ *  Returns the index of the item with the given string value.
+ *
+ *  @param aComboBox The combo box that asks of the index.
+ *  @param string    The value that will be searched.
+ *
+ *  @return The index of the searched string or NSNotFound if the string is not available in the given combo box.
+ */
 - (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string
 {
     if(!string) return NSNotFound;
@@ -287,6 +319,12 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     return NSNotFound;
 }
 
+/**
+ *  Called when the user clicks on an item in one of the combo boxes.
+ *  Updates the project/activity and buttons accordingly.
+ *
+ *  @param notification Contains the object that generated the event. Used to figure out which combo box changed its selection.
+ */
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
     NSComboBox *comboBox = [notification object];
@@ -300,6 +338,14 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 }
 
 #pragma mark - Custom setters
+/// @name Custom setters
+
+/**
+ *  Sets the given project object, updates the color well and shows the 'new project' info
+ *  if appropriate.
+ *
+ *  @param project The project to set.
+ */
 - (void)setProject:(KSProject *)project
 {
     _project = project;
@@ -309,6 +355,11 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
     [self colorWellDidPickColor:nil]; // will check for color warning as well.
 }
 
+/**
+ *  Sets the given activity object and shows the 'new activity' warning if appropriate.
+ *
+ *  @param activity The activity to set.
+ */
 - (void)setActivity:(KSActivity *)activity
 {
     _activity = activity;
@@ -318,6 +369,8 @@ projectListChangedWithAddedProjects:(NSArray *)addedObjects
 
 
 #pragma mark - Helpers
+/// @name Helpers
+
 /**
  *  Helper method to update the color well's color and state (enabled/disabled) based on the currenlty
  *  selected project.

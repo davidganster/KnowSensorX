@@ -32,6 +32,10 @@
 
 @implementation KSAPIClient
 
+
+#pragma mark Public Methods.
+/// @name Public methods
+
 + (KSAPIClient *)sharedClient
 {
     static KSAPIClient *_sharedClient = nil;
@@ -43,20 +47,6 @@
     return _sharedClient;
 }
 
-
-#pragma mark Really Private - DO NOT CALL THESE METHODS FROM OUTSIDE!
-- (id)init
-{
-    self = [super init];
-    if(self) {
-        NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
-        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
-        _serverReachable = NO;
-    }
-    return self;
-}
-
-#pragma mark Public Methods.
 - (void)setServerReachable:(BOOL)serverReachable
 {
     if(self.serverReachable && !serverReachable) {
@@ -82,6 +72,7 @@
 }
 
 #pragma mark - Project related calls
+/// @name Project related calls
 - (void)loadProjectsWithSuccess:(void(^)(NSArray *projects))success
                         failure:(void (^)(NSError *error))failure
 {
@@ -358,6 +349,8 @@
 
 
 #pragma mark Event related calls
+/// @name Event related calls
+
 - (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block
 {
     switch (event.type) {
@@ -401,7 +394,32 @@
 
 
 #pragma mark Psuedo-Private
-/// Should not be called from outside, use the convenience-wrappers (e.g. sendEvent:finished: or more specifically, e.g.  sendIdleStartEvent:finished:) instead
+/// @name Private methods
+
+/**
+ *  Initializes a new instance of KSAPIClient. Do not call this method, but use the
+ *  singleton-accessor instead (`sharedClient`).
+ *
+ *  @return The newly initialized KSAPIClient object.
+ */
+- (id)init
+{
+    self = [super init];
+    if(self) {
+        NSString *serverBaseUrl = [[KSUserInfo sharedUserInfo] serverAddress];
+        self.client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:serverBaseUrl]];
+        _serverReachable = NO;
+    }
+    return self;
+}
+
+/**
+ *  Internal method, should not be called from outside, use the convenience-wrappers (e.g. sendEvent:finished: or more specifically, e.g.  sendIdleStartEvent:finished:) instead.
+ *
+ *  @param event         The event to be sent to the server. Must not be nil.
+ *  @param path          The path to send the event to. Must not be nil.
+ *  @param finishedBlock The block to invoke when the call returns. The block will receive a non-nil NSError object as parameter, should the call fail.
+ */
 - (void)uploadEvent:(KSEvent *)event
              toPath:(NSString *)path
            finished:(void (^)(NSError *error))finishedBlock
@@ -482,7 +500,17 @@
 }
 
 #pragma mark Helper
-
+/// @name Helper
+/**
+ *  Helper method to export the given event into a representation that is recognized by the server.
+ *  The result of the 'dictRepresentation' message sent to the event will be base64 encoded and 
+ *  set for the 'data' key in the resulting dictionary.
+ *
+ *  @param event The event to be exported.
+ *  @param error Pointer to the error that occurred during export. Nil if export went without problems.
+ *
+ *  @return The event, exported into a dictionary form that the server can parse (after being serialized to a JSON).
+ */
 - (NSDictionary *)dictionaryFromEvent:(KSEvent *)event serializationError:(NSError **)error
 {
     // the data-field is represented by the exported object.
@@ -499,20 +527,12 @@
     NSMutableDictionary *resultDict = [NSMutableDictionary new];
     [resultDict setObject:base64EncodedDataField forKey:kKSJSONKeyData];
     
-//    @try {
     [resultDict setObject:[[KSUserInfo sharedUserInfo] deviceID] forKey:kKSJSONKeyDeviceID];
     [resultDict setObject:[[KSUserInfo sharedUserInfo] userID]   forKey:kKSJSONKeyUserID];
     [resultDict setObject:event.sensorID                         forKey:kKSJSONKeySensorID];
     [resultDict setObject:[event timestampAsString]              forKey:kKSJSONKeyTimeStamp];
     [resultDict setObject:[event typeAsString]                   forKey:kKSJSONKeyType];
     [resultDict setObject:[event application]                    forKey:kKSJSONKeyApplication];
-//    }
-//    @catch (NSException *exception) {
-//        LogMessage(kKSLogTagAPIClient, kKSLogLevelError, @"Exception when converting to dictionary!!!");
-//        return nil;
-//    }
-//    @finally {
-//    }
     
     return resultDict;
 }

@@ -20,6 +20,7 @@
  */
 @interface KSAppDelegate : NSObject <NSApplicationDelegate>
 
+/// @ignore
 @property(nonatomic, strong) KSMainWindowController *mainWindowController;
 
 @end

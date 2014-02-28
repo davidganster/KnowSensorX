@@ -97,7 +97,7 @@
  * @param event The event to be sent to the server. It will be serialized into a JSON object. The finishedBlock will be called with the error, should the serialization fail.
  * @param finishedBlock The block to be executed when a response from the server has been received. It might contain an error if something went wrong.
  */
-- (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))block;
+- (void)sendEvent:(KSEvent *)event finished:(void (^)(NSError *error))finishedBlock;
 
 /** API for sending a recorded FocusEvent to the server when an application GETS the focus
  * @param event The event to be sent to the server. It will be serialized into a JSON object. The finishedBlock will be called with the error, should the serialization fail.

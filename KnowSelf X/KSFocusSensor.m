@@ -35,7 +35,14 @@
 @dynamic sensorID;
 @dynamic name;
 
-/// Common initializer. Also sets the 'sensorID' and 'name' properties of the receiver.
+/**
+ *  Designated initializer.
+ *  Also sets the 'sensorID' and 'name' properties of the receiver.
+ *
+ *  @param delegate The delegate that will be notified when the created sensor records events.
+ *
+ *  @return The newly created sensor.
+ */
 -(id)initWithDelegate:(id<KSSensorDelegateProtocol>)delegate
 {
     self = [super initWithDelegate:delegate];

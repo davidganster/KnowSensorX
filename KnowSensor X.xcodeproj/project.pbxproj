@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		EF051F8017F9D2600013065F /* KSSensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF051F7F17F9D2600013065F /* KSSensorController.m */; };
 		EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0840A917F76AB600BC7282 /* KSUtils.m */; };
+		EF0FA79518C10060003EDECD /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0FA79418C10060003EDECD /* NSData-Base64Extensions.m */; };
+		EF0FA79818C10380003EDECD /* NSColor+HexParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0FA79718C10380003EDECD /* NSColor+HexParsing.m */; };
+		EF0FA79B18C10391003EDECD /* NSImage+ProportionalScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0FA79A18C10391003EDECD /* NSImage+ProportionalScaling.m */; };
 		EF15174B189E91B400BC2671 /* KSSpecialApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF151749189E91B400BC2671 /* KSSpecialApplicationsViewController.m */; };
 		EF15174C189E91B400BC2671 /* KSSpecialApplicationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF15174A189E91B400BC2671 /* KSSpecialApplicationsViewController.xib */; };
 		EF1618B617FC91060026078D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B517FC91060026078D /* Carbon.framework */; };
 		EF1618B817FC913F0026078D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1618B717FC913F0026078D /* Security.framework */; };
-		EF421CC9186F504000A6F01C /* NSColor+HexParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */; };
 		EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */; };
 		EF535B2F183C1D5C00F31871 /* KSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF535B2E183C1D5C00F31871 /* KSMenuController.m */; };
 		EF535B31183C1FCE00F31871 /* KSMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF535B30183C1FCE00F31871 /* KSMenu.xib */; };
@@ -46,7 +48,6 @@
 		EFA10F9E18BA64AF00B8808A /* KSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA10F9D18BA64AF00B8808A /* KSTextField.m */; };
 		EFA1629218104F0F002D481B /* KSProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA1629118104F0F002D481B /* KSProjectController.m */; };
 		EFA3306518B6672300E61E7C /* KSScreenshotGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */; };
-		EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */; };
 		EFA670D117BBF6DE00C43BB0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA670D017BBF6DE00C43BB0 /* Cocoa.framework */; };
 		EFA670DB17BBF6DE00C43BB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA670D917BBF6DE00C43BB0 /* InfoPlist.strings */; };
 		EFA670DD17BBF6DE00C43BB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA670DC17BBF6DE00C43BB0 /* main.m */; };
@@ -61,7 +62,6 @@
 		EFA7DE9D180F2620000A8B4E /* ActiveFile.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA7DE9B180F2620000A8B4E /* ActiveFile.scpt */; };
 		EFA7DE9E180F2620000A8B4E /* WindowTitle.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA7DE9C180F2620000A8B4E /* WindowTitle.scpt */; };
 		EFABBDE517C2B55300043481 /* KSAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDE417C2B55300043481 /* KSAPIClient.m */; };
-		EFABBDEE17C2CE1B00043481 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */; };
 		EFABBDF117C2CEF200043481 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EFABBDF017C2CEF200043481 /* libcrypto.dylib */; };
 		EFC106F917FDD0680003A3F0 /* UrlFromBrowser.scpt in Resources */ = {isa = PBXBuildFile; fileRef = EFA6715F17BBF9B600C43BB0 /* UrlFromBrowser.scpt */; };
 		EFC106FD17FDD1160003A3F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC106FC17FDD1160003A3F0 /* Images.xcassets */; };
@@ -90,13 +90,17 @@
 		EF051F7F17F9D2600013065F /* KSSensorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSensorController.m; sourceTree = "<group>"; };
 		EF0840A817F76AB600BC7282 /* KSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUtils.h; sourceTree = "<group>"; };
 		EF0840A917F76AB600BC7282 /* KSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUtils.m; sourceTree = "<group>"; };
+		EF0FA79318C10060003EDECD /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData-Base64Extensions.h"; path = "ThirdPartyLibraries/Base64/NSData-Base64Extensions.h"; sourceTree = "<group>"; };
+		EF0FA79418C10060003EDECD /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData-Base64Extensions.m"; path = "ThirdPartyLibraries/Base64/NSData-Base64Extensions.m"; sourceTree = "<group>"; };
+		EF0FA79618C10380003EDECD /* NSColor+HexParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+HexParsing.h"; path = "ThirdPartyLibraries/Color Parsing/NSColor+HexParsing.h"; sourceTree = "<group>"; };
+		EF0FA79718C10380003EDECD /* NSColor+HexParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+HexParsing.m"; path = "ThirdPartyLibraries/Color Parsing/NSColor+HexParsing.m"; sourceTree = "<group>"; };
+		EF0FA79918C10391003EDECD /* NSImage+ProportionalScaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+ProportionalScaling.h"; path = "ThirdPartyLibraries/Image Scaling/NSImage+ProportionalScaling.h"; sourceTree = "<group>"; };
+		EF0FA79A18C10391003EDECD /* NSImage+ProportionalScaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+ProportionalScaling.m"; path = "ThirdPartyLibraries/Image Scaling/NSImage+ProportionalScaling.m"; sourceTree = "<group>"; };
 		EF151748189E91B400BC2671 /* KSSpecialApplicationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSpecialApplicationsViewController.h; sourceTree = "<group>"; };
 		EF151749189E91B400BC2671 /* KSSpecialApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSpecialApplicationsViewController.m; sourceTree = "<group>"; };
 		EF15174A189E91B400BC2671 /* KSSpecialApplicationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSSpecialApplicationsViewController.xib; sourceTree = "<group>"; };
 		EF1618B517FC91060026078D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
 		EF1618B717FC913F0026078D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		EF421CC7186F504000A6F01C /* NSColor+HexParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+HexParsing.h"; sourceTree = "<group>"; };
-		EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+HexParsing.m"; sourceTree = "<group>"; };
 		EF4ED9CA17E8A1200013DCAD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		EF4ED9CB17E8A1200013DCAD /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		EF4ED9CC17E8A1200013DCAD /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -160,8 +164,6 @@
 		EFA1629118104F0F002D481B /* KSProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProjectController.m; sourceTree = "<group>"; };
 		EFA3306318B6672300E61E7C /* KSScreenshotGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSScreenshotGrabber.h; sourceTree = "<group>"; };
 		EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSScreenshotGrabber.m; sourceTree = "<group>"; };
-		EFA3306618B6725F00E61E7C /* NSImage+ProportionalScaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ProportionalScaling.h"; sourceTree = "<group>"; };
-		EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ProportionalScaling.m"; sourceTree = "<group>"; };
 		EFA5774B18B9429D00A9F2A1 /* KSExportable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSExportable.h; sourceTree = "<group>"; };
 		EFA5774E18B9528D00A9F2A1 /* KSImportable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSImportable.h; sourceTree = "<group>"; };
 		EFA670CD17BBF6DE00C43BB0 /* KnowSensor X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KnowSensor X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,8 +190,6 @@
 		EFA7DE9C180F2620000A8B4E /* WindowTitle.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = WindowTitle.scpt; sourceTree = "<group>"; };
 		EFABBDE317C2B55300043481 /* KSAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAPIClient.h; sourceTree = "<group>"; };
 		EFABBDE417C2B55300043481 /* KSAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAPIClient.m; sourceTree = "<group>"; };
-		EFABBDEA17C2CE1B00043481 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
-		EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		EFABBDF017C2CEF200043481 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		EFC106FC17FDD1160003A3F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "KnowSensor X/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		EFE8F2EE17BD0D1B00D6369E /* KSFocusEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFocusEvent.h; sourceTree = "<group>"; };
@@ -387,8 +387,6 @@
 			children = (
 				EFA3306318B6672300E61E7C /* KSScreenshotGrabber.h */,
 				EFA3306418B6672300E61E7C /* KSScreenshotGrabber.m */,
-				EFA3306618B6725F00E61E7C /* NSImage+ProportionalScaling.h */,
-				EFA3306718B6725F00E61E7C /* NSImage+ProportionalScaling.m */,
 			);
 			name = "Focus Sensor Helpers";
 			sourceTree = "<group>";
@@ -525,8 +523,8 @@
 		EFABBDE917C2BA2900043481 /* Base64 */ = {
 			isa = PBXGroup;
 			children = (
-				EFABBDEA17C2CE1B00043481 /* NSData-Base64Extensions.h */,
-				EFABBDEB17C2CE1B00043481 /* NSData-Base64Extensions.m */,
+				EF0FA79318C10060003EDECD /* NSData-Base64Extensions.h */,
+				EF0FA79418C10060003EDECD /* NSData-Base64Extensions.m */,
 			);
 			name = Base64;
 			sourceTree = "<group>";
@@ -544,8 +542,10 @@
 		EFE8F2FD17BD1B8700D6369E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				EF421CC7186F504000A6F01C /* NSColor+HexParsing.h */,
-				EF421CC8186F504000A6F01C /* NSColor+HexParsing.m */,
+				EF0FA79918C10391003EDECD /* NSImage+ProportionalScaling.h */,
+				EF0FA79A18C10391003EDECD /* NSImage+ProportionalScaling.m */,
+				EF0FA79618C10380003EDECD /* NSColor+HexParsing.h */,
+				EF0FA79718C10380003EDECD /* NSColor+HexParsing.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -709,14 +709,13 @@
 			files = (
 				EF83BB0C18BD78C300C48B2E /* AFImageRequestOperation.m in Sources */,
 				EF0840AA17F76AB600BC7282 /* KSUtils.m in Sources */,
+				EF0FA79818C10380003EDECD /* NSColor+HexParsing.m in Sources */,
 				EF7E34A118A25CF200CE2E3E /* KSURLMappingViewController.m in Sources */,
 				EF83BB0E18BD78C300C48B2E /* AFNetworkActivityIndicatorManager.m in Sources */,
-				EF421CC9186F504000A6F01C /* NSColor+HexParsing.m in Sources */,
 				EF4ED9CD17E8A1200013DCAD /* LoggerClient.m in Sources */,
 				EFE8F31B17BD2B9C00D6369E /* KSSensor.m in Sources */,
 				EFE8F32017BD3A6400D6369E /* KSFocusSensor.m in Sources */,
 				EF83BB1118BD78C300C48B2E /* AFXMLRequestOperation.m in Sources */,
-				EFA3306818B6725F00E61E7C /* NSImage+ProportionalScaling.m in Sources */,
 				EF83BB0B18BD78C300C48B2E /* AFHTTPRequestOperation.m in Sources */,
 				EF9EC4C617C0F51F00A4A5A0 /* KSSettingsViewController.m in Sources */,
 				EF90723C186F46F800768113 /* KSRecordActivityWindowController.m in Sources */,
@@ -739,13 +738,14 @@
 				EF83BB1318BD78C300C48B2E /* JSONKit.m in Sources */,
 				EF83BB1018BD78C300C48B2E /* AFURLConnectionOperation.m in Sources */,
 				EF83BB1218BD78C300C48B2E /* UIImageView+AFNetworking.m in Sources */,
+				EF0FA79518C10060003EDECD /* NSData-Base64Extensions.m in Sources */,
 				EF8B4C0618119BBC00EB31DE /* KSIdleEvent.m in Sources */,
 				EFE8F32317BD3B3E00D6369E /* KSIdleSensor.m in Sources */,
 				EFA1629218104F0F002D481B /* KSProjectController.m in Sources */,
 				EF051F8017F9D2600013065F /* KSSensorController.m in Sources */,
 				EF99933717C413DC002E7458 /* KSUserInfo.m in Sources */,
-				EFABBDEE17C2CE1B00043481 /* NSData-Base64Extensions.m in Sources */,
 				EF7FE46217F308B90032ADF2 /* KSActivity.m in Sources */,
+				EF0FA79B18C10391003EDECD /* NSImage+ProportionalScaling.m in Sources */,
 				EFA670DD17BBF6DE00C43BB0 /* main.m in Sources */,
 				EF535B2F183C1D5C00F31871 /* KSMenuController.m in Sources */,
 				EF83BB2118BD79A100C48B2E /* NSValue+NDFourCharCode.m in Sources */,

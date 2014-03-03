@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 /**
- *  NSViewController subclass that manages the settings view.
+ *  `NSViewController` subclass that manages the settings view.
  *  Synchronizes the values to/from the KSUserInfo values.
  */
 @interface KSSettingsViewController : NSViewController<NSTextFieldDelegate>

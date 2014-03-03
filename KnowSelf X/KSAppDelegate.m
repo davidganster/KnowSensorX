@@ -151,14 +151,6 @@ void SignalHandler(int sig)
     LogMessage(kKSLogTagOther, kKSLogLevelDebug, @"KnowServer stopped.");
 }
 
-/// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "dg.KnowSelf_X" in the user's Application Support directory.
-- (NSURL *)applicationFilesDirectory
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"dg.KnowSelf_X"];
-}
-
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     if(![[KSAPIClient sharedClient] serverReachable]) {

@@ -13,8 +13,15 @@
 @class KSProject;
 
 /**
- *  Provides convenient high-level access to the KnowServer's API, providing finished-blocks
- *  for all calls.
+ *  This class provides access to the KnowServer's API, using a block-based
+ *  approach to handle responses for the caller.
+ *  All methods that push data to the server have block-parameters for both
+ *  success and failure, giving the caller an easy way to handle errors.
+ *  The KSAPIClient knows about the underlying data model (KSActivity, KSEvent, KSProject), 
+ *  and parses the response on its own, therefore providing a very high-level 
+ *  interface to the server.
+ *  Additionally, it can check if the server is reachable at the moment, and 
+ *  will emit a notification if the server status changes.
  */
 @interface KSAPIClient : NSObject
 
@@ -29,8 +36,11 @@
 + (KSAPIClient *)sharedClient;
 
 /** Tells the API Client to start checking whether the server is up or down.
- Intervals between checks are chosen by the API Client itself.
- Notifications are sent when the reachability status changes.
+ *  Intervals between checks are chosen by the API Client itself and depend on whether the 
+ *  server is down or up (checks are performed more frequently during downtimes).
+ *  Notifications are sent when the reachability status changes.
+ *  The emitted notification can be handled by observing `kKSNotificationKeyServerReachable`
+ *  and `kKSNotificationKeyServerUnreachable` on the default notification center.
  */
 - (void)startCheckingForServerReachability;
 

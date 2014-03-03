@@ -39,8 +39,8 @@
 @end
 
 /// Singleton class that manages all server interactions regarding projects, e.g. getting/creating projects and activities.
-/// Will listen for a kKSNotificationKeyServerReachable notification before becoming active.
-/// The KSProjectController periodically asks the server for new projects and updates all observers when the list changes.
+/// Will listen for a `kKSNotificationKeyServerReachable` notification before becoming active.
+/// The `KSProjectController` periodically asks the server for new projects and updates all observers when the list changes.
 @interface KSProjectController : NSObject
 
 ///@name Public methods

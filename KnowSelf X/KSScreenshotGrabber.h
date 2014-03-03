@@ -13,7 +13,7 @@
 /**
  *  Helper class to easily retrieve screenshots in the correct format for the server.
  *  Only has a single public method that returns an object of type KSScreenshotData, 
- *  but can be extended very easily to return NSImage objects (an internal method that does this already exists).
+ *  but can be extended very easily to return `NSImage` objects (an internal method that does this already exists).
  */
 @interface KSScreenshotGrabber : NSObject
 

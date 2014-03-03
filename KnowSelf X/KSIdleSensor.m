@@ -194,7 +194,7 @@
 /**
  *  Polls the idle time every kKSIdleSensorRegisterIdleEndPollInterval seconds (10.f seconds 
  *  as of this writing).
- *  Calls 'handleIdleEnd' if the idleTime gets smaller and the user is still idling (idle 
+ *  Calls handleIdleEnd if the idleTime gets smaller and the user is still idling (idle
  *  end might have been registered by the eventHandler already).
  */
 - (void)pollIdleEnd
@@ -224,10 +224,10 @@
 
 
 /**
- *  Removes the eventMonitor, sets 'userIsIdling' to NO, hands a userIdleEnd event to the delegate,
- *  emits a kKSNotificationKeyUserIdleEnd and starts polling for idle time again.
+ *  Removes the eventMonitor, sets userIsIdling to NO, hands a userIdleEnd event to the delegate,
+ *  emits a `kKSNotificationKeyUserIdleEnd` and starts polling for idle time again.
  *
- *  @warning: You need to make sure that this method is only ever called ONCE per idle wakeup, and you have to hold the KSIdleSensor::lock when calling it.
+ *  @warning: You need to make sure that this method is only ever called *once* per idle wakeup, and you have to hold the lock when calling it.
  */
 - (void)handleIdleEnd
 {
@@ -254,8 +254,8 @@
 }
 
 /**
- *  Creates a KSIdleEvent of type 'KSEventTypeIdleStart' and hands it to the delegate.
- *  Emits a kKSNotificationKeyUserIdleEnd notification.
+ *  Creates a KSIdleEvent of type `KSEventTypeIdleStart` and hands it to the delegate.
+ *  Emits a `kKSNotificationKeyUserIdleEnd` notification.
  *
  */
 - (void)sendUserIdleStartEvent
@@ -273,7 +273,7 @@
 
 #pragma mark Helper
 /**
- *  Creates and returns an idle event with the given type (KSEventTypeIdleStart/KSEventTypeIdleEnd).
+ *  Creates and returns an idle event with the given type (`KSEventTypeIdleStart`/`KSEventTypeIdleEnd`).
  *
  *  @param type     The type of the event to be created.
  *  @param idleTime How long the user has already been idle.

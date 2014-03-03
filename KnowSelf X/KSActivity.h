@@ -30,8 +30,7 @@
 @property (nonatomic, retain) NSDate * endDate;
 /// The name of the activity. *Not* unique, as activities with the same name may be recorded many times (every time an activity is started/stopped, a new activity is created.).
 @property (nonatomic, retain) NSString * name;
-/// The name of the connected project. Not needed anymore, but useful for quickly checking the associated project's name.
-/// @warning This property is read from the field 'project', which contains the name of the project when loading an activity, `but` the server expects the 'projectID' when sending data to the server. This is why 'isStartingRecording' is needed.
+/// The `name` of the connected project. Not needed anymore, but useful for quickly checking the associated project's name.
 @property (nonatomic, retain) NSString * projectName;
 /// The connected KSProject, used to export the project's name and ID when sending an activity to the server.
 @property (nonatomic, retain) KSProject *project;

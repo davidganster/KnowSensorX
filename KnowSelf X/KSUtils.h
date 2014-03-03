@@ -15,7 +15,7 @@
 
 /**
  *  Used to get the string representation of the given date.
- *  An NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
+ *  An NSDateFormatter with the format string `yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'` will be used.
  *  @note The NSDateFormatter will only be initialized the first time this is called and is not customizable.
  *
  *  @param date The date to be converted to an NSString object.
@@ -26,7 +26,7 @@
 
 /**
  *  Used to get the date representation of the given string.
- *  An NSDateFormatter with the format string "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'" will be used.
+ *  An NSDateFormatter with the format string `yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'` will be used.
  *  @note The NSDateFormatter will only be initialized the first time this is called and is not customizable.
  *
  *  @param string The string to be converted to an NSDate object.
@@ -36,8 +36,8 @@
 + (NSDate *)dateFromString:(NSString *)string;
 
 /**
- *  Executes the apple script with the given name, function and arguments.
- *  Any errors that occur either during execution or loading will be written to the errorDict.
+ *  Executes the apple script with the given `scriptName`, `functionName` and `args`.
+ *  Any errors that occur either during execution or loading will be written to the `errorDict`.
  *  @note This method only searches inside the application's main bundle, so it cannot be used to
  *        execute scripts that are not included in the application.
  *  @warning Executing a script might take some time, so be sure to call this on a background thread.
@@ -63,14 +63,14 @@
 /**
  *  Checks if the app has been started before.
  *
- *  @return YES iff the app has not been started before.
+ *  @return `YES` iff the app has not been started before.
  */
 + (BOOL)isFirstStart;
 
 /**
  *  Returns a float that will be used to appropriately scale images.
  *  This method takes into consideration the screen scale (otherwise, images taken on
- *  retina-devices will be four times larger).
+ *  retina-devices would be four times larger).
  *
  *  @param quality The given image quality
  *

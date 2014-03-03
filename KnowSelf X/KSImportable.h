@@ -10,8 +10,8 @@
 
 /**
  *  Simple protocol that defines a method to import the receiver values from a dictionary.
- *  The implementing class then needs to return YES if the import was successful, 
- *  or NO if importing failed.
+ *  The implementing class then needs to return `YES` if the import was successful,
+ *  or `NO` if importing failed.
  */
 @protocol KSImportable<NSObject>
 
@@ -20,7 +20,7 @@
  *
  *  @param dictionary The dictionary containing the new values for the receiver.
  *
- *  @return YES if import was successful, NO otherwise.
+ *  @return `YES` if import was successful, `NO` otherwise.
  */
 - (BOOL)importValuesForKeysWithObject:(NSDictionary *)dictionary;
 

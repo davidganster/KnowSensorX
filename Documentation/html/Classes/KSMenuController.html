@@ -1,0 +1,1415 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>KSMenuController Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">KnowSensor X </a></h1>
+				<a id="developerHome" href="../index.html">David Ganster</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KSMenuController Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/currentActivity">&nbsp;&nbsp;&nbsp;&nbsp;currentActivity</option>
+	
+	<option value="//api/name/currentActivityMenuItem">&nbsp;&nbsp;&nbsp;&nbsp;currentActivityMenuItem</option>
+	
+	<option value="//api/name/menu">&nbsp;&nbsp;&nbsp;&nbsp;menu</option>
+	
+	<option value="//api/name/projectList">&nbsp;&nbsp;&nbsp;&nbsp;projectList</option>
+	
+	<option value="//api/name/projectListMenuItem">&nbsp;&nbsp;&nbsp;&nbsp;projectListMenuItem</option>
+	
+	<option value="//api/name/stopRecordingActivityMenuItem">&nbsp;&nbsp;&nbsp;&nbsp;stopRecordingActivityMenuItem</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/init">&nbsp;&nbsp;&nbsp;&nbsp;- init</option>
+	
+	<option value="//api/name/projectClicked:">&nbsp;&nbsp;&nbsp;&nbsp;- projectClicked:</option>
+	
+	<option value="//api/name/projectController:activeActivityChangedToActivity:">&nbsp;&nbsp;&nbsp;&nbsp;- projectController:activeActivityChangedToActivity:</option>
+	
+	<option value="//api/name/projectController:projectListChangedWithAddedProjects:deletedProjects:">&nbsp;&nbsp;&nbsp;&nbsp;- projectController:projectListChangedWithAddedProjects:deletedProjects:</option>
+	
+	<option value="//api/name/quit:">&nbsp;&nbsp;&nbsp;&nbsp;- quit:</option>
+	
+	<option value="//api/name/recordNewActivity:">&nbsp;&nbsp;&nbsp;&nbsp;- recordNewActivity:</option>
+	
+	<option value="//api/name/serverUp:">&nbsp;&nbsp;&nbsp;&nbsp;- serverUp:</option>
+	
+	<option value="//api/name/showPreferencePane:">&nbsp;&nbsp;&nbsp;&nbsp;- showPreferencePane:</option>
+	
+	<option value="//api/name/showRecordActivityWindowWithProject:activity:">&nbsp;&nbsp;&nbsp;&nbsp;- showRecordActivityWindowWithProject:activity:</option>
+	
+	<option value="//api/name/showWebApp:">&nbsp;&nbsp;&nbsp;&nbsp;- showWebApp:</option>
+	
+	<option value="//api/name/stopRecordingActiveActivity:">&nbsp;&nbsp;&nbsp;&nbsp;- stopRecordingActiveActivity:</option>
+	
+	<option value="//api/name/togglePrivateMode:">&nbsp;&nbsp;&nbsp;&nbsp;- togglePrivateMode:</option>
+	
+	<option value="//api/name/updateCurrentProjectItem">&nbsp;&nbsp;&nbsp;&nbsp;- updateCurrentProjectItem</option>
+	
+	<option value="//api/name/writeToDiary:">&nbsp;&nbsp;&nbsp;&nbsp;- writeToDiary:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentActivity">currentActivity</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentActivityMenuItem">currentActivityMenuItem</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/menu">menu</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/projectList">projectList</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/projectListMenuItem">projectListMenuItem</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopRecordingActivityMenuItem">stopRecordingActivityMenuItem</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/init">init</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/projectClicked:">projectClicked:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/projectController:activeActivityChangedToActivity:">projectController:activeActivityChangedToActivity:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/projectController:projectListChangedWithAddedProjects:deletedProjects:">projectController:projectListChangedWithAddedProjects:deletedProjects:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/quit:">quit:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordNewActivity:">recordNewActivity:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serverUp:">serverUp:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showPreferencePane:">showPreferencePane:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showRecordActivityWindowWithProject:activity:">showRecordActivityWindowWithProject:activity:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showWebApp:">showWebApp:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopRecordingActiveActivity:">stopRecordingActiveActivity:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/togglePrivateMode:">togglePrivateMode:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateCurrentProjectItem">updateCurrentProjectItem</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/writeToDiary:">writeToDiary:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="KSMenuController Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KSMenuController Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value"><a href="../Protocols/KSProjectControllerEventObserver.html">KSProjectControllerEventObserver</a></td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">KSMenuController.h<br />KSMenuController.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The KSMenuController class encapsulates all interaction with the status bar <a href="#//api/name/menu">menu</a>, such as setting/updating
+the project list, current activity etc.</p><div class="note"><p><strong>Note:</strong> The KSMenu is dependant on one layout constraint: The first 3 items are reserved
+for &ldquo;Current Project/Activty&rdquo;, <current project/activity> and <seperator>.
+Any changes after these three items do not require any changes in code, but be careful if you insert new items at the front!</p></div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentActivity">&nbsp;&nbsp;currentActivity</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/projectList">&nbsp;&nbsp;projectList</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/menu">&nbsp;&nbsp;menu</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showPreferencePane:">&ndash;&nbsp;showPreferencePane:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showWebApp:">&ndash;&nbsp;showWebApp:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/togglePrivateMode:">&ndash;&nbsp;togglePrivateMode:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/writeToDiary:">&ndash;&nbsp;writeToDiary:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/quit:">&ndash;&nbsp;quit:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/serverUp:">&ndash;&nbsp;serverUp:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/projectController:projectListChangedWithAddedProjects:deletedProjects:">&ndash;&nbsp;projectController:projectListChangedWithAddedProjects:deletedProjects:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/projectController:activeActivityChangedToActivity:">&ndash;&nbsp;projectController:activeActivityChangedToActivity:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/updateCurrentProjectItem">&ndash;&nbsp;updateCurrentProjectItem</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopRecordingActiveActivity:">&ndash;&nbsp;stopRecordingActiveActivity:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/recordNewActivity:">&ndash;&nbsp;recordNewActivity:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/projectClicked:">&ndash;&nbsp;projectClicked:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showRecordActivityWindowWithProject:activity:">&ndash;&nbsp;showRecordActivityWindowWithProject:activity:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentActivityMenuItem">&nbsp;&nbsp;currentActivityMenuItem</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopRecordingActivityMenuItem">&nbsp;&nbsp;stopRecordingActivityMenuItem</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/projectListMenuItem">&nbsp;&nbsp;projectListMenuItem</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/currentActivity" title="currentActivity"></a>
+	<h3 class="subsubtitle method-title">currentActivity</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The activity whose name will be shown in the currentProjectMenuItem <a href="#//api/name/menu">menu</a> item.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) KSActivity *currentActivity</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/currentActivityMenuItem" title="currentActivityMenuItem"></a>
+	<h3 class="subsubtitle method-title">currentActivityMenuItem</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The <a href="#//api/name/menu">menu</a> item that shows the current project/activity.
+Will be updated when <code>currentProject</code> or <a href="#//api/name/currentActivity"><code>currentActivity</code></a> are set.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSMenuItem *currentActivityMenuItem</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/menu" title="menu"></a>
+	<h3 class="subsubtitle method-title">menu</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The NSMenu managed by this class.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, strong) IBOutlet NSMenu *menu</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> Do not modify this object from outside, it will mess up the controller&rsquo;s logic.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/projectList" title="projectList"></a>
+	<h3 class="subsubtitle method-title">projectList</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>An array of all projects, will be shown in the &lsquo;Projects >&rsquo; sub<a href="#//api/name/menu">menu</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *projectList</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/projectListMenuItem" title="projectListMenuItem"></a>
+	<h3 class="subsubtitle method-title">projectListMenuItem</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The <a href="#//api/name/menu">menu</a> item that manages the project list sub<a href="#//api/name/menu">menu</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSMenuItem *projectListMenuItem</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopRecordingActivityMenuItem" title="stopRecordingActivityMenuItem"></a>
+	<h3 class="subsubtitle method-title">stopRecordingActivityMenuItem</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The <a href="#//api/name/menu">menu</a> item that can stop the currently recording activity.
+Needs an outlet because its enabled/disabled state will change during runtime.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSMenuItem *stopRecordingActivityMenuItem</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> Since setting enabled/disabled on an NSMenuItem</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="subsubtitle method-title">init</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Designated initializer.
+Fully initializes a KSMenuController and tries to load its accompanying nib file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)init</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The initialized KSMenuController object.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/projectClicked:" title="projectClicked:"></a>
+	<h3 class="subsubtitle method-title">projectClicked:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal method, triggered by any of the projects in the project list.
+Shows the &lsquo;record new activity&rsquo; window with the clicked project pre-selected.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)projectClicked:(NSMenuItem *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The <a href="#//api/name/menu">menu</a> item that generated the event. Used to figure out which project has been clicked.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/projectController:activeActivityChangedToActivity:" title="projectController:activeActivityChangedToActivity:"></a>
+	<h3 class="subsubtitle method-title">projectController:activeActivityChangedToActivity:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Callback for when the actively recording activity has changed on the server.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)projectController:(KSProjectController *)<em>controller</em> activeActivityChangedToActivity:(KSActivity *)<em>activity</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>activity</em></dt>
+			<dd><p>The new active activity.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSProjectController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/projectController:projectListChangedWithAddedProjects:deletedProjects:" title="projectController:projectListChangedWithAddedProjects:deletedProjects:"></a>
+	<h3 class="subsubtitle method-title">projectController:projectListChangedWithAddedProjects:deletedProjects:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Callback for when the list of projects has changed on the server. Activities will be connected with the given project lists.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)projectController:(KSProjectController *)<em>controller</em> projectListChangedWithAddedProjects:(NSArray *)<em>addedObjects</em> deletedProjects:(NSArray *)<em>deletedProjects</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>controller</em></dt>
+			<dd><p>The controller object that initiated the change.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>addedProjects</em></dt>
+			<dd><p>The projects that have been added since the last poll.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>deletedProjects</em></dt>
+			<dd><p>The projects that have been deleted since the last poll.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSProjectController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/quit:" title="quit:"></a>
+	<h3 class="subsubtitle method-title">quit:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>IBAction that quits the application.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)quit:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><ul>
+<li>The button that sent the event. Unused.</li>
+</ul>
+</dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void (IBAction)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/recordNewActivity:" title="recordNewActivity:"></a>
+	<h3 class="subsubtitle method-title">recordNewActivity:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal method, triggered by the <code>Start recording activity</code> <a href="#//api/name/menu">menu</a> item.
+Shows the &lsquo;record new activity&rsquo; window.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)recordNewActivity:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/serverUp:" title="serverUp:"></a>
+	<h3 class="subsubtitle method-title">serverUp:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal method.
+Used to react to <code>serverReachable</code> notifications.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)serverUp:(NSNotification *)<em>notification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>notification</em></dt>
+			<dd><p>The notification generated by the <a href="../Classes/KSAPIClient.html">KSAPIClient</a>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showPreferencePane:" title="showPreferencePane:"></a>
+	<h3 class="subsubtitle method-title">showPreferencePane:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>IBAction that shows the main window with the preference pane selected.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)showPreferencePane:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><ul>
+<li>The button that sent the event. Unused.</li>
+</ul>
+</dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void (IBAction)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showRecordActivityWindowWithProject:activity:" title="showRecordActivityWindowWithProject:activity:"></a>
+	<h3 class="subsubtitle method-title">showRecordActivityWindowWithProject:activity:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal helper method for showing the &lsquo;Record new activity&rsquo; window for a given activity and project.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)showRecordActivityWindowWithProject:(KSProject *)<em>project</em> activity:(KSActivity *)<em>activity</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>project</em></dt>
+			<dd><p>The project that will be fed to the <a href="../Classes/KSRecordActivityWindowController.html">KSRecordActivityWindowController</a>.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>activity</em></dt>
+			<dd><p>The activity that will be fed to the <a href="../Classes/KSRecordActivityWindowController.html">KSRecordActivityWindowController</a>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showWebApp:" title="showWebApp:"></a>
+	<h3 class="subsubtitle method-title">showWebApp:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>IBAction that shows the WebApp in the default browser.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)showWebApp:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><ul>
+<li>The button that sent the event. Unused.</li>
+</ul>
+</dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void (IBAction)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopRecordingActiveActivity:" title="stopRecordingActiveActivity:"></a>
+	<h3 class="subsubtitle method-title">stopRecordingActiveActivity:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal method, triggered by the <code>Stop recording</code> <a href="#//api/name/menu">menu</a> item.
+Tells the <a href="../Classes/KSProjectController.html">KSProjectController</a> to stop recording the current activity, without checking
+for success.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)stopRecordingActiveActivity:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/togglePrivateMode:" title="togglePrivateMode:"></a>
+	<h3 class="subsubtitle method-title">togglePrivateMode:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>IBAction that toggles private mode on/off.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)togglePrivateMode:(NSMenuItem *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><ul>
+<li>The button that sent the event. Unused.</li>
+</ul>
+</dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void (IBAction)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/updateCurrentProjectItem" title="updateCurrentProjectItem"></a>
+	<h3 class="subsubtitle method-title">updateCurrentProjectItem</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal method.
+Updates the UI with the current project and activity.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)updateCurrentProjectItem</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/writeToDiary:" title="writeToDiary:"></a>
+	<h3 class="subsubtitle method-title">writeToDiary:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>IBAction that shows the WebApp in the default browser, opened to the &lsquo;Write to diary&rsquo; page.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)writeToDiary:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><ul>
+<li>The button that sent the event. Unused.</li>
+</ul>
+</dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void (IBAction)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSMenuController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 David Ganster. All rights reserved. (Last updated: 2014-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1234 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>KSUserInfo Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">KnowSensor X </a></h1>
+				<a id="developerHome" href="../index.html">David Ganster</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KSUserInfo Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/URLMappings">&nbsp;&nbsp;&nbsp;&nbsp;URLMappings</option>
+	
+	<option value="//api/name/deviceID">&nbsp;&nbsp;&nbsp;&nbsp;deviceID</option>
+	
+	<option value="//api/name/minimumIdleTime">&nbsp;&nbsp;&nbsp;&nbsp;minimumIdleTime</option>
+	
+	<option value="//api/name/screenshotQuality">&nbsp;&nbsp;&nbsp;&nbsp;screenshotQuality</option>
+	
+	<option value="//api/name/serverAddress">&nbsp;&nbsp;&nbsp;&nbsp;serverAddress</option>
+	
+	<option value="//api/name/shouldRecordScreenshots">&nbsp;&nbsp;&nbsp;&nbsp;shouldRecordScreenshots</option>
+	
+	<option value="//api/name/specialApplications">&nbsp;&nbsp;&nbsp;&nbsp;specialApplications</option>
+	
+	<option value="//api/name/specialApplicationsAreBlacklist">&nbsp;&nbsp;&nbsp;&nbsp;specialApplicationsAreBlacklist</option>
+	
+	<option value="//api/name/userID">&nbsp;&nbsp;&nbsp;&nbsp;userID</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/sharedUserInfo">&nbsp;&nbsp;&nbsp;&nbsp;+ sharedUserInfo</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/addOrReplaceURLMappingWithMappedName:forURL:">&nbsp;&nbsp;&nbsp;&nbsp;- addOrReplaceURLMappingWithMappedName:forURL:</option>
+	
+	<option value="//api/name/addSpecialApplicationsObject:">&nbsp;&nbsp;&nbsp;&nbsp;- addSpecialApplicationsObject:</option>
+	
+	<option value="//api/name/loadUserInfoFromPath:">&nbsp;&nbsp;&nbsp;&nbsp;- loadUserInfoFromPath:</option>
+	
+	<option value="//api/name/loadValuesFromUserDefaults">&nbsp;&nbsp;&nbsp;&nbsp;- loadValuesFromUserDefaults</option>
+	
+	<option value="//api/name/removeSpecialApplicationsObject:">&nbsp;&nbsp;&nbsp;&nbsp;- removeSpecialApplicationsObject:</option>
+	
+	<option value="//api/name/removeURLMappingWithURL:">&nbsp;&nbsp;&nbsp;&nbsp;- removeURLMappingWithURL:</option>
+	
+	<option value="//api/name/resetToDefaults">&nbsp;&nbsp;&nbsp;&nbsp;- resetToDefaults</option>
+	
+	<option value="//api/name/saveUserInfoToPath:includeUserData:">&nbsp;&nbsp;&nbsp;&nbsp;- saveUserInfoToPath:includeUserData:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/URLMappings">URLMappings</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deviceID">deviceID</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumIdleTime">minimumIdleTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/screenshotQuality">screenshotQuality</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serverAddress">serverAddress</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldRecordScreenshots">shouldRecordScreenshots</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/specialApplications">specialApplications</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/specialApplicationsAreBlacklist">specialApplicationsAreBlacklist</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userID">userID</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedUserInfo">sharedUserInfo</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addOrReplaceURLMappingWithMappedName:forURL:">addOrReplaceURLMappingWithMappedName:forURL:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addSpecialApplicationsObject:">addSpecialApplicationsObject:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadUserInfoFromPath:">loadUserInfoFromPath:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadValuesFromUserDefaults">loadValuesFromUserDefaults</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeSpecialApplicationsObject:">removeSpecialApplicationsObject:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeURLMappingWithURL:">removeURLMappingWithURL:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/resetToDefaults">resetToDefaults</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveUserInfoToPath:includeUserData:">saveUserInfoToPath:includeUserData:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="KSUserInfo Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KSUserInfo Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">KSUserInfo.h<br />KSUserInfo.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>This class provides access to all settings and information entered by the user.
+This includes general information such as the user&rsquo;s name and device ID, but also
+more specific data such as URL mappings and black/whitelists.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deviceID">&nbsp;&nbsp;deviceID</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userID">&nbsp;&nbsp;userID</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/serverAddress">&nbsp;&nbsp;serverAddress</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/specialApplications">&nbsp;&nbsp;specialApplications</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/specialApplicationsAreBlacklist">&nbsp;&nbsp;specialApplicationsAreBlacklist</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/URLMappings">&nbsp;&nbsp;URLMappings</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/minimumIdleTime">&nbsp;&nbsp;minimumIdleTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shouldRecordScreenshots">&nbsp;&nbsp;shouldRecordScreenshots</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/screenshotQuality">&nbsp;&nbsp;screenshotQuality</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sharedUserInfo">+&nbsp;sharedUserInfo</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/resetToDefaults">&ndash;&nbsp;resetToDefaults</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/saveUserInfoToPath:includeUserData:">&ndash;&nbsp;saveUserInfoToPath:includeUserData:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/loadUserInfoFromPath:">&ndash;&nbsp;loadUserInfoFromPath:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addSpecialApplicationsObject:">&ndash;&nbsp;addSpecialApplicationsObject:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeSpecialApplicationsObject:">&ndash;&nbsp;removeSpecialApplicationsObject:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addOrReplaceURLMappingWithMappedName:forURL:">&ndash;&nbsp;addOrReplaceURLMappingWithMappedName:forURL:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeURLMappingWithURL:">&ndash;&nbsp;removeURLMappingWithURL:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/loadValuesFromUserDefaults">&ndash;&nbsp;loadValuesFromUserDefaults</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/URLMappings" title="URLMappings"></a>
+	<h3 class="subsubtitle method-title">URLMappings</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Maps from NSString (the URL to map) to NSString (the displayed name on the server)
+The keys (URLs) will be matched (using a regular expression) against the URLs retrieved from browsers.
+The corresponding values (names) are the names that will be displayed in the Web Application.
+Readonly.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDictionary *URLMappings</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deviceID" title="deviceID"></a>
+	<h3 class="subsubtitle method-title">deviceID</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The identifier of the current computer.
+Defaults to &lsquo;SCDynamicStoreCopyComputerName()&rsquo;.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *deviceID</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumIdleTime" title="minimumIdleTime"></a>
+	<h3 class="subsubtitle method-title">minimumIdleTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The minimum idle time in seconds before an idle event is registered.
+Changing this value will emitt a notification with the key &lsquo;kKSNotificationKeyIdleTimeChanged&rsquo;.
+The userInfo dictionary contained in the generated notification contains
+the new idle time for the key &lsquo;kKSNotificationUserInfoKeyNewIdleTime&rsquo;</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat minimumIdleTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/screenshotQuality" title="screenshotQuality"></a>
+	<h3 class="subsubtitle method-title">screenshotQuality</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Quality with which to record (= scale) screenshots.
+Defaults to kKSScreenshotQualityMedium.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) KSScreenshotQuality screenshotQuality</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/serverAddress" title="serverAddress"></a>
+	<h3 class="subsubtitle method-title">serverAddress</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The server address to use when contacting a server.
+Defaults to 127.0.0.1:8182.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *serverAddress</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shouldRecordScreenshots" title="shouldRecordScreenshots"></a>
+	<h3 class="subsubtitle method-title">shouldRecordScreenshots</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Indicated whether or not screenshots should recorded and sent along focus-change events.
+Defaults to YES.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL shouldRecordScreenshots</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/specialApplications" title="specialApplications"></a>
+	<h3 class="subsubtitle method-title">specialApplications</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A set of NSStrings (application paths) that can be treated as a white- or blacklist.
+Defaults to an empty set.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSSet *specialApplications</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> Use the &lsquo;add-/removeSpecialApplicationsObject:&rsquo; methods to modify the set.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/specialApplicationsAreBlacklist" title="specialApplicationsAreBlacklist"></a>
+	<h3 class="subsubtitle method-title">specialApplicationsAreBlacklist</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Determines whether the &lsquo;specialApplications&rsquo; are treated as a black- or whitelist.
+Defaults to YES.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL specialApplicationsAreBlacklist</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userID" title="userID"></a>
+	<h3 class="subsubtitle method-title">userID</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The name of the current user.
+Defaults to the return-value of &lsquo;NSFullUserName()&rsquo; and can be set by the user in the settings.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *userID</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/sharedUserInfo" title="sharedUserInfo"></a>
+	<h3 class="subsubtitle method-title">sharedUserInfo</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the shared KSUserInfo object for retrieving/setting global user infos.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (KSUserInfo *)sharedUserInfo</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The singleton object.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/addOrReplaceURLMappingWithMappedName:forURL:" title="addOrReplaceURLMappingWithMappedName:forURL:"></a>
+	<h3 class="subsubtitle method-title">addOrReplaceURLMappingWithMappedName:forURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the <code>mappedName</code> for the <code>URL</code> in the <a href="#//api/name/URLMappings">URLMappings</a> dictionary.
+This is the preferred way to add mappings (as opposed to newly setting the dictionary).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)addOrReplaceURLMappingWithMappedName:(NSString *)<em>mappedName</em> forURL:(NSString *)<em>URL</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>mappedName</em></dt>
+			<dd><p>The name that will replace the URL.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>URL</em></dt>
+			<dd><p>The URL to be replaced.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/addSpecialApplicationsObject:" title="addSpecialApplicationsObject:"></a>
+	<h3 class="subsubtitle method-title">addSpecialApplicationsObject:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Adds an object to the <a href="#//api/name/specialApplications"><code>specialApplications</code></a> set.
+This is the preferred way to add objects (as opposed to newly setting the set).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)addSpecialApplicationsObject:(NSString *)<em>object</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>The absolute string pointing to the application&rsquo;s bundle.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/loadUserInfoFromPath:" title="loadUserInfoFromPath:"></a>
+	<h3 class="subsubtitle method-title">loadUserInfoFromPath:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loads all values in KSUserInfo from the given path to a plist file.
+Nil values are ignored and left as they are.
+This makes it possible to exclude certain attributes from import/export.
+After loading is finished, a &lsquo;kKSNotificationUserInfoDidImport&rsquo; notification will be emitted.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)loadUserInfoFromPath:(NSURL *)<em>path</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>path</em></dt>
+			<dd><p>Absolute path to the plist file to be loaded.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the file could be loaded, else NO.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/loadValuesFromUserDefaults" title="loadValuesFromUserDefaults"></a>
+	<h3 class="subsubtitle method-title">loadValuesFromUserDefaults</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loads all properties from the standardUserDefaults, or sets them to the default values if
+no entry for them is found.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)loadValuesFromUserDefaults</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeSpecialApplicationsObject:" title="removeSpecialApplicationsObject:"></a>
+	<h3 class="subsubtitle method-title">removeSpecialApplicationsObject:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes an object from the <a href="#//api/name/specialApplications"><code>specialApplications</code></a> set.
+This is the preferred way to remove objects (as opposed to newly setting the set).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeSpecialApplicationsObject:(NSString *)<em>object</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>The absolute string pointing to the application&rsquo;s bundle.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeURLMappingWithURL:" title="removeURLMappingWithURL:"></a>
+	<h3 class="subsubtitle method-title">removeURLMappingWithURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes an object from the <a href="#//api/name/URLMappings"><code>URLMappings</code></a> dictionary.
+This is the preferred way to remove objects (as opposed to newly setting the dictionary).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeURLMappingWithURL:(NSString *)<em>URL</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>URL</em></dt>
+			<dd><p>The URL for which the mapping should be removed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/resetToDefaults" title="resetToDefaults"></a>
+	<h3 class="subsubtitle method-title">resetToDefaults</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Resets every value stored in KSUserInfo to its default value.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)resetToDefaults</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/saveUserInfoToPath:includeUserData:" title="saveUserInfoToPath:includeUserData:"></a>
+	<h3 class="subsubtitle method-title">saveUserInfoToPath:includeUserData:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Saves all values in KSUserInfo to the given path as a plist file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)saveUserInfoToPath:(NSURL *)<em>path</em> includeUserData:(BOOL)<em>includeUserData</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>path</em></dt>
+			<dd><p>Absolute path (including filename) where the file should be saved.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>includeUserData</em></dt>
+			<dd><p>If YES, the backup will also include personal data such as the user&rsquo;s name and <a href="#//api/name/deviceID">deviceID</a>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the file could be saved, else NO.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSUserInfo.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 David Ganster. All rights reserved. (Last updated: 2014-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

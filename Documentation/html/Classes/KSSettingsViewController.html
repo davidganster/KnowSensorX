@@ -1,0 +1,1293 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>KSSettingsViewController Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">KnowSensor X </a></h1>
+				<a id="developerHome" href="../index.html">David Ganster</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KSSettingsViewController Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/deviceNameTextField">&nbsp;&nbsp;&nbsp;&nbsp;deviceNameTextField</option>
+	
+	<option value="//api/name/hackToFixIB">&nbsp;&nbsp;&nbsp;&nbsp;hackToFixIB</option>
+	
+	<option value="//api/name/knownServerReachabilityURL">&nbsp;&nbsp;&nbsp;&nbsp;knownServerReachabilityURL</option>
+	
+	<option value="//api/name/minimumIdleTimeLabel">&nbsp;&nbsp;&nbsp;&nbsp;minimumIdleTimeLabel</option>
+	
+	<option value="//api/name/minimumIdleTimeSlider">&nbsp;&nbsp;&nbsp;&nbsp;minimumIdleTimeSlider</option>
+	
+	<option value="//api/name/screenshotQualitySlider">&nbsp;&nbsp;&nbsp;&nbsp;screenshotQualitySlider</option>
+	
+	<option value="//api/name/serverAddressTextField">&nbsp;&nbsp;&nbsp;&nbsp;serverAddressTextField</option>
+	
+	<option value="//api/name/serverStatusIndicatorImage">&nbsp;&nbsp;&nbsp;&nbsp;serverStatusIndicatorImage</option>
+	
+	<option value="//api/name/shouldRecordScreenshotsCheckbox">&nbsp;&nbsp;&nbsp;&nbsp;shouldRecordScreenshotsCheckbox</option>
+	
+	<option value="//api/name/userNameTextField">&nbsp;&nbsp;&nbsp;&nbsp;userNameTextField</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/awakeFromNib">&nbsp;&nbsp;&nbsp;&nbsp;- awakeFromNib</option>
+	
+	<option value="//api/name/exportSettingsButtonClicked:">&nbsp;&nbsp;&nbsp;&nbsp;- exportSettingsButtonClicked:</option>
+	
+	<option value="//api/name/importSettingsButtonClicked:">&nbsp;&nbsp;&nbsp;&nbsp;- importSettingsButtonClicked:</option>
+	
+	<option value="//api/name/init">&nbsp;&nbsp;&nbsp;&nbsp;- init</option>
+	
+	<option value="//api/name/recordScreenshotsValueChanged:">&nbsp;&nbsp;&nbsp;&nbsp;- recordScreenshotsValueChanged:</option>
+	
+	<option value="//api/name/resetToDefaultsButtonClicked:">&nbsp;&nbsp;&nbsp;&nbsp;- resetToDefaultsButtonClicked:</option>
+	
+	<option value="//api/name/sliderDidChangeValue:">&nbsp;&nbsp;&nbsp;&nbsp;- sliderDidChangeValue:</option>
+	
+	<option value="//api/name/textFieldDidReturn:">&nbsp;&nbsp;&nbsp;&nbsp;- textFieldDidReturn:</option>
+	
+	<option value="//api/name/updateServerStatusImage">&nbsp;&nbsp;&nbsp;&nbsp;- updateServerStatusImage</option>
+	
+	<option value="//api/name/updateUI">&nbsp;&nbsp;&nbsp;&nbsp;- updateUI</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deviceNameTextField">deviceNameTextField</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hackToFixIB">hackToFixIB</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/knownServerReachabilityURL">knownServerReachabilityURL</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumIdleTimeLabel">minimumIdleTimeLabel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumIdleTimeSlider">minimumIdleTimeSlider</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/screenshotQualitySlider">screenshotQualitySlider</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serverAddressTextField">serverAddressTextField</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serverStatusIndicatorImage">serverStatusIndicatorImage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldRecordScreenshotsCheckbox">shouldRecordScreenshotsCheckbox</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userNameTextField">userNameTextField</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/awakeFromNib">awakeFromNib</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/exportSettingsButtonClicked:">exportSettingsButtonClicked:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/importSettingsButtonClicked:">importSettingsButtonClicked:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/init">init</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordScreenshotsValueChanged:">recordScreenshotsValueChanged:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/resetToDefaultsButtonClicked:">resetToDefaultsButtonClicked:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sliderDidChangeValue:">sliderDidChangeValue:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/textFieldDidReturn:">textFieldDidReturn:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateServerStatusImage">updateServerStatusImage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateUI">updateUI</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="KSSettingsViewController Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KSSettingsViewController Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSViewController</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSTextFieldDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">KSSettingsViewController.h<br />KSSettingsViewController.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><code>NSViewController</code> subclass that manages the settings view.
+Synchronizes the values to/from the <a href="../Classes/KSUserInfo.html">KSUserInfo</a> values.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/awakeFromNib">&ndash;&nbsp;awakeFromNib</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/textFieldDidReturn:">&ndash;&nbsp;textFieldDidReturn:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/importSettingsButtonClicked:">&ndash;&nbsp;importSettingsButtonClicked:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/exportSettingsButtonClicked:">&ndash;&nbsp;exportSettingsButtonClicked:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/resetToDefaultsButtonClicked:">&ndash;&nbsp;resetToDefaultsButtonClicked:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sliderDidChangeValue:">&ndash;&nbsp;sliderDidChangeValue:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/recordScreenshotsValueChanged:">&ndash;&nbsp;recordScreenshotsValueChanged:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/updateUI">&ndash;&nbsp;updateUI</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/updateServerStatusImage">&ndash;&nbsp;updateServerStatusImage</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hackToFixIB">&nbsp;&nbsp;hackToFixIB</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userNameTextField">&nbsp;&nbsp;userNameTextField</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/serverAddressTextField">&nbsp;&nbsp;serverAddressTextField</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deviceNameTextField">&nbsp;&nbsp;deviceNameTextField</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/minimumIdleTimeLabel">&nbsp;&nbsp;minimumIdleTimeLabel</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/minimumIdleTimeSlider">&nbsp;&nbsp;minimumIdleTimeSlider</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/screenshotQualitySlider">&nbsp;&nbsp;screenshotQualitySlider</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/serverStatusIndicatorImage">&nbsp;&nbsp;serverStatusIndicatorImage</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shouldRecordScreenshotsCheckbox">&nbsp;&nbsp;shouldRecordScreenshotsCheckbox</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/knownServerReachabilityURL">&nbsp;&nbsp;knownServerReachabilityURL</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/deviceNameTextField" title="deviceNameTextField"></a>
+	<h3 class="subsubtitle method-title">deviceNameTextField</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Text field for entering the device name.
+The entered value will be saved to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> upon end editing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSTextField *deviceNameTextField</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hackToFixIB" title="hackToFixIB"></a>
+	<h3 class="subsubtitle method-title">hackToFixIB</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This view is actually not needed anymore, it was once used as a workaround for a
+bug in interface builder.
+Since this bug has been resolved, this view doesn&rsquo;t do anything - but removing it would require
+moving all UI elements manually, which is more hassle than it&rsquo;s worth.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSView *hackToFixIB</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/knownServerReachabilityURL" title="knownServerReachabilityURL"></a>
+	<h3 class="subsubtitle method-title">knownServerReachabilityURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set to the value in the <a href="../Classes/KSUserInfo.html">KSUserInfo</a> when loading the view for the first time.
+Used to determine if we can show a valid server status indicator.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *knownServerReachabilityURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumIdleTimeLabel" title="minimumIdleTimeLabel"></a>
+	<h3 class="subsubtitle method-title">minimumIdleTimeLabel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Text field for displaying the minimum idle time.
+Used as a label to display the value selected using the <a href="#//api/name/minimumIdleTimeSlider">minimumIdleTimeSlider</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSTextField *minimumIdleTimeLabel</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumIdleTimeSlider" title="minimumIdleTimeSlider"></a>
+	<h3 class="subsubtitle method-title">minimumIdleTimeSlider</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Slider for setting the minimum idle time.
+The entered value will be saved to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> upon releasing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSSlider *minimumIdleTimeSlider</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/screenshotQualitySlider" title="screenshotQualitySlider"></a>
+	<h3 class="subsubtitle method-title">screenshotQualitySlider</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Slider for setting the screenshot quality.
+The entered value will be saved to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> upon releasing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSSlider *screenshotQualitySlider</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/serverAddressTextField" title="serverAddressTextField"></a>
+	<h3 class="subsubtitle method-title">serverAddressTextField</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Text field for entering the server address.
+The entered value will be saved to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> upon end editing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSTextField *serverAddressTextField</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/serverStatusIndicatorImage" title="serverStatusIndicatorImage"></a>
+	<h3 class="subsubtitle method-title">serverStatusIndicatorImage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The image cell for displaying the current server status.
+The used image will either be NSStatusAvailable, NSStatusUnavailable or NSStatusNone.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSImageCell *serverStatusIndicatorImage</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shouldRecordScreenshotsCheckbox" title="shouldRecordScreenshotsCheckbox"></a>
+	<h3 class="subsubtitle method-title">shouldRecordScreenshotsCheckbox</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The value of this checkbox is connected to all labels below it (everything that has something to
+do with screenshot quality) using cocoa bindings to enable/disable them.
+Take a look at the corresponding .xib file for more info.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSButton *shouldRecordScreenshotsCheckbox</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userNameTextField" title="userNameTextField"></a>
+	<h3 class="subsubtitle method-title">userNameTextField</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Text field for entering the user name.
+The entered value will be saved to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> upon end editing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet NSTextField *userNameTextField</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/awakeFromNib" title="awakeFromNib"></a>
+	<h3 class="subsubtitle method-title">awakeFromNib</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Overwritten to update the UI and base server address when the view becomes visible.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)awakeFromNib</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/exportSettingsButtonClicked:" title="exportSettingsButtonClicked:"></a>
+	<h3 class="subsubtitle method-title">exportSettingsButtonClicked:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Opens an NSOpenPanel that lets the user choose where to export the file.
+Passes the obtained URL to the <a href="../Classes/KSUserInfo.html">KSUserInfo</a> class for further processing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)exportSettingsButtonClicked:(NSButton *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/importSettingsButtonClicked:" title="importSettingsButtonClicked:"></a>
+	<h3 class="subsubtitle method-title">importSettingsButtonClicked:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Opens an NSOpenPanel that lets the user choose from where to import the file.
+Passes the obtained URL to the <a href="../Classes/KSUserInfo.html">KSUserInfo</a> class for further processing.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)importSettingsButtonClicked:(NSButton *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="subsubtitle method-title">init</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Designated initializer. Do not use another method to initialize a KSSettingsViewController!
+This method will load the appropriate nib file (KSSettingsViewController) and subscribe to
+kKSNotificationKeyServerReachable and kKSNotificationKeyServerUnreachable notifications.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)init</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The fully initialized KSSettingsViewController.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/recordScreenshotsValueChanged:" title="recordScreenshotsValueChanged:"></a>
+	<h3 class="subsubtitle method-title">recordScreenshotsValueChanged:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sent when the &lsquo;Record screenshots&rsquo; check box changes its state.
+The state is simply sent to <a href="../Classes/KSUserInfo.html">KSUserInfo</a> as the &lsquo;shouldRecordScreenshots&rsquo; property.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)recordScreenshotsValueChanged:(NSButton *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Its state will be used as the new &lsquo;shouldRecordScreenshots&rsquo; property in <a href="../Classes/KSUserInfo.html">KSUserInfo</a>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/resetToDefaultsButtonClicked:" title="resetToDefaultsButtonClicked:"></a>
+	<h3 class="subsubtitle method-title">resetToDefaultsButtonClicked:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Resets all values to their defaults - both in <a href="../Classes/KSUserInfo.html">KSUserInfo</a> and the GUI.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)resetToDefaultsButtonClicked:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The button that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sliderDidChangeValue:" title="sliderDidChangeValue:"></a>
+	<h3 class="subsubtitle method-title">sliderDidChangeValue:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called when any of the sliders (<a href="#//api/name/minimumIdleTimeSlider">minimumIdleTimeSlider</a> or <a href="#//api/name/screenshotQualitySlider">screenshotQualitySlider</a>) change their value.
+The <a href="#//api/name/minimumIdleTimeSlider">minimumIdleTimeSlider</a> is continuous and updates the minimum idle time in <a href="../Classes/KSUserInfo.html">KSUserInfo</a>.
+The <a href="#//api/name/screenshotQualitySlider">screenshotQualitySlider</a> is discrete and directly passes its value to <a href="../Classes/KSUserInfo.html">KSUserInfo</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)sliderDidChangeValue:(NSSlider *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The NSSlider that generated the event. Used for determining which value to change.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/textFieldDidReturn:" title="textFieldDidReturn:"></a>
+	<h3 class="subsubtitle method-title">textFieldDidReturn:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sent when any of the text fields (server address, user name, device ID) end editing.
+This method will update the according <a href="../Classes/KSUserInfo.html">KSUserInfo</a> field.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (IBAction)textFieldDidReturn:(NSTextField *)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The text field that sent the event.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/updateServerStatusImage" title="updateServerStatusImage"></a>
+	<h3 class="subsubtitle method-title">updateServerStatusImage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Updates the &lsquo;serverStatusIndicatorImage&rsquo; to the current reachability state reported by the
+<a href="../Classes/KSAPIClient.html">KSAPIClient</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)updateServerStatusImage</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/updateUI" title="updateUI"></a>
+	<h3 class="subsubtitle method-title">updateUI</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Helper method for updating all UI fields to their corresponding <a href="../Classes/KSUserInfo.html">KSUserInfo</a> values.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)updateUI</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSettingsViewController.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 David Ganster. All rights reserved. (Last updated: 2014-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

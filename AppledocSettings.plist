@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--project-company</key>
+	<string>David Ganster</string>
+	<key>--project-name</key>
+	<string>KnowSensor X</string>
+	<key>--ignore</key>
+	<array>
+		<string>NSData+Base64</string>
+		<string>ThirdPartyLibraries</string>
+		<string>KnowSelf XTests</string>
+	</array>
+	<key>--docset-install-path</key>
+	<string>~/Library/Developer/Shared/Documentation/DocSets</string>
+	<key>--output</key>
+	<string>./Documentation</string>
+	<key>--create-docset</key>
+	<false/>
+	<key>--project-version</key>
+	<string>1.0</string>
+	<key>--keep-undocumented-objects</key>
+	<false/>
+	<key>--keep-undocumented-members</key>
+	<false/>
+	<key>--no-repeat-first-par</key>
+	<true/>
+</dict>
+</plist>

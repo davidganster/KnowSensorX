@@ -1,0 +1,1348 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>KSFocusSensor Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">KnowSensor X </a></h1>
+				<a id="developerHome" href="../index.html">David Ganster</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KSFocusSensor Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/applescriptQueue">&nbsp;&nbsp;&nbsp;&nbsp;applescriptQueue</option>
+	
+	<option value="//api/name/focusDelegate">&nbsp;&nbsp;&nbsp;&nbsp;focusDelegate</option>
+	
+	<option value="//api/name/hasRecordedPreviousApplication">&nbsp;&nbsp;&nbsp;&nbsp;hasRecordedPreviousApplication</option>
+	
+	<option value="//api/name/previousApplication">&nbsp;&nbsp;&nbsp;&nbsp;previousApplication</option>
+	
+	<option value="//api/name/previousFileOrUrl">&nbsp;&nbsp;&nbsp;&nbsp;previousFileOrUrl</option>
+	
+	<option value="//api/name/previousWindowTitle">&nbsp;&nbsp;&nbsp;&nbsp;previousWindowTitle</option>
+	
+	<option value="//api/name/timer">&nbsp;&nbsp;&nbsp;&nbsp;timer</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/_registerForEvents">&nbsp;&nbsp;&nbsp;&nbsp;- _registerForEvents</option>
+	
+	<option value="//api/name/_unregisterForEventsFinished:">&nbsp;&nbsp;&nbsp;&nbsp;- _unregisterForEventsFinished:</option>
+	
+	<option value="//api/name/createEventFromApplication:withFileUrl:windowTitle:screenshot:type:">&nbsp;&nbsp;&nbsp;&nbsp;- createEventFromApplication:withFileUrl:windowTitle:screenshot:type:</option>
+	
+	<option value="//api/name/handleTimerFired:">&nbsp;&nbsp;&nbsp;&nbsp;- handleTimerFired:</option>
+	
+	<option value="//api/name/initWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithDelegate:</option>
+	
+	<option value="//api/name/isBrowser:">&nbsp;&nbsp;&nbsp;&nbsp;- isBrowser:</option>
+	
+	<option value="//api/name/sendLoseFocusEventForCurrentApplicationFinished:">&nbsp;&nbsp;&nbsp;&nbsp;- sendLoseFocusEventForCurrentApplicationFinished:</option>
+	
+	<option value="//api/name/shouldRecordApplication:">&nbsp;&nbsp;&nbsp;&nbsp;- shouldRecordApplication:</option>
+	
+	<option value="//api/name/urlOrFileOfApplication:isURL:">&nbsp;&nbsp;&nbsp;&nbsp;- urlOrFileOfApplication:isURL:</option>
+	
+	<option value="//api/name/userStartedIdling:">&nbsp;&nbsp;&nbsp;&nbsp;- userStartedIdling:</option>
+	
+	<option value="//api/name/windowTitleOfApplication:">&nbsp;&nbsp;&nbsp;&nbsp;- windowTitleOfApplication:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Event Handling">Event Handling</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Helper">Helper</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_SubclassingHooks Methods">SubclassingHooks Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/applescriptQueue">applescriptQueue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/focusDelegate">focusDelegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasRecordedPreviousApplication">hasRecordedPreviousApplication</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/previousApplication">previousApplication</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/previousFileOrUrl">previousFileOrUrl</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/previousWindowTitle">previousWindowTitle</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/timer">timer</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/_registerForEvents">_registerForEvents</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/_unregisterForEventsFinished:">_unregisterForEventsFinished:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/createEventFromApplication:withFileUrl:windowTitle:screenshot:type:">createEventFromApplication:withFileUrl:windowTitle:screenshot:type:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleTimerFired:">handleTimerFired:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithDelegate:">initWithDelegate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isBrowser:">isBrowser:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendLoseFocusEventForCurrentApplicationFinished:">sendLoseFocusEventForCurrentApplicationFinished:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldRecordApplication:">shouldRecordApplication:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/urlOrFileOfApplication:isURL:">urlOrFileOfApplication:isURL:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userStartedIdling:">userStartedIdling:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/windowTitleOfApplication:">windowTitleOfApplication:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="KSFocusSensor Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KSFocusSensor Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value"><a href="../Classes/KSSensor.html">KSSensor</a> : NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">KSFocusSensor.h<br />KSFocusSensor.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>This class catches and handles all &ldquo;focus-change&rdquo; events.
+It generates events when an application gets and loses the focus, and hands it to its delegate.
+Events are generated when the <a href="#//api/name/timer">timer</a> fires, and this class does not subscribe to any
+<code>NSWorkspace</code> notifications, because the <a href="#//api/name/timer">timer</a> would be needed anyway to detect tab- or window
+switches within a single application.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/focusDelegate">&nbsp;&nbsp;focusDelegate</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithDelegate:">&ndash;&nbsp;initWithDelegate:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userStartedIdling:">&ndash;&nbsp;userStartedIdling:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Event Handling" name="task_Event Handling"></a>
+						<h3 class="subsubtitle task-title">Event Handling</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handleTimerFired:">&ndash;&nbsp;handleTimerFired:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Helper" name="task_Helper"></a>
+						<h3 class="subsubtitle task-title">Helper</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shouldRecordApplication:">&ndash;&nbsp;shouldRecordApplication:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/createEventFromApplication:withFileUrl:windowTitle:screenshot:type:">&ndash;&nbsp;createEventFromApplication:withFileUrl:windowTitle:screenshot:type:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/urlOrFileOfApplication:isURL:">&ndash;&nbsp;urlOrFileOfApplication:isURL:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/windowTitleOfApplication:">&ndash;&nbsp;windowTitleOfApplication:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isBrowser:">&ndash;&nbsp;isBrowser:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendLoseFocusEventForCurrentApplicationFinished:">&ndash;&nbsp;sendLoseFocusEventForCurrentApplicationFinished:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/previousApplication">&nbsp;&nbsp;previousApplication</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/previousFileOrUrl">&nbsp;&nbsp;previousFileOrUrl</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/previousWindowTitle">&nbsp;&nbsp;previousWindowTitle</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasRecordedPreviousApplication">&nbsp;&nbsp;hasRecordedPreviousApplication</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/timer">&nbsp;&nbsp;timer</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/applescriptQueue">&nbsp;&nbsp;applescriptQueue</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="SubclassingHooks Methods" name="task_SubclassingHooks Methods"></a>
+						<h3 class="subsubtitle task-title">SubclassingHooks Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/_registerForEvents">&ndash;&nbsp;_registerForEvents</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/_unregisterForEventsFinished:">&ndash;&nbsp;_unregisterForEventsFinished:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/applescriptQueue" title="applescriptQueue"></a>
+	<h3 class="subsubtitle method-title">applescriptQueue</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The queue that will be used to record events - executing applescripts takes a while,
+so this needs to happen asynchronously.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) dispatch_queue_t applescriptQueue</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/focusDelegate" title="focusDelegate"></a>
+	<h3 class="subsubtitle method-title">focusDelegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Optional delegate for KSFocusSensor-specific delegate method. See <a href="../Protocols/KSFocusSensorDelegate.html">KSFocusSensorDelegate</a> for more information.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) id&lt;KSFocusSensorDelegate&gt; focusDelegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasRecordedPreviousApplication" title="hasRecordedPreviousApplication"></a>
+	<h3 class="subsubtitle method-title">hasRecordedPreviousApplication</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Indicates if the previous application has been recorded - the blocked applications might
+have changed between get/lose focus, but we always want to send lose focus events!</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL hasRecordedPreviousApplication</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/previousApplication" title="previousApplication"></a>
+	<h3 class="subsubtitle method-title">previousApplication</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The previously recorded application. Needed to send lose focus events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSRunningApplication *previousApplication</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/previousFileOrUrl" title="previousFileOrUrl"></a>
+	<h3 class="subsubtitle method-title">previousFileOrUrl</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The previously recorded file (or url). Needed to send lose focus events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *previousFileOrUrl</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/previousWindowTitle" title="previousWindowTitle"></a>
+	<h3 class="subsubtitle method-title">previousWindowTitle</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The previously recorded window title. Needed to send lose focus events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *previousWindowTitle</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/timer" title="timer"></a>
+	<h3 class="subsubtitle method-title">timer</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Every time this timer fires, the KSFocusSensor will check for new focus events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSTimer *timer</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/_registerForEvents" title="_registerForEvents"></a>
+	<h3 class="subsubtitle method-title">_registerForEvents</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Will be called when the sensor starts recording events. Must be overwritten in a subclass.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)_registerForEvents</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES iff registering for events was successful.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSensor.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/_unregisterForEventsFinished:" title="_unregisterForEventsFinished:"></a>
+	<h3 class="subsubtitle method-title">_unregisterForEventsFinished:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Will be called when the sensor stops recording events. Must be overwritten in a subclass.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)_unregisterForEventsFinished:(void ( ^ ) ( BOOL ))<em>finished</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>finished</em></dt>
+			<dd><p>The finished block to call when unsubscribing is completed or has failed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> The finished block <em>must</em> be called, whether unscubscribing from events was successful or failed.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSensor.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/createEventFromApplication:withFileUrl:windowTitle:screenshot:type:" title="createEventFromApplication:withFileUrl:windowTitle:screenshot:type:"></a>
+	<h3 class="subsubtitle method-title">createEventFromApplication:withFileUrl:windowTitle:screenshot:type:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates an event with the given parameters and returns it.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (KSFocusEvent *)createEventFromApplication:(NSRunningApplication *)<em>application</em> withFileUrl:(NSString *)<em>fileOrUrl</em> windowTitle:(NSString *)<em>windowTitle</em> screenshot:(KSScreenshotData *)<em>screenshotData</em> type:(KSEventType)<em>type</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>application</em></dt>
+			<dd><p>The application that will provide its name and process identifier.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>fileOrUrl</em></dt>
+			<dd><p>Will be set as the event&rsquo;s filePath.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>windowTitle</em></dt>
+			<dd><p>Will be set as the event&rsquo;s windowTitle.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>screenshotData</em></dt>
+			<dd><p>Will be set as the event&rsquo;s screenshotData.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>type</em></dt>
+			<dd><p>Can be either KSEventTypeDidGetFocus or KSEventTypeDidLoseFocus.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The <a href="../Classes/KSFocusEvent.html">KSFocusEvent</a> initialized with the given parameters.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handleTimerFired:" title="handleTimerFired:"></a>
+	<h3 class="subsubtitle method-title">handleTimerFired:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called every time the <a href="#//api/name/timer">timer</a> fires - which is every second.
+Runs on the <a href="#//api/name/applescriptQueue">applescriptQueue</a>.
+Checks the currenlty frontmost application and compares it to the
+previouslyRecordedApplication.
+If they are not the same, a lose/get focus event is created and handed to the
+delegate.
+The <a href="#//api/name/focusDelegate">focusDelegate</a> will be asked whether or not to record the application, as
+well as for mapped URLs.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)handleTimerFired:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The <a href="#//api/name/timer">timer</a> that generated the event. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithDelegate:" title="initWithDelegate:"></a>
+	<h3 class="subsubtitle method-title">initWithDelegate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Designated initializer.
+Also sets the &lsquo;sensorID&rsquo; and &lsquo;name&rsquo; properties of the receiver.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithDelegate:(id&lt;KSSensorDelegateProtocol&gt;)<em>delegate</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delegate</em></dt>
+			<dd><p>The delegate that will be notified when the created sensor records events.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The newly created sensor.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isBrowser:" title="isBrowser:"></a>
+	<h3 class="subsubtitle method-title">isBrowser:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Helper method to check if the given application is a browser.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)isBrowser:(NSRunningApplication *)<em>application</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>application</em></dt>
+			<dd><p>The application whose name will be checked.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the application is Safari, Chrome or Opera. No otherwise.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> Firefox will not return YES, because it&rsquo;s not applescript-ready.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendLoseFocusEventForCurrentApplicationFinished:" title="sendLoseFocusEventForCurrentApplicationFinished:"></a>
+	<h3 class="subsubtitle method-title">sendLoseFocusEventForCurrentApplicationFinished:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Helper method that sends a &lsquo;loseFocus&rsquo; event for the current application.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendLoseFocusEventForCurrentApplicationFinished:(void ( ^ ) ( BOOL succesful ))<em>finished</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>finished</em></dt>
+			<dd><p>The finished block to be executed once the server has acknowledged the event.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shouldRecordApplication:" title="shouldRecordApplication:"></a>
+	<h3 class="subsubtitle method-title">shouldRecordApplication:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Asks the delegate whether or not to record the application in question.
+Also checks if the delegate responds to the focusSensor:shouldRecordApplication:
+message. If it doesn&rsquo;t, YES is returned.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)shouldRecordApplication:(NSRunningApplication *)<em>application</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>application</em></dt>
+			<dd><p>The application that might be reocrded.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>return-value of the delegate or YES if the delegate didn&rsquo;t respond.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/urlOrFileOfApplication:isURL:" title="urlOrFileOfApplication:isURL:"></a>
+	<h3 class="subsubtitle method-title">urlOrFileOfApplication:isURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Executes an AppleScript that tries to return the application&rsquo;s filePath.
+The AppleScript that is be executed will either be &lsquo;URLFromBrowser&rsquo; or &lsquo;ActiveFile&rsquo;,
+depending on whether or not the application is a browser (checked via the
+<a href="#//api/name/isBrowser:"><code>isBrowser:</code></a> helper) the application.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)urlOrFileOfApplication:(NSRunningApplication *)<em>application</em> isURL:(BOOL *)<em>isURL</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>application</em></dt>
+			<dd><p>The application whose file/url should be extracted.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>isURL</em></dt>
+			<dd><p>A second return value. The caller has to provide a valid memory address to write to. Indicates if the returned value is a http-URL or file path.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The URL or file path of the frontmost document opened in <code>application</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> This function will take a while to return, so it should not be called from the main thread.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userStartedIdling:" title="userStartedIdling:"></a>
+	<h3 class="subsubtitle method-title">userStartedIdling:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Invoked when receiving a kKSNotificationKeyUserIdleStart notification.
+Will call <a href="#//api/name/_unregisterForEventsFinished:">_unregisterForEventsFinished:</a> with a nil finished block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)userStartedIdling:(NSNotification *)<em>notification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>notification</em></dt>
+			<dd><p>The &lsquo;user idle start&rsquo; notification. Unused.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/windowTitleOfApplication:" title="windowTitleOfApplication:"></a>
+	<h3 class="subsubtitle method-title">windowTitleOfApplication:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Executes an AppleScript that tries to return the application&rsquo;s window title.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)windowTitleOfApplication:(NSRunningApplication *)<em>application</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>application</em></dt>
+			<dd><p>The application whose window title will be extracted.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The recorded window title or nil if the application didn&rsquo;t respond to the script.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> This will only work for well-behaved Cocoa-applications.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSFocusSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 David Ganster. All rights reserved. (Last updated: 2014-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

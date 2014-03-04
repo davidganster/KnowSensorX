@@ -1,0 +1,1167 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>KSIdleSensor Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">KnowSensor X </a></h1>
+				<a id="developerHome" href="../index.html">David Ganster</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KSIdleSensor Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/eventHandler">&nbsp;&nbsp;&nbsp;&nbsp;eventHandler</option>
+	
+	<option value="//api/name/idleStartDate">&nbsp;&nbsp;&nbsp;&nbsp;idleStartDate</option>
+	
+	<option value="//api/name/idleTimeSoFar">&nbsp;&nbsp;&nbsp;&nbsp;idleTimeSoFar</option>
+	
+	<option value="//api/name/idleTimer">&nbsp;&nbsp;&nbsp;&nbsp;idleTimer</option>
+	
+	<option value="//api/name/lock">&nbsp;&nbsp;&nbsp;&nbsp;lock</option>
+	
+	<option value="//api/name/minimumIdleTime">&nbsp;&nbsp;&nbsp;&nbsp;minimumIdleTime</option>
+	
+	<option value="//api/name/userIsIdling">&nbsp;&nbsp;&nbsp;&nbsp;userIsIdling</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/checkUserIdleTime">&nbsp;&nbsp;&nbsp;&nbsp;- checkUserIdleTime</option>
+	
+	<option value="//api/name/createIdleEventWithType:idleSinceSeconds:">&nbsp;&nbsp;&nbsp;&nbsp;- createIdleEventWithType:idleSinceSeconds:</option>
+	
+	<option value="//api/name/createTimerWithTimeInterval:">&nbsp;&nbsp;&nbsp;&nbsp;- createTimerWithTimeInterval:</option>
+	
+	<option value="//api/name/handleIdleEnd">&nbsp;&nbsp;&nbsp;&nbsp;- handleIdleEnd</option>
+	
+	<option value="//api/name/handleUserIdleStart:">&nbsp;&nbsp;&nbsp;&nbsp;- handleUserIdleStart:</option>
+	
+	<option value="//api/name/idleTimeChanged:">&nbsp;&nbsp;&nbsp;&nbsp;- idleTimeChanged:</option>
+	
+	<option value="//api/name/initWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithDelegate:</option>
+	
+	<option value="//api/name/pollIdleEnd">&nbsp;&nbsp;&nbsp;&nbsp;- pollIdleEnd</option>
+	
+	<option value="//api/name/registerForIdleEndEvents">&nbsp;&nbsp;&nbsp;&nbsp;- registerForIdleEndEvents</option>
+	
+	<option value="//api/name/sendUserIdleStartEvent">&nbsp;&nbsp;&nbsp;&nbsp;- sendUserIdleStartEvent</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/eventHandler">eventHandler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/idleStartDate">idleStartDate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/idleTimeSoFar">idleTimeSoFar</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/idleTimer">idleTimer</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lock">lock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumIdleTime">minimumIdleTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userIsIdling">userIsIdling</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/checkUserIdleTime">checkUserIdleTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/createIdleEventWithType:idleSinceSeconds:">createIdleEventWithType:idleSinceSeconds:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/createTimerWithTimeInterval:">createTimerWithTimeInterval:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleIdleEnd">handleIdleEnd</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleUserIdleStart:">handleUserIdleStart:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/idleTimeChanged:">idleTimeChanged:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithDelegate:">initWithDelegate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pollIdleEnd">pollIdleEnd</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/registerForIdleEndEvents">registerForIdleEndEvents</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendUserIdleStartEvent">sendUserIdleStartEvent</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="KSIdleSensor Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KSIdleSensor Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value"><a href="../Classes/KSSensor.html">KSSensor</a> : NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">KSIdleSensor.h<br />KSIdleSensor.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><a href="../Classes/KSSensor.html">KSSensor</a> subclass that deals with detecting when the user idles and resumes work.
+Will record idle events with one second resolution from the given <a href="#//api/name/minimumIdleTime">minimumIdleTime</a>
+(implemented efficiently, not by checking every second).</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/minimumIdleTime">&nbsp;&nbsp;minimumIdleTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithDelegate:">&ndash;&nbsp;initWithDelegate:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/idleTimeChanged:">&ndash;&nbsp;idleTimeChanged:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/createTimerWithTimeInterval:">&ndash;&nbsp;createTimerWithTimeInterval:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/checkUserIdleTime">&ndash;&nbsp;checkUserIdleTime</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handleUserIdleStart:">&ndash;&nbsp;handleUserIdleStart:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/registerForIdleEndEvents">&ndash;&nbsp;registerForIdleEndEvents</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/pollIdleEnd">&ndash;&nbsp;pollIdleEnd</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handleIdleEnd">&ndash;&nbsp;handleIdleEnd</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendUserIdleStartEvent">&ndash;&nbsp;sendUserIdleStartEvent</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/createIdleEventWithType:idleSinceSeconds:">&ndash;&nbsp;createIdleEventWithType:idleSinceSeconds:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/idleTimer">&nbsp;&nbsp;idleTimer</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/idleTimeSoFar">&nbsp;&nbsp;idleTimeSoFar</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/idleStartDate">&nbsp;&nbsp;idleStartDate</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userIsIdling">&nbsp;&nbsp;userIsIdling</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lock">&nbsp;&nbsp;lock</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/eventHandler">&nbsp;&nbsp;eventHandler</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/eventHandler" title="eventHandler"></a>
+	<h3 class="subsubtitle method-title">eventHandler</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The return value of [NSEvent addGlobalMonitorForEventsMatchingMasks:handler:] must be saved somewhere because it cannot be retained by the handler:-b<a href="#//api/name/lock">lock</a> alone.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) id eventHandler</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/idleStartDate" title="idleStartDate"></a>
+	<h3 class="subsubtitle method-title">idleStartDate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>NSDate object indicating when the user has entered the &lsquo;idle&rsquo; state.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDate *idleStartDate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/idleTimeSoFar" title="idleTimeSoFar"></a>
+	<h3 class="subsubtitle method-title">idleTimeSoFar</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The time the user has been idle since the last checked. Will be substracted from
+<a href="#//api/name/minimumIdleTime">minimumIdleTime</a> to get the next fireDate for the <a href="#//api/name/idleTimer">idleTimer</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CFTimeInterval idleTimeSoFar</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/idleTimer" title="idleTimer"></a>
+	<h3 class="subsubtitle method-title">idleTimer</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The timer that fires every <a href="#//api/name/minimumIdleTime"><code>minimumIdleTime</code></a> seconds and checks for the user idle time.
+The timer might fire earlier if the user has already been idle for some time (but not enough
+to be recognized as &lsquo;idle&rsquo;.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSTimer *idleTimer</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lock" title="lock"></a>
+	<h3 class="subsubtitle method-title">lock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Instead of a serial queue, a standard lock is used to synchronize access to the important
+properties (like <a href="#//api/name/userIsIdling"><code>userIsIdling</code></a>).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSLock *lock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumIdleTime" title="minimumIdleTime"></a>
+	<h3 class="subsubtitle method-title">minimumIdleTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The minimum time the user has to be idle before an event is logged in seconds.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (atomic, assign) CGFloat minimumIdleTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userIsIdling" title="userIsIdling"></a>
+	<h3 class="subsubtitle method-title">userIsIdling</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Indicates if the user is already idling. Needed for some internal logic (we don&rsquo;t want
+to record idle end/start events more than once).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL userIsIdling</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/checkUserIdleTime" title="checkUserIdleTime"></a>
+	<h3 class="subsubtitle method-title">checkUserIdleTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Checks the time since the last user input and reacts accordingly:
+If the idleTime is larger than <a href="#//api/name/minimumIdleTime"><code>minimumIdleTime</code></a>, an idleStart event will be sent,
+and the KSIdleSensor will start listening for idleEnd events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)checkUserIdleTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/createIdleEventWithType:idleSinceSeconds:" title="createIdleEventWithType:idleSinceSeconds:"></a>
+	<h3 class="subsubtitle method-title">createIdleEventWithType:idleSinceSeconds:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and returns an idle event with the given type (<code>KSEventTypeIdleStart</code>/<code>KSEventTypeIdleEnd</code>).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (KSIdleEvent *)createIdleEventWithType:(KSEventType)<em>type</em> idleSinceSeconds:(CFTimeInterval)<em>idleTime</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>type</em></dt>
+			<dd><p>The type of the event to be created.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>idleTime</em></dt>
+			<dd><p>How long the user has already been idle.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new instance of <a href="../Classes/KSIdleEvent.html">KSIdleEvent</a>, initialized to the current date, and with the given information.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/createTimerWithTimeInterval:" title="createTimerWithTimeInterval:"></a>
+	<h3 class="subsubtitle method-title">createTimerWithTimeInterval:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Starts a new timer to listen for user idle.
+On OS X >= 10.9, a tolerance of one second will be applied to the timer to save energy.
+This is where the one-second-resolution of the KSIdleSensor happens.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)createTimerWithTimeInterval:(CFTimeInterval)<em>timeInterval</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>timeInterval</em></dt>
+			<dd><p>The time interval after which to fire the timer.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handleIdleEnd" title="handleIdleEnd"></a>
+	<h3 class="subsubtitle method-title">handleIdleEnd</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes the eventMonitor, sets <a href="#//api/name/userIsIdling">userIsIdling</a> to NO, hands a userIdleEnd event to the delegate,
+emits a <code>kKSNotificationKeyUserIdleEnd</code> and starts polling for idle time again.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)handleIdleEnd</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@warning: You need to make sure that this method is only ever called <em>once</em> per idle wakeup, and you have to hold the <a href="#//api/name/lock">lock</a> when calling it.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handleUserIdleStart:" title="handleUserIdleStart:"></a>
+	<h3 class="subsubtitle method-title">handleUserIdleStart:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Handles the start of the user idling.
+Stops the idle timer and registers for idle-end events.
+Does nothing if the user is already idling.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)handleUserIdleStart:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>The notification that invoked the method or nil. If the sender is a notification, the KSIdleSensor will not start listening for idle-end events.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/idleTimeChanged:" title="idleTimeChanged:"></a>
+	<h3 class="subsubtitle method-title">idleTimeChanged:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Listener for kKSNotificationKeyIdleTimeChanged.
+Resets the timer and sets <a href="#//api/name/minimumIdleTime">minimumIdleTime</a> to the notification&rsquo;s
+<code>kKSNotificationUserInfoKeyNewIdleTime</code> value (expected to be in seconds).
+Starts a new timer with the new <a href="#//api/name/minimumIdleTime">minimumIdleTime</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)idleTimeChanged:(NSNotification *)<em>notification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>notification</em></dt>
+			<dd><p>The notification containing the new idle time in its userInfo dictionary.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithDelegate:" title="initWithDelegate:"></a>
+	<h3 class="subsubtitle method-title">initWithDelegate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Designated initializer.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithDelegate:(id&lt;KSSensorDelegateProtocol&gt;)<em>delegate</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delegate</em></dt>
+			<dd><p>The <a href="#//api/name/delegate">delegate</a> that will be notified when the created sensor records events.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The newly created sensor.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSSensor.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/pollIdleEnd" title="pollIdleEnd"></a>
+	<h3 class="subsubtitle method-title">pollIdleEnd</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Polls the idle time every kKSIdleSensorRegisterIdleEndPollInterval seconds (10.f seconds
+as of this writing).
+Calls <a href="#//api/name/handleIdleEnd">handleIdleEnd</a> if the idleTime gets smaller and the user is still idling (idle
+end might have been registered by the <a href="#//api/name/eventHandler">eventHandler</a> already).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)pollIdleEnd</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/registerForIdleEndEvents" title="registerForIdleEndEvents"></a>
+	<h3 class="subsubtitle method-title">registerForIdleEndEvents</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Registers an <a href="#//api/name/eventHandler">eventHandler</a> for any keyboard/mouse events, as those will end the user&rsquo;s idle.
+Specal keys (such as &lsquo;cmd&rsquo; or &lsquo;shift&rsquo;) will not end the idle state, whereas
+regular keys (such as letters, numbers or punctuation) will.
+Sometimes, the event handler will not register any events at all - as a fallback,
+another timer is started that continuously checks the idle time every 10 seconds.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)registerForIdleEndEvents</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendUserIdleStartEvent" title="sendUserIdleStartEvent"></a>
+	<h3 class="subsubtitle method-title">sendUserIdleStartEvent</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates a <a href="../Classes/KSIdleEvent.html">KSIdleEvent</a> of type <code>KSEventTypeIdleStart</code> and hands it to the delegate.
+Emits a <code>kKSNotificationKeyUserIdleEnd</code> notification.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendUserIdleStartEvent</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">KSIdleSensor.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 David Ganster. All rights reserved. (Last updated: 2014-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

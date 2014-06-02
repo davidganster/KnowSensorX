@@ -65,6 +65,7 @@
 @property (weak) IBOutlet NSButton *recordButton;
 
 // Some necessary outlets for fading status message in/out.
+// the 'ignore' fields are for appledocs - no need to document IB-outlets.
 /// @ignore
 @property (weak) IBOutlet NSImageView *willCreateNewProjectInfoImage;
 /// @ignore

@@ -62,28 +62,24 @@
 
 - (BOOL)importValuesForKeysWithObject:(NSDictionary *)dictionary
 {
-    self.activityID  = [dictionary[@"id"] stringByRemovingPercentEncoding];
-    self.name        = [dictionary[@"activity"] stringByRemovingPercentEncoding];
-    self.color       = [dictionary[@"color"] stringByRemovingPercentEncoding];
+    self.activityID = [dictionary[@"id"      ] stringByRemovingPercentEncoding];
+    self.name       = [dictionary[@"activity"] stringByRemovingPercentEncoding];
+    self.color      = [dictionary[@"color"   ] stringByRemovingPercentEncoding];
+    
     NSString *startDateString = dictionary[@"start_date"];
     if([startDateString isEqual:[NSNull null]] || startDateString == nil) {
         self.startDate = nil;
     } else {
-        self.startDate   = [KSUtils dateFromString:startDateString];
-        if(!self.startDate)
-        {
-            int i = 5;
-            i += 2;
-        }
+        self.startDate = [KSUtils dateFromString:startDateString];
     }
     
     NSString *endDateString = dictionary[@"end_date"];
     if([endDateString isEqual:[NSNull null]] || endDateString == nil) {
         self.endDate = nil;
     } else {
-        self.endDate   = [KSUtils dateFromString:endDateString];
+        self.endDate = [KSUtils dateFromString:endDateString];
     }
-    self.projectName = dictionary[@"project"];
+    self.projectName = [dictionary[@"project"] stringByRemovingPercentEncoding];
     return YES;
 }
 

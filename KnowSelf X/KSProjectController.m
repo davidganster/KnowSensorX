@@ -109,8 +109,8 @@
                 for (KSActivity *duplicateCandidate in activities) {
                     BOOL isAlreadyContained = NO;
                     for (KSActivity *activity in activitiesWithoutDuplicates) {
-                        if(duplicateCandidate.name == activity.name &&
-                           duplicateCandidate.projectName == activity.projectName) {
+                        if([duplicateCandidate.name isEqualToString:activity.name] &&
+                           [duplicateCandidate.projectName isEqualToString:activity.projectName]) {
                             isAlreadyContained = YES;
                             break;
                         }

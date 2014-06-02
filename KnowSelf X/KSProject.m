@@ -32,7 +32,9 @@
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
     
     [dataDict setObject:self.color forKey:@"color"];
-    [dataDict setObject:self.name forKey:@"name"];
+    // 'name' is entered by the user, so it might contain spaces - therefore, we need to
+    // add percentage-escapes
+    [dataDict setObject:[self.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"name"];
     if(self.projectID) {
         [dataDict setObject:self.projectID forKey:@"id"];
     }
@@ -42,8 +44,10 @@
 - (BOOL)importValuesForKeysWithObject:(NSDictionary *)dictionary
 {
     self.color = dictionary[@"color"];
-    self.name = dictionary[@"name"];
+    self.name = [dictionary[@"name"] stringByRemovingPercentEncoding];
     self.projectID = dictionary[@"id"];
+    // project ID is like 'http://www.know-center.tugraz.at/uico/2012/01/UGhvbmUgY2FsbA=='
+    // (need to be careful to not backslash-escape those slashes)
     return self.color && self.name && self.projectID;
 }
 
@@ -53,7 +57,7 @@
         return NO;
     }
     KSProject *other = (KSProject *)object;
-    // projects cannot change at all:
+    // projects cannot change at all, so it's sufficient to just check the project ID
     if([self.projectID isEqualToString:other.projectID])
         return YES;
     return NO;
